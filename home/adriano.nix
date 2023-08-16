@@ -323,7 +323,7 @@
       imap.host = "imap.fastmail.com";
       smtp.host = "smtp.fastmail.com";
       userName = "me@adriano.fyi";
-      passwordCommand = "gopass show -o fastmail.com/me-aerc";
+      passwordCommand = "${pkgs.gopass}/bin/gopass show -o fastmail.com/me-aerc";
 
       mbsync = {
         enable = true;
