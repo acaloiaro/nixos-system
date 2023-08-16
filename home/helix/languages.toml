@@ -1,0 +1,30 @@
+[[language]]
+name = "hcl"
+scope = "source.tf"
+roots = ["main.tf", ".terraform.d"]
+file-types = ["hcl", "tf"]
+auto-format = true
+formatter = { command = "/home/jcmuller/.asdf/shims/terraform", args = ["fmt", "-"] }
+language-server = { command = "terraform-lsp" }
+#language-server = { command = "terraform-ls", args = ["-"] }
+
+[[language]]
+name = "go"
+formatter = { command = "goimports" }
+
+[[language]]
+name = "nix"
+scope = "source.nix"
+injection-regex = "nix"
+file-types = ["nix"]
+shebangs = []
+roots = []
+comment-token = "#"
+language-server = { command = "nil" }
+indent = { tab-width = 2, unit = "  " }
+auto-format = true 
+
+[[grammar]]
+name = "nix"
+source = { git = "https://github.com/nix-community/tree-sitter-nix", rev = "1b69cf1fa92366eefbe6863c184e5d2ece5f187d" }
+

@@ -1,0 +1,235 @@
+syntax on
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'airblade/vim-gitgutter'                       " Add git indicators in the gutter
+Plugin 'ddollar/nerdcommenter'                        " Add nice commenting shortcuts
+Plugin 'fatih/vim-go', { 'do': ':GoInstallBinaries' } " Go/lsp support
+Plugin 'flazz/vim-colorschemes'                       " A collection of color scheme
+Plugin 'jremmen/vim-ripgrep'                          " Search with ripgrep
+Plugin 'junegunn/fzf.vim'                             " FZF search for all things
+Plugin 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plugin 'reedes/vim-lexical'                           " Spell checking
+Plugin 'ludovicchabant/vim-gutentags'                 " Use ctags
+Plugin 'reedes/vim-pencil'                            " Better prose authorship support
+Plugin 'scrooloose/nerdtree'                          " View stuff in trees
+Plugin 'tpope/vim-fugitive'                           " Git support
+Plugin 'vim-airline/vim-airline'                      " Airline
+Plugin 'VundleVim/Vundle.vim'                         " Vundle manages itself
+Plugin 'w0rp/ale'                                     " Async linting
+Plugin 'hashivim/vim-terraform'                       " Terraform/hcl support
+Plugin 'alvan/vim-closetag'                           " Automatically close HTML tags
+Plugin 'luochen1990/rainbow'
+Plugin 'LnL7/vim-nix'                                 " nix syntax highlighting
+call vundle#end()
+
+filetype plugin indent on
+
+"" General
+colorscheme Tomorrow-Night
+
+set clipboard=unnamedplus
+set encoding=utf-8
+set number                  " Show line numbers
+set linebreak               " Break lines at word (requires Wrap lines)
+set textwidth=120           " Line wrap (number of cols)
+set showmatch               " Highlight matching brace
+set showcmd                 " Show the current command
+set errorbells	            " Beep or flash screen on errors
+set visualbell	            " Use visual bell (no beeping)
+set hlsearch	              " Highlight all search results
+set smartcase	              " Enable smart-case search
+set gdefault	              " Always substitute all matches in a line
+set ignorecase	            " Always case-insensitive
+set incsearch	              " Searches for strings incrementally
+set autoindent	            " Auto-indent new lines
+set expandtab	              " Use spaces instead of tabs
+set shiftwidth=2	          " Number of auto-indent spaces
+set smartindent	            " Enable smart-indent
+"set smarttab	              " Enable smart-tabs
+set softtabstop=2           " Number of spaces per Tab
+"set termguicolors          " Enable to enable rich colors outside of tmux
+set t_Co=256
+
+"" Visual settings
+
+"" Dark blue background for highlights to extenuate the cursor
+hi Search term=bold ctermbg=24 guibg=#2B5B77
+
+"" Advanced
+set ruler                       " Show row and column ruler information
+set undolevels=1000	            " Number of undo levels
+set backspace=indent,eol,start	" Backspace behaviour
+set wildmenu                    " pop-up menu for file completion
+set updatetime=250              " Update interval -- useful for git-gutter updates "
+set hidden
+set equalalways
+
+if has('persistent_undo')
+	set undofile
+	set undodir=~/.vim/undo
+endif
+
+set sw=2
+set ts=2
+autocmd Filetype ruby set softtabstop=2
+autocmd Filetype ruby set sw=2
+autocmd Filetype ruby set ts=2
+autocmd BufWritePre * %s/\s\+$//e " remove trailing whitespaces on save
+autocmd FileType make set noexpandtab
+
+"" Custom keybindings
+let mapleader = ","
+"map <Leader>y "+y
+"map <Leader>p "+p
+nnoremap <C-p> :GFiles<Cr>
+noremap <Leader>c :close<Cr>
+noremap <Leader>gr :GoRun<Cr>
+noremap <Leader>gt :GoTest<Cr>
+
+"" For authoring in mutt
+au BufNewFile,BufRead neomutt-*-\w\+,neomutt[[:alnum:]_-]\\\{6\} setfiletype mail
+
+"" Formatting for authoring text
+let g:pencil#wrapModeDefault = 'soft'
+let g:pencil#textwidth = 120
+augroup pencil
+  autocmd!
+  autocmd FileType markdown,mkd,text,mail call pencil#init({'wrap': 'soft', 'autoformat': 1})
+        \ | call lexical#init()
+ augroup END
+" Module configurations
+
+" GO
+let g:go_fmt_command = "goimports"
+let g:go_rename_command = 'gopls'
+let g:go_def_mode = 'gopls'
+let g:go_info_mode = 'gopls'
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1                     " Highlight all the things with the same IDs on hover
+au FileType go nmap <leader>d <Plug>(go-doc)  " Go documentation
+
+" NERDTree
+nmap <leader>nt :NERDTreeFind<cr>
+nmap <leader>nc :NERDTreeClose<cr>
+map <silent> <C-k>b :NERDTreeToggle<CR>
+
+" fzf.vim
+set rtp+=/usr/bin/fzf
+
+" coc-vim {{{
+" if hidden is not set, TextEdit might fail.
+set hidden
+nnoremap <silent> <leader>h :call CocActionAsync('doHover')<cr>
+" }}}
+
+" ALE {{{
+let g:ale_completion_enabled = 0
+let g:ale_set_highlights = 0
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_enter = 1
+let g:ale_lint_on_save = 1
+let g:ale_linters = {
+			\   'ruby': ['solargraph', 'rubocop'],
+			\   'javascript.jsx': ['eslint'],
+			\   'go': ['bingo', 'staticcheck', 'govet', 'golint'],
+			\   'diff': [],
+			\ }
+let g:ale_fixers = {
+			\   'eruby.yaml': [
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\     'prettier',
+			\   ],
+			\   'go': [
+			\     'gofmt',
+			\     'goimports',
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\   ],
+			\   'javascript': [
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\     'eslint',
+			\     'prettier',
+			\     'standard',
+			\   ],
+			\   'make': [
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\   ],
+			\   'ruby': [
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\     'rubocop',
+			\     'rufo',
+			\     'standardrb',
+			\   ],
+			\   'yaml': [
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\     'prettier',
+			\   ],
+			\   'diff': [],
+			\   'sh': [
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\     'shfmt',
+			\   ],
+			\   'python': [
+			\     'reorder-python-imports',
+			\     'autopep8',
+			\     'remove_trailing_lines',
+			\     'trim_whitespace',
+			\   ],
+			\ }
+
+set completeopt=menu,menuone,preview,noselect,noinsert
+let g:ale_ruby_solargraph_executable = 'bundle'
+let g:ale_ruby_rubocop_executable = 'bundle'
+let g:ale_go_bingo_executable = $GOPATH."/bin/gopls"
+let g:ale_go_goimports_executable = $GOPATH.'/bin/goimports'
+let g:ale_sh_shfmt_options = "-i 2 -ci"
+highlight ALEWarning ctermbg=none cterm=underline
+highlight ALEError ctermbg=lightgray cterm=none
+autocmd BufEnter diff let ale_fix_on_save=0
+set omnifunc=ale#completion#OmniFunc
+" }}}
+
+"" Tmuxline
+let g:tmuxline_separators = {
+    \ 'left' : '',
+    \ 'left_alt': '>',
+    \ 'right' : '',
+    \ 'right_alt' : '<',
+    \ 'space' : ' '}
+
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#W',
+      \'c'    : '#H',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a',
+      \'y'    : '#W %R',
+      \'z'    : '#H'}
+
+"" Aliases
+noremap <Leader>md :w !pandoc -f markdown -t html \> report.html
+
+"" Python
+au BufRead,BufNewFile *.py setlocal textwidth=80
+
+"" Pymode
+let g:pymode_trim_whitespaces = 1
+let g:pymode_options_max_line_length = 120
+let g:pymode_options_colorcolumn = 0
+let g:pymode = 1
+let g:pymode_virtualenv = 1
+noremap <Leader>f :PymodeLintAuto<CR>
+
