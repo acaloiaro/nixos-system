@@ -161,8 +161,17 @@
 
   programs.kitty = {
     enable = true;
+    theme = "GitHub Dark Dimmed"; # For normal/lower light environments 
+    #theme = "GitHub Light"; # For higher light environments
     extraConfig = ''
-	scrollback_pager nvim -c 'set clipboard=unnamedplus'  -c 'nnoremap <C-q> :quit!<CR>' -
+#scrollback_pager nvim -c 'set clipboard=unnamedplus'  -c 'nnoremap <C-q> :quit!<CR>' -
+background_opacity 0.76
+draw_minimal_borders yes
+window_padding_width 2
+window_border_width 0
+hide_window_decorations yes
+titlebar-only yes
+active_border_color none
     '';
   };
 

@@ -1,4 +1,6 @@
-theme = "nord"
+theme = "nord" # For normal/darker settings 
+# theme = "nord-light"
+#theme = "base16_terminal"
 
 [editor]
 auto-save = true
