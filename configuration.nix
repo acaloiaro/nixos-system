@@ -54,7 +54,11 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  fonts.packages = with pkgs; [ roboto font-awesome_5 ];
+  fonts.packages = with pkgs; [ 
+    (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    roboto 
+    font-awesome_5 
+  ];
   console = {
     font = "roboto";
     useXkbConfig = true; # use xkbOptions in tty.
