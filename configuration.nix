@@ -159,6 +159,10 @@
       touchpad = {
         naturalScrolling = true;
         accelSpeed = "0.5";
+        disableWhileTyping = true;
+        additionalOptions = ''
+          Option "PalmDetection" "on"
+        '';
       };
     };    
 
