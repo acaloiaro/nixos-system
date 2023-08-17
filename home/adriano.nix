@@ -250,11 +250,6 @@ font_size                12.0
     function gpgen { gopass generate "$1/$1@''${2=adriano.fyi}" }
   '';
   };
-
-  services.screen-locker = {
-    inactiveInterval = 1;
-    lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
-  };
   
   services.gpg-agent = {
     enable = true;
