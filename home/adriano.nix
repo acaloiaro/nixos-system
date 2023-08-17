@@ -294,6 +294,7 @@ font_size                12.0
           id = 0;
           name = "adriano";
           extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+            floccus
             ublock-origin
             gopass-bridge
             tridactyl
