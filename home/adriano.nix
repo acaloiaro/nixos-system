@@ -234,9 +234,13 @@
   '';
   };
 
+  services.screen-locker = {
+    inactiveInterval = 1;
+    lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
+  };
+  
   services.gpg-agent = {
     enable = true;
-    enableFishIntegration = true;
     enableSshSupport = true;
     enableZshIntegration = true;
   };
@@ -324,6 +328,25 @@
       smtp.host = "smtp.fastmail.com";
       userName = "me@adriano.fyi";
       passwordCommand = "${pkgs.gopass}/bin/gopass show -o fastmail.com/me-aerc";
+
+      mbsync = {
+        enable = true;
+        create = "maildir";
+      };
+      msmtp.enable = true;
+      notmuch.enable = true;
+    };
+
+    
+    Zenity = {
+      primary = false;
+      aerc.enable = true;
+      realName = "Adriano Caloiaro";
+      address = "adriano@zenitylabs.com";
+      imap.host = "imap.fastmail.com";
+      smtp.host = "smtp.fastmail.com";
+      userName = "adriano@zenitylabs.com";
+      passwordCommand = "${pkgs.gopass}/bin/gopass show -o fastmail.com/zenity-aerc";
 
       mbsync = {
         enable = true;
