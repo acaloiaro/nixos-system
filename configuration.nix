@@ -105,6 +105,7 @@
         nix-index
         pandoc 
         python3
+        speedtest-cli
         tree
         xclip
         home-manager
