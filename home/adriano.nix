@@ -110,32 +110,27 @@
     bars = {
       bottom = {
         blocks = [
-          {
-             block = "disk_space";
-             path = "/";
-             info_type = "available";
-             interval = 60;
-             warning = 20.0;
-             alert = 10.0;
-           }
-           { 
-             block = "battery";
-           }
-           {
-             block = "memory";
-           }
-           {
-             block = "cpu";
-             interval = 1;
-           }
-           { 
-             block = "sound"; 
-           }
-           {
-             block = "time";
-             interval = 60;
-             format = " $timestamp.datetime(f:'%a %d/%m %R') ";
-           }
+         {
+          block = "net";
+         }
+         { 
+           block = "battery";
+         }
+         {
+           block = "memory";
+         }
+         {
+           block = "cpu";
+           interval = 1;
+         }
+         { 
+           block = "sound"; 
+         }
+         {
+           block = "time";
+           interval = 60;
+           format = " $timestamp.datetime(f:'%a %d/%m %R') ";
+         }
         ];
         settings = {
           theme =  {
