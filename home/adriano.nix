@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, kitty-grab, ... }:
 {
   # This should be the same value as `system.stateVersion` in
   # your `configuration.nix` file.
@@ -34,6 +34,11 @@
         source = ./nix;
         recursive = true;
       };
+      "${config.xdg.configHome}/kitty/kitty_grab" = {
+        source = kitty-grab;
+        recursive = true;
+      };
+      "${config.xdg.configHome}/kitty/grab.conf".source = ./kitty/kitty_grab.conf;
     };
   };
 
@@ -169,14 +174,17 @@
     theme = "GitHub Dark Dimmed"; # For normal/lower light environments 
     #theme = "GitHub Light"; # For higher light environments
     extraConfig = ''
-#scrollback_pager nvim -c 'set clipboard=unnamedplus'  -c 'nnoremap <C-q> :quit!<CR>' -
-background_opacity 0.76
-draw_minimal_borders yes
-window_padding_width 2
-window_border_width 0
-hide_window_decorations yes
-titlebar-only yes
-active_border_color none
+map Alt+g kitten         kitty_grab/grab.py
+map Ctrl+Shift+h         previous_tab
+map Ctrl+Shift+l         next_tab
+map Ctrl+Shift+b         show_scrollback
+draw_minimal_borders     yes
+window_padding_width     2
+window_border_width      0
+hide_window_decorations  yes
+titlebar-only            yes
+active_border_color      none
+font_size                12.0
     '';
   };
 

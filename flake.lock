@@ -86,6 +86,22 @@
         "type": "github"
       }
     },
+    "kitty-grab": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1677934962,
+        "narHash": "sha256-k36WSbYw6Kfuy6iaD3QN6dFegR3MwQp0hSHJjidStIc=",
+        "owner": "yurikhan",
+        "repo": "kitty_grab",
+        "rev": "8e550df645333b81400ac2cbeb3131412dd2fda5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "yurikhan",
+        "repo": "kitty_grab",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1692174805,
@@ -121,6 +137,7 @@
       "inputs": {
         "agenix": "agenix",
         "home-manager": "home-manager_2",
+        "kitty-grab": "kitty-grab",
         "nixpkgs": "nixpkgs",
         "nur": "nur"
       }
