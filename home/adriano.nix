@@ -262,7 +262,12 @@ font_size                12.0
     function gpgen { gopass generate "$1/$1@''${2=adriano.fyi}" }
   '';
   };
-  
+
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
+
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
