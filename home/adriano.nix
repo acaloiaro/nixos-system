@@ -6,6 +6,7 @@
   xdg.enable = true;
   programs.home-manager.enable = true;
 
+
   home = {
     sessionVariables = {
       "GO111MODULE" = "on";
@@ -39,6 +40,16 @@
         recursive = true;
       };
       "${config.xdg.configHome}/kitty/grab.conf".source = ./kitty/kitty_grab.conf;
+      "${config.xdg.configHome}/notmuch/querymap-personal".source = ./notmuch/querymap-personal;
+      "${config.xdg.configHome}/notmuch/querymap-zenity".source = ./notmuch/querymap-zenity;
+      "${config.xdg.configHome}/aerc/binds.conf".source = ./aerc/binds.conf;
+      "${config.xdg.configHome}/mbsync/postExec" = {
+        text = ''
+        #!${pkgs.stdenv.shell}
+        ${pkgs.notmuch}/bin/notmuch new
+        '';
+        executable = true;
+      };
     };
   };
 
@@ -327,15 +338,25 @@ font_size                12.0
   programs.msmtp.enable = true;
   programs.notmuch = {
     enable = true;
-    hooks = {
-      #preNew = "mbsync --all";
-    };
+    new.tags = [ "new" "inbox" ];
+    hooks.postNew = ''
+    ${pkgs.notmuch}/bin/notmuch tag +personal -- tag:new and folder:/Personal/
+    ${pkgs.notmuch}/bin/notmuch tag +zenity -- tag:new and folder:/Zenity/
+    '';
   };
 
+  accounts.email.maildirBasePath = "/home/adriano/.mail";
   accounts.email.accounts = {
     Personal = {
       primary = true;
-      aerc.enable = true;
+      aerc = {
+        enable = true;
+        # extraAccounts = { 
+        #   source = "notmuch:///home/adriano/.mail";
+        #   maildir-store = "/home/adriano/.mail/Personal";
+        #   query-map = "/home/adriano/.config/notmuch/querymap-personal";
+        # };
+      };
       realName = "Adriano Caloiaro";
       address = "me@adriano.fyi";
       imap.host = "imap.fastmail.com";
@@ -345,26 +366,35 @@ font_size                12.0
 
       mbsync = {
         enable = true;
-        create = "maildir";
+        create = "both";
+        expunge = "both";
+        remove = "both";
       };
       msmtp.enable = true;
       notmuch.enable = true;
     };
 
-    
     Zenity = {
       primary = false;
-      aerc.enable = true;
+      aerc = {
+        enable = true;
+        # extraAccounts = { 
+        #   source = "notmuch:///home/adriano/.mail";
+        #   maildir-store = "/home/adriano/.mail/Zenity";
+        #   query-map = "/home/adriano/.config/notmuch/querymap-zenity";
+        # };
+      };
       realName = "Adriano Caloiaro";
       address = "adriano@zenitylabs.com";
       imap.host = "imap.fastmail.com";
       smtp.host = "smtp.fastmail.com";
       userName = "adriano@zenitylabs.com";
       passwordCommand = "${pkgs.gopass}/bin/gopass show -o fastmail.com/zenity-aerc";
-
       mbsync = {
         enable = true;
-        create = "maildir";
+        create = "both";
+        expunge = "both";
+        remove = "both";
       };
       msmtp.enable = true;
       notmuch.enable = true;
@@ -374,14 +404,6 @@ font_size                12.0
   services.mbsync = {
     enable = true;
     postExec = "${config.xdg.configHome}/mbsync/postExec";
-  };
-
-  xdg.configFile."mbsync/postExec" = {
-    text = ''
-    #!${pkgs.stdenv.shell}
-    ${pkgs.notmuch}/bin/notmuch new
-    '';
-    executable = true;
   };
 }
 

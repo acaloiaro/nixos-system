@@ -1,0 +1,2 @@
+Inbox=tag:inbox and tag:zenity and not tag:archived
+Archive=tag:archived and tag:zenity and not tag:inbox 
