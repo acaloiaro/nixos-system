@@ -95,6 +95,7 @@
         dmenu
         fzf
         glow
+        gnumake
         kitty
         gopass
         gopass-jsonapi
