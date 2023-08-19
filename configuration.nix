@@ -240,6 +240,27 @@
     allowedTCPPorts = [ 22 ];
   };
 
+
+  services.postgresql = {
+    enable = true;
+    ensureDatabases = [ "neoq" ];
+    enableTCPIP = true;
+    # port = 5432;
+    authentication = pkgs.lib.mkOverride 10 ''
+    local all       all     trust
+    # ipv4
+    host  all      all     127.0.0.1/32   trust
+    # ipv6
+    host all       all     ::1/128        trust
+    '';
+    
+    initialScript = pkgs.writeText "backend-initScript" ''
+      CREATE ROLE postgres WITH LOGIN PASSWORD 'postres' CREATEDB;
+      CREATE DATABASE neoq;
+      GRANT ALL PRIVILEGES ON DATABASE neoq TO postgres;
+      '';
+  };
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
