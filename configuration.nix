@@ -45,8 +45,11 @@
       psk = "@MINIROAM_PSK@";
       priority = 2;
     };
-    "Birds Nest Guest" = {
+    "DeltaSkyClub" = {
       priority = 3;
+    };
+    "twifi.ch - 80C8" = {
+      psk = "Ja3anNREDfE74987";
     };
   };
 
