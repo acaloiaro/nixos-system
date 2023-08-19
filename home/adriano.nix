@@ -6,7 +6,6 @@
   xdg.enable = true;
   programs.home-manager.enable = true;
 
-
   home = {
     sessionVariables = {
       "GO111MODULE" = "on";
@@ -17,14 +16,9 @@
     };
 
     file = {
-      ".Xresources".source = ./Xresources;
       ".mozilla/native-messaging-hosts/com.justwatch.gopass.json".source = ./gopass/gopass-api-manifest.json;
       ".config/gopass" = {
          source = ./gopass;
-         recursive = true;
-      };
-      ".config/tmux" = {
-         source = ./tmux;
          recursive = true;
       };
       ".config/helix" = {
@@ -50,6 +44,16 @@
         '';
         executable = true;
       };
+    };
+  };
+
+  services.screen-locker = {
+    enable = true;
+    inactiveInterval = 1;
+    lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
+    xautolock = { 
+     enable = true;
+     detectSleep = true;
     };
   };
 
