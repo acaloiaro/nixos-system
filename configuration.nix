@@ -94,6 +94,7 @@
         direnv
         dmenu
         fzf
+        gcc8
         glow
         gnumake
         kitty
