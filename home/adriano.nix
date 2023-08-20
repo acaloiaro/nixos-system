@@ -13,6 +13,7 @@
       "PGUSER" = "postgres";
       "PGPASSWORD" = "postgres";
       "NOMAD_ADDR" = "http://cluster-0:4646";
+      "PATH" = "$PATH:/home/adriano/go/bin";
     };
 
     file = {
