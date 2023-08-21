@@ -277,6 +277,9 @@ font_size                12.0
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
+
+    defaultCacheTtl = 60 * 60 * 12;
+    defaultCacheTtlSsh = 60 * 60 * 12;
   };
 
   programs.firefox = {
