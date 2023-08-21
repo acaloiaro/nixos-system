@@ -1,6 +1,6 @@
 theme = "nord" # For normal/darker settings 
 # theme = "nord-light"
-#theme = "base16_terminal"
+# theme = "base16_terminal"
 
 [editor]
 auto-save = true
@@ -15,22 +15,16 @@ bufferline = "always"
 
 [editor.statusline]
 left = ["mode", "spinner", "file-name", "file-modification-indicator"]
-center = [
-  # "file-base-name",
-    "version-control",
-    ]
-    right = [
-      "diagnostics",
-      "workspace-diagnostics",
-      "primary-selection-length",
-      "selections",
-# "position",
-      "position-percentage",
-      "total-line-numbers",
-# "file-encoding",
-# "file-line-ending",
-      "file-type",
-]
+center = [ "version-control" ]
+  right = [
+    "diagnostics",
+    "workspace-diagnostics",
+    "primary-selection-length",
+    "selections",
+    "position-percentage",
+    "total-line-numbers",
+    "file-type"
+  ]
 separator = "│"
 
 [editor.lsp]
@@ -57,15 +51,7 @@ wrap-around = false
 
 [editor.indent-guides]
 render = true
-# character = "|"
-# character = "┆"
-# character = "┇"
-# character = "┊"
 character = "┋"
-# character = "╎"
-# character = "╏"
-# character = "▏"
-# character = "⸽"
 skip-levels = 1
 
 [keys.normal]
