@@ -50,7 +50,7 @@
 
   services.screen-locker = {
     enable = true;
-    inactiveInterval = 1;
+    inactiveInterval = 30;
     lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
     xautolock = { 
      enable = true;
