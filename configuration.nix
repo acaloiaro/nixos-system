@@ -89,6 +89,7 @@
       openssh.authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"	 ];
       packages = with pkgs; [
+        abook
         clipmenu
         ctags
         dante
@@ -227,6 +228,41 @@
       # otherwise authenticate with tailscale
       ${tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale_key.path}) --accept-routes 
     '';
+  };
+
+  systemd.services.address-book-sync = {
+    description = "Syncs the Fastmail address book";
+    enable = true;
+    serviceConfig.User = "adriano";
+    serviceConfig.Type = "oneshot";
+    script = with pkgs; ''
+      tmpfile=$(mktemp)
+      destfile=$(mktemp)
+
+      ${wget}/bin/wget -q https://carddav.fastmail.com/dav/addressbooks/user/me@adriano.fyi/Default \
+          --user me@adriano.fyi \
+          --password $(${gopass}/bin/gopass show fastmail.com/me-aerc | head -n 1) \
+          -O $tmpfile
+
+      ${abook}/bin/abook --convert \
+          --informat vcard \
+          --infile $tmpfile \
+          --outformat abook \
+          --outfile $destfile
+
+      rm $tmpfile
+      chmod 600 $destfile
+      mv $destfile ~/.abook/addressbook
+    '';
+  };
+
+  systemd.timers.address-book-sync = {
+    wantedBy = [ "timers.target" ];
+    partOf = [ "address-book-sync.service" ];
+    timerConfig = {
+      OnCalendar = "*-*-* 00:00:00";
+      
+    };
   };
 
   networking.firewall = {

@@ -327,7 +327,17 @@ font_size                12.0
   programs.aerc = {
     enable = true;
     extraConfig = {
-      general.unsafe-accounts-conf = true;
+      general = {
+        file-picker-cmd = ''${pkgs.fzf}/bin/fzf --multi --query=%s'';
+        unsafe-accounts-conf = true;
+        log-level = "trace";
+        log-file = "/tmp/aerc.log";
+      };
+
+      compose = {
+        address-book-cmd = ''${pkgs.abook}/bin/abook --mutt-query "%s"'';
+      };
+
       ui = {
         this-day-time-format =''"           15:04"'';
         this-year-time-format = "Mon Jan 02 15:04";
