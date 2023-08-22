@@ -5,5 +5,6 @@ let
 in {
   "wireless_networks.age".publicKeys = [ user1 z1 ];
   "tailscale_key.age".publicKeys = [ user1 z1 ];
+  "nomad_token.age".publicKeys = [user1 ];
 } 
 

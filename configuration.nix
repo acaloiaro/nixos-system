@@ -91,6 +91,7 @@
       packages = with pkgs; [
         clipmenu
         ctags
+        dante
         direnv
         dmenu
         fzf
@@ -116,6 +117,7 @@
         python3
         speedtest-cli
         tree
+        w3m
         xclip
         home-manager
       ];

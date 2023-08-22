@@ -333,17 +333,20 @@ font_size                12.0
         this-year-time-format = "Mon Jan 02 15:04";
         timestamp-format =      "2006-01-02 15:04";
         spinner = "[ ⡿ ],[ ⣟ ],[ ⣯ ],[ ⣷ ],[ ⣾ ],[ ⣽ ],[ ⣻ ],[ ⢿ ]";
+        sidebar-width = 25;
       };
-      triggers = {
-        #new-email = ''exec notify-send "New email from %n" "%s"'';
-      };
+
       filters = {
         "text/plain" = "colorize";
-        "text/html" = "pandoc -f html -t plain";
+        "text/html" = "w3m -T text/html -o display_link_number=1";
         "text/calendar" = "calendar";
         "message/delivery-status" = "colorize";
         "message/rfc822" = "colorize";
         #"image/*" = "${pkgs.catimg}/bin/catimg -";
+      };
+
+      hooks = {
+        mail-received = ''notify-send "New email from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
       };
     };
   };
