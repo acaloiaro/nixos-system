@@ -179,6 +179,12 @@
       key = "DCBD21758A309C1F41D7A0FC890FFDB11860FE1C";
       signByDefault = true;
     };
+
+    extraConfig = {
+      push = {
+        autoSetupRemote = true;
+      };
+    };
   };
 
   programs.kitty = {
