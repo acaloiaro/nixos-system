@@ -104,29 +104,29 @@
         gcc8
         glow
         gnumake
-        kitty
         gopass
         gopass-jsonapi
         hugo
-        ripgrep
-        rofi
+        kitty
         git
         go
         gopls	
         ivpn
         nextcloud-client
+        nix-index
+        nomad
         nil # nix lsp
+        ripgrep
+        rofi
         tailscale
         terraform-lsp
         tmux
-        nix-index
         pandoc 
         python3
         speedtest-cli
         tree
         w3m
         xclip
-        home-manager
       ];
     };   
   };
