@@ -27,6 +27,11 @@
       tailscale_key = {
         file = ./secrets/tailscale_key.age;
       };
+
+      # nomad_token = {
+      #   file = ./secrets/nomad_token.age;
+      # };
+      
     };
   };
 
@@ -108,6 +113,7 @@
         git
         go
         gopls	
+        ivpn
         nextcloud-client
         nil # nix lsp
         tailscale
@@ -146,6 +152,7 @@
 
   # List services that you want to enable:
   services.tailscale.enable = true;
+  services.ivpn.enable = true;
   services.openntpd.enable = true;
   services.openssh = {
     enable = true;
