@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{ config, pkgs, lib, inputs, ...}: {
+{ config, pkgs, ...}: {
 
   imports =
     [ # Include the results of the hardware scan.
@@ -27,11 +27,6 @@
       tailscale_key = {
         file = ./secrets/tailscale_key.age;
       };
-
-      # nomad_token = {
-      #   file = ./secrets/nomad_token.age;
-      # };
-      
     };
   };
 
@@ -114,11 +109,12 @@
         ivpn
         nextcloud-client
         nix-index
-        nomad
+        nomad_1_3
         nil # nix lsp
         ripgrep
         rofi
         tailscale
+        terraform
         terraform-lsp
         tmux
         pandoc 

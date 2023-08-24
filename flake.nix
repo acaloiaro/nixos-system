@@ -28,7 +28,6 @@
     nixosConfigurations = {
       z1 = nixpkgs.lib.nixosSystem {
         inherit pkgs system;
-        
         modules = [
           { environment.systemPackages = [ agenix.packages.${system}.default ]; }
            nur.nixosModules.nur
@@ -42,7 +41,7 @@
             home-manager.users.adriano = import ./home/adriano.nix;
             home-manager.users.root = import ./home/root.nix;
             home-manager.extraSpecialArgs = {
-              inherit kitty-grab;
+              inherit kitty-grab agenix;
             };
           }
         ];

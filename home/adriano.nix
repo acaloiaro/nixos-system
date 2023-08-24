@@ -1,12 +1,18 @@
-{ config, pkgs, lib, kitty-grab, ... }:
+{ config, pkgs, lib, kitty-grab, agenix, ... }:
 {
-  # This should be the same value as `system.stateVersion` in
-  # your `configuration.nix` file.
-  home.stateVersion = "23.05";
-  xdg.enable = true;
+  imports = [
+    agenix.homeManagerModules.default
+  ];  
+  age = {
+    secrets = {
+      nomad_token = {
+        file = ../secrets/nomad_token.age;
+      };
+    };  
+  };  
   programs.home-manager.enable = true;
-
   home = {
+    stateVersion = "23.05";
     sessionVariables = {
       "GO111MODULE" = "on";
       "PGHOST" = "localhost";
@@ -14,6 +20,8 @@
       "PGPASSWORD" = "postgres";
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
+      # "NOMAD_TOKEN" = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.nomad_token.path})";
+      "NOMAD_TOKEN" = "$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}')";
     };
 
     file = {
@@ -437,5 +445,7 @@ font_size                12.0
     enable = true;
     postExec = "${config.xdg.configHome}/mbsync/postExec";
   };
+
+  xdg.enable = true;
 }
 
