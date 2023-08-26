@@ -1,15 +1,19 @@
-{ config, pkgs, lib, kitty-grab, agenix, ... }:
+{ config, pkgs, lib, kitty-grab, homeage, ... }:
 {
   imports = [
-    agenix.homeManagerModules.default
+    homeage.homeManagerModules.homeage
   ];  
-  age = {
-    secrets = {
-      nomad_token = {
-        file = ../secrets/nomad_token.age;
-      };
+
+  homeage = {
+    identityPaths = [ "/home/adriano/.ssh/id_rsa_agenix" ];
+    installationType = "systemd";
+    file."spotify-password" = {
+      source = ../secrets/spotify_password.age;
+      mode = "777";
+      symlinks = [ "${config.xdg.configHome}/spotifyd/password" ];
     };  
   };  
+
   programs.home-manager.enable = true;
   home = {
     stateVersion = "23.05";
@@ -56,6 +60,19 @@
     };
   };
 
+  services.spotifyd = {
+    enable = true;
+    settings =
+    {
+      global = {
+        username = "acaloiaro";
+        password_cmd = "cat ${config.xdg.configHome}/spotifyd/password";
+        backend = "pulseaudio";
+        # dbus_type = "system";
+      };
+    };
+  };  
+  
   services.screen-locker = {
     enable = true;
     inactiveInterval = 30;
@@ -200,10 +217,12 @@
     theme = "GitHub Dark Dimmed"; # For normal/lower light environments 
     #theme = "GitHub Light"; # For higher light environments
     extraConfig = ''
+enabled_layouts fat,tall,stack
 map Alt+g kitten         kitty_grab/grab.py
 map Ctrl+Shift+h         previous_tab
 map Ctrl+Shift+l         next_tab
 map Ctrl+Shift+b         show_scrollback
+map Ctrl+Shift+p         goto_layout fat
 draw_minimal_borders     yes
 window_padding_width     2
 window_border_width      0
@@ -222,6 +241,7 @@ font_size                12.0
       vi = "hx $*";
       vim = "hx $*";
       rebuild = "sudo nixos-rebuild --flake .#z1 switch";
+      di-tui = "nix run github:acaloiaro/di-tui";
     };
 
     oh-my-zsh = {

@@ -71,10 +71,10 @@
   time.timeZone = "Europe/Zurich";
 
   # Enable bluetooth and sound
-  sound.enable = true;
   hardware.pulseaudio.enable = true;
-  hardware.bluetooth.enable = true;
-
+  hardware.bluetooth.enable = true;  
+  sound.enable = true;
+  services.dbus.enable = true;
   services.blueman.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -113,9 +113,11 @@
         nil # nix lsp
         ripgrep
         rofi
+        spotify-tui
         tailscale
         terraform
         terraform-lsp
+        texlive.combined.scheme-tetex
         tmux
         pandoc 
         python3
