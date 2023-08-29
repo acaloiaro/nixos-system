@@ -125,6 +125,7 @@
         tree
         w3m
         xclip
+        unzip
       ];
     };   
   };
