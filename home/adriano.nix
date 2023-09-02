@@ -241,7 +241,6 @@ font_size                12.0
       vi = "hx $*";
       vim = "hx $*";
       rebuild = "sudo nixos-rebuild --flake .#z1 switch";
-      di-tui = "nix run github:acaloiaro/di-tui";
     };
 
     oh-my-zsh = {

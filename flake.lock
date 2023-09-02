@@ -44,6 +44,42 @@
         "type": "github"
       }
     },
+    "di-tui": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1692884798,
+        "narHash": "sha256-cBh5BHte9DcsdE+r9wP35utC3qR3JIQsC8FRhWvxNWI=",
+        "owner": "acaloiaro",
+        "repo": "di-tui",
+        "rev": "d8687b7d1b85eacb0914970d000e7746ffaba5fa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acaloiaro",
+        "repo": "di-tui",
+        "type": "github"
+      }
+    },
+    "env-sample-sync": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1693661683,
+        "narHash": "sha256-+40AHQxamlqy0siA9TuahNcgNHIRQ34zk5OxxgUO9YA=",
+        "owner": "acaloiaro",
+        "repo": "env-sample-sync",
+        "rev": "fbdd040138758542abb51d0a03b69fffb38a66d4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acaloiaro",
+        "repo": "env-sample-sync",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -124,6 +160,36 @@
     },
     "nixpkgs": {
       "locked": {
+        "lastModified": 1692084312,
+        "narHash": "sha256-Za++qKVK6ovjNL9poQZtLKRM/re663pxzbJ+9M4Pgwg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "8353344d3236d3fda429bb471c1ee008857d3b7c",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1693565476,
+        "narHash": "sha256-ya00zHt7YbPo3ve/wNZ/6nts61xt7wK/APa6aZAfey0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "aa8aa7e2ea35ce655297e8322dc82bf77a31d04b",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "ref": "nixos-unstable",
+        "type": "indirect"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1692174805,
         "narHash": "sha256-xmNPFDi/AUMIxwgOH/IVom55Dks34u1g7sFKKebxUm0=",
         "owner": "nixos",
@@ -156,10 +222,12 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "di-tui": "di-tui",
+        "env-sample-sync": "env-sample-sync",
         "home-manager": "home-manager_2",
         "homeage": "homeage",
         "kitty-grab": "kitty-grab",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_3",
         "nur": "nur"
       }
     }

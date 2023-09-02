@@ -22,6 +22,9 @@
     flake = false;
   };
   
+  inputs.env-sample-sync.url = "github:acaloiaro/env-sample-sync";
+  inputs.di-tui.url = "github:acaloiaro/di-tui";
+
   outputs = { nixpkgs, home-manager, homeage, agenix, nur, kitty-grab, ... }@inputs:
   let
     system = "x86_64-linux";
@@ -33,6 +36,7 @@
     nixosConfigurations = {
       z1 = nixpkgs.lib.nixosSystem {
         inherit pkgs system;
+        specialArgs = {inherit inputs;};
         modules = [
           { environment.systemPackages = [ agenix.packages.${system}.default ]; }
            nur.nixosModules.nur
