@@ -306,8 +306,12 @@
       CREATE DATABASE neoq;
       GRANT ALL PRIVILEGES ON DATABASE neoq TO postgres;
       '';
-  };
 
+    settings = {
+      log_statement = "all";
+      max_connections = 1000;
+    };
+  };
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
