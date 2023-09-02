@@ -111,6 +111,7 @@
         nix-index
         nomad_1_3
         nil # nix lsp
+        python310Packages.python-lsp-server
         ripgrep
         rofi
         spotify-tui
