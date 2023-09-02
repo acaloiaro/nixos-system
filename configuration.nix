@@ -14,6 +14,11 @@
     extraOptions = ''
       experimental-features = nix-command flakes
       '';
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
+    };
   };
 
   # Configure secrets 
@@ -106,6 +111,7 @@
         git
         go
         gopls	
+        gscreenshot
         ivpn
         nextcloud-client
         nix-index
@@ -122,6 +128,7 @@
         tmux
         pandoc 
         python3
+        simplescreenrecorder
         speedtest-cli
         tree
         w3m
