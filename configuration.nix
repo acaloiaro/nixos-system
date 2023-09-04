@@ -35,6 +35,14 @@
     };
   };
 
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   environment.pathsToLink = [ "/libexec" ];
   programs.dconf.enable = true;
 
@@ -88,7 +96,7 @@
     mutableUsers = true;
     users.adriano = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+      extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
       password = "Iliketochangeitchangeit";
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
