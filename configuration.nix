@@ -116,6 +116,7 @@
         gopass-jsonapi
         hugo
         kitty
+        lazygit
         git
         go
         gopls	
