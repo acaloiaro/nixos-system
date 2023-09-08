@@ -1,6 +1,8 @@
 {
   description = "NixOS configuration";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.nur.url = "github:nix-community/NUR";
+
   inputs.home-manager = {
     url = "github:nix-community/home-manager/master";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -16,14 +18,21 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
   
-  inputs.nur.url = "github:nix-community/NUR";
+
   inputs.kitty-grab = {
     url = "github:yurikhan/kitty_grab";
     flake = false;
   };
   
-  inputs.env-sample-sync.url = "github:acaloiaro/env-sample-sync";
-  inputs.di-tui.url = "github:acaloiaro/di-tui";
+  inputs.env-sample-sync = {
+    url = "github:acaloiaro/env-sample-sync";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+  
+  inputs.di-tui = {
+    url = "github:acaloiaro/di-tui";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   outputs = { nixpkgs, home-manager, homeage, agenix, nur, kitty-grab, ... }@inputs:
   let
