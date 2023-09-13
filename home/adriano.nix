@@ -13,12 +13,6 @@
       mode = "777";
       symlinks = [ "${config.xdg.configHome}/spotifyd/password" ];
     };  
-
-    file."openweathermap_api_key" = {
-      source = ../openweathermap_api_key.age;
-      mode = "444";
-      symlinks = [ "${config.xdg.configHome}/i3status-rust/openweathermap_api_key" ];
-    };  
   };  
 
   programs.home-manager.enable = true;
@@ -31,7 +25,6 @@
       "PGPASSWORD" = "postgres";
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
-      # "NOMAD_TOKEN" = "$(${pkgs.coreutils}/bin/cat ${config.age.secrets.nomad_token.path})";
       "NOMAD_TOKEN" = "$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}')";
     };
 
@@ -75,7 +68,6 @@
         username = "acaloiaro";
         password_cmd = "cat ${config.xdg.configHome}/spotifyd/password";
         backend = "pulseaudio";
-        # dbus_type = "system";
       };
     };
   };  
@@ -143,12 +135,6 @@
           always = true;
           notification = false;
         }
-
-        #{
-        #  command = "${pkgs.feh}/bin/feh --bg-scale ~/background.png";
-        #  always = true;
-        #  notification = false;
-        #}
       ];
     };
   }; 
@@ -159,14 +145,9 @@
       bottom = {
         blocks = [
         {
-            block = "weather";
-            format = " $icon $weather ($location) $temp, $wind m/s $direction ";
+            block = "custom";
+            command = "sed 's/  //' <(curl 'https://wttr.in/Interlaken,%20Bern,%20Switzerland?u&format=3' -s)";
             interval = 1200;
-            service = {
-              name = "openweathermap";
-              place = "interlaken, bern, switzerland";
-              units = "imperial";
-            };
          }
          {
           block = "net";
