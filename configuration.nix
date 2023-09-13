@@ -122,6 +122,7 @@
         gopls	
         gscreenshot
         ivpn
+        jq
         di-tui.packages.${system}.default
         env-sample-sync.packages.${system}.default
         nextcloud-client
@@ -190,7 +191,6 @@
 
     displayManager = {
       defaultSession = "none+i3";
-      #lightdm.enable = true;
     };
 
     libinput = {
