@@ -7,5 +7,6 @@ in {
   "tailscale_key.age".publicKeys = [ agenix z1 ];
   "nomad_token.age".publicKeys = [ agenix ];
   "spotify_password.age".publicKeys = [ agenix ];
+  "openweathermap_api_key.age".publicKeys = [ agenix ];
 } 
 

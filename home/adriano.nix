@@ -7,10 +7,17 @@
   homeage = {
     identityPaths = [ "/home/adriano/.ssh/id_rsa_agenix" ];
     installationType = "systemd";
+
     file."spotify-password" = {
       source = ../secrets/spotify_password.age;
       mode = "777";
       symlinks = [ "${config.xdg.configHome}/spotifyd/password" ];
+    };  
+
+    file."openweathermap_api_key" = {
+      source = ../openweathermap_api_key.age;
+      mode = "444";
+      symlinks = [ "${config.xdg.configHome}/i3status-rust/openweathermap_api_key" ];
     };  
   };  
 
@@ -151,6 +158,16 @@
     bars = {
       bottom = {
         blocks = [
+        {
+            block = "weather";
+            format = " $icon $weather ($location) $temp, $wind m/s $direction ";
+            interval = 1200;
+            service = {
+              name = "openweathermap";
+              place = "interlaken, bern, switzerland";
+              units = "imperial";
+            };
+         }
          {
           block = "net";
           format = " $ssid $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) ";
@@ -388,7 +405,6 @@ font_size                12.0
         "text/calendar" = "calendar";
         "message/delivery-status" = "colorize";
         "message/rfc822" = "colorize";
-        #"image/*" = "${pkgs.catimg}/bin/catimg -";
       };
 
       hooks = {
