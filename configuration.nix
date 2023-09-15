@@ -115,6 +115,7 @@
         gopass
         gopass-jsonapi
         hugo
+        inetutils
         kitty
         lazygit
         git
