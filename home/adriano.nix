@@ -153,9 +153,6 @@
           block = "net";
           format = " $ssid $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) ";
          }
-         { 
-           block = "battery";
-         }
          {
            block = "memory";
          }
@@ -165,6 +162,9 @@
          }
          { 
            block = "sound"; 
+         }
+         { 
+           block = "battery";
          }
          {
            block = "time";
