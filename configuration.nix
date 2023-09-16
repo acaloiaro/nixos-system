@@ -61,8 +61,8 @@
     "DeltaSkyClub" = {
       priority = 3;
     };
-    "twifi.ch - 80C8" = {
-      psk = "Ja3anNREDfE74987";
+    "TheCenturionLounge" = {
+      priority = 4;
     };
   };
 
