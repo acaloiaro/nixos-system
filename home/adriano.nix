@@ -26,6 +26,7 @@
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
       "NOMAD_TOKEN" = "$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}')";
+      "OPENAI_API_KEY" = "$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi| grep api | awk '{print $2}')";
     };
 
     file = {
@@ -151,7 +152,7 @@
          }
          {
           block = "net";
-          format = " $ssid $icon ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K) ";
+          format = " {$signal_strength $ssid $frequency|} $device $icon  ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K)";
          }
          {
            block = "memory";

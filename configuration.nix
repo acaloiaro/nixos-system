@@ -118,6 +118,7 @@
         inetutils
         kitty
         lazygit
+        chatgpt-cli
         git
         go
         gopls	
