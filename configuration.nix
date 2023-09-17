@@ -81,7 +81,7 @@
   };
 
   # Set your time zone.
-  time.timeZone = "Europe/Zurich";
+  time.timeZone = "America/Denver";
 
   # Enable bluetooth and sound
   hardware.pulseaudio.enable = true;
