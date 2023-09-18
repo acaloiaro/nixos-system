@@ -64,6 +64,9 @@
     "TheCenturionLounge" = {
       priority = 4;
     };
+    "KOTART" = {
+      psk = "$Pring123";
+    };
   };
 
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -129,7 +132,7 @@
         env-sample-sync.packages.${system}.default
         nextcloud-client
         nix-index
-        nomad_1_3
+        nomad_1_4
         nil # nix lsp
         python310Packages.python-lsp-server
         ripgrep
