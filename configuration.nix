@@ -109,8 +109,10 @@
         clipmenu
         ctags
         dante
+        di-tui.packages.${system}.default
         direnv
         dmenu
+        env-sample-sync.packages.${system}.default
         fzf
         gcc8
         glow
@@ -121,6 +123,7 @@
         inetutils
         kitty
         lazygit
+        ltex-ls
         chatgpt-cli
         git
         go
@@ -128,8 +131,6 @@
         gscreenshot
         ivpn
         jq
-        di-tui.packages.${system}.default
-        env-sample-sync.packages.${system}.default
         nextcloud-client
         nix-index
         nomad_1_4
