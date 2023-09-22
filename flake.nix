@@ -18,7 +18,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
   
-
   inputs.kitty-grab = {
     url = "github:yurikhan/kitty_grab";
     flake = false;
@@ -34,7 +33,12 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, home-manager, homeage, agenix, nur, kitty-grab, ... }@inputs:
+  inputs.language-servers = {
+    url = "git+https://git.sr.ht/~bwolf/language-servers.nix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = { nixpkgs, home-manager, homeage, agenix, nur, kitty-grab, language-servers, ... }@inputs:
   let
     system = "x86_64-linux";
     overlays = [ inputs.agenix.overlays.default inputs.nur.overlay];

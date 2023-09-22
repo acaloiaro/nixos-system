@@ -122,6 +122,7 @@
         hugo
         inetutils
         kitty
+        language-servers.packages.${system}.vscode-langservers-extracted # For vscode-html-language-server, vscode-css-language-server, vscode-json-language-server in Helix
         lazygit
         ltex-ls
         chatgpt-cli
@@ -133,6 +134,8 @@
         jq
         nextcloud-client
         nix-index
+        nodejs
+        nodePackages.typescript-language-server
         nomad_1_4
         nil # nix lsp
         python310Packages.python-lsp-server

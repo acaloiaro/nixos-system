@@ -29,6 +29,21 @@ auto-format = true
 name = "markdown"
 language-server = { command = "ltex-ls" }
 
+[[language]]
+name = "html"
+file-types = ["html"]
+language-server = { command = "vscode-html-language-server", args = ["--add-flags", "--stdio"] }
+
+[[language]]
+name = "css"
+file-types = ["css", "scss"]
+language-server = { command = "vscode-css-language-server", args = ["--add-flags", "--stdio"] }
+
+[[language]]
+name = "javascript"
+file-types = ["js"]
+language-server = { command = "typescript-language-server", args = ["--stdio"] }
+
 [[grammar]]
 name = "nix"
 source = { git = "https://github.com/nix-community/tree-sitter-nix", rev = "1b69cf1fa92366eefbe6863c184e5d2ece5f187d" }
