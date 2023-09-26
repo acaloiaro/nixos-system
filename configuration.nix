@@ -109,6 +109,7 @@
         clipmenu
         ctags
         dante
+        dict
         di-tui.packages.${system}.default
         direnv
         dmenu
@@ -159,6 +160,7 @@
     };   
   };
 
+  environment.etc."dict.conf".text = "server dict.org";
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
