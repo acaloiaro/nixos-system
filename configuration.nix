@@ -113,7 +113,7 @@
         di-tui.packages.${system}.default
         direnv
         dmenu
-        env-sample-sync.packages.${system}.default
+        ess.packages.${system}.default
         fzf
         gcc8
         glow
@@ -339,7 +339,7 @@
 
     settings = {
       log_statement = "all";
-      max_connections = 1000;
+      max_connections = 2000;
     };
   };
   # Copy the NixOS configuration file and link it from the resulting system
