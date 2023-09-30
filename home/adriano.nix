@@ -61,6 +61,7 @@
     };
   };
 
+  services.dunst.enable = true;
   services.spotifyd = {
     enable = true;
     settings =
@@ -390,7 +391,7 @@ font_size                12.0
       };
 
       hooks = {
-        mail-received = ''notify-send "New email from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
+        mail-received = ''dunstify "New email from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
       };
     };
   };
