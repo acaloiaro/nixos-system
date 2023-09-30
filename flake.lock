@@ -64,23 +64,23 @@
         "type": "github"
       }
     },
-    "env-sample-sync": {
+    "ess": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1694246296,
-        "narHash": "sha256-UoOfzJhuY0+MBWKBHYui/wllBBnoHgHEIwPiMaYUEWk=",
+        "lastModified": 1695739638,
+        "narHash": "sha256-WnCgZKVcJq3jlAVeM8CUN52qUX6iMKMv74Ut0T91FC4=",
         "owner": "acaloiaro",
-        "repo": "env-sample-sync",
-        "rev": "4a0a3c14d4104df8adc6715af3aee6a92df56487",
+        "repo": "ess",
+        "rev": "e46d3e4803cd6dbe2354d6fafa14624cd6de35d9",
         "type": "github"
       },
       "original": {
         "owner": "acaloiaro",
-        "repo": "env-sample-sync",
+        "repo": "ess",
         "type": "github"
       }
     },
@@ -233,7 +233,7 @@
       "inputs": {
         "agenix": "agenix",
         "di-tui": "di-tui",
-        "env-sample-sync": "env-sample-sync",
+        "ess": "ess",
         "home-manager": "home-manager_2",
         "homeage": "homeage",
         "kitty-grab": "kitty-grab",

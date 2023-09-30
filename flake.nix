@@ -23,8 +23,8 @@
     flake = false;
   };
   
-  inputs.env-sample-sync = {
-    url = "github:acaloiaro/env-sample-sync";
+  inputs.ess = {
+    url = "github:acaloiaro/ess";
     inputs.nixpkgs.follows = "nixpkgs";
   };
   
