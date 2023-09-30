@@ -27,6 +27,7 @@ auto-format = true
 
 [[language]]
 name = "markdown"
+file-types = ["md", "eml"]
 language-server = { command = "ltex-ls" }
 
 [[language]]
