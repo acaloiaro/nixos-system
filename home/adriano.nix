@@ -148,7 +148,7 @@
         blocks = [
         {
             block = "custom";
-            command = "sed 's/  //' <(curl 'https://wttr.in/Denver,CO?format=3' -s)";
+            command = "sed 's/  //' <(curl 'https://wttr.in/Fruita,CO?format=4&u' -s)";
             interval = 1200;
          }
          {
