@@ -2,24 +2,33 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, homeage, ... }:
 let
   #nixos-hardware = fetchTarball "https://github.com/NixOS/nixos-hardware/archive/master.tar.gz";
 
   # Use the following nixos-hardware until this issue is resolved https://github.com/NixOS/nixos-hardware/issues/703
-  nixos-hardware = fetchTarball "https://github.com/NixOS/nixos-hardware/archive/ca29e25c39b8e117d4d76a81f1e229824a9b3a26.tar.gz";
+  # nixos-hardware = fetchTarball "https://github.com/NixOS/nixos-hardware/archive/ca29e25c39b8e117d4d76a81f1e229824a9b3a26.tar.gz";
 in
 {
   imports =
     [ 
-      "${nixos-hardware}/raspberry-pi/4"
+      "${inputs.nixos-hardware}/raspberry-pi/4"
       ./hardware-configuration.nix
     ];
 
   boot = {
-    supportedFilesystems = [ "zfs" "ext4" ];
-    kernelParams = [ "kunit.enable=0" "acpi=off" "apm=off" ];
-    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+    #kernelPackages = pkgs.linuxPackages_rpi4;
+    #kernelPackages = pkgs.linuxPackages;
+    kernelParams = [ "kunit.enable=0" ];
+    supportedFilesystems = lib.mkForce [ "f2fs" "ntfs" "cifs" "ext4" "vfat" "nfs" "nfs4" ];
+    initrd.availableKernelModules = [
+      "usbhid"
+      "usb_storage"
+      "vc4"
+      "pcie_brcmstb" # required for the pcie bus to work
+      "reset-raspberrypi" # required for vl805 firmware to load
+    ];
+
     loader = {
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
@@ -27,10 +36,22 @@ in
   };
 
   hardware = {
-    raspberry-pi."4".apply-overlays-dtmerge.enable = true;
-    deviceTree = {
-      enable = true;
-      filter = "bcm2711-rpi-*.dtb";
+    enableRedistributableFirmware = true;
+    deviceTree.filter = lib.mkDefault "bcm2711-rpi-4-b.dtb";
+    raspberry-pi."4".apply-overlays-dtmerge.enable = false;
+    raspberry-pi."4".fkms-3d.enable = true;
+    raspberry-pi."4".audio.enable = true;
+  };
+
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+      '';
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 7d";
     };
   };
 
@@ -53,7 +74,6 @@ in
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
 
   # Configure Xorg
   services.xserver = {
@@ -61,28 +81,35 @@ in
     layout = "us";
     xkbOptions = "caps:ctrl_modifier";
 
-    displayManager.autoLogin = {
-      enable = true;
-      user = "kodi";
-    };
+    displayManager = {
+      autoLogin = {
+        enable = true;
+        user = "kodi";
+      };
 
-    displayManager.lightdm = {
-      enable = true;
-      autoLogin.timeout = 3;
-    };
+      lightdm = {
+        enable = true;
+        autoLogin.timeout = 3;
+      };
 
+      #gdm.enable = true;
+    };
+    
     desktopManager.kodi = {
       enable = true;
       package = pkgs.kodi.withPackages (pkgs: with pkgs; [  ]);
     };
   };
 
+  services.logind.extraConfig = ''
+    IdleAction=sleep
+    IdleActionSec=100000000000
+  '';
   # Enable sound.
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
   # Enable sound for raspberry pi hardware
-  hardware.raspberry-pi."4".audio.enable = true;
   
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = true;
@@ -124,7 +151,7 @@ in
   # Define a user account
   users.extraUsers.kodi = {
     isNormalUser = true;
-    extraGroups = [ "video" ];
+    extraGroups = [ "video" "audio" ];
   };
 
   # Allow normal users to use CEC
