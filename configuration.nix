@@ -335,11 +335,26 @@
       CREATE ROLE postgres WITH LOGIN PASSWORD 'postres' CREATEDB;
       CREATE DATABASE neoq;
       GRANT ALL PRIVILEGES ON DATABASE neoq TO postgres;
+      LOAD 'auto_explain';
       '';
 
     settings = {
       log_statement = "all";
+      "auto_explain.log_analyze" = "true";
+      "auto_explain.log_nested_statements" = "on";
+      "auto_explain.log_min_duration" = 0;
+      "auto_explain.log_triggers" = "true";
       max_connections = 2000;
+      log_connections = "yes";
+      logging_collector = "on";
+      log_directory = "/tmp/";
+      log_filename = "postgresql-%Y-%m-%d_%H%M%S.log";
+      log_truncate_on_rotation = "true";
+      log_rotation_age = 1440;
+      client_min_messages = "LOG";
+      log_min_messages = "INFO";
+      log_min_error_statement = "DEBUG5";
+      log_min_duration_statement = 0;
     };
   };
   # Copy the NixOS configuration file and link it from the resulting system
