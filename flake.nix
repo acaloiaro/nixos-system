@@ -71,14 +71,14 @@
           { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
            nur.nixosModules.nur
            agenix.nixosModules.default
-          ./configuration.nix
+          ./systems/z1/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.adriano = import ./home/adriano.nix;
-            home-manager.users.root = import ./home/root.nix;
+            home-manager.users.adriano = import ./systems/z1/home/adriano.nix;
+            home-manager.users.root = import ./systems/z1/home/root.nix;
             home-manager.extraSpecialArgs = {
               inherit kitty-grab agenix homeage;
             };
@@ -93,13 +93,13 @@
           { environment.systemPackages = [ agenix.packages.aarch64-linux.default ]; }
            nur.nixosModules.nur
            agenix.nixosModules.default
-          ./pi/configuration.nix
+          ./systems/pi/configuration.nix
           home-manager-roampi.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.kodi = import ./pi/kodi.nix;
+            home-manager.users.kodi = import ./systems/pi/kodi.nix;
             home-manager.extraSpecialArgs = {
               inherit agenix homeage;
             };
