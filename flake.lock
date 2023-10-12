@@ -120,6 +120,27 @@
         "type": "github"
       }
     },
+    "home-manager-roampi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-roampi"
+        ]
+      },
+      "locked": {
+        "lastModified": 1682203081,
+        "narHash": "sha256-kRL4ejWDhi0zph/FpebFYhzqlOBrk0Pl3dzGEKSAlEw=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "32d3e39c491e2f91152c84f8ad8b003420eab0a1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "32d3e39c491e2f91152c84f8ad8b003420eab0a1",
+        "type": "github"
+      }
+    },
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
@@ -198,6 +219,22 @@
         "url": "https://git.sr.ht/~bwolf/language-servers.nix"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1681679909,
+        "narHash": "sha256-p4LR9MYP1Khn/2WJX7ElPTSN+Ce4N/0FYZsvH5VChgI=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "34f96de8c9ad390d8717e3ca6260afd5f500de04",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "34f96de8c9ad390d8717e3ca6260afd5f500de04",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1694767346,
@@ -211,6 +248,22 @@
         "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-roampi": {
+      "locked": {
+        "lastModified": 1683222161,
+        "narHash": "sha256-yp1o+2qSZueDdlBTvup2w+4pnSxwKq+qh1+3eLRz/Zk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "29339c1529b2c3d650d9cf529d7318ed997c149f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "29339c1529b2c3d650d9cf529d7318ed997c149f",
         "type": "github"
       }
     },
@@ -235,10 +288,13 @@
         "di-tui": "di-tui",
         "ess": "ess",
         "home-manager": "home-manager_2",
+        "home-manager-roampi": "home-manager-roampi",
         "homeage": "homeage",
         "kitty-grab": "kitty-grab",
         "language-servers": "language-servers",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "nixpkgs-roampi": "nixpkgs-roampi",
         "nur": "nur"
       }
     }
