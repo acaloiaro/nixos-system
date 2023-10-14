@@ -128,7 +128,7 @@
         ltex-ls
         chatgpt-cli
         git
-        go
+        go_1_21
         gopls	
         gscreenshot
         ivpn
