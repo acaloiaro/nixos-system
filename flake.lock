@@ -51,15 +51,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1694764642,
-        "narHash": "sha256-oSbMwTcLpedw32VBbbprfaP5smll1xbzPQTUvTFVHdo=",
+        "lastModified": 1697295577,
+        "narHash": "sha256-D6xfgVDqCrOn/tBExHlzmfNYC6rq0Kddjy894U/bWvM=",
         "owner": "acaloiaro",
         "repo": "di-tui",
-        "rev": "12ae555a00205926da7cb5216d7f070e57b7508e",
+        "rev": "7df5f3391de100198ed0c4305fff36fe89a2cd7b",
         "type": "github"
       },
       "original": {
         "owner": "acaloiaro",
+        "ref": "v1.3.27",
         "repo": "di-tui",
         "type": "github"
       }

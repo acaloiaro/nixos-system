@@ -29,7 +29,7 @@
   };
   
   inputs.di-tui = {
-    url = "github:acaloiaro/di-tui";
+    url = "github:acaloiaro/di-tui/v1.3.27";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
