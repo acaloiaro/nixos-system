@@ -1,0 +1,7 @@
+let 
+  pi = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCvY5WfikFSnixBk5kly7gAWgzUmGFqEsjvzm1gkrFr790Mz75pnzbur72VLFJ7bMCmZiRtIFx72h5dm0A621K9buRipBf4fC93LmXb3t4qx77UosBaQWzeX8fo7CdEkXrateyHiOC4oMBIVi+hDOUQy6vR0qpdzAnnMTjLBK8Cr6Bnsx357jvA/m3ibUuoTjPcMXGPqF3c1CmBsYG/41yQMJOgVoThu7tHhmcSgNhuuogMXT3tlGNZXZou5FI1lL4j5KB9iA1/q2B20Nb44q6blSQuVgF1lB2aLL8hQbrcIZFtndEWxHSp2jRpSufw3Svmk4Wuj0Pm43HHysQQbe6y7yT6XJSRbp6jeFCxzgnkLkwg6BRi34ohr0PLh+vyUyQz6mt5hH+yNpbp5o1+SoE6bkzKAlY3gUV8GhBMGM/4rHO5k7N5DTJ6BgtCxSb+eU8ZSk6hJOmrYRYV0aTMaFa1yLwTihV8a3xsupaCabPW9axzHI4gg+FgI2ihRHQyPU8= pi@roampi";
+  
+in {
+  "tailscale_key.age".publicKeys = [ pi ];
+} 
+
