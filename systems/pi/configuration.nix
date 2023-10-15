@@ -12,7 +12,7 @@
 
   boot = {
     kernelParams = [ "kunit.enable=0" ];
-    supportedFilesystems = lib.mkForce [ "f2fs" "ntfs" "cifs" "ext4" "vfat" "nfs" "nfs4" ];
+    supportedFilesystems = lib.mkForce [ "f2fs" "ntfs" "cifs" "ext4" "vfat" "nfs" "nfs4" "zfs" ];
     initrd.availableKernelModules = [
       "usbhid"
       "usb_storage"
@@ -101,6 +101,8 @@
      libcec
      libraspberrypi
      raspberrypi-eeprom
+     zfs
+     zfstools
   ];
 
   users.mutableUsers = true;
@@ -121,17 +123,12 @@
     };
   };
 
-  # Media filesystems 
-  fileSystems."/media1" = {
-    device = "/dev/sda";
-    fsType = "exfat";
+  fileSystems."/storage" = {
+    device = "storage";
+    depends = ["/run/cec.fifo"];
+    fsType = "zfs";
   };
-
-  fileSystems."/media2" = {
-    device = "/dev/sdb1";
-    fsType = "vfat";
-  };
-
+ 
   # Allow normal users to use CEC
   services.udev.extraRules = ''
     # allow access to raspi cec device for video group (and optionally register it as a systemd device, used below)
