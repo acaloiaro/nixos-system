@@ -215,6 +215,27 @@
       ${tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale_key.path}) --accept-routes --reset
     '';
   };
+
+  services = {
+    syncthing = {
+      enable = true;
+      user = "pi";
+      dataDir = "/home/pi/.config/syncthing";
+      configDir = "/home/pi/.config/syncthing/config";
+      guiAddress = "100.123.165.8:8384";
+      overrideDevices = true;     # overrides any devices added or deleted through the WebUI
+      overrideFolders = true;     # overrides any folders added or deleted through the WebUI
+      devices = {
+        "z1" = { id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU"; };
+      };
+      folders = {
+        "Documents" = {        # Name of folder in Syncthing, also the folder ID
+          path = "/home/pi/Documents";    # Which folder to add to Syncthing
+          devices = [ "z1" ];      # Which devices to share the folder with
+        };
+      };
+    };
+  };
  
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
