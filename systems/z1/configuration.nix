@@ -357,6 +357,28 @@
       log_min_duration_statement = 0;
     };
   };
+
+  services = {
+    syncthing = {
+      enable = true;
+      user = "adriano";
+      dataDir = "/home/adriano/.config/syncthing";
+      configDir = "/home/adriano/.config/syncthing/config";
+      guiAddress = "100.98.115.99:8384";
+      overrideDevices = true;     # overrides any devices added or deleted through the WebUI
+      overrideFolders = true;     # overrides any folders added or deleted through the WebUI
+      devices = {
+        "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
+      };
+      folders = {
+        "Documents" = {        # Name of folder in Syncthing, also the folder ID
+          path = "/home/adriano/Nextcloud/Documents";    # Which folder to add to Syncthing
+          devices = [ "roampi" ];      # Which devices to share the folder with
+        };
+      };
+    };
+  };
+
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
   # accidentally delete configuration.nix.
