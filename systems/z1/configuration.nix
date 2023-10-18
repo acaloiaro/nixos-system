@@ -369,13 +369,15 @@
       guiAddress = "100.98.115.99:8384";
       overrideDevices = true;     # overrides any devices added or deleted through the WebUI
       overrideFolders = true;     # overrides any folders added or deleted through the WebUI
-      devices = {
-        "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
-      };
-      folders = {
-        "Documents" = {        # Name of folder in Syncthing, also the folder ID
-          path = "/home/adriano/Nextcloud/Documents";    # Which folder to add to Syncthing
-          devices = [ "roampi" ];      # Which devices to share the folder with
+      settings = {
+        devices = {
+          "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
+        };
+        folders = {
+          "Documents" = {        # Name of folder in Syncthing, also the folder ID
+            path = "/home/adriano/Nextcloud/Documents";    # Which folder to add to Syncthing
+            devices = [ "roampi" ];      # Which devices to share the folder with
+          };
         };
       };
     };
