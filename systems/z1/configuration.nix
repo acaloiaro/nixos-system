@@ -153,6 +153,8 @@
         simplescreenrecorder
         speedtest-cli
         tree
+        vlc
+        weechat
         w3m
         xclip
         unzip
