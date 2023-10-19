@@ -64,8 +64,8 @@
     "TheCenturionLounge" = {
       priority = 4;
     };
-    "KOTART" = {
-      psk = "$Pring123";
+    "Bonjour Bakery Cafe_5G" = {
+      psk = "bakedgoods";
     };
   };
 

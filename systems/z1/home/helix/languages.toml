@@ -33,6 +33,7 @@ language-server = { command = "ltex-ls" }
 [[language]]
 name = "html"
 file-types = ["html"]
+auto-format = false
 language-server = { command = "vscode-html-language-server", args = ["--add-flags", "--stdio"] }
 
 [[language]]
