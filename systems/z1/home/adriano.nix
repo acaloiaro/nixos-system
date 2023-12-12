@@ -148,7 +148,7 @@
         blocks = [
         {
             block = "custom";
-            command = "sed 's/  //' <(curl 'https://wttr.in/Moab,UT?format=4&u' -s)";
+            command = "sed 's/  //' <(curl 'https://wttr.in/Draper,UT?format=4&u' -s)";
             interval = 1200;
          }
          {
@@ -297,7 +297,8 @@ font_size                12.0
     alias ohmyzsh="vim ~/.oh-my-zsh"
     alias open="xdg-open $*"
     alias people="vim ~/Nextcloud/Documents/Personal/people.md"
-    alias shoppinglist="vi ~/Nextcloud/Documents/Personal/Shopping\ List.md"
+    alias shoppinglist="hx ~/Nextcloud/Documents/Personal/Shopping\ List.md"
+    alias recipes="vi ~/Nextcloud/Documents/Personal/recipes"
     alias quickqr='a() { qrencode -o qr.png $1 && ((open qr.png; sleep 15; rm qr.png ) &)}; a &>/dev/null'
     alias xclip="xclip -selection clipboard $*"
     alias speedtest='echo "$(curl -skLO https://git.io/speedtest.sh && chmod +x speedtest.sh && ./speedtest.sh && rm speedtest.sh)"'
@@ -436,6 +437,12 @@ font_size                12.0
       };
       msmtp.enable = true;
       notmuch.enable = true;
+
+      gpg = {
+        encryptByDefault = true;
+        signByDefault = true;
+        key = "DCBD21758A309C1F41D7A0FC890FFDB11860FE1C";
+      };
     };
 
     Zenity = {
