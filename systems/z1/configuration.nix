@@ -50,13 +50,21 @@
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
   networking.wireless.networks = {
-    roam = {
+    # "MTShadows" = {
+    #   psk = "WinterChills";
+    #   priority = 100;
+    # };
+    "labarbacoffee" = {
+      psk = "labarbadraper";
+      priority = 100;
+    };
+    "roam" = {
       psk = "@ROAM_PSK@";
-      priority = 1;
+      priority = 2;
     };
     Miniroam = {
       psk = "@MINIROAM_PSK@";
-      priority = 2;
+      priority = 99;
     };
     "DeltaSkyClub" = {
       priority = 3;
@@ -116,6 +124,7 @@
         ess.packages.${system}.default
         fzf
         gcc8
+        gimp
         glow
         gnumake
         gopass
@@ -142,6 +151,7 @@
         python310Packages.python-lsp-server
         ripgrep
         rofi
+        stripe-cli
         spotify-tui
         tailscale
         terraform
