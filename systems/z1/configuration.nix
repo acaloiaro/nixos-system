@@ -50,10 +50,10 @@
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
   networking.wireless.networks = {
-    # "MTShadows" = {
-    #   psk = "WinterChills";
-    #   priority = 100;
-    # };
+    "MTShadows" = {
+      psk = "WinterChills";
+      priority = 100;
+    };
     "labarbacoffee" = {
       psk = "labarbadraper";
       priority = 100;

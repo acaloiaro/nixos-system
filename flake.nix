@@ -38,6 +38,10 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.helix-master = {
+    url = "github:helix-editor/helix/master";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   # Raspberry pi inputs. These are locked at various revisions that are a balancing act between a confluence of bugs. 
   # The biggest of which is that the raspberry pi hardware overlays on "unstable" don't work. Some others:
@@ -51,12 +55,17 @@
     inputs.nixpkgs.follows = "nixpkgs-roampi";
   };
 
-  outputs = { nixpkgs, nixpkgs-roampi, nixos-hardware, home-manager, home-manager-roampi, homeage, agenix, nur, kitty-grab, language-servers, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-roampi, nixos-hardware, home-manager, home-manager-roampi, homeage, agenix, nur, kitty-grab, language-servers, helix-master, ... }@inputs:
   let 
   	overlays = [ inputs.agenix.overlays.default inputs.nur.overlay];
     system = "x86_64-linux";
     pkgs = import nixpkgs {
-      config = { allowUnfree = true; }; 
+      config = { 
+        allowUnfree = true; 
+        permittedInsecurePackages = [
+          "electron-25.9.0"
+        ];
+      }; 
       inherit overlays system;  
     };
   in
@@ -80,7 +89,7 @@
             home-manager.users.adriano = import ./systems/z1/home/adriano.nix;
             home-manager.users.root = import ./systems/z1/home/root.nix;
             home-manager.extraSpecialArgs = {
-              inherit kitty-grab agenix homeage;
+              inherit kitty-grab agenix homeage helix-master;
             };
           }
         ];
