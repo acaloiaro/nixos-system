@@ -1,4 +1,4 @@
-{ config, pkgs, lib, kitty-grab, homeage, ... }:
+{ config, pkgs, lib, kitty-grab, homeage, helix-master, ... }:
 {
   imports = [
     homeage.homeManagerModules.homeage
@@ -188,6 +188,7 @@
   
   programs.helix = {
     enable = true;
+    package = helix-master.packages."x86_64-linux".default;
     defaultEditor = true;
     settings = (builtins.fromTOML (builtins.readFile ./helix/config.toml));
     languages = { 

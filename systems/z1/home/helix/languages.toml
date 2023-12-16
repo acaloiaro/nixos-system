@@ -4,14 +4,12 @@ scope = "source.tf"
 roots = ["main.tf", ".terraform.d"]
 file-types = ["hcl", "tf"]
 auto-format = true
-formatter = { command = "/home/jcmuller/.asdf/shims/terraform", args = ["fmt", "-"] }
-language-server = { command = "terraform-lsp" }
-#language-server = { command = "terraform-ls", args = ["-"] }
+language-servers = [ "terraform-lsp" ]
 
 [[language]]
 name = "go"
 formatter = { command = "goimports" }
-config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable = true } }
+# config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable = true } }
 
 [[language]]
 name = "nix"
