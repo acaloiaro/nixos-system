@@ -142,6 +142,7 @@
         gscreenshot
         ivpn
         jq
+        logseq
         nextcloud-client
         nix-index
         nodejs
@@ -382,12 +383,18 @@
       settings = {
         devices = {
           "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
+          "Miniroam" = { id = "F7UWLCE-JPZXXU2-4SHXZ3X-BM3T3U7-DTSVPVA-TXFYB67-5TCR574-MSYRJQR"; };
         };
         folders = {
           "Documents" = {        # Name of folder in Syncthing, also the folder ID
             path = "/home/adriano/Nextcloud/Documents";    # Which folder to add to Syncthing
-            devices = [ "roampi" ];      # Which devices to share the folder with
+            devices = [ "roampi" "Miniroam" ];      # Which devices to share the folder with
           };
+          "KB" = {        # Name of folder in Syncthing, also the folder ID
+            path = "/home/adriano/KB";    # Which folder to add to Syncthing
+            devices = [ "roampi" "Miniroam" ];      # Which devices to share the folder with
+          };
+
         };
       };
     };

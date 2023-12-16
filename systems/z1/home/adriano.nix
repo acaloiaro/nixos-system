@@ -290,13 +290,11 @@ font_size                12.0
     }
 
     
-    alias addresses="vim ~/Nextcloud/Documents/Personal/Identification/addresses.md"
-    alias ideas="vim ~/Nextcloud/Documents/Personal/ideas.md"
-    alias notes="vim ~/Nextcloud/Documents/Notes"
-    alias occ="ssh -t zenity-linode docker exec -u www-data nextcloud_app_1 ./occ $*"
-    alias ohmyzsh="vim ~/.oh-my-zsh"
+    alias addresses="hx ~/KB/pages/Important\ Addresses.md"
+    alias ideas="hx ~/KB/pages/Notes/ideas/"
+    alias people="vim ~/KB/pages/People.md"
+    alias notes="hx ~/KB"
     alias open="xdg-open $*"
-    alias people="vim ~/Nextcloud/Documents/Personal/people.md"
     alias shoppinglist="hx ~/Nextcloud/Documents/Personal/Shopping\ List.md"
     alias recipes="vi ~/Nextcloud/Documents/Personal/recipes"
     alias quickqr='a() { qrencode -o qr.png $1 && ((open qr.png; sleep 15; rm qr.png ) &)}; a &>/dev/null'
