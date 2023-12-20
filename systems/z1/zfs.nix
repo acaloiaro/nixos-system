@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  boot.supportedFilesystems = [ "zfs" ];
+  boot.supportedFilesystems = [ "zfs" "ntfs" ];
   networking.hostId = "8315ed6e";
 
   # Boot
