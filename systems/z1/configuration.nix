@@ -50,10 +50,10 @@
   networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
   networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
   networking.wireless.networks = {
-    "MTShadows" = {
-      psk = "WinterChills";
-      priority = 100;
-    };
+    # "MTShadows" = {
+    #   psk = "WinterChills";
+    #   priority = 100;
+    # };
     "labarbacoffee" = {
       psk = "labarbadraper";
       priority = 100;
@@ -74,6 +74,9 @@
     };
     "Bonjour Bakery Cafe_5G" = {
       psk = "bakedgoods";
+    };
+    "Home5536" = {
+      psk = "@HOME5536_PSK@";
     };
   };
 
@@ -219,7 +222,6 @@
     displayManager = {
       defaultSession = "none+i3";
     };
-
     libinput = {
       enable = true;
       touchpad = {
