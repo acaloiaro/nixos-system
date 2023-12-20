@@ -153,12 +153,14 @@
         ripgrep
         rofi
         stripe-cli
-        spotify-tui
+        spotify-player
         tailscale
         terraform
         terraform-lsp
         texlive.combined.scheme-tetex
         tmux
+        ungoogled-chromium
+        usbutils 
         pandoc 
         python3
         simplescreenrecorder
@@ -169,6 +171,7 @@
         w3m
         xclip
         unzip
+        zoom-us
       ];
     };   
   };
