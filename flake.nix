@@ -48,14 +48,14 @@
   # - The latest 'home-manager' is incompatbile with older "23.05" versions of nixpkgs
   # - Just sound won't work on the mainline kernel, but video acceleration does
   # - Video acceleration works on the mainline kernel on 'unstable', but not the raspberrypi kernel, which supports audio
-  inputs.nixpkgs-roampi.url = "github:nixos/nixpkgs?rev=29339c1529b2c3d650d9cf529d7318ed997c149f";
+  inputs.nixpkgs-pi.url = "github:nixos/nixpkgs?rev=29339c1529b2c3d650d9cf529d7318ed997c149f";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware?rev=34f96de8c9ad390d8717e3ca6260afd5f500de04";
-  inputs.home-manager-roampi = {
+  inputs.home-manager-pi = {
     url = "github:nix-community/home-manager?rev=32d3e39c491e2f91152c84f8ad8b003420eab0a1";
-    inputs.nixpkgs.follows = "nixpkgs-roampi";
+    inputs.nixpkgs.follows = "nixpkgs-pi";
   };
 
-  outputs = { nixpkgs, nixpkgs-roampi, nixos-hardware, home-manager, home-manager-roampi, homeage, agenix, nur, kitty-grab, language-servers, helix-master, ... }@inputs:
+  outputs = { nixpkgs, nixpkgs-pi, nixos-hardware, home-manager, home-manager-pi, homeage, agenix, nur, kitty-grab, language-servers, helix-master, ... }@inputs:
   let 
   	overlays = [ inputs.agenix.overlays.default inputs.nur.overlay];
     system = "x86_64-linux";
@@ -95,7 +95,7 @@
         ];
       };
 
-      roampi = nixpkgs-roampi.lib.nixosSystem {
+      roampi = nixpkgs-pi.lib.nixosSystem {
       	system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
@@ -103,7 +103,7 @@
            nur.nixosModules.nur
            agenix.nixosModules.default
           ./systems/pi/configuration.nix
-          home-manager-roampi.nixosModules.home-manager
+          home-manager-pi.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;
@@ -114,7 +114,7 @@
             };
           }
         ];
-      };
+      };      
     };
   };
 }

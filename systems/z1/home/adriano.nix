@@ -25,8 +25,6 @@
       "PGPASSWORD" = "postgres";
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
-      "NOMAD_TOKEN" = "$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}')";
-      "OPENAI_API_KEY" = "$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi| grep api | awk '{print $2}')";
     };
 
     file = {
@@ -248,6 +246,8 @@ font_size                12.0
       vi = "hx $*";
       vim = "hx $*";
       rebuild = "sudo nixos-rebuild --flake .#z1 switch";
+      nomad = "NOMAD_TOKEN=$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}') nomad $*";
+      chatgpt = "OPENAI_API_KEY=$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi| grep api | awk '{print $2}') chatgpt $*";
     };
 
     oh-my-zsh = {

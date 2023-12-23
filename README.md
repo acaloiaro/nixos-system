@@ -1,6 +1,6 @@
 # NixOS dotfiles 
 
-These dotfiles initialize my 'z1' system with NixOS
+These dotfiles initialize my primary system 'z1', and various raspberry PIs.
 
 # Install
 
@@ -8,6 +8,7 @@ These dotfiles initialize my 'z1' system with NixOS
 - At the install terminal, run `sudo -i`
 - Make this directory available to your installer, either by putting it on a separate usb drive, separate disk, or cloning the repo to the installer ramdisk.
 - Open `nixos-zfs-setup.sh` and modify it to your liking, paying special attention to the `DISK` variable. This should match the disk on which NixOS will be installed. It is also the disk on which the `esp` is installed. !!IF THERE IS ALREADY AN OS ON `DISK`, IT WILL BE WIPED OUT IN THE NEXT STEP!!
+- nixos-generate-config --root /mnt 
 - Run `bash nixos-zfs-setup.sh`
 - Add private keys corresponding with the public keys that encrypted the system's secrets to `/mnt/root/.ssh`
 - Copy our custom configs to where the installer will use them: `cp -rf * /mnt/etc/nixos`
