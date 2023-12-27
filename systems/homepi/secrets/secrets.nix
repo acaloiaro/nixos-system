@@ -1,0 +1,8 @@
+let 
+  homepi = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfzyZYbuGbITft9sYO3T7mJ14Hxk/fqtml4l7nWwoId3UlUuGI4eCHzxi8pZAmDgyAn1rglX8FAGUqLFkQaryoQ6N8Qx2Jpi2TNAudBjucxPsjLY8e7HjD12MhL8U2w7KsH/t7utlxSMVTodpNMMW1uuKbPF/9YnIyL5Mm1aoCfxIOUgDok8VXFgVptx26TfV+6GvaAAaFCnftiOjnSKsbcdVpvpU0LGtCEUyj803kjebSJ+VVPUT6jPs+4EQqzR74ZQKMgCwTrTVrYLG+d+p9zLOPUDLpIKeuA4i3dzFcs+XcR28FqQv8I7Kg3ICqM/Cmbc+eKvN6qqDKfA5GfXyPI7WSPfUcIANUrQrrw/ORL4ZmyJfeZsBm1MRMGevxtIzFm1qcpn39Oe7CSDGwmrONMybI4gD0SB5FndUEU7E+b/QoWq2QQ6sZ2EmSLBLui0RoM1Uth6q4J+anJUWXcqx7sBdkucv0UzVbgIYcKQXt+VzyyzXcLRfJOSiAgBLttZXqe3NwuZ3UaxFdhRbeslyhbzGrek8sJmeCowj+L9o4+lxZy6R2LLKXVnPhE7fweou84T1dglQ9ZbdqD+8ChY5KjP2nAZqZppA+JZOOifHhX5/tdA3qeKsMZUnbiYsAMqZ4ABYXKwLxUlmVGPd7TeY+erODlOu7f7QyUpvxSUJ/3w== code@adriano.fyi";
+  
+in {
+  "tailscale_key.age".publicKeys = [ homepi ];
+  "wireless_networks.age".publicKeys = [ homepi ];
+} 
+

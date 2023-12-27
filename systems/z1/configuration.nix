@@ -275,11 +275,11 @@
       # wait for tailscaled to settle
       sleep 2
 
-      # check if we are already authenticated to tailscale
-      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ $status = "Running" ]; then # if so, then do nothing
-        exit 0
-      fi
+      # # check if we are already authenticated to tailscale
+      # status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+      # if [ $status = "Running" ]; then # if so, then do nothing
+      #   exit 0
+      # fi
 
       # otherwise authenticate with tailscale
       ${tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale_key.path}) --accept-routes --reset
@@ -389,15 +389,16 @@
         devices = {
           "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
           "Miniroam" = { id = "F7UWLCE-JPZXXU2-4SHXZ3X-BM3T3U7-DTSVPVA-TXFYB67-5TCR574-MSYRJQR"; };
+          "homepi" = { id = "CGBRCYB-2USPMPW-VKMVC4N-7SF2QLX-W5WWKHX-YD22FCO-XFNTJPC-RCKW5AY"; };
         };
         folders = {
           "Documents" = {        # Name of folder in Syncthing, also the folder ID
             path = "/home/adriano/Nextcloud/Documents";    # Which folder to add to Syncthing
-            devices = [ "roampi" "Miniroam" ];      # Which devices to share the folder with
+            devices = [ "roampi" "Miniroam" "homepi" ];      # Which devices to share the folder with
           };
           "KB" = {        # Name of folder in Syncthing, also the folder ID
             path = "/home/adriano/KB";    # Which folder to add to Syncthing
-            devices = [ "roampi" "Miniroam" ];      # Which devices to share the folder with
+            devices = [ "roampi" "Miniroam" "homepi" ];      # Which devices to share the folder with
           };
 
         };

@@ -6,13 +6,11 @@ The private keys for the public keys listed in `secrets.nix` must be available o
 
 NixOS does not handle private keys with pass phrases well. It is recommended that one generate keys without passphrases, e.g. 
 
-> ssh-keygen -t rsa -b 4096 -C "code@adriano.fyi" -f ~/.ssh/id_rsa_<system_name> -P "" 
-
-Once keys have been generated for the new system, the private key needs to be transferred to the new system: `/root/.ssh/id_rsa`
+> ssh-keygen -t rsa -b 4096 -C "code@adriano.fyi" -f ~/.ssh/id_rsa_homepi -P ""
 
 ## Dependencies
 
-Adding keys and re-keying require `agenix` to be installed. On a nix system, install with `nix-shell -p agenix`.
+Adding keys and re-keying require `agenix` to be installed. On a nix system, install with `nix-env -i agenix`.
 
 ## Re-keying 
 

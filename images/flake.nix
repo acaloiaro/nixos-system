@@ -1,22 +1,43 @@
 {
-  description = "Build sd card images";
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-22.11";
-  outputs = { self, nixpkgs }: rec {
-    nixosConfigurations.rpi2 = nixpkgs.lib.nixosSystem {
-      nixpkgs.crossSystem.system = "armv7l-linux";
-      imports = [
-        <nixpkgs/nixos/modules/installer/sd-card/sd-image-aarch64.nix>
-      ];
+  description = "Build image";
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  inputs.agenix = {
+     url = "github:ryantm/agenix";
+     inputs.nixpkgs.follows = "nixpkgs";
+   };
+  inputs.homeage = {
+    url = "github:jordanisaacs/homeage";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  inputs.home-manager = {
+    url = "github:nix-community/home-manager/master";
+    inputs.nixpkgs.follows = "nixpkgs";
+   };
+
+  inputs.nixos-hardware.url = "github:nixos/nixos-hardware?rev=34f96de8c9ad390d8717e3ca6260afd5f500de04";
+
+  outputs = { self, agenix, homeage, home-manager, nixos-hardware, nixpkgs }@inputs: 
+  rec {
+    nixosConfigurations.rpi4 = nixpkgs.lib.nixosSystem {
+    	system = "aarch64-linux";
+      specialArgs = {inherit inputs;};
       modules = [
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-raspberrypi.nix"
+        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        # { environment.systemPackages = [ agenix.packages.aarch64-linux.default ]; }
+         agenix.nixosModules.default
+
+        # Below block enable cross-compiling from x86 to aarch
         {
           nixpkgs.config.allowUnsupportedSystem = true;
-          nixpkgs.hostPlatform.system = "armv7l-linux";
+          nixpkgs.hostPlatform.system = "aarch64-linux";
           nixpkgs.buildPlatform.system = "x86_64-linux"; #If you build on x86 other wise changes this.
-          # ... extra configs as above
         }
+        ./systems/homepi/default.nix
       ];
     };
-    images.rpi2 = nixosConfigurations.rpi2.config.system.build.sdImage;
+
+    # Enable reating an sd card image of this rpi4
+    images.rpi4 = nixosConfigurations.rpi4.config.system.build.sdImage;
   };
 }
