@@ -363,6 +363,49 @@ font_size                12.0
     };
   };
 
+  programs.qutebrowser = {
+        enable = true;
+        searchEngines = {
+          DEFAULT = "https://kagi.com/search?q={}";
+          ddg = "https://duckduckgo.com/?q={}";
+          hm = "https://mipmip.github.io/home-manager-option-search/?query={}";
+          nixpkgs = "https://search.nixos.org/packages?query={}";
+          nixos = "https://search.nixos.org/options?query={}";
+        };
+        keyBindings = let
+          # pass_cmd = "spawn --userscript qute-pass --dmenu-invocation dmenu --mode gopass --password-store ~/.password-store --username-target secret --username-pattern='(?:login|username): +(.*)'";
+          pass_cmd = "spawn --userscript qute-pass --dmenu-invocation dmenu --mode gopass --password-store ~/.password-store";
+        in {
+          normal = {
+            ",p" = pass_cmd;
+            # ",p" = "spawn --userscript qute-pass";
+            ",Pu" = "${pass_cmd} --username-only";
+            ",Pp" = "${pass_cmd} --password-only";
+            ",Po" = "${pass_cmd} --otp-only";
+            ",," = "config-cycle tabs.show never always";
+            ",qc" = "spawn --userscript ~/.local/bin/qute-logseq";
+          };
+        };
+        quickmarks = {
+          nixpkgs = "https://github.com/NixOS/nixpkgs";
+          home-manager = "https://github.com/nix-community/home-manager";
+        };
+        settings = {
+          spellcheck.languages = ["en-US" "es-ES"];
+          tabs = {
+            position = "left";
+            show = "always";
+            title = {
+              format = "{audio}{current_title}";
+              format_pinned = "{audio}📌 {current_title}";
+            };
+          };
+          fonts = {
+            default_size = "16px";
+          };
+        };
+      };
+
   programs.aerc = {
     enable = true;
     extraConfig = {
