@@ -81,6 +81,12 @@
     "Home5536" = {
       psk = "@HOME5536_PSK@";
     };
+    "CatskillHouse" = {
+      psk = "@CATSKIPP_HOUSE@";
+    };
+    hhonors = {
+      priority = 100;
+    };
   };
 
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
