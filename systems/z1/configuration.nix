@@ -47,7 +47,10 @@
   programs.dconf.enable = true;
 
   networking.hostName = "z1"; # Define your hostname.
-  networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.wireless = {
+   enable = true;
+   userControlled.enable = true; 
+  };
   networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
   networking.wireless.networks = {
     # "MTShadows" = {
@@ -172,6 +175,7 @@
         vlc
         weechat
         w3m
+        wpa_supplicant_gui
         xclip
         unzip
         zoom-us
