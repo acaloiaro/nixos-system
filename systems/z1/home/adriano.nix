@@ -217,6 +217,20 @@
     };
   };
 
+  programs.gh = {
+    enable = true;
+
+    gitCredentialHelper = {
+      enable = true;
+    };
+
+    settings = {
+      version = 1; # Workaround for https://github.com/nix-community/home-manager/issues/4744
+      editor = "hx";
+      git_protocol = "ssh";
+    };
+  };
+
   programs.kitty = {
     enable = true;
     theme = "GitHub Dark Dimmed"; # For normal/lower light environments 
