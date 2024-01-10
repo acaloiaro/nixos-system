@@ -535,6 +535,21 @@ font_size                12.0
 
   xdg = {
     enable = true;
+    mime.enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = let
+        browser = "org.qutebrowser.qutebrowser.desktop";
+      in {
+        "text/html" = browser;
+        "x-scheme-handler/http" = browser;
+        "x-scheme-handler/https" = browser;
+        "x-scheme-handler/about" = browser;
+        "x-scheme-handler/unknown" = browser;
+
+        "x-scheme-handler/logseq" = "Logseq.desktop";
+      };
+    };
     desktopEntries = {
       beeper-desktop = {
         name = "Beeper";
