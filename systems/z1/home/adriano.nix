@@ -533,6 +533,16 @@ font_size                12.0
     postExec = "${config.xdg.configHome}/mbsync/postExec";
   };
 
-  xdg.enable = true;
+  xdg = {
+    enable = true;
+    desktopEntries = {
+      beeper-desktop = {
+        name = "Beeper";
+        type = "Application";
+        exec = "beeper %U";
+        icon = "beeper";
+      };
+    };
+  };
 }
 
