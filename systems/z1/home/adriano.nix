@@ -385,6 +385,7 @@ font_size                12.0
           hm = "https://mipmip.github.io/home-manager-option-search/?query={}";
           nixpkgs = "https://search.nixos.org/packages?query={}";
           nixos = "https://search.nixos.org/options?query={}";
+          nixman = "https://nixos.org/manual/nix/unstable/?search={}";
         };
         keyBindings = let
           # pass_cmd = "spawn --userscript qute-pass --dmenu-invocation dmenu --mode gopass --password-store ~/.password-store --username-target secret --username-pattern='(?:login|username): +(.*)'";
