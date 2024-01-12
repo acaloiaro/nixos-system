@@ -388,12 +388,10 @@ font_size                12.0
           nixman = "https://nixos.org/manual/nix/unstable/?search={}";
         };
         keyBindings = let
-          # pass_cmd = "spawn --userscript qute-pass --dmenu-invocation dmenu --mode gopass --password-store ~/.password-store --username-target secret --username-pattern='(?:login|username): +(.*)'";
           pass_cmd = "spawn --userscript qute-pass --dmenu-invocation dmenu --mode gopass --password-store ~/.password-store";
         in {
           normal = {
             ",p" = pass_cmd;
-            # ",p" = "spawn --userscript qute-pass";
             ",Pu" = "${pass_cmd} --username-only";
             ",Pp" = "${pass_cmd} --password-only";
             ",Po" = "${pass_cmd} --otp-only";
@@ -406,7 +404,7 @@ font_size                12.0
           home-manager = "https://github.com/nix-community/home-manager";
         };
         settings = {
-          spellcheck.languages = ["en-US" "es-ES"];
+          spellcheck.languages = ["en-US"];
           tabs = {
             position = "left";
             show = "always";
@@ -418,6 +416,8 @@ font_size                12.0
           fonts = {
             default_size = "16px";
           };
+
+          zoom.default = "120%";
         };
       };
 
