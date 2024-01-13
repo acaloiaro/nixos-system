@@ -142,6 +142,7 @@
         kitty
         language-servers.packages.${system}.vscode-langservers-extracted # For vscode-html-language-server, vscode-css-language-server, vscode-json-language-server in Helix
         lazygit
+        libreoffice
         ltex-ls
         chatgpt-cli
         git
