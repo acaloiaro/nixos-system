@@ -62,28 +62,9 @@
     pkgs = import nixpkgs {
       config = { 
         allowUnfree = true; 
-        permittedInsecurePackages = [
-          "electron-25.9.0"
-        ];
       }; 
       inherit overlays system;  
     };
-
-    beeperApp = let
-      name = "beeper";
-      src = pkgs.fetchurl {
-        url = "https://download.beeper.com/linux/appImage/x64";
-        hash = "sha256-QceHUVOBMDjrkSHCEG5rjHJRzVmOUEDhUJ8p9CTbIKk=";
-      };
-      imageContents = pkgs.appimageTools.extractType2 {inherit src name;};
-    in
-      pkgs.appimageTools.wrapType2 {
-        inherit name src;
-
-        extraInstallCommands = ''
-          install -m 444 -D ${imageContents}/usr/share/icons/hicolor/64x64/apps/beeper.png $out/share/icons/beeper.png
-        '';
-      };
   in
   {
 
@@ -93,7 +74,7 @@
         inherit pkgs;
         specialArgs = {inherit inputs;};
         modules = [
-          { environment.systemPackages = [ agenix.packages.x86_64-linux.default beeperApp ]; }
+          { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
            nur.nixosModules.nur
            agenix.nixosModules.default
           ./systems/z1/configuration.nix
