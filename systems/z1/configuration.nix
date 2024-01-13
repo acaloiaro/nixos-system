@@ -94,7 +94,7 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
-    font = "roboto";
+    font = "Isoveke";
     useXkbConfig = true; # use xkbOptions in tty.
   };
 
@@ -420,11 +420,12 @@
       ubuntu_font_family
       noto-fonts
       noto-fonts-color-emoji
+      iosevka
     ];
     fontconfig = {
       defaultFonts = {
-        sansSerif = [ "Ubuntu" "Noto Color Emoji" ];
-        serif = [ "Ubuntu" "Noto Color Emoji" ];
+        sansSerif = [ "Iosevka" "Noto Color Emoji" ];
+        serif = [ "Iosevka" "Noto Color Emoji" ];
         emoji = [ "Noto Color Emoji" ];
       };
     };
