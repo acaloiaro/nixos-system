@@ -152,7 +152,6 @@
         ivpn
         jq
         logseq
-        nextcloud-client
         nix-index
         nodejs
         nodePackages.typescript-language-server
@@ -400,7 +399,7 @@
         };
         folders = {
           "Documents" = {        # Name of folder in Syncthing, also the folder ID
-            path = "/home/adriano/Nextcloud/Documents";    # Which folder to add to Syncthing
+            path = "/home/adriano/Documents";    # Which folder to add to Syncthing
             devices = [ "roampi" "Miniroam" "homepi" ];      # Which devices to share the folder with
           };
           "KB" = {        # Name of folder in Syncthing, also the folder ID
