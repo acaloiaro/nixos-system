@@ -24,12 +24,12 @@
   };
   
   inputs.ess = {
-    url = "github:acaloiaro/ess";
+    url = "github:acaloiaro/ess/v2.8.0";
     inputs.nixpkgs.follows = "nixpkgs";
   };
   
   inputs.di-tui = {
-    url = "github:acaloiaro/di-tui/v1.3.27";
+    url = "github:acaloiaro/di-tui/v1.3.35";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
