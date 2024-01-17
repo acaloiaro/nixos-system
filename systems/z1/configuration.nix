@@ -47,15 +47,25 @@
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
   # Login and sudo with 
-  security.pam.services = {
-    login.u2fAuth = true;
-    sudo.u2fAuth = true;
+  security.pam = {
+    u2f = {
+      cue = true; # Show prompt when u2f is being requested, e.g. for sudo 
+      control = "sufficient"; # Yubikey is sufficient for authentication, no second factor required
+    };
+    
+    services = {
+      login.u2fAuth = true;
+      sudo.u2fAuth = true;
+      i3lock.u2fAuth = true;
+    };
   };
 
+  programs.i3lock.u2fSupport = true;
+  
   # Only allow authentication with my serial id 
   security.pam.yubico = {
    enable = true;
-   debug = true;
+   debug = false;
    mode = "challenge-response";
    id = [ "24654932" ];
   };
@@ -213,6 +223,7 @@
         wpa_supplicant_gui
         xclip
         unzip
+        yubikey-manager
         zoom-us
       ];
     };   
