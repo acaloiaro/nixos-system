@@ -202,7 +202,7 @@
     userEmail = "code@adriano.fyi";
     
     signing = {
-      key = "DCBD21758A309C1F41D7A0FC890FFDB11860FE1C";
+      key = "C2BC56DE73CE3F75!";
       signByDefault = true;
     };
 
@@ -312,8 +312,6 @@ font_size                12.0
     alias people="vim ~/KB/pages/People.md"
     alias notes="hx ~/KB"
     alias open="xdg-open $*"
-    alias shoppinglist="hx ~/Nextcloud/Documents/Personal/Shopping\ List.md"
-    alias recipes="vi ~/Nextcloud/Documents/Personal/recipes"
     alias quickqr='a() { qrencode -o qr.png $1 && ((open qr.png; sleep 15; rm qr.png ) &)}; a &>/dev/null'
     alias xclip="xclip -selection clipboard $*"
     alias speedtest='echo "$(curl -skLO https://git.io/speedtest.sh && chmod +x speedtest.sh && ./speedtest.sh && rm speedtest.sh)"'
@@ -332,9 +330,11 @@ font_size                12.0
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
+    enableScDaemon = true;
 
-    defaultCacheTtl = 60 * 60 * 12;
-    defaultCacheTtlSsh = 60 * 60 * 12;
+    maxCacheTtl = 60 * 60 * 24;
+    defaultCacheTtl = 60 * 60 * 24;
+    defaultCacheTtlSsh = 60 * 60 * 24;
   };
 
   programs.firefox = {
@@ -500,7 +500,7 @@ font_size                12.0
       gpg = {
         encryptByDefault = true;
         signByDefault = true;
-        key = "DCBD21758A309C1F41D7A0FC890FFDB11860FE1C";
+        key = "C2BC56DE73CE3F75!";
       };
     };
 

@@ -82,7 +82,8 @@
 
   # Smartcard support
   services.pcscd.enable = true; 
-  
+  hardware.gpgSmartcards.enable = true;
+
   # /Yubikey
 
   environment.pathsToLink = [ "/libexec" ];
