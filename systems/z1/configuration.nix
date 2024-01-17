@@ -157,6 +157,7 @@
         nodePackages.typescript-language-server
         nomad_1_4
         nil # nix lsp
+        playerctl
         python310Packages.python-lsp-server
         ripgrep
         rofi
