@@ -43,6 +43,38 @@
     };
   };
 
+  # Yubikey
+  services.udev.packages = [ pkgs.yubikey-personalization ];
+
+  # Login and sudo with 
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+  };
+
+  # Only allow authentication with my serial id 
+  security.pam.yubico = {
+   enable = true;
+   debug = true;
+   mode = "challenge-response";
+   id = [ "24654932" ];
+  };
+
+  # lock screen un unplug
+  services.udev.extraRules = ''
+      ACTION=="remove",\
+       ENV{ID_BUS}=="usb",\
+       ENV{ID_MODEL_ID}=="0407",\
+       ENV{ID_VENDOR_ID}=="1050",\
+       ENV{ID_VENDOR}=="Yubico",\
+       RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+  '';
+
+  # Smartcard support
+  services.pcscd.enable = true; 
+  
+  # /Yubikey
+
   environment.pathsToLink = [ "/libexec" ];
   programs.dconf.enable = true;
 
