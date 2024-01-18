@@ -1,0 +1,71 @@
+[[language]]
+name = "hcl"
+scope = "source.tf"
+roots = ["main.tf", ".terraform.d"]
+file-types = ["hcl", "tf"]
+auto-format = true
+language-servers = [ "terraform-lsp" ]
+
+[[language]]
+name = "go"
+formatter = { command = "goimports" }
+# config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable = true } }
+
+[[language]]
+name = "nix"
+scope = "source.nix"
+injection-regex = "nix"
+file-types = ["nix"]
+shebangs = []
+roots = []
+comment-token = "#"
+language-servers = [ "nil" ]
+indent = { tab-width = 2, unit = "  " }
+auto-format = true 
+
+[[language]]
+name = "markdown"
+file-types = ["md", "eml"]
+language-servers = [ "ltex-ls "]
+
+[[language]]
+name = "html"
+file-types = ["html"]
+auto-format = false
+language-servers = ["vscode-html-language-server"]
+
+[[language]]
+name = "css"
+file-types = ["css", "scss"]
+language-servers = ["vscode-css-language-server"] 
+
+[[language]]
+name = "javascript"
+file-types = ["js"]
+language-servers = ["typescript-language-server"]
+
+[[grammar]]
+name = "nix"
+source = { git = "https://github.com/nix-community/tree-sitter-nix", rev = "1b69cf1fa92366eefbe6863c184e5d2ece5f187d" }
+
+[language-server."terraform-lsp"]
+command = "terraform-lsp"
+
+[language-server.nil]
+command = "nil"
+
+[language-server."ltex-ls"]
+command = "ltex-ls"
+
+[language-server."vscode-html-language-server"]
+command = "vscode-html-language-server"
+args = ["--add-flags", "--stdio"]
+
+[language-server."vscode-css-language-server"]
+command = "vscode-css-language-server"
+args = ["--add-flags", "--stdio"] 
+
+[language-server."typescript-language-server"]
+command = "typescript-language-server"
+args = ["--stdio"]
+

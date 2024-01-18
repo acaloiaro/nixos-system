@@ -16,7 +16,6 @@
    };
 
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware?rev=34f96de8c9ad390d8717e3ca6260afd5f500de04";
-
   outputs = { self, agenix, homeage, home-manager, nixos-hardware, nixpkgs }@inputs: 
   rec {
     nixosConfigurations.rpi4 = nixpkgs.lib.nixosSystem {
@@ -37,7 +36,16 @@
       ];
     };
 
-    # Enable reating an sd card image of this rpi4
+    
+    nixosConfigurations.zw = nixpkgs.lib.nixosSystem {
+    	system = "x86_64-linux";
+      modules = [
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix"
+        "${nixpkgs}/nixos/modules/installer/cd-dvd/channel.nix"
+      ];
+    };
+    
     images.rpi4 = nixosConfigurations.rpi4.config.system.build.sdImage;
+    images.zw = nixosConfigurations.zw.config.system.build.isoImage;
   };
 }

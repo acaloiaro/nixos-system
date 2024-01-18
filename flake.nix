@@ -111,6 +111,29 @@
         ];
       };
 
+      zw = nixpkgs.lib.nixosSystem {
+      	system = "x86_64-linux";
+        inherit pkgs;
+        specialArgs = {inherit inputs;};
+        modules = [
+          { environment.systemPackages = [ agenix.packages.x86_64-linux.default beeperApp ]; }
+           nur.nixosModules.nur
+           agenix.nixosModules.default
+          ./systems/z1/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.backupFileExtension = "backup";
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.adriano = import ./systems/z1/home/adriano.nix;
+            home-manager.users.root = import ./systems/z1/home/root.nix;
+            home-manager.extraSpecialArgs = {
+              inherit kitty-grab agenix homeage helix-master;
+            };
+          }
+        ];
+      };
+
       roampi = nixpkgs-pi.lib.nixosSystem {
       	system = "aarch64-linux";
         specialArgs = {inherit inputs;};

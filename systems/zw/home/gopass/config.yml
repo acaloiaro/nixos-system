@@ -1,0 +1,11 @@
+autoclip: true
+autoimport: true
+cliptimeout: 45
+exportkeys: true
+nopager: false
+notifications: true
+parsing: false
+path: /home/adriano/.password-store
+safecontent: false
+mounts:
+    zenitylabs: /home/adriano/git/zenity-gopass-store
