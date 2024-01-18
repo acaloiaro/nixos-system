@@ -75,16 +75,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1705368285,
-        "narHash": "sha256-sDoMDIcud+NOoun+OTWY+ES4k+DA05VrKiLPqnFQa/s=",
+        "lastModified": 1705595864,
+        "narHash": "sha256-e/XwB3n/rupwyAbAY3/TTi8GXCf+5Osq5UKV9kU8NnE=",
         "owner": "acaloiaro",
         "repo": "di-tui",
-        "rev": "d9cc81dbc5e8c125b259b472cf3c33f4bef2274f",
+        "rev": "3704828d45686bb1ecd0c6b1f9599f8432b58d65",
         "type": "github"
       },
       "original": {
         "owner": "acaloiaro",
-        "ref": "v1.3.35",
+        "ref": "v1.5.0",
         "repo": "di-tui",
         "type": "github"
       }
@@ -98,16 +98,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1705361475,
-        "narHash": "sha256-8OiveWqDo5lcFDXIji6CTXTDx6g4F0NdnDxyVx6iPqI=",
+        "lastModified": 1705597355,
+        "narHash": "sha256-xfch1HV5pEEnT+vpcSV6zzOgO0/XWTeacwDXVCdR7KM=",
         "owner": "acaloiaro",
         "repo": "ess",
-        "rev": "d09e07247cc123dd2761d70a766c437bb256b42f",
+        "rev": "a521398df20ddb8918a8a6ef8c33f58878b033bc",
         "type": "github"
       },
       "original": {
         "owner": "acaloiaro",
-        "ref": "v2.8.0",
+        "ref": "v2.9.0",
         "repo": "ess",
         "type": "github"
       }
