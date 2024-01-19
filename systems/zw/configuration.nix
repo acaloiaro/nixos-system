@@ -23,7 +23,7 @@
 
   # Configure secrets 
   age = {
-    identityPaths = [ "/root/.ssh/id_rsa" ];
+    identityPaths = [ "/root/.ssh/id_rsa_agenix" ];
     secrets = {
       wireless_networks = {
         file = ./secrets/wireless_networks.age;
@@ -165,6 +165,7 @@
       packages = with pkgs; with inputs; [
         abook
         appimagekit
+        beeper
         clipmenu
         ctags
         dante

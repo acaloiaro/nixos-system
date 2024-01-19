@@ -9,8 +9,8 @@
     installationType = "systemd";
 
     file."spotify-player-config" = {
-      source = ../secrets/spotify-player-config.age;
-      symlinks = [ "${config.xdg.configHome}/spotify_player/config_file.conf" ];
+      source = ../secrets/spotify_password.age;
+      symlinks = [ "${config.xdg.configHome}/spotifyd/password" ];
     };  
   };  
 

@@ -165,6 +165,7 @@
       packages = with pkgs; with inputs; [
         abook
         appimagekit
+        beeper
         clipmenu
         ctags
         dante

@@ -8,63 +8,63 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "data/nixos";
+    { device = "rpool/nixos";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
       neededForBoot = true;
     };
 
   fileSystems."/home" =
-    { device = "data/nixos/home";
+    { device = "rpool/nixos/home";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
       neededForBoot = true;
     };
 
   fileSystems."/nix" =
-    { device = "data/nixos/nix";
+    { device = "rpool/nixos/nix";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/root" =
-    { device = "data/nixos/root";
+    { device = "rpool/nixos/root";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
       neededForBoot = true;
     };
 
   fileSystems."/usr" =
-    { device = "data/nixos/usr";
+    { device = "rpool/nixos/usr";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/var" =
-    { device = "data/nixos/var";
+    { device = "rpool/nixos/var";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
     };
 
   fileSystems."/boot" =
-    { device = "boot/nixos/boot";
+    { device = "bpool/nixos/boot";
       fsType = "zfs"; options = [ "zfsutil" "X-mount.mkdir" ];
       neededForBoot = true;
     };
 
-  fileSystems."/boot/efis/efi-boot0" =
-    { device = "/dev/disk/by-partlabel/z-efi-boot0";
+  fileSystems."/boot/efis/nixos-efi-boot0" =
+    { device = "/dev/disk/by-uuid/12CE-A600";
       fsType = "vfat";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/boot/efis/zw-efi-boot0";
+    { device = "/boot/efis/nixos-efi-boot0";
       fsType = "none";
       options = [ "bind" ];
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-partlabel/zwswap0"; }
+    [ { device = "/dev/disk/by-uuid/29a201ea-75d5-4321-9d8b-c3fb4510323d"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -72,10 +72,8 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  networking.interfaces.enp38s0f1.useDHCP = lib.mkDefault true;
-  networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
