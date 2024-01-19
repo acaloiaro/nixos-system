@@ -321,11 +321,6 @@ font_size                12.0
   '';
   };
 
-  services.nextcloud-client = {
-    enable = true;
-    startInBackground = true;
-  };
-
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
