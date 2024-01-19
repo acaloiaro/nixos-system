@@ -34,6 +34,7 @@ This is my primary System76 system.
 - Add private keys corresponding with the public keys that encrypted the system's secrets to `/mnt/root/.ssh`
 - Copy our custom configs to where the installer will use them: `cp -rf * /mnt/etc/nixos`
 - `cd /mnt/etc/nixos`
+- `mv hardware-configuration.nix systems/z1`
 - See `Rescue / Install help` for how to connect to a wifi network
 - Install NixOS on the system: `nixos-install --flake .#z1`
 - `umount -Rl /mnt && swapoff -a && zpool export -a && reboot`
