@@ -6,28 +6,28 @@
   inputs.home-manager = {
     url = "github:nix-community/home-manager/master";
     inputs.nixpkgs.follows = "nixpkgs";
-   };
+  };
 
   inputs.agenix = {
-     url = "github:ryantm/agenix";
-     inputs.nixpkgs.follows = "nixpkgs";
-   };
-  
+    url = "github:ryantm/agenix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.homeage = {
     url = "github:jordanisaacs/homeage";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  
+
   inputs.kitty-grab = {
     url = "github:yurikhan/kitty_grab";
     flake = false;
   };
-  
+
   inputs.ess = {
-    url = "github:acaloiaro/ess/v2.9.0";
+    url = "github:acaloiaro/ess/v2.10.0";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  
+
   inputs.di-tui = {
     url = "github:acaloiaro/di-tui/v1.5.0";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -43,7 +43,7 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  # Raspberry pi inputs. These are locked at various revisions that are a balancing act between a confluence of bugs. 
+  # Raspberry pi inputs. These are locked at various revisions that are a balancing act between a confluence of bugs.
   # The biggest of which is that the raspberry pi hardware overlays on "unstable" don't work. Some others:
   # - The latest 'home-manager' is incompatbile with older "23.05" versions of nixpkgs
   # - Just sound won't work on the mainline kernel, but video acceleration does
@@ -55,32 +55,41 @@
     inputs.nixpkgs.follows = "nixpkgs-pi";
   };
 
-  outputs = { nixpkgs, nixpkgs-pi, nixos-hardware, home-manager, home-manager-pi, homeage, agenix, nur, kitty-grab, language-servers, helix-master, ... }@inputs:
-  let 
-  	overlays = [ inputs.agenix.overlays.default inputs.nur.overlay];
+  outputs = {
+    nixpkgs,
+    nixpkgs-pi,
+    nixos-hardware,
+    home-manager,
+    home-manager-pi,
+    homeage,
+    agenix,
+    nur,
+    kitty-grab,
+    language-servers,
+    helix-master,
+    ...
+  } @ inputs: let
+    overlays = [inputs.agenix.overlays.default inputs.nur.overlay];
     system = "x86_64-linux";
     pkgs = import nixpkgs {
-      config = { 
-        allowUnfree = true; 
+      config = {
+        allowUnfree = true;
         permittedInsecurePackages = [
           "electron-25.9.0"
         ];
-      }; 
-      inherit overlays system;  
+      };
+      inherit overlays system;
     };
-
-  in
-  {
-
+  in {
     nixosConfigurations = {
       z1 = nixpkgs.lib.nixosSystem {
-      	system = "x86_64-linux";
+        system = "x86_64-linux";
         inherit pkgs;
         specialArgs = {inherit inputs;};
         modules = [
-          { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
-           nur.nixosModules.nur
-           agenix.nixosModules.default
+          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
+          nur.nixosModules.nur
+          agenix.nixosModules.default
           ./systems/z1/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -97,13 +106,13 @@
       };
 
       zw = nixpkgs.lib.nixosSystem {
-      	system = "x86_64-linux";
+        system = "x86_64-linux";
         inherit pkgs;
         specialArgs = {inherit inputs;};
         modules = [
-          { environment.systemPackages = [ agenix.packages.x86_64-linux.default ]; }
-           nur.nixosModules.nur
-           agenix.nixosModules.default
+          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
+          nur.nixosModules.nur
+          agenix.nixosModules.default
           ./systems/zw/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -120,12 +129,12 @@
       };
 
       roampi = nixpkgs-pi.lib.nixosSystem {
-      	system = "aarch64-linux";
+        system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          { environment.systemPackages = [ agenix.packages.aarch64-linux.default ]; }
-           nur.nixosModules.nur
-           agenix.nixosModules.default
+          {environment.systemPackages = [agenix.packages.aarch64-linux.default];}
+          nur.nixosModules.nur
+          agenix.nixosModules.default
           ./systems/pi/configuration.nix
           home-manager-pi.nixosModules.home-manager
           {
@@ -138,15 +147,15 @@
             };
           }
         ];
-      };      
+      };
 
       homepi = nixpkgs-pi.lib.nixosSystem {
-      	system = "aarch64-linux";
+        system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          { environment.systemPackages = [ agenix.packages.aarch64-linux.default ]; }
-           nur.nixosModules.nur
-           agenix.nixosModules.default
+          {environment.systemPackages = [agenix.packages.aarch64-linux.default];}
+          nur.nixosModules.nur
+          agenix.nixosModules.default
           ./systems/homepi/configuration.nix
           home-manager-pi.nixosModules.home-manager
           {
@@ -159,7 +168,7 @@
             };
           }
         ];
-      };      
+      };
     };
   };
 }
