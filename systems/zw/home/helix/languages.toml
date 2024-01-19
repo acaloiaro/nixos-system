@@ -11,17 +11,13 @@ name = "go"
 formatter = { command = "goimports" }
 # config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable = true } }
 
+
 [[language]]
 name = "nix"
-scope = "source.nix"
-injection-regex = "nix"
-file-types = ["nix"]
-shebangs = []
-roots = []
-comment-token = "#"
-language-servers = [ "nil" ]
-indent = { tab-width = 2, unit = "  " }
-auto-format = true 
+auto-format = true
+language-servers = ["nil"]
+[language.formatter]
+command = "alejandra"
 
 [[language]]
 name = "markdown"

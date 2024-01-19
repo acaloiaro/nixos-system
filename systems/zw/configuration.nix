@@ -43,6 +43,9 @@
     };
   };
 
+  # Fingerprint auth
+  services.fprintd.enable = true;
+  
   # Yubikey
   services.udev.packages = [ pkgs.yubikey-personalization ];
 
@@ -164,6 +167,7 @@
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"	 ];
       packages = with pkgs; with inputs; [
         abook
+        alejandra
         appimagekit
         beeper
         clipmenu
@@ -174,6 +178,7 @@
         direnv
         dmenu
         ess.packages.${system}.default
+        fprintd
         fzf
         gcc8
         gimp
@@ -221,6 +226,7 @@
         tree
         vlc
         weechat
+        widevine-cdm
         w3m
         wpa_supplicant_gui
         xclip
@@ -434,11 +440,12 @@
       user = "adriano";
       dataDir = "/home/adriano/.config/syncthing";
       configDir = "/home/adriano/.config/syncthing/config";
-      guiAddress = "100.98.115.99:8384";
+      guiAddress = "100.81.21.118:8384";
       overrideDevices = true;     # overrides any devices added or deleted through the WebUI
       overrideFolders = true;     # overrides any folders added or deleted through the WebUI
       settings = {
         devices = {
+          "z1" = { id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU"; };
           "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
           "Miniroam" = { id = "F7UWLCE-JPZXXU2-4SHXZ3X-BM3T3U7-DTSVPVA-TXFYB67-5TCR574-MSYRJQR"; };
           "homepi" = { id = "CGBRCYB-2USPMPW-VKMVC4N-7SF2QLX-W5WWKHX-YD22FCO-XFNTJPC-RCKW5AY"; };
@@ -446,13 +453,12 @@
         folders = {
           "Documents" = {        # Name of folder in Syncthing, also the folder ID
             path = "/home/adriano/Documents";    # Which folder to add to Syncthing
-            devices = [ "roampi" "Miniroam" "homepi" ];      # Which devices to share the folder with
+            devices = [ "roampi" "Miniroam" "homepi" "z1" ];      # Which devices to share the folder with
           };
           "KB" = {        # Name of folder in Syncthing, also the folder ID
             path = "/home/adriano/KB";    # Which folder to add to Syncthing
-            devices = [ "roampi" "Miniroam" "homepi" ];      # Which devices to share the folder with
+            devices = [ "roampi" "Miniroam" "homepi" "z1" ];      # Which devices to share the folder with
           };
-
         };
       };
     };
