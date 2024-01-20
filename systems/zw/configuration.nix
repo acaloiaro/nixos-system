@@ -1,19 +1,23 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running `nixos-help`).
-{ config, pkgs, inputs, ...}: {
-
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./zfs.nix
-    ];
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./zfs.nix
+  ];
 
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
-      '';
+    '';
     gc = {
       automatic = true;
       dates = "weekly";
@@ -21,14 +25,14 @@
     };
   };
 
-  # Configure secrets 
+  # Configure secrets
   age = {
-    identityPaths = [ "/root/.ssh/id_rsa_agenix" ];
+    identityPaths = ["/root/.ssh/id_rsa_agenix"];
     secrets = {
       wireless_networks = {
         file = ./secrets/wireless_networks.age;
       };
-      
+
       tailscale_key = {
         file = ./secrets/tailscale_key.age;
       };
@@ -45,17 +49,17 @@
 
   # Fingerprint auth
   services.fprintd.enable = true;
-  
-  # Yubikey
-  services.udev.packages = [ pkgs.yubikey-personalization ];
 
-  # Login and sudo with 
+  # Yubikey
+  services.udev.packages = [pkgs.yubikey-personalization];
+
+  # Login and sudo with
   security.pam = {
     u2f = {
-      cue = true; # Show prompt when u2f is being requested, e.g. for sudo 
+      cue = true; # Show prompt when u2f is being requested, e.g. for sudo
       control = "sufficient"; # Yubikey is sufficient for authentication, no second factor required
     };
-    
+
     services = {
       login.u2fAuth = true;
       sudo.u2fAuth = true;
@@ -64,38 +68,38 @@
   };
 
   programs.i3lock.u2fSupport = true;
-  
-  # Only allow authentication with my serial id 
+
+  # Only allow authentication with my serial id
   security.pam.yubico = {
-   enable = true;
-   debug = false;
-   mode = "challenge-response";
-   id = [ "24654932" ];
+    enable = true;
+    debug = false;
+    mode = "challenge-response";
+    id = ["24654932"];
   };
 
   # lock screen un unplug
   services.udev.extraRules = ''
-      ACTION=="remove",\
-       ENV{ID_BUS}=="usb",\
-       ENV{ID_MODEL_ID}=="0407",\
-       ENV{ID_VENDOR_ID}=="1050",\
-       ENV{ID_VENDOR}=="Yubico",\
-       RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
+    ACTION=="remove",\
+     ENV{ID_BUS}=="usb",\
+     ENV{ID_MODEL_ID}=="0407",\
+     ENV{ID_VENDOR_ID}=="1050",\
+     ENV{ID_VENDOR}=="Yubico",\
+     RUN+="${pkgs.systemd}/bin/loginctl lock-sessions"
   '';
 
   # Smartcard support
-  services.pcscd.enable = true; 
+  services.pcscd.enable = true;
   hardware.gpgSmartcards.enable = true;
 
   # /Yubikey
 
-  environment.pathsToLink = [ "/libexec" ];
+  environment.pathsToLink = ["/libexec"];
   programs.dconf.enable = true;
 
   networking.hostName = "zw"; # Define your hostname.
   networking.wireless = {
-   enable = true;
-   userControlled.enable = true; 
+    enable = true;
+    userControlled.enable = true;
   };
   networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
   networking.wireless.networks = {
@@ -149,7 +153,7 @@
 
   # Enable bluetooth and sound
   hardware.pulseaudio.enable = true;
-  hardware.bluetooth.enable = true;  
+  hardware.bluetooth.enable = true;
   sound.enable = true;
   services.dbus.enable = true;
   services.blueman.enable = true;
@@ -160,12 +164,14 @@
     mutableUsers = true;
     users.adriano = {
       isNormalUser = true;
-      extraGroups = [ "wheel" "networkmanager" "docker" ]; # Enable ‘sudo’ for the user.
+      extraGroups = ["wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
       password = "Iliketochangeitchangeit";
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
-        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"	 ];
-      packages = with pkgs; with inputs; [
+        "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"
+      ];
+      packages = with pkgs;
+      with inputs; [
         abook
         alejandra
         appimagekit
@@ -196,7 +202,7 @@
         chatgpt-cli
         git
         go_1_21
-        gopls	
+        gopls
         gscreenshot
         ivpn
         jq
@@ -218,8 +224,8 @@
         texlive.combined.scheme-tetex
         tmux
         ungoogled-chromium
-        usbutils 
-        pandoc 
+        usbutils
+        pandoc
         python3
         simplescreenrecorder
         speedtest-cli
@@ -234,7 +240,7 @@
         yubikey-manager
         zoom-us
       ];
-    };   
+    };
   };
 
   environment.etc."dict.conf".text = "server dict.org";
@@ -265,8 +271,8 @@
     enable = true;
     settings.PasswordAuthentication = true;
   };
-  services.redis.servers."zw".enable=true;
-  services.redis.servers."zw".port=6379;
+  services.redis.servers."zw".enable = true;
+  services.redis.servers."zw".port = 6379;
 
   services.xserver = {
     enable = true;
@@ -290,10 +296,10 @@
           Option "PalmDetection" "on"
         '';
       };
-    };    
+    };
 
-    # Can't figure out how to enable natural scrolling. Ideally what I want is natural scrolling AND palm detection, 
-    # but for now, it seems like I can't have both without getting my hands more dirty. Switching back to libinput 
+    # Can't figure out how to enable natural scrolling. Ideally what I want is natural scrolling AND palm detection,
+    # but for now, it seems like I can't have both without getting my hands more dirty. Switching back to libinput
     synaptics = {
       enable = false;
       palmDetect = true;
@@ -308,10 +314,26 @@
   services.actkbd = {
     enable = true;
     bindings = [
-      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
-      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
-      { keys = [ 114 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l adriano -c 'amixer -q set Master 5%- unmute'"; }
-      { keys = [ 115 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/runuser -l adriano -c 'amixer -q set Master 5%+ unmute'"; }
+      {
+        keys = [225];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/light -A 10";
+      }
+      {
+        keys = [224];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/light -U 10";
+      }
+      {
+        keys = [114];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/runuser -l adriano -c 'amixer -q set Master 5%- unmute'";
+      }
+      {
+        keys = [115];
+        events = ["key"];
+        command = "/run/current-system/sw/bin/runuser -l adriano -c 'amixer -q set Master 5%+ unmute'";
+      }
     ];
   };
 
@@ -321,9 +343,9 @@
     enable = true;
 
     # make sure tailscale is running before trying to connect to tailscale
-    after = [ "network-pre.target" "tailscale.service" ];
-    wants = [ "network-pre.target" "tailscale.service" ];
-    wantedBy = [ "multi-user.target" ];
+    after = ["network-pre.target" "tailscale.service"];
+    wants = ["network-pre.target" "tailscale.service"];
+    wantedBy = ["multi-user.target"];
 
     # set this service as a oneshot job
     serviceConfig.Type = "oneshot";
@@ -371,11 +393,10 @@
   };
 
   systemd.timers.address-book-sync = {
-    wantedBy = [ "timers.target" ];
-    partOf = [ "address-book-sync.service" ];
+    wantedBy = ["timers.target"];
+    partOf = ["address-book-sync.service"];
     timerConfig = {
       OnCalendar = "*-*-* 00:00:00";
-      
     };
   };
 
@@ -384,35 +405,34 @@
     enable = true;
 
     # always allow traffic from your Tailscale network
-    trustedInterfaces = [ "tailscale0" ];
+    trustedInterfaces = ["tailscale0"];
 
     # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [ config.services.tailscale.port ];
+    allowedUDPPorts = [config.services.tailscale.port];
 
     # allow you to SSH in over the public internet
-    allowedTCPPorts = [ 22 ];
+    allowedTCPPorts = [22];
   };
-
 
   services.postgresql = {
     enable = true;
-    ensureDatabases = [ "neoq" ];
+    ensureDatabases = ["neoq"];
     enableTCPIP = true;
     # port = 5432;
     authentication = pkgs.lib.mkOverride 10 ''
-    local all       all     trust
-    # ipv4
-    host  all      all     127.0.0.1/32   trust
-    # ipv6
-    host all       all     ::1/128        trust
+      local all       all     trust
+      # ipv4
+      host  all      all     127.0.0.1/32   trust
+      # ipv6
+      host all       all     ::1/128        trust
     '';
-    
+
     initialScript = pkgs.writeText "backend-initScript" ''
       CREATE ROLE postgres WITH LOGIN PASSWORD 'postres' CREATEDB;
       CREATE DATABASE neoq;
       GRANT ALL PRIVILEGES ON DATABASE neoq TO postgres;
       LOAD 'auto_explain';
-      '';
+    '';
 
     settings = {
       log_statement = "all";
@@ -441,23 +461,25 @@
       dataDir = "/home/adriano/.config/syncthing";
       configDir = "/home/adriano/.config/syncthing/config";
       guiAddress = "100.81.21.118:8384";
-      overrideDevices = true;     # overrides any devices added or deleted through the WebUI
-      overrideFolders = true;     # overrides any folders added or deleted through the WebUI
+      overrideDevices = true; # overrides any devices added or deleted through the WebUI
+      overrideFolders = true; # overrides any folders added or deleted through the WebUI
       settings = {
         devices = {
-          "z1" = { id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU"; };
-          "roampi" = { id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT"; };
-          "Miniroam" = { id = "F7UWLCE-JPZXXU2-4SHXZ3X-BM3T3U7-DTSVPVA-TXFYB67-5TCR574-MSYRJQR"; };
-          "homepi" = { id = "CGBRCYB-2USPMPW-VKMVC4N-7SF2QLX-W5WWKHX-YD22FCO-XFNTJPC-RCKW5AY"; };
+          "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
+          "roampi" = {id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT";};
+          "Miniroam" = {id = "F7UWLCE-JPZXXU2-4SHXZ3X-BM3T3U7-DTSVPVA-TXFYB67-5TCR574-MSYRJQR";};
+          "homepi" = {id = "CGBRCYB-2USPMPW-VKMVC4N-7SF2QLX-W5WWKHX-YD22FCO-XFNTJPC-RCKW5AY";};
         };
         folders = {
-          "Documents" = {        # Name of folder in Syncthing, also the folder ID
-            path = "/home/adriano/Documents";    # Which folder to add to Syncthing
-            devices = [ "roampi" "Miniroam" "homepi" "z1" ];      # Which devices to share the folder with
+          "Documents" = {
+            # Name of folder in Syncthing, also the folder ID
+            path = "/home/adriano/Documents"; # Which folder to add to Syncthing
+            devices = ["roampi" "Miniroam" "homepi" "z1"]; # Which devices to share the folder with
           };
-          "KB" = {        # Name of folder in Syncthing, also the folder ID
-            path = "/home/adriano/KB";    # Which folder to add to Syncthing
-            devices = [ "roampi" "Miniroam" "homepi" "z1" ];      # Which devices to share the folder with
+          "KB" = {
+            # Name of folder in Syncthing, also the folder ID
+            path = "/home/adriano/KB"; # Which folder to add to Syncthing
+            devices = ["roampi" "Miniroam" "homepi" "z1"]; # Which devices to share the folder with
           };
         };
       };
@@ -465,10 +487,10 @@
   };
 
   fonts = {
-    packages = with pkgs; [ 
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
-      roboto 
-      font-awesome_5 
+    packages = with pkgs; [
+      (nerdfonts.override {fonts = ["FiraCode"];})
+      roboto
+      font-awesome_5
       ubuntu_font_family
       noto-fonts
       noto-fonts-color-emoji
@@ -476,9 +498,9 @@
     ];
     fontconfig = {
       defaultFonts = {
-        sansSerif = [ "Iosevka" "Noto Color Emoji" ];
-        serif = [ "Iosevka" "Noto Color Emoji" ];
-        emoji = [ "Noto Color Emoji" ];
+        sansSerif = ["Iosevka" "Noto Color Emoji"];
+        serif = ["Iosevka" "Noto Color Emoji"];
+        emoji = ["Noto Color Emoji"];
       };
     };
   };
@@ -495,5 +517,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
