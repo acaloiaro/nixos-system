@@ -136,8 +136,11 @@
     "CatskillHouse" = {
       psk = "@CATSKIPP_HOUSE@";
     };
-    hhonors = {
+    "Hilton Honors" = {
       priority = 100;
+    };
+    "NYHQ - wireless WiFi" = {
+      psk = "@NYHQ@";
     };
   };
 
@@ -219,6 +222,7 @@
         ripgrep
         rofi
         stripe-cli
+        slack
         spotify-player
         tailscale
         terraform
