@@ -95,6 +95,9 @@
 
   # /Yubikey
 
+  programs._1password.enable = true;
+  programs._1password-gui.enable = true;
+
   environment.pathsToLink = ["/libexec"];
   programs.dconf.enable = true;
 
