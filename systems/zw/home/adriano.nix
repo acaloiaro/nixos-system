@@ -427,7 +427,7 @@
       };
 
       zoom.default = "120%";
-      content.javascript.can_access_clipboard = true;
+      content.javascript.clipboard = "access";
     };
   };
 

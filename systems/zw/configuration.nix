@@ -197,6 +197,7 @@
         ctags
         dante
         dict
+        dig
         di-tui.packages.${system}.default
         direnv
         dmenu
