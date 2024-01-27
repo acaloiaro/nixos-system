@@ -95,8 +95,17 @@
 
   # /Yubikey
 
+  # 1password
   programs._1password.enable = true;
-  programs._1password-gui.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    package = pkgs._1password-gui-beta.override {polkitPolicyOwners = ["adriano"];};
+    polkitPolicyOwners = ["adriano"];
+  };
+  services.gnome.gnome-keyring.enable = true;
+  programs.seahorse.enable = true;
+  security.pam.services.kde.fprintAuth = false; # Checkint to see if this lets me log into 1pw with fingerprint
+  # /1password
 
   environment.pathsToLink = ["/libexec"];
   programs.dconf.enable = true;
