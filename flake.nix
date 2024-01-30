@@ -29,7 +29,7 @@
   };
 
   inputs.di-tui = {
-    url = "github:acaloiaro/di-tui/v1.5.0";
+    url = "github:acaloiaro/di-tui/v1.6.0";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -109,6 +109,7 @@
         system = "x86_64-linux";
         inherit pkgs;
         specialArgs = {inherit inputs;};
+
         modules = [
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
           nur.nixosModules.nur

@@ -113,6 +113,8 @@
       };
 
       keybindings = lib.mkOptionDefault {
+        "XF86Go" = "exec playerctl play";
+        "Cancel" = "exec playerctl stop";
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioPause" = "exec playerctl play-pause";
         "XF86AudioMute" = "exec amixer set Master toggle";
