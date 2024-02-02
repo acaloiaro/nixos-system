@@ -20,8 +20,14 @@ command = "alejandra"
 
 [[language]]
 name = "markdown"
-file-types = ["md", "eml"]
+file-types = ["md", "eml", "txt"]
 language-servers = [ "ltex-ls "]
+
+[language-server."ltex-ls"]
+command = "ltex-ls"
+
+[language-server.ltex-ls.config.ltex.dictionary]
+"en-US" = ["ewwe","flaberrasted"]
 
 [[language]]
 name = "html"
@@ -48,9 +54,6 @@ command = "terraform-lsp"
 
 [language-server.nil]
 command = "nil"
-
-[language-server."ltex-ls"]
-command = "ltex-ls"
 
 [language-server."vscode-html-language-server"]
 command = "vscode-html-language-server"

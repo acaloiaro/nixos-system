@@ -7,10 +7,26 @@ auto-format = true
 language-servers = [ "terraform-lsp" ]
 
 [[language]]
+name = "templ"
+auto-format = true
+scope = "source.templ"
+injection-regex = "templ"
+grammar = "templ"
+file-types = ["templ"]
+roots = ["go.sum"]
+comment-token = "//"
+indent = { tab-width = 4, unit = "\t" }
+language-servers = [ "templ" ]
+formatter = { command = "templ" , args = ["fmt"] }
+
+[[grammar]]
+name = "templ"
+source = { git = "https://github.com/vrischmann/tree-sitter-templ", rev = "6ab863186d1ba91718125f59deae6cf68d765fcb" }
+
+[[language]]
 name = "go"
 formatter = { command = "goimports" }
 # config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable = true } }
-
 
 [[language]]
 name = "nix"
@@ -19,10 +35,14 @@ language-servers = ["nil"]
 [language.formatter]
 command = "alejandra"
 
+[[grammar]]
+name = "nix"
+source = { git = "https://github.com/nix-community/tree-sitter-nix", rev = "1b69cf1fa92366eefbe6863c184e5d2ece5f187d" }
+
 [[language]]
 name = "markdown"
-file-types = ["md", "eml"]
-language-servers = [ "ltex-ls "]
+file-types = ["md", "eml", "txt"]
+language-servers = [ "ltex-ls"]
 
 [[language]]
 name = "html"
@@ -40,18 +60,12 @@ name = "javascript"
 file-types = ["js"]
 language-servers = ["typescript-language-server"]
 
-[[grammar]]
-name = "nix"
-source = { git = "https://github.com/nix-community/tree-sitter-nix", rev = "1b69cf1fa92366eefbe6863c184e5d2ece5f187d" }
 
 [language-server."terraform-lsp"]
 command = "terraform-lsp"
 
 [language-server.nil]
 command = "nil"
-
-[language-server."ltex-ls"]
-command = "ltex-ls"
 
 [language-server."vscode-html-language-server"]
 command = "vscode-html-language-server"
@@ -65,3 +79,8 @@ args = ["--add-flags", "--stdio"]
 command = "typescript-language-server"
 args = ["--stdio"]
 
+[language-server."ltex-ls"]
+command = "ltex-ls"
+
+[language-server.ltex-ls.config.ltex.dictionary]
+"en-US" = ["ewwe","flaberrasted"]
