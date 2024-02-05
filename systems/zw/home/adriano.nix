@@ -276,6 +276,7 @@
       vi = "hx $*";
       vim = "hx $*";
       rebuild = "sudo nixos-rebuild --flake .#zw switch";
+      rebuild-roampi = "nixos-rebuild switch --flake .#roampi --target-host pi@roampi --build-host pi@roampi --fast --use-remote-sudo";
       nomad = "NOMAD_TOKEN=$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}') nomad $*";
       chatgpt = "OPENAI_API_KEY=$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi| grep api | awk '{print $2}') chatgpt $*";
     };
