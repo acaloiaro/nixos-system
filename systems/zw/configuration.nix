@@ -216,8 +216,6 @@
       enable = true;
       settings.PasswordAuthentication = true;
     };
-    services.redis.servers."zw".enable = true;
-    services.redis.servers."zw".port = 6379;
 
     services.xserver = {
       enable = true;
