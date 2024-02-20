@@ -161,13 +161,15 @@
           {
             block = "net";
             format = " {$signal_strength $ssid $frequency|} $device $icon  ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K)";
+            interval = 5;
           }
           {
             block = "memory";
+            interval = 5;
           }
           {
             block = "cpu";
-            interval = 1;
+            interval = 5;
           }
           {
             block = "sound";
