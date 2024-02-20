@@ -219,8 +219,10 @@
 
     services.xserver = {
       enable = true;
-      layout = "us";
-      xkbOptions = "caps:ctrl_modifier";
+      xkb = {
+        options = "caps:ctrl_modifier";
+        layout = "us";
+      };
       windowManager.i3.enable = true;
       desktopManager = {
         xterm.enable = false;
@@ -486,7 +488,7 @@
           nix-index
           nodejs
           nodePackages.typescript-language-server
-          nomad_1_4
+          nomad_1_5
           nil # nix lsp
           playerctl
           python310Packages.python-lsp-server
