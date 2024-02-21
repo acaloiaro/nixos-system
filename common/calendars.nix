@@ -6,6 +6,7 @@
       fastmail = {
         khal = {
           enable = true;
+          type = "calendar";
           color = "light green";
         };
 
@@ -23,10 +24,12 @@
         vdirsyncer = {
           enable = true;
           metadata = ["color"];
+          collections = ["from a" "from b"];
+          conflictResolution = "remote wins";
         };
       };
 
-      gmail = {
+      "PastSight" = {
         khal = {
           enable = true;
           type = "discover";

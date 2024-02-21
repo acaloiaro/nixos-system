@@ -411,10 +411,77 @@
 
         rm $tmpfile
         chmod 600 $destfile
+        mkdir -p ~/.abook
         mv $destfile ~/.abook/addressbook
       '';
     };
 
+    systemd.services.khal-notify = {
+      description = "Calendar notification with i3-nagbar";
+      enable = true;
+      serviceConfig.User = "adriano";
+      serviceConfig.Type = "simple";
+      script = with pkgs; ''
+        set -euo pipefail
+        trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
+
+        for prg in dunstify khal; do
+        	if ! which $prg &>/dev/null; then
+        		echo $prg not found
+        		exit -1
+        	fi
+        done
+
+        function clean_iconv {
+        	iconv -c -t UTF-8
+        }
+
+        function clean_grep {
+        	grep -axv '.*'
+        }
+        if which iconv &>/dev/null; then
+        	clean=clean_iconv
+        else
+        	clean=clean_grep
+        fi
+
+        #set -x
+        lastturn=$(date +%s -d"now - 120 minutes")
+        while true; do
+        	turn=$(( $(date +%s) / 60 * 60 ))
+        	khal list -f $'{start}\3{title}\3{description}\3\4' -df \'\' today  | while IFS= read -rd $'\4' e; do
+        		begin=$(date -d"$(cut <<<"$e" -z -d$'\3' -f1 | tr -d \\0)" +%s)
+        		title="$(cut <<<"$e" -z -d$'\3' -f2 | tr -d \\0)"
+        		desc="$(cut <<<"$e" -z -d$'\3' -f3 | tr -d \\0 | cut -c-50)"
+        		notify=false
+        		for n in 3 15; do
+        			if test $lastturn -lt $(( $begin - 60 * $n )) && test $(( $begin - 60 * $n )) -le $turn; then
+        				in=$(( ($begin - $(date +%s)) / 60 ))
+        				prio=low
+        				if test $in -lt 5; then
+        					prio=critical
+        				elif test $in -lt 16; then
+        					prio=warning
+        				fi
+        				if test $in -gt 0; then
+        					in="In $in min."
+        				else
+        					in="$(( - $in )) min. ago"
+        				fi
+        				echo "Reminding of $title ($in)"
+        				i3-nagbar -t $prio -m "$in: $($clean <<<"$title")" "$($clean <<<"$desc")" || echo notify-send failed
+        				break
+        			fi
+        		done
+        	done
+        	lastturn=$turn
+        	snooze=$(( $turn + 60 - $(date +%s) ))
+        	if test $snooze -gt 0; then
+        		sleep $snooze
+        	fi
+        done
+      '';
+    };
     systemd.timers.address-book-sync = {
       wantedBy = ["timers.target"];
       partOf = ["address-book-sync.service"];

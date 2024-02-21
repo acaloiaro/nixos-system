@@ -9,6 +9,7 @@
 }: {
   imports = [
     homeage.homeManagerModules.homeage
+    ../../../common/calendars.nix
   ];
 
   homeage = {
@@ -86,6 +87,13 @@
       detectSleep = true;
     };
   };
+
+  services.mbsync = {
+    enable = true;
+    postExec = "${config.xdg.configHome}/mbsync/postExec";
+  };
+
+  services.vdirsyncer.enable = true;
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -482,40 +490,49 @@
     '';
   };
 
-  accounts.email.maildirBasePath = "/home/adriano/.mail";
-  accounts.email.accounts = {
-    PastSight = {
-      primary = true;
-      aerc = {
-        enable = true;
-      };
-      realName = "Adriano Caloiaro";
-      address = "adriano@pastsight.com";
-      imap.host = "imap.gmail.com";
-      smtp.host = "smtp.gmail.com";
-      userName = "adriano@pastsight.com";
-      passwordCommand = "${pkgs.gopass}/bin/gopass show -o google.com/aerc/adriano@pastsight.com";
+  accounts = {
+    email = {
+      maildirBasePath = "/home/adriano/.mail";
+      accounts = {
+        PastSight = {
+          primary = true;
+          aerc = {
+            enable = true;
+          };
+          realName = "Adriano Caloiaro";
+          address = "adriano@pastsight.com";
+          imap.host = "imap.gmail.com";
+          smtp.host = "smtp.gmail.com";
+          userName = "adriano@pastsight.com";
+          passwordCommand = "${pkgs.gopass}/bin/gopass show -o google.com/aerc/adriano@pastsight.com";
 
-      mbsync = {
-        enable = true;
-        create = "both";
-        expunge = "both";
-        remove = "both";
-      };
-      msmtp.enable = true;
-      notmuch.enable = true;
+          mbsync = {
+            enable = true;
+            create = "both";
+            expunge = "both";
+            remove = "both";
+          };
+          msmtp.enable = true;
+          notmuch.enable = true;
 
-      gpg = {
-        encryptByDefault = true;
-        signByDefault = true;
-        key = "C2BC56DE73CE3F75!";
+          gpg = {
+            encryptByDefault = true;
+            signByDefault = true;
+            key = "C2BC56DE73CE3F75!";
+          };
+        };
       };
     };
-  };
 
-  services.mbsync = {
-    enable = true;
-    postExec = "${config.xdg.configHome}/mbsync/postExec";
+    calendar.accounts = {
+      fastmail.remote.passwordCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "fastmail.com/me-aerc"];
+      "PastSight" = {
+        vdirsyncer = {
+          clientIdCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "google.com/adriano@pastsight.com/zw-dav-access-client-id"];
+          clientSecretCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "google.com/adriano@pastsight.com/zw-dav-access-client-secret"];
+        };
+      };
+    };
   };
 
   xdg = {
