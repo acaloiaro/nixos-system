@@ -514,6 +514,7 @@
         packages = with pkgs;
         with inputs; [
           abook
+          activitywatch
           alejandra
           appimagekit
           beeper
