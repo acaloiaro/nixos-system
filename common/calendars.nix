@@ -6,7 +6,6 @@
       fastmail = {
         khal = {
           enable = true;
-          type = "calendar";
           color = "light green";
         };
 
@@ -18,13 +17,12 @@
         remote = {
           type = "caldav";
           userName = "me@adriano.fyi";
-          url = "https://caldav.fastmail.com/dav/calendars/user/me@adriano.fyi/4812c3f7-e1bb-42fc-ac5c-0ce69d8dd7e0";
+          url = "https://caldav.fastmail.com/dav/calendars/user/me@adriano.fyi/4812c3f7-e1bb-42fc-ac5c-0ce69d8dd7e0/";
         };
 
         vdirsyncer = {
           enable = true;
           metadata = ["color"];
-          collections = ["from a" "from b"];
           conflictResolution = "remote wins";
         };
       };
@@ -75,6 +73,11 @@
         };
         view = {
           agenda_event_format = "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
+        };
+        settings = {
+          keybindings = {
+            "save" = "ctrl s";
+          };
         };
       };
     };

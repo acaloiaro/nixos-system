@@ -419,25 +419,21 @@
     systemd.services.khal-notify = {
       description = "Calendar notification with i3-nagbar";
       enable = true;
+      environment = {
+        DISPLAY = ":0";
+      };
       serviceConfig.User = "adriano";
       serviceConfig.Type = "simple";
       script = with pkgs; ''
         set -euo pipefail
         trap 'echo "ERROR: $BASH_SOURCE:$LINENO $BASH_COMMAND" >&2' ERR
 
-        for prg in dunstify khal; do
-        	if ! which $prg &>/dev/null; then
-        		echo $prg not found
-        		exit -1
-        	fi
-        done
-
         function clean_iconv {
-        	iconv -c -t UTF-8
+        	${iconv}/bin/iconv -c -t UTF-8
         }
 
         function clean_grep {
-        	grep -axv '.*'
+        	${gnugrep}/bin/grep -axv '.*'
         }
         if which iconv &>/dev/null; then
         	clean=clean_iconv
@@ -449,7 +445,8 @@
         lastturn=$(date +%s -d"now - 120 minutes")
         while true; do
         	turn=$(( $(date +%s) / 60 * 60 ))
-        	khal list -f $'{start}\3{title}\3{description}\3\4' -df \'\' today  | while IFS= read -rd $'\4' e; do
+          ${khal}/bin/khal list -f $'{start}\3 {title}\3{description}\3\4' -df ''' today \
+          | while IFS= read -rd $'\4' e; do
         		begin=$(date -d"$(cut <<<"$e" -z -d$'\3' -f1 | tr -d \\0)" +%s)
         		title="$(cut <<<"$e" -z -d$'\3' -f2 | tr -d \\0)"
         		desc="$(cut <<<"$e" -z -d$'\3' -f3 | tr -d \\0 | cut -c-50)"
@@ -469,7 +466,7 @@
         					in="$(( - $in )) min. ago"
         				fi
         				echo "Reminding of $title ($in)"
-        				i3-nagbar -t $prio -m "$in: $($clean <<<"$title")" "$($clean <<<"$desc")" || echo notify-send failed
+        				${i3}/bin/i3-nagbar -t $prio -m "$in: $title $desc" || echo notify-send failed
         				break
         			fi
         		done
