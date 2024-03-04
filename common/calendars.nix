@@ -75,9 +75,6 @@
           agenda_event_format = "{calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{reset}";
         };
         settings = {
-          keybindings = {
-            "save" = "ctrl s";
-          };
         };
       };
     };
