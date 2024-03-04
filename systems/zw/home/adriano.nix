@@ -27,9 +27,6 @@
     stateVersion = "23.05";
     sessionVariables = {
       "GO111MODULE" = "on";
-      "PGHOST" = "localhost";
-      "PGUSER" = "postgres";
-      "PGPASSWORD" = "postgres";
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
     };
