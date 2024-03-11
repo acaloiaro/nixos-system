@@ -39,6 +39,8 @@
       useXkbConfig = true; # use xkbOptions in tty.
     };
 
+    environment.sessionVariables.FLAKE = "/home/adriano/git/nixos-system";
+
     environment.etc."dict.conf".text = "server dict.org";
     # List packages installed in system profile. To search, run:
     # $ nix search wget
@@ -143,6 +145,9 @@
       };
       "NYHQ - wireless WiFi" = {
         psk = "@NYHQ@";
+      };
+      "Lannae" = {
+        psk = "LannaeLove503";
       };
     };
 
@@ -538,7 +543,6 @@
           hugo
           inetutils
           kitty
-          language-servers.packages.${system}.vscode-langservers-extracted # For vscode-html-language-server, vscode-css-language-server, vscode-json-language-server in Helix
           lazygit
           libreoffice
           ltex-ls
@@ -575,6 +579,7 @@
           speedtest-cli
           tree
           vlc
+          vscode-langservers-extracted
           weechat
           widevine-cdm
           w3m

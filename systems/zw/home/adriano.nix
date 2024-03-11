@@ -518,6 +518,64 @@
             key = "C2BC56DE73CE3F75!";
           };
         };
+
+        Personal = {
+          aerc = {
+            enable = true;
+            # extraAccounts = {
+            #   source = "notmuch:///home/adriano/.mail";
+            #   maildir-store = "/home/adriano/.mail/Personal";
+            #   query-map = "/home/adriano/.config/notmuch/querymap-personal";
+            # };
+          };
+          realName = "Adriano Caloiaro";
+          address = "me@adriano.fyi";
+          imap.host = "imap.fastmail.com";
+          smtp.host = "smtp.fastmail.com";
+          userName = "me@adriano.fyi";
+          passwordCommand = "${pkgs.gopass}/bin/gopass show -o fastmail.com/me-aerc";
+
+          mbsync = {
+            enable = true;
+            create = "both";
+            expunge = "both";
+            remove = "both";
+          };
+          msmtp.enable = true;
+          notmuch.enable = true;
+
+          gpg = {
+            encryptByDefault = true;
+            signByDefault = true;
+            key = "C2BC56DE73CE3F75!";
+          };
+        };
+
+        Zenity = {
+          primary = false;
+          aerc = {
+            enable = true;
+            # extraAccounts = {
+            #   source = "notmuch:///home/adriano/.mail";
+            #   maildir-store = "/home/adriano/.mail/Zenity";
+            #   query-map = "/home/adriano/.config/notmuch/querymap-zenity";
+            # };
+          };
+          realName = "Adriano Caloiaro";
+          address = "adriano@zenitylabs.com";
+          imap.host = "imap.fastmail.com";
+          smtp.host = "smtp.fastmail.com";
+          userName = "adriano@zenitylabs.com";
+          passwordCommand = "${pkgs.gopass}/bin/gopass show -o fastmail.com/zenity-aerc";
+          mbsync = {
+            enable = true;
+            create = "both";
+            expunge = "both";
+            remove = "both";
+          };
+          msmtp.enable = true;
+          notmuch.enable = true;
+        };
       };
     };
 

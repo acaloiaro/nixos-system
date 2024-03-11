@@ -55,6 +55,11 @@
     inputs.nixpkgs.follows = "nixpkgs-pi";
   };
 
+  inputs.nh = {
+    url = "github:viperML/nh";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs = {
     nixpkgs,
     nixpkgs-pi,
@@ -111,7 +116,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
-          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
+          {environment.systemPackages = [agenix.packages.${system}.default inputs.nh.packages.${system}.default];}
           nur.nixosModules.nur
           agenix.nixosModules.default
           ./systems/zw/configuration.nix
@@ -124,6 +129,14 @@
             home-manager.users.root = import ./systems/zw/home/root.nix;
             home-manager.extraSpecialArgs = {
               inherit kitty-grab agenix homeage helix-master;
+            };
+          }
+          inputs.nh.nixosModules.default
+          {
+            nh = {
+              enable = true;
+              clean.enable = true;
+              clean.extraArgs = "--keep-since 7d --keep 5";
             };
           }
         ];
