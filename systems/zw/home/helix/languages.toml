@@ -35,6 +35,10 @@ language-servers = ["nil"]
 [language.formatter]
 command = "alejandra"
 
+[[language]]
+name = "sql"
+formatter = { command = "sqlformat", args = ["--reindent", "--indent_width", "2", "--keywords", "upper", "--identifiers", "lower", "-"] }
+
 [[grammar]]
 name = "nix"
 source = { git = "https://github.com/nix-community/tree-sitter-nix", rev = "1b69cf1fa92366eefbe6863c184e5d2ece5f187d" }

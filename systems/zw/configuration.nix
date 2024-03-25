@@ -561,6 +561,7 @@
           nil # nix lsp
           playerctl
           python310Packages.python-lsp-server
+          python311Packages.sqlparse
           ripgrep
           rofi
           stripe-cli
