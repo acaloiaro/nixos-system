@@ -5,6 +5,7 @@ roots = ["main.tf", ".terraform.d"]
 file-types = ["hcl", "tf"]
 auto-format = true
 language-servers = [ "terraform-lsp" ]
+formatter = { command = "tofu" , args = ["fmt", "-"] }
 
 [[language]]
 name = "templ"
@@ -63,7 +64,6 @@ language-servers = ["vscode-css-language-server"]
 name = "javascript"
 file-types = ["js"]
 language-servers = ["typescript-language-server"]
-
 
 [language-server."terraform-lsp"]
 command = "terraform-lsp"

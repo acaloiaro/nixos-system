@@ -559,6 +559,7 @@
           nodePackages.typescript-language-server
           nomad_1_5
           nil # nix lsp
+          opentofu
           playerctl
           python310Packages.python-lsp-server
           python311Packages.sqlparse
@@ -588,6 +589,7 @@
           xclip
           unzip
           yubikey-manager
+          zeal
           zoom-us
         ];
       };
