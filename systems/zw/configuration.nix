@@ -553,6 +553,7 @@
           gscreenshot
           ivpn
           jq
+          jujutsu
           logseq
           nix-index
           nodejs
