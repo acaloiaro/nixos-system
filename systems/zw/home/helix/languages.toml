@@ -22,7 +22,7 @@ formatter = { command = "templ" , args = ["fmt"] }
 
 [[grammar]]
 name = "templ"
-source = { git = "https://github.com/vrischmann/tree-sitter-templ", rev = "592faa3186ef857c92e4bd1c31d73c07a4a334db" }
+source = { git = "https://github.com/vrischmann/tree-sitter-templ", rev = "cf84ea53e2e2531f23009d676ac206090c1e2392" }
 
 [[language]]
 name = "go"
