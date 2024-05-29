@@ -134,9 +134,6 @@
       "Bonjour Bakery Cafe_5G" = {
         psk = "bakedgoods";
       };
-      "Home5536" = {
-        psk = "@HOME5536_PSK@";
-      };
       "CatskillHouse" = {
         psk = "@CATSKIPP_HOUSE@";
       };
@@ -148,6 +145,9 @@
       };
       "Lannae" = {
         psk = "LannaeLove503";
+      };
+      "3216240371" = {
+        psk = "@HOME5536@";
       };
     };
 
