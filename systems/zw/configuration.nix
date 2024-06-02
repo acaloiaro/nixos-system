@@ -103,6 +103,8 @@
     i18n.defaultLocale = "en_US.UTF-8";
 
     networking.hostName = "zw"; # Define your hostname.
+    networking.nameservers = ["1.1.1.1"];
+
     networking.wireless = {
       enable = true;
       userControlled.enable = true;
