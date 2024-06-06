@@ -100,6 +100,7 @@
       modifier = "Mod4";
       bars = [
         {
+          trayOutput = "primary";
           position = "bottom";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
           fonts = {
@@ -110,7 +111,47 @@
         }
       ];
 
+      workspaceAutoBackAndForth = true;
       window.border = 0;
+
+      workspaceOutputAssign = [
+        {
+          workspace = "1";
+          output = "eDP-1";
+        }
+        {
+          workspace = "2";
+          output = "eDP-1";
+        }
+        {
+          workspace = "3";
+          output = "eDP-1";
+        }
+        {
+          workspace = "4";
+          output = "eDP-1";
+        }
+        {
+          workspace = "5";
+          output = "eDP-1";
+        }
+        {
+          workspace = "6";
+          output = "DP-1";
+        }
+        {
+          workspace = "7";
+          output = "DP-1";
+        }
+        {
+          workspace = "8";
+          output = "DP-1";
+        }
+        {
+          workspace = "9";
+          output = "DP-1";
+        }
+      ];
 
       gaps = {
         inner = 3;

@@ -123,6 +123,9 @@
         psk = "@ROAM_PSK@";
         priority = 2;
       };
+      "WGCR-2" = {
+        psk = "Goose2010";
+      };
       Miniroam = {
         psk = "@MINIROAM_PSK@";
         priority = 99;
