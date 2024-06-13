@@ -291,7 +291,7 @@
     };
 
     services.postgresql = {
-      enable = true;
+      enable = false;
       ensureDatabases = ["neoq"];
       enableTCPIP = true;
       # port = 5432;
