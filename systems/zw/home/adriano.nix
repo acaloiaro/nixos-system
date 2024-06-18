@@ -182,6 +182,8 @@
         "${modifier}+l" = "focus right";
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
+
+        "XF86Display" = "exec xrandr --auto";
       };
 
       startup = [
