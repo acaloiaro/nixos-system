@@ -183,7 +183,7 @@
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
 
-        "XF86Display" = "exec xrandr --auto";
+        "XF86Display" = "exec xrandr --output DP-1 --mode 1920x1080 --left-of eDP-1 --auto";
       };
 
       startup = [
