@@ -1,8 +1,13 @@
-{ config, pkgs, lib, homeage,  ... }:
 {
+  config,
+  pkgs,
+  lib,
+  homeage,
+  ...
+}: {
   imports = [
     #homeage.homeManagerModules.homeage
-  ];  
+  ];
 
   xsession = {
     enable = true;
@@ -11,7 +16,7 @@
       xset s noblank -display :0.0
       xset -dpms -dispaly :0.0
     '';
-  }; 
+  };
 
   programs.home-manager = {
     enable = true;
@@ -23,7 +28,5 @@
     file = {
       ".kodi/userdata/keymaps/kodi_remote_keymaps.xml".source = ./kodi_remote_keymaps.xml;
     };
-
-   
   };
 }
