@@ -43,18 +43,8 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  # Raspberry pi inputs. These are locked at various revisions that are a balancing act between a confluence of bugs.
-  # The biggest of which is that the raspberry pi hardware overlays on "unstable" don't work. Some others:
-  # - The latest 'home-manager' is incompatbile with older "23.05" versions of nixpkgs
-  # - Just sound won't work on the mainline kernel, but video acceleration does
-  # - Video acceleration works on the mainline kernel on 'unstable', but not the raspberrypi kernel, which supports audio
-  inputs.nixpkgs-pi.url = "github:nixos/nixpkgs?rev=29339c1529b2c3d650d9cf529d7318ed997c149f";
-  inputs.nixos-hardware.url = "github:nixos/nixos-hardware?rev=34f96de8c9ad390d8717e3ca6260afd5f500de04";
-  inputs.home-manager-pi = {
-    url = "github:nix-community/home-manager?rev=32d3e39c491e2f91152c84f8ad8b003420eab0a1";
-    inputs.nixpkgs.follows = "nixpkgs-pi";
-  };
-
+  inputs.nixpkgs-pi.url = "github:nixos/nixpkgs/nixos-24.05";
+  inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nh = {
     url = "github:viperML/nh";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -65,7 +55,6 @@
     nixpkgs-pi,
     nixos-hardware,
     home-manager,
-    home-manager-pi,
     homeage,
     agenix,
     nur,
@@ -150,7 +139,7 @@
           nur.nixosModules.nur
           agenix.nixosModules.default
           ./systems/pi/configuration.nix
-          home-manager-pi.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;
@@ -163,7 +152,7 @@
         ];
       };
 
-      homepi = nixpkgs-pi.lib.nixosSystem {
+      homepi = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs;};
         modules = [
@@ -171,7 +160,7 @@
           nur.nixosModules.nur
           agenix.nixosModules.default
           ./systems/homepi/configuration.nix
-          home-manager-pi.nixosModules.home-manager
+          home-manager.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;

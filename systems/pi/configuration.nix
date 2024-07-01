@@ -15,7 +15,7 @@
   ];
 
   boot = {
-    kernelParams = ["kunit.enable=0"];
+    kernelParams = ["kunit.enable=0" "snd_bcm2835.enable_hdmi=1"];
     supportedFilesystems = lib.mkForce ["f2fs" "ntfs" "cifs" "ext4" "vfat" "nfs" "nfs4" "zfs"];
     initrd.availableKernelModules = [
       "usbhid"
@@ -52,7 +52,7 @@
     deviceTree.filter = lib.mkDefault "bcm2711-rpi-4-b.dtb";
     raspberry-pi."4".apply-overlays-dtmerge.enable = false;
     raspberry-pi."4".fkms-3d.enable = true;
-    raspberry-pi."4".audio.enable = true;
+    # raspberry-pi."4".audio.enable = true;
     pulseaudio.enable = true;
   };
 
@@ -111,7 +111,7 @@
 
     firewall = {
       # enable the firewall
-      enable = true;
+      enable = false;
 
       # always allow traffic from your Tailscale network
       trustedInterfaces = ["tailscale0"];
