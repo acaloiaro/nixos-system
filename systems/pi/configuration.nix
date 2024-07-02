@@ -76,6 +76,12 @@
 
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
+  services = {
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
+  };
   services.openssh.enable = true;
   services.xserver = {
     enable = true;
@@ -111,7 +117,7 @@
 
     firewall = {
       # enable the firewall
-      enable = false;
+      enable = true;
 
       # always allow traffic from your Tailscale network
       trustedInterfaces = ["tailscale0"];
