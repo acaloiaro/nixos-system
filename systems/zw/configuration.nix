@@ -556,6 +556,7 @@
           git
           go_1_21
           gopls
+          golangci-lint-langserver
           gscreenshot
           ivpn
           jq
