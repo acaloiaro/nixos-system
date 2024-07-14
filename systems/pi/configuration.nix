@@ -88,21 +88,13 @@
     layout = "us";
     xkbOptions = "caps:ctrl_modifier";
 
+    windowManager.i3.enable = true;
     displayManager = {
-      autoLogin = {
-        enable = true;
-        user = "kodi";
-      };
-
-      lightdm = {
-        enable = true;
-        autoLogin.timeout = 3;
-      };
+      defaultSession = "none+i3";
     };
 
-    desktopManager.kodi = {
-      enable = true;
-      package = pkgs.kodi.withPackages (pkgs: with pkgs; []);
+    desktopManager = {
+      xterm.enable = false;
     };
   };
 
@@ -155,11 +147,6 @@
       ];
       packages = with pkgs; [
       ];
-    };
-
-    extraUsers.kodi = {
-      isNormalUser = true;
-      extraGroups = ["video" "audio"];
     };
   };
 
