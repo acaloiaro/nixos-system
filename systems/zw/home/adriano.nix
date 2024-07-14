@@ -292,7 +292,7 @@
   programs.kitty = {
     enable = true;
     theme = "GitHub Dark Dimmed"; # For normal/lower light environments
-    #theme = "GitHub Light"; # For higher light environments
+    # theme = "GitHub Light"; # For higher light environments
     extraConfig = ''
       enabled_layouts fat,tall,stack
       map Alt+g kitten         kitty_grab/grab.py

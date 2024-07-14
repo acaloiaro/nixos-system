@@ -1,6 +1,5 @@
 theme = "nord" # For normal/darker settings 
-# theme = "nord-light"
-# theme = "base16_terminal"
+# theme = "base16_transparent" # for light/outside conditions 
 
 [editor]
 auto-save = true
