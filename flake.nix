@@ -152,6 +152,26 @@
         ];
       };
 
+      jellybee = nixpkgs-pi.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = {inherit inputs;};
+        modules = [
+          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
+          nur.nixosModules.nur
+          agenix.nixosModules.default
+          ./systems/jellybee/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.backupFileExtension = "backup";
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit agenix homeage;
+            };
+          }
+        ];
+      };
+
       homepi = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         specialArgs = {inherit inputs;};
