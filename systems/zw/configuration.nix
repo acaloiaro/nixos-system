@@ -557,6 +557,7 @@
           go_1_21
           gopls
           golangci-lint-langserver
+          golangci-lint
           gscreenshot
           ivpn
           jq
