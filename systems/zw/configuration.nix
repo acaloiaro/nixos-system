@@ -154,6 +154,9 @@
       "3216240371" = {
         psk = "@HOME5536@";
       };
+      "Magnus" = {
+        psk = "@MAGNUS@";
+      };
     };
 
     networking.firewall = {
