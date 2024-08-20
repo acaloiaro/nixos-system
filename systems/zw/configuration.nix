@@ -157,6 +157,9 @@
       "Magnus" = {
         psk = "@MAGNUS@";
       };
+      "James Coffee_EXT" = {
+        psk = "coffeecoffee";
+      };
     };
 
     networking.firewall = {
