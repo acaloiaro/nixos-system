@@ -135,11 +135,6 @@
     };
   };
 
-  fileSystems."/storage" = {
-    device = "storage";
-    fsType = "zfs";
-  };
-
   # Enable tailscaled
   services.tailscale.enable = true;
 

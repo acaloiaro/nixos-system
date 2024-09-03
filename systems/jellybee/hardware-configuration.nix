@@ -16,6 +16,10 @@
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
+  boot.zfs = {
+    extraPools = ["storage"];
+    forceImportRoot = true;
+  };
 
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
