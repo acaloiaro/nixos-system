@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   config,
   ...
 }:
@@ -19,9 +18,7 @@ in {
     programs._1password.enable = true;
     programs._1password-gui = {
       enable = true;
-      package = pkgs._1password-gui-beta.override {polkitPolicyOwners = [cfg.user];};
       polkitPolicyOwners = [cfg.user];
     };
-    security.pam.services.kwallet.enableKwallet = true;
   };
 }
