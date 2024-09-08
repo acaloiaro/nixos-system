@@ -172,20 +172,19 @@
         ];
       };
 
-      homepi = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
+      homebee = nixpkgs-pi.lib.nixosSystem {
+        system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          {environment.systemPackages = [agenix.packages.aarch64-linux.default];}
+          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
           nur.nixosModules.nur
           agenix.nixosModules.default
-          ./systems/homepi/configuration.nix
+          ./systems/homebee/configuration.nix
           home-manager.nixosModules.home-manager
           {
             home-manager.backupFileExtension = "backup";
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.kodi = import ./systems/homepi/kodi.nix;
             home-manager.extraSpecialArgs = {
               inherit agenix homeage;
             };
