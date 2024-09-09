@@ -5,8 +5,6 @@
   config,
   lib,
   pkgs,
-  inputs,
-  homeage,
   ...
 }: {
   imports = [
@@ -27,8 +25,6 @@
     };
 
     kernel.sysctl = {
-      "net.ipv4.ip_forward" = "1";
-      "net.ipv6.conf.all.forwarding" = "1";
     };
   };
 
@@ -67,6 +63,36 @@
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
   services = {
+    transmission = {
+      enable = true;
+      settings = {
+        rpc-bind-address = "100.98.79.116";
+        download-dir = "/data/media";
+        rpc-whitelist-enabled = "false";
+      };
+    };
+
+    syncthing = {
+      enable = false;
+      user = "homebee";
+      dataDir = "/home/homebee/.config/syncthing";
+      configDir = "/home/homebee/.config/syncthing/config";
+      guiAddress = "100.98.79.116:8384";
+      overrideDevices = true; # overrides any devices added or deleted through the WebUI
+      overrideFolders = true; # overrides any folders added or deleted through the WebUI
+      devices = {
+        "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
+      };
+      folders = {
+        "Documents" = {
+          # Name of folder in Syncthing, also the folder ID
+          path = "/home/homebee/Documents"; # Which folder to add to Syncthing
+          devices = ["z1" "zw" "jellybee"]; # Which devices to share the folder with
+        };
+      };
+    };
+    adguardhome.enable = true;
+    tailscale.enable = true;
     jellyfin = {
       enable = true;
       openFirewall = true;
@@ -148,9 +174,6 @@
     };
   };
 
-  # Enable tailscaled
-  services.tailscale.enable = true;
-
   # create a oneshot job to authenticate to Tailscale
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -178,28 +201,6 @@
       # otherwise authenticate with tailscale
       ${tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets.tailscale_key.path}) --accept-routes --advertise-routes=192.168.13.0/24 --reset
     '';
-  };
-
-  services = {
-    syncthing = {
-      enable = false;
-      user = "pi";
-      dataDir = "/home/homebee/.config/syncthing";
-      configDir = "/home/homebee/.config/syncthing/config";
-      guiAddress = "100.123.165.8:8384";
-      overrideDevices = true; # overrides any devices added or deleted through the WebUI
-      overrideFolders = true; # overrides any folders added or deleted through the WebUI
-      devices = {
-        "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
-      };
-      folders = {
-        "Documents" = {
-          # Name of folder in Syncthing, also the folder ID
-          path = "/home/homebee/Documents"; # Which folder to add to Syncthing
-          devices = ["z1" "zw" "jellybee"]; # Which devices to share the folder with
-        };
-      };
-    };
   };
 
   # Copy the NixOS configuration file and link it from the resulting system
