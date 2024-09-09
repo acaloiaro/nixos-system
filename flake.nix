@@ -4,7 +4,7 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.nur.url = "github:nix-community/NUR";
   inputs.home-manager = {
-    url = "github:nix-community/home-manager/master";
+    url = "github:nix-community/home-manager";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -69,7 +69,7 @@
       config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "electron-25.9.0"
+          "electron-27.3.11"
         ];
       };
       inherit overlays system;
@@ -131,27 +131,6 @@
         ];
       };
 
-      roampi = nixpkgs-pi.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = {inherit inputs;};
-        modules = [
-          {environment.systemPackages = [agenix.packages.aarch64-linux.default];}
-          nur.nixosModules.nur
-          agenix.nixosModules.default
-          ./systems/pi/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.backupFileExtension = "backup";
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.kodi = import ./systems/pi/kodi.nix;
-            home-manager.extraSpecialArgs = {
-              inherit agenix homeage;
-            };
-          }
-        ];
-      };
-
       jellybee = nixpkgs-pi.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
@@ -172,7 +151,7 @@
         ];
       };
 
-      homebee = nixpkgs-pi.lib.nixosSystem {
+      homebee = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
