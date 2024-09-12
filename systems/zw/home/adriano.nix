@@ -64,17 +64,6 @@
   };
 
   services.dunst.enable = true;
-  services.spotifyd = {
-    enable = true;
-    settings = {
-      global = {
-        username = "acaloiaro";
-        password_cmd = "cat ${config.xdg.configHome}/spotifyd/password";
-        backend = "pulseaudio";
-      };
-    };
-  };
-
   services.screen-locker = {
     enable = true;
     inactiveInterval = 30;
