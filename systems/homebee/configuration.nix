@@ -60,6 +60,9 @@
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
   services = {
+    displayManager = {
+      defaultSession = "none+i3";
+    };
     transmission = {
       enable = true;
       settings = {
@@ -77,14 +80,17 @@
       guiAddress = "100.98.79.116:8384";
       overrideDevices = true; # overrides any devices added or deleted through the WebUI
       overrideFolders = true; # overrides any folders added or deleted through the WebUI
-      devices = {
-        "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
-      };
-      folders = {
-        "Documents" = {
-          # Name of folder in Syncthing, also the folder ID
-          path = "/home/homebee/Documents"; # Which folder to add to Syncthing
-          devices = ["z1" "zw" "jellybee"]; # Which devices to share the folder with
+      settings = {
+        devices = {
+          "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
+        };
+
+        folders = {
+          "Documents" = {
+            # Name of folder in Syncthing, also the folder ID
+            path = "/home/homebee/Documents"; # Which folder to add to Syncthing
+            devices = ["z1" "zw" "jellybee"]; # Which devices to share the folder with
+          };
         };
       };
     };
@@ -101,13 +107,11 @@
     openssh.enable = true;
     xserver = {
       enable = true;
-      layout = "us";
-      xkbOptions = "caps:ctrl_modifier";
-
-      windowManager.i3.enable = true;
-      displayManager = {
-        defaultSession = "none+i3";
+      xkb = {
+        layout = "us";
+        options = "caps:ctrl_modifier";
       };
+      windowManager.i3.enable = true;
 
       desktopManager = {
         xterm.enable = false;
