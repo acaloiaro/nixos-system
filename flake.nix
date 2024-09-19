@@ -43,7 +43,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.nixpkgs-pi.url = "github:nixos/nixpkgs/nixos-24.05";
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nh = {
     url = "github:viperML/nh";
@@ -52,7 +51,6 @@
 
   outputs = {
     nixpkgs,
-    nixpkgs-pi,
     nixos-hardware,
     home-manager,
     homeage,
@@ -131,7 +129,7 @@
         ];
       };
 
-      jellybee = nixpkgs-pi.lib.nixosSystem {
+      jellybee = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
