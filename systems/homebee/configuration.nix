@@ -67,7 +67,7 @@
       enable = true;
       settings = {
         rpc-bind-address = "100.98.79.116";
-        download-dir = "/data/media";
+        download-dir = "/data/media/transmission";
         rpc-whitelist-enabled = "false";
       };
     };
