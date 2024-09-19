@@ -158,6 +158,9 @@
       "James Coffee_EXT" = {
         psk = "coffeecoffee";
       };
+      "Manzanita Cafe" = {
+        psk = "Manzanita2024";
+      };
     };
 
     networking.firewall = {
