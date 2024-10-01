@@ -197,6 +197,9 @@
     # Fingerprint auth
     services.fprintd.enable = true;
 
+    # Alsa
+    services.pipewire.alsa.enable = true;
+
     # Yubikey
     services.udev.packages = [pkgs.yubikey-personalization];
 
@@ -508,6 +511,7 @@
           abook
           activitywatch
           alejandra
+          alsa-utils
           appimagekit
           beeper
           clipmenu
