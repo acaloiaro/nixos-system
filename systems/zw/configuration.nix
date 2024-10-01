@@ -161,6 +161,9 @@
       "Manzanita Cafe" = {
         psk = "Manzanita2024";
       };
+      "Caje" = {
+        psk = "cocktails";
+      };
     };
 
     networking.firewall = {
