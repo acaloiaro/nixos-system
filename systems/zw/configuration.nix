@@ -106,63 +106,60 @@
     networking.wireless = {
       enable = true;
       userControlled.enable = true;
-    };
-    networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
-    networking.wireless.networks = {
-      "MTShadows" = {
-        psk = "WinterChills";
-        priority = 100;
-      };
-      "labarbacoffee" = {
-        psk = "labarbadraper";
-        priority = 100;
-      };
-      "roam" = {
-        psk = "@ROAM_PSK@";
-        priority = 2;
-      };
-      "WGCR-2" = {
-        psk = "Goose2010";
-      };
-      Miniroam = {
-        psk = "@MINIROAM_PSK@";
-        priority = 99;
-      };
-      "DeltaSkyClub" = {
-        priority = 3;
-      };
-      "TheCenturionLounge" = {
-        priority = 4;
-      };
-      "Bonjour Bakery Cafe_5G" = {
-        psk = "bakedgoods";
-      };
-      "CatskillHouse" = {
-        psk = "@CATSKIPP_HOUSE@";
-      };
-      "Hilton Honors" = {
-        priority = 100;
-      };
-      "NYHQ - wireless WiFi" = {
-        psk = "@NYHQ@";
-      };
-      "Lannae" = {
-        psk = "LannaeLove503";
-      };
-      "3216240371" = {
-        psk = "@HOME5536@";
-      };
-      "Magnus" = {
-        psk = "@MAGNUS@";
-      };
-      "James Coffee_EXT" = {
-        psk = "coffeecoffee";
-      };
-      "Manzanita Cafe" = {
-        psk = "Manzanita2024";
-      };
-      "Caje" = {
-        psk = "cocktails";
+      secretsFile = config.age.secrets.wireless_networks.path;
+      networks = {
+        "MTShadows" = {
+          psk = "WinterChills";
+          priority = 100;
+        };
+        "labarbacoffee" = {
+          psk = "labarbadraper";
+          priority = 100;
+        };
+        "roam" = {
+          pskRaw = "ext:ROAM_PSK";
+          priority = 2;
+        };
+        "WGCR-2" = {
+          psk = "Goose2010";
+        };
+        Miniroam = {
+          pskRaw = "ext:MINIROAM_PSK";
+          priority = 99;
+        };
+        "DeltaSkyClub" = {
+          priority = 3;
+        };
+        "TheCenturionLounge" = {
+          priority = 4;
+        };
+        "Bonjour Bakery Cafe_5G" = {
+          psk = "bakedgoods";
+        };
+        "CatskillHouse" = {
+          pskRaw = "ext:CATSKIPP_HOUSE";
+        };
+        "Hilton Honors" = {
+          priority = 100;
+        };
+        "Lannae" = {
+          psk = "LannaeLove503";
+        };
+        "3216240371" = {
+          pskRaw = "ext:HOME5536";
+        };
+        "Magnus" = {
+          pskRaw = "ext:MAGNUS";
+        };
+        "James Coffee_EXT" = {
+          psk = "coffeecoffee";
+        };
+        "Manzanita Cafe" = {
+          psk = "Manzanita2024";
+        };
+        "Caje" = {
+          psk = "cocktails";
+        };
       };
     };
 
