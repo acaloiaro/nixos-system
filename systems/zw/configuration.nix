@@ -555,6 +555,7 @@
           python311Packages.sqlparse
           ripgrep
           rofi
+          shutter
           stripe-cli
           slack
           spotify-player
