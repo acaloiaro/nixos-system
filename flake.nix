@@ -61,7 +61,17 @@
     helix-master,
     ...
   } @ inputs: let
-    overlays = [inputs.agenix.overlays.default inputs.nur.overlay];
+    overlays = [
+      inputs.agenix.overlays.default
+      inputs.nur.overlay
+      (
+        final: prev: {
+          logseq = prev.logseq.override {
+            electron = prev.electron_27;
+          };
+        }
+      )
+    ];
     system = "x86_64-linux";
     pkgs = import nixpkgs {
       config = {
