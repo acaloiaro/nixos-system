@@ -4,6 +4,7 @@ theme = "nord" # For normal/darker settings
 [editor]
 auto-save = true
 color-modes = true
+end-of-line-diagnostics = "hint"
 true-color = true
 rulers = [120]
 completion-replace = true
@@ -25,6 +26,11 @@ center = [ "version-control" ]
     "file-type"
   ]
 separator = "│"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "error"
+prefix-len = 5
 
 [editor.lsp]
 display-messages = true
