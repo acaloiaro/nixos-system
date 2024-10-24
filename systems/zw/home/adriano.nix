@@ -192,7 +192,7 @@
         blocks = [
           {
             block = "custom";
-            command = "sed 's/  //' <(curl 'https://wttr.in/Santa%20Barbara,CA?format=4&u' -s)";
+            command = "sed 's/  //' <(curl 'https://wttr.in/Bishop,CA?format=4&u' -s)";
             interval = 1200;
           }
           {
