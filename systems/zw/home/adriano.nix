@@ -458,7 +458,7 @@
     settings = {
       spellcheck.languages = ["en-US"];
       tabs = {
-        position = "left";
+        position = "top";
         show = "always";
         title = {
           format = "{audio}{current_title}";
