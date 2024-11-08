@@ -165,6 +165,9 @@
         "Caje" = {
           psk = "cocktails";
         };
+        "Feel love WiFi" = {
+          psk = "namaste1";
+        };
       };
     };
 
