@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
@@ -17,6 +18,7 @@ in {
   config = mkIf cfg.enable {
     programs._1password.enable = true;
     programs._1password-gui = {
+      package = pkgs._1password-gui-beta;
       enable = true;
       polkitPolicyOwners = [cfg.user];
     };
