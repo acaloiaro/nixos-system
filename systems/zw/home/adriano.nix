@@ -496,9 +496,14 @@
         sidebar-width = 25;
       };
 
+      viewer = {
+        alternatives = "text/html,text/plain";
+        pager = "cha -T 'text/html'";
+      };
+
       filters = {
         "text/plain" = "colorize";
-        "text/html" = "w3m -T text/html -o display_link_number=1";
+        "text/html" = "cat";
         "text/calendar" = "calendar";
         "message/delivery-status" = "colorize";
         "message/rfc822" = "colorize";

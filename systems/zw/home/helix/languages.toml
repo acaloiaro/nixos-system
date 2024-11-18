@@ -16,13 +16,9 @@ grammar = "templ"
 file-types = ["templ"]
 roots = ["go.sum"]
 comment-token = "//"
-indent = { tab-width = 4, unit = "\t" }
-language-servers = [ "templ" ]
+indent = { tab-width = 4, unit = " " }
+language-servers = [ "templ", "vscode-html-language-server" ]
 formatter = { command = "templ" , args = ["fmt"] }
-
-[[grammar]]
-name = "templ"
-source = { git = "https://github.com/vrischmann/tree-sitter-templ", rev = "4519e3ec9ca92754ca25659bb1fd410d5e0f8d88" }
 
 [[language]]
 name = "go"

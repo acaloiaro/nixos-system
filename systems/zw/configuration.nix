@@ -519,6 +519,7 @@
           alsa-utils
           appimagekit
           beeper
+          chawan
           clipmenu
           ctags
           dante
