@@ -283,7 +283,8 @@
     theme = "GitHub Dark Dimmed"; # For normal/lower light environments
     # theme = "GitHub Light"; # For higher light environments
     extraConfig = ''
-      enabled_layouts fat,tall,stack
+      # enabled_layouts fat,tall,stack
+      enabled_layouts tall:bias=50;full_size=1;mirrored=false
       map Alt+g kitten         kitty_grab/grab.py
       map Ctrl+Shift+h         previous_tab
       map Ctrl+Shift+l         next_tab
