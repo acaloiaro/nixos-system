@@ -10,6 +10,7 @@
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/calendars.nix
+    ../../../common/chawan.nix
   ];
 
   homeage = {
@@ -280,7 +281,7 @@
 
   programs.kitty = {
     enable = true;
-    theme = "GitHub Dark Dimmed"; # For normal/lower light environments
+    themeFile = "GitHub_Dark_Dimmed"; # For normal/lower light environments
     # theme = "GitHub Light"; # For higher light environments
     extraConfig = ''
       # enabled_layouts fat,tall,stack
@@ -475,6 +476,28 @@
     };
   };
 
+  programs.chawan = {
+    enable = true;
+    images = true;
+    cookie = true;
+    cookie-jars-for = ["kagi.com" "sr.ht"];
+    pager-keybindings = {"C-k" = ''() => pager.load("kagi:")'';};
+    omnirules = [
+      {
+        match = "^kagi:";
+        substitute-url =
+          # js
+          ''(x) => "https://kagi.com/search/?q=" + encodeURIComponent(x.split(":").slice(1).join(":"))'';
+      }
+    ];
+    siteconf = [
+      {
+        url = "https://news.ycombinator.com/.*";
+        cookie = true;
+      }
+    ];
+  };
+
   programs.aerc = {
     enable = true;
     extraConfig = {
@@ -653,54 +676,6 @@
         type = "Application";
         exec = "beeper %U";
         icon = "beeper";
-      };
-    };
-
-    configFile = let
-      f = pkgs.formats;
-      toml = f.toml {};
-    in {
-      "chawan/config.toml".source = toml.generate "chawan-config" {
-        buffer = {
-          cookie = true;
-          scripting = true;
-          images = true;
-          auto-focus = true;
-          meta-refresh = "ask";
-        };
-
-        external = {
-          download-dir = "/home/adriano/Downloads";
-        };
-
-        input.use-mouse = true;
-
-        display = {
-          color-mode = "true-color";
-          image-mode = "kitty";
-        };
-
-        omnirule = [
-          {
-            match = "^kagi:";
-            substitute-url =
-              # js
-              ''(x) => "https://kagi.com/search/?q=" + encodeURIComponent(x.split(":").slice(1).join(":"))'';
-          }
-        ];
-
-        siteconf = [
-          {
-            host = "(.*\.)?kagi\.com"; # either 'something.sr.ht' or 'sr.ht'
-            cookie = true; # enable cookies
-            share-cookie-jar = "kagi\.com"; # use the kagi cookie jar for all matching domains
-            third-party-cookie = ".*\.kagi\.com"; # allow cookies from subdomains
-          }
-        ];
-
-        page = {
-          "C-k" = "() => pager.load(\"kagi:\")";
-        };
       };
     };
   };

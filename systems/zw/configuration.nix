@@ -89,7 +89,7 @@
     };
 
     nix = {
-      package = pkgs.nixFlakes;
+      package = pkgs.nixVersions.stable;
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
@@ -547,7 +547,7 @@
           ltex-ls
           chatgpt-cli
           git
-          go_1_21
+          go_1_23
           gopls
           golangci-lint-langserver
           golangci-lint
@@ -559,7 +559,7 @@
           nix-index
           nodejs
           nodePackages.typescript-language-server
-          nomad_1_6
+          nomad_1_7
           nil # nix lsp
           opentofu
           playerctl

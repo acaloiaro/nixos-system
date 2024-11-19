@@ -66,9 +66,9 @@
       inputs.nur.overlay
       (
         final: prev: {
-          logseq = prev.logseq.override {
-            electron = prev.electron_27;
-          };
+          # logseq = prev.logseq.override {
+          #   electron = prev.electron_27;
+          # };
         }
       )
     ];
