@@ -587,6 +587,7 @@
           w3m
           wpa_supplicant_gui
           xclip
+          xsel
           unzip
           yubikey-manager
           zeal
