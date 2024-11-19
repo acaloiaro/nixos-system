@@ -655,5 +655,53 @@
         icon = "beeper";
       };
     };
+
+    configFile = let
+      f = pkgs.formats;
+      toml = f.toml {};
+    in {
+      "chawan/config.toml".source = toml.generate "chawan-config" {
+        buffer = {
+          cookie = true;
+          scripting = true;
+          images = true;
+          auto-focus = true;
+          meta-refresh = "ask";
+        };
+
+        external = {
+          download-dir = "/home/adriano/Downloads";
+        };
+
+        input.use-mouse = true;
+
+        display = {
+          color-mode = "true-color";
+          image-mode = "kitty";
+        };
+
+        omnirule = [
+          {
+            match = "^kagi:";
+            substitute-url =
+              # js
+              ''(x) => "https://kagi.com/search/?q=" + encodeURIComponent(x.split(":").slice(1).join(":"))'';
+          }
+        ];
+
+        siteconf = [
+          {
+            host = "(.*\.)?kagi\.com"; # either 'something.sr.ht' or 'sr.ht'
+            cookie = true; # enable cookies
+            share-cookie-jar = "kagi\.com"; # use the kagi cookie jar for all matching domains
+            third-party-cookie = ".*\.kagi\.com"; # allow cookies from subdomains
+          }
+        ];
+
+        page = {
+          "C-k" = "() => pager.load(\"kagi:\")";
+        };
+      };
+    };
   };
 }
