@@ -77,7 +77,7 @@
 
     hardware.bluetooth.enable = true;
     hardware.gpgSmartcards.enable = true;
-    hardware.opengl = {
+    hardware.graphics = {
       enable = true;
       extraPackages = with pkgs; [
         intel-compute-runtime
@@ -221,7 +221,9 @@
     # Login and sudo with
     security.pam = {
       u2f = {
-        cue = true; # Show prompt when u2f is being requested, e.g. for sudo
+        settings = {
+          cue = true; # Show prompt when u2f is being requested, e.g. for sudo
+        };
         control = "sufficient"; # Yubikey is sufficient for authentication, no second factor required
       };
 
@@ -247,6 +249,21 @@
       settings.PasswordAuthentication = true;
     };
 
+    services.libinput = {
+      enable = true;
+      touchpad = {
+        naturalScrolling = true;
+        accelSpeed = "0.5";
+        disableWhileTyping = true;
+        additionalOptions = ''
+          Option "PalmDetection" "on"
+        '';
+      };
+    };
+
+    services.displayManager = {
+      defaultSession = "none+i3";
+    };
     services.xserver = {
       enable = true;
       xkb = {
@@ -256,21 +273,6 @@
       windowManager.i3.enable = true;
       desktopManager = {
         xterm.enable = false;
-      };
-
-      displayManager = {
-        defaultSession = "none+i3";
-      };
-      libinput = {
-        enable = true;
-        touchpad = {
-          naturalScrolling = true;
-          accelSpeed = "0.5";
-          disableWhileTyping = true;
-          additionalOptions = ''
-            Option "PalmDetection" "on"
-          '';
-        };
       };
 
       # Can't figure out how to enable natural scrolling. Ideally what I want is natural scrolling AND palm detection,
