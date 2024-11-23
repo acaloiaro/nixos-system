@@ -12,6 +12,7 @@
     ./hardware-configuration.nix
     ./zfs.nix
     ../../common/1password.nix
+    ../../common/podman.nix
   ];
 
   config = {
@@ -183,6 +184,10 @@
 
       # allow you to SSH in over the public internet
       allowedTCPPorts = [22];
+    };
+
+    localServices.podman = {
+      enable = true;
     };
 
     programs.gnupg.agent = {
@@ -563,6 +568,7 @@
           nil # nix lsp
           opentofu
           playerctl
+          podman
           python311Packages.sqlparse
           ripgrep
           rofi
@@ -598,11 +604,12 @@
       };
     };
 
-    virtualisation.docker = {
-      enable = false;
-      rootless = {
+    virtualisation = {
+      podman = {
         enable = true;
-        setSocketVariable = true;
+        dockerCompat = true;
+        # Required for containers under podman-compose to be able to talk to each other.
+        defaultNetwork.settings.dns_enabled = true;
       };
     };
   };
