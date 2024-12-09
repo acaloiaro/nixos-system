@@ -59,7 +59,8 @@
 
     fonts = {
       packages = with pkgs; [
-        (nerdfonts.override {fonts = ["FiraCode"];})
+        nerd-fonts.fira-code
+        nerd-fonts.iosevka
         roboto
         font-awesome_5
         ubuntu_font_family
@@ -94,13 +95,16 @@
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
-      gc = {
-        automatic = true;
-        dates = "monthly";
-        options = "--delete-older-than 30d";
+      settings = {
+        trusted-users = ["root" "adriano"];
+        substituters = [
+          "https://nix-community.cachix.org"
+          "https://cache.nixos.org/"
+        ];
+        trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
       };
-
-      settings.trusted-users = ["root" "adriano"];
     };
 
     # Select internationalisation properties.
@@ -194,7 +198,12 @@
       enable = true;
       enableSSHSupport = true;
     };
-
+    programs.nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+      flake = "/home/adriano/git/nixos-system";
+    };
     programs.zsh = {
       enable = true;
     };
@@ -538,7 +547,6 @@
           ess.packages.${system}.default
           fprintd
           fzf
-          gcc8
           gimp
           glow
           gnumake

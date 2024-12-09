@@ -63,7 +63,7 @@
   } @ inputs: let
     overlays = [
       inputs.agenix.overlays.default
-      inputs.nur.overlay
+      nur.overlays.default
       (
         final: prev: {
           # logseq = prev.logseq.override {
@@ -90,7 +90,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/z1/configuration.nix
           home-manager.nixosModules.home-manager
@@ -114,7 +114,7 @@
 
         modules = [
           {environment.systemPackages = [agenix.packages.${system}.default inputs.nh.packages.${system}.default];}
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/zw/configuration.nix
           home-manager.nixosModules.home-manager
@@ -128,14 +128,6 @@
               inherit kitty-grab agenix homeage helix-master;
             };
           }
-          inputs.nh.nixosModules.default
-          {
-            nh = {
-              enable = true;
-              clean.enable = true;
-              clean.extraArgs = "--keep-since 7d --keep 5";
-            };
-          }
         ];
       };
 
@@ -144,7 +136,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/jellybee/configuration.nix
           home-manager.nixosModules.home-manager
@@ -164,7 +156,7 @@
         specialArgs = {inherit inputs;};
         modules = [
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
-          nur.nixosModules.nur
+          nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/homebee/configuration.nix
           home-manager.nixosModules.home-manager
