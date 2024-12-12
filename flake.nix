@@ -24,7 +24,7 @@
   };
 
   inputs.ess = {
-    url = "github:acaloiaro/ess/v2.10.0";
+    url = "github:acaloiaro/ess/v2.14.1";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
