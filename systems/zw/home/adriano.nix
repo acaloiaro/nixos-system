@@ -244,6 +244,10 @@
     };
   };
 
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+  };
   programs.git = {
     enable = true;
     userName = "Adriano Caloiaro";
@@ -301,18 +305,51 @@
       active_border_color      none
       font_size                12.0
     '';
+    shellIntegration.enableFishIntegration = true;
   };
 
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
-  programs.starship = {
+  programs.fish = {
     enable = true;
+    shellAliases = {
+      addresses = "hx ~/KB/pages/Important\ Addresses.md";
+      ideas = "hx ~/KB/pages/Notes/ideas/";
+      people = "vim ~/KB/pages/People.md";
+      notes = "hx ~/KB";
+      open = "xdg-open $argv";
+      quickqr = "qrencode -t ansiutf8 $1";
+      nix = "nix --extra-experimental-features 'nix-command flakes' $argv";
+      gpgen = "gopass generate '$1/$1@adriano.fyi'";
+      ll = "ls -l";
+      vi = "hx $argv";
+      vim = "hx $argv";
+      rebuild = "sudo nixos-rebuild --flake .#zw switch";
+      rebuild-roampi = "nixos-rebuild switch --flake .#roampi --target-host pi@roampi --build-host pi@roampi --fast --use-remote-sudo";
+      nomad = "NOMAD_TOKEN=$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}') nomad $argv;";
+      chatgpt = "OPENAI_API_KEY=$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi | grep api | cut -d ' ' -f 2) ${pkgs.chatgpt-cli}/bin/chatgpt $argv";
+      gbr = "git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads | fzf | awk '{print $4}')";
+    };
+    plugins = [
+      {
+        name = "plugin-git";
+        src = pkgs.fishPlugins.plugin-git.src;
+      }
+    ];
   };
-
-  programs.zsh = {
+  programs.atuin = {
     enable = true;
+    enableZshIntegration = true;
+    enableNushellIntegration = true;
+    enableFishIntegration = true;
+    settings = {
+      enter_accept = false;
+    };
+  };
+  programs.zsh = {
+    enable = false;
     dotDir = ".config/zsh";
     shellAliases = {
       ll = "ls -l";
@@ -326,7 +363,7 @@
     };
 
     oh-my-zsh = {
-      enable = true;
+      enable = false;
       theme = "eastwood";
       plugins = [
         "sudo"
@@ -371,7 +408,7 @@
       alias people="vim ~/KB/pages/People.md"
       alias notes="hx ~/KB"
       alias open="xdg-open $*"
-      alias quickqr='a() { qrencode -o qr.png $1 && ((open qr.png; sleep 15; rm qr.png ) &)}; a &>/dev/null'
+      alias quickqr="qrencode -t ansiutf8 $1"
       alias xclip="xclip -selection clipboard $*"
       alias speedtest='echo "$(curl -skLO https://git.io/speedtest.sh && chmod +x speedtest.sh && ./speedtest.sh && rm speedtest.sh)"'
       alias colorlight="tmux set window-style 'fg=#171421,bg=#FFFDD0'"
@@ -384,6 +421,7 @@
     enable = true;
     enableSshSupport = true;
     enableZshIntegration = true;
+    enableNushellIntegration = true;
     enableScDaemon = true;
 
     maxCacheTtl = 60 * 60 * 24;

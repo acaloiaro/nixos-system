@@ -108,8 +108,12 @@
     };
 
     # Select internationalisation properties.
-    i18n.defaultLocale = "en_US.UTF-8";
-
+    i18n = {
+      defaultLocale = "en_US.UTF-8";
+      supportedLocales = [
+        "en_US.UTF-8/UTF-8"
+      ];
+    };
     networking.hostName = "zw"; # Define your hostname.
     networking.nameservers = ["1.1.1.1"];
 
@@ -194,6 +198,9 @@
       enable = true;
     };
 
+    programs.fish = {
+      enable = true;
+    };
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -203,9 +210,6 @@
       clean.enable = true;
       clean.extraArgs = "--keep-since 4d --keep 3";
       flake = "/home/adriano/git/nixos-system";
-    };
-    programs.zsh = {
-      enable = true;
     };
     programs.dconf.enable = true;
     programs.i3lock.u2fSupport = true;
@@ -523,7 +527,7 @@
         isNormalUser = true;
         extraGroups = ["wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
         password = "Iliketochangeitchangeit";
-        shell = pkgs.zsh;
+        shell = pkgs.fish;
         openssh.authorizedKeys.keys = [
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"
         ];
@@ -570,14 +574,17 @@
           jujutsu
           logseq
           nix-index
+          ncdu
           nodejs
           nodePackages.typescript-language-server
           nomad_1_7
           nil # nix lsp
+          nushell
           opentofu
           playerctl
           podman
           python311Packages.sqlparse
+          qrencode
           ripgrep
           rofi
           shutter
