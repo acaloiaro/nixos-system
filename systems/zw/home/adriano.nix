@@ -347,6 +347,7 @@
     settings = {
       enter_accept = false;
     };
+    flags = ["--disable-up-arrow"];
   };
   programs.zsh = {
     enable = false;
