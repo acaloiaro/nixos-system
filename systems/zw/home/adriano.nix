@@ -341,8 +341,9 @@
   };
   programs.atuin = {
     enable = true;
-    enableZshIntegration = true;
-    enableNushellIntegration = true;
+    daemon = {
+      enable = true;
+    };
     enableFishIntegration = true;
     settings = {
       enter_accept = false;
