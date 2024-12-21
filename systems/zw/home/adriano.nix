@@ -108,19 +108,19 @@
 
       workspaceOutputAssign = [
         {
-          workspace = "1";
+          workspace = "1:Web";
           output = "eDP-1";
         }
         {
-          workspace = "2";
+          workspace = "2:Termainl";
           output = "eDP-1";
         }
         {
-          workspace = "3";
+          workspace = "3:Chat";
           output = "eDP-1";
         }
         {
-          workspace = "4";
+          workspace = "4:Notes";
           output = "eDP-1";
         }
         {
@@ -177,10 +177,32 @@
 
         "XF86Display" = "exec xrandr --output DP-1 --mode 1920x1080 --left-of eDP-1 --auto";
       };
-
+      assigns = {
+        "1: Web" = [{class = "^qutebrowser$";}];
+        "2: Term" = [{class = "^kitty$";}];
+        "3: Chat" = [{class = "^Beeper$";}];
+        "4: Notes" = [{class = "^Logseq$";}];
+        "5: 1PW" = [{class = "^1Password$";}];
+        "6: Altchat" = [{class = "^Slack$";}];
+      };
       startup = [
         {
-          command = "exec i3-msg workspace 1";
+          command = "qutebrowser";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "kitty";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "beeper";
+          always = true;
+          notification = false;
+        }
+        {
+          command = "logseq";
           always = true;
           notification = false;
         }
