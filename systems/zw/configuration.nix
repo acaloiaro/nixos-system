@@ -13,6 +13,7 @@
     ./zfs.nix
     ../../common/1password.nix
     ../../common/podman.nix
+    ./hosts-config.nix
   ];
 
   config = {
