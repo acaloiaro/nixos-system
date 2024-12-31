@@ -115,6 +115,7 @@ a = "code_action"
 
 [keys.normal."space"]
 B = "file_picker_in_current_buffer_directory"
+H = ":toggle lsp.display-inlay-hints"
 
 [keys.normal.Z]
 Z = ":write-quit-all"
