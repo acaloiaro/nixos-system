@@ -570,6 +570,7 @@
           golangci-lint-langserver
           golangci-lint
           gscreenshot
+          icdiff
           ivpn
           jq
           jujutsu

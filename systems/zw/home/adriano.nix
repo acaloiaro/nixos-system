@@ -280,6 +280,10 @@
       signByDefault = true;
     };
 
+    aliases = {
+      d = "difftool -y --extcmd=icdiff";
+    };
+
     extraConfig = {
       push = {
         autoSetupRemote = true;
