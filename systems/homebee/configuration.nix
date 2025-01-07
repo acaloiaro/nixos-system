@@ -44,7 +44,7 @@
   };
 
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -53,6 +53,7 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
+    settings.trusted-users = ["hombee"];
   };
 
   nixpkgs.config.allowUnfree = true;
@@ -130,10 +131,10 @@
     wireless = {
       enable = true;
       userControlled.enable = true;
-      environmentFile = config.age.secrets.wireless_networks.path;
+      secretsFile = config.age.secrets.wireless_networks.path;
       networks = {
         "3216240371" = {
-          psk = "@HOME5536@";
+          pskRaw = "ext:HOME5536";
         };
       };
     };

@@ -34,6 +34,12 @@
   fileSystems."/media" = {
     device = "/dev/disk/by-label/ExtDrive";
     fsType = "ntfs";
+    options = [
+      "uid=1001"
+      "gid=998"
+      "dmask=022" # directories have 755 permissions by default
+      "fmask=133" # files will have 644 options by default.
+    ];
   };
 
   swapDevices = [
