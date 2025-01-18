@@ -178,6 +178,9 @@
         "Feel love WiFi" = {
           psk = "namaste1";
         };
+        "SURV-Guest100" = {
+          pskRaw = "ext:SURV";
+        };
       };
     };
 
