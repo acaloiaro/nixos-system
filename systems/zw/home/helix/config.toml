@@ -1,5 +1,4 @@
 theme = "nord" # For normal/darker settings 
-# theme = "base16_transparent" # for light/outside conditions 
 
 [editor]
 auto-save = true
@@ -94,20 +93,8 @@ C-r = "redo"
 w = ":write"
 ";" = ":w"
 a = "code_action"
-o = [":hsplit ~/.config/helix/config.toml"]
-l = [":hsplit ~/.config/helix/languages.toml"]
-r = [":config-reload"]
-# remove wayward white space
-space = [
-  "save_selection",
-  "select_all",
-  ":pipe trim-whitespace",
-  "collapse_selection",
-  "jump_backward",
-  "commit_undo_checkpoint",
-  ":write",
-]
-c = [":character-info"]
+r = [":reload-all", ":lsp-restart"]
+c = ":character-info"
 t = ":run-shell-command make test"
 
 [keys.normal.g]

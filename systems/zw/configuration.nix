@@ -597,6 +597,7 @@
           slack
           spotify-player
           tailscale
+          taplo
           terraform
           terraform-lsp
           texlive.combined.scheme-tetex
