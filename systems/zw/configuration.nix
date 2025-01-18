@@ -538,7 +538,6 @@
           activitywatch
           alejandra
           alsa-utils
-          appimagekit
           beeper
           chawan
           clipmenu
@@ -589,6 +588,7 @@
           qrencode
           ripgrep
           rofi
+          sils.packages.${system}.default
           shutter
           stripe-cli
           slack

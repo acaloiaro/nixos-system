@@ -33,6 +33,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.sils = {
+    url = "sourcehut:~jcmuller/simple-inserts-language-server/v0.3.3";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.language-servers = {
     url = "git+https://git.sr.ht/~bwolf/language-servers.nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -58,6 +63,7 @@
     nur,
     kitty-grab,
     language-servers,
+    sils,
     helix-master,
     ...
   } @ inputs: let
