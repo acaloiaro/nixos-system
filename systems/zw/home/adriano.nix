@@ -33,6 +33,10 @@
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
     };
+    activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+      ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install es-ES
+    '';
 
     file = {
       ".mozilla/native-messaging-hosts/com.justwatch.gopass.json".source = ./gopass/gopass-api-manifest.json;
