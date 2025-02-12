@@ -548,7 +548,7 @@
           dante
           dict
           dig
-          di-tui.packages.${system}.default
+          di-tui
           direnv
           dmenu
           ess.packages.${system}.default
@@ -600,7 +600,6 @@
           taplo
           terraform
           terraform-lsp
-          texlive.combined.scheme-tetex
           tmux
           ungoogled-chromium
           usbutils

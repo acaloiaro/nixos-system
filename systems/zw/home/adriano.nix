@@ -262,7 +262,6 @@
 
   programs.helix = {
     enable = true;
-    package = helix-master.packages."x86_64-linux".default;
     defaultEditor = true;
     settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);
     languages = {
@@ -351,7 +350,6 @@
       notes = "hx ~/KB";
       open = "xdg-open $argv";
       quickqr = "qrencode -t ansiutf8 $1";
-      nix = "nix --extra-experimental-features 'nix-command flakes' $argv";
       gpgen = "gopass generate '$1/$1@adriano.fyi'";
       ll = "ls -l";
       vi = "hx $argv";

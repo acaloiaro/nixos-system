@@ -28,11 +28,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.di-tui = {
-    url = "github:acaloiaro/di-tui/v1.11.0";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   inputs.sils = {
     url = "sourcehut:~jcmuller/simple-inserts-language-server/v0.3.3";
     inputs.nixpkgs.follows = "nixpkgs";
