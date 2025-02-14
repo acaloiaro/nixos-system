@@ -396,79 +396,10 @@
     };
     flags = ["--disable-up-arrow"];
   };
-  programs.zsh = {
-    enable = false;
-    dotDir = ".config/zsh";
-    shellAliases = {
-      ll = "ls -l";
-      vi = "hx $*";
-      vim = "hx $*";
-      rebuild = "sudo nixos-rebuild --flake .#zw switch";
-      rebuild-roampi = "nixos-rebuild switch --flake .#roampi --target-host pi@roampi --build-host pi@roampi --fast --use-remote-sudo";
-      nomad = "NOMAD_TOKEN=$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}') nomad $*";
-      chatgpt = "OPENAI_API_KEY=$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi| grep api | awk '{print $2}') chatgpt $*";
-      gbr = "git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads | fzf | awk '{print $4}')";
-    };
-
-    oh-my-zsh = {
-      enable = false;
-      theme = "eastwood";
-      plugins = [
-        "sudo"
-        "git"
-        "dotenv"
-        "fzf"
-      ];
-    };
-
-    initExtra = ''
-      bindkey -v
-      export KEYTIMEOUT=1
-      autoload edit-command-line
-      zle -N edit-command-line
-
-      # Change cursor shape for different vi modes.
-      function zle-keymap-select {
-        if [[ ''${KEYMAP} == vicmd ]] ||
-           [[ $1 = 'block' ]]; then
-          echo -ne '\e[1 q'
-
-        elif [[ ''${KEYMAP} == main ]] ||
-             [[ ''${KEYMAP} == viins ]] ||
-             [[ ''${KEYMAP} = "" ]] ||
-             [[ $1 = 'beam' ]]; then
-          echo -ne '\e[5 q'
-        fi
-      }
-      zle -N zle-keymap-select
-
-      # Use beam shape cursor on startup.
-      echo -ne '\e[5 q'
-
-      # Use beam shape cursor for each new prompt.
-      preexec() {
-         echo -ne '\e[5 q'
-      }
-
-
-      alias addresses="hx ~/KB/pages/Important\ Addresses.md"
-      alias ideas="hx ~/KB/pages/Notes/ideas/"
-      alias people="vim ~/KB/pages/People.md"
-      alias notes="hx ~/KB"
-      alias open="xdg-open $*"
-      alias quickqr="qrencode -t ansiutf8 $1"
-      alias xclip="xclip -selection clipboard $*"
-      alias speedtest='echo "$(curl -skLO https://git.io/speedtest.sh && chmod +x speedtest.sh && ./speedtest.sh && rm speedtest.sh)"'
-      alias colorlight="tmux set window-style 'fg=#171421,bg=#FFFDD0'"
-      alias nix='nix --extra-experimental-features "nix-command flakes" $*'
-      function gpgen { gopass generate "$1/$1@''${2=adriano.fyi}" }
-    '';
-  };
 
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
-    enableZshIntegration = true;
     enableNushellIntegration = true;
     enableScDaemon = true;
 
