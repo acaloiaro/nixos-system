@@ -271,7 +271,9 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
+    settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
   };
+
   programs.git = {
     enable = true;
     userName = "Adriano Caloiaro";
