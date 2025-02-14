@@ -4,7 +4,6 @@
   lib,
   kitty-grab,
   homeage,
-  helix-master,
   ...
 }: {
   imports = [
@@ -311,6 +310,23 @@
       version = 1; # Workaround for https://github.com/nix-community/home-manager/issues/4744
       editor = "hx";
       git_protocol = "ssh";
+    };
+  };
+
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "Adriano Caloiaro";
+        email = "code@adriano.fyi";
+      };
+      signing = {
+        backend = "gpg";
+        key = "C2BC56DE73CE3F75!";
+      };
+      git = {
+        sign-on-push = true;
+      };
     };
   };
 
