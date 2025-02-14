@@ -567,7 +567,7 @@
           ltex-ls
           chatgpt-cli
           git
-          go_1_23
+          go_1_24
           gopls
           golangci-lint-langserver
           golangci-lint
@@ -575,7 +575,6 @@
           icdiff
           ivpn
           jq
-          jujutsu
           logseq
           nix-index
           ncdu
