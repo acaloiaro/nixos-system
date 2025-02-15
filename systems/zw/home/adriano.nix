@@ -329,6 +329,10 @@
       git = {
         sign-on-push = true;
       };
+      ui = {
+        paginate = "never";
+        default-command = "log";
+      };
     };
   };
 
