@@ -49,6 +49,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.lix-module = {
+    url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs = {
     nixpkgs,
     nixos-hardware,
@@ -60,6 +65,7 @@
     language-servers,
     sils,
     helix-master,
+    lix-module,
     ...
   } @ inputs: let
     overlays = [
@@ -129,6 +135,7 @@
               inherit kitty-grab agenix homeage helix-master;
             };
           }
+          lix-module.nixosModules.default
         ];
       };
 

@@ -5,8 +5,6 @@
   config,
   lib,
   pkgs,
-  inputs,
-  homeage,
   ...
 }: {
   imports = [
