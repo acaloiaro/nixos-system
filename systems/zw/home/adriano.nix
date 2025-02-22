@@ -32,6 +32,8 @@
       "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
     };
+    username = "adriano";
+    homeDirectory = "/home/adriano";
     activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install es-ES
@@ -381,6 +383,7 @@
       nomad = "NOMAD_TOKEN=$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}') nomad $argv;";
       chatgpt = "OPENAI_API_KEY=$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi | grep api | cut -d ' ' -f 2) ${pkgs.chatgpt-cli}/bin/chatgpt $argv";
       gbr = "git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads | fzf | awk '{print $4}')";
+      jjd = ''jj diff '~ glob:"**/*_templ.txt" & ~ glob:"**/*_templ.go"' --git $argv'';
     };
     plugins = [
       {

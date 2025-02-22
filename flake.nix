@@ -68,6 +68,7 @@
     lix-module,
     ...
   } @ inputs: let
+    lib = nixpkgs.lib // home-manager.lib;
     overlays = [
       inputs.agenix.overlays.default
       nur.overlays.default
@@ -90,6 +91,17 @@
       inherit overlays system;
     };
   in {
+    inherit lib;
+    homeConfigurations = {
+      "adriano@zw" = lib.homeManagerConfiguration {
+        inherit pkgs;
+        extraSpecialArgs = {inherit kitty-grab agenix homeage helix-master;};
+        modules = [
+          ./systems/zw/home/adriano.nix
+        ];
+      };
+    };
+
     nixosConfigurations = {
       z1 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -124,17 +136,6 @@
           nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/zw/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.backupFileExtension = "backup";
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.adriano = import ./systems/zw/home/adriano.nix;
-            home-manager.users.root = import ./systems/zw/home/root.nix;
-            home-manager.extraSpecialArgs = {
-              inherit kitty-grab agenix homeage helix-master;
-            };
-          }
           lix-module.nixosModules.default
         ];
       };
