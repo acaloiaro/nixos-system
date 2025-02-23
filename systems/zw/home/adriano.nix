@@ -99,11 +99,12 @@
         {
           trayOutput = "primary";
           position = "bottom";
+          mode = "hide";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
           fonts = {
             names = ["DejaVu Sans Mono" "FontAwesome5Free"];
             style = "Bold Semi-Condensed";
-            size = 14.0;
+            size = 12.0;
           };
         }
       ];
@@ -113,19 +114,19 @@
 
       workspaceOutputAssign = [
         {
-          workspace = "1:Web";
+          workspace = "1";
           output = "eDP-1";
         }
         {
-          workspace = "2:Termainl";
+          workspace = "2";
           output = "eDP-1";
         }
         {
-          workspace = "3:Chat";
+          workspace = "3";
           output = "eDP-1";
         }
         {
-          workspace = "4:Notes";
+          workspace = "4";
           output = "eDP-1";
         }
         {
@@ -218,6 +219,17 @@
   programs.i3status-rust = {
     enable = true;
     bars = {
+      top = {
+        blocks = [
+          {
+            block = "custom";
+            command = "sed 's/  //' <(curl 'https://wttr.in/St.%20George,UT?format=4&u' -s)";
+            interval = 1200;
+          }
+        ];
+        icons = "awesome5";
+        theme = "nord-dark";
+      };
       bottom = {
         blocks = [
           {
@@ -250,13 +262,8 @@
             format = " $timestamp.datetime(f:'%a %d/%m %R') ";
           }
         ];
-        settings = {
-          theme = {
-            theme = "solarized-dark";
-          };
-        };
         icons = "awesome5";
-        theme = "gruvbox-dark";
+        theme = "nord-dark";
       };
     };
   };
