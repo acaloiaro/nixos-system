@@ -38,7 +38,9 @@
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install es-ES
     '';
-
+    packages = [
+      pkgs.zeal
+    ];
     file = {
       ".mozilla/native-messaging-hosts/com.justwatch.gopass.json".source = ./gopass/gopass-api-manifest.json;
       ".config/gopass" = {
