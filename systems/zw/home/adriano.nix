@@ -186,12 +186,12 @@
         "XF86Display" = "exec xrandr --output DP-1 --mode 1920x1080 --left-of eDP-1 --auto";
       };
       assigns = {
-        "1: Web" = [{class = "^qutebrowser$";}];
-        "2: Term" = [{class = "^kitty$";}];
-        "3: Chat" = [{class = "^Beeper$";}];
-        "4: Notes" = [{class = "^Logseq$";}];
-        "5: 1PW" = [{class = "^1Password$";}];
-        "6: Altchat" = [{class = "^Slack$";}];
+        "1" = [{class = "^qutebrowser$";}];
+        "2" = [{class = "^kitty$";}];
+        "3" = [{class = "^Beeper$";}];
+        "4" = [{class = "^Logseq$";}];
+        "5" = [{class = "^1Password$";}];
+        "6" = [{class = "^Slack$";}];
       };
       startup = [
         {
