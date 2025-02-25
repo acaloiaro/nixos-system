@@ -36,7 +36,6 @@
     homeDirectory = "/home/adriano";
     activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
-      ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install es-ES
     '';
     packages = [
       pkgs.zeal
@@ -103,6 +102,17 @@
           position = "bottom";
           mode = "hide";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
+          fonts = {
+            names = ["DejaVu Sans Mono" "FontAwesome5Free"];
+            style = "Bold Semi-Condensed";
+            size = 12.0;
+          };
+        }
+        {
+          trayOutput = "primary";
+          position = "top";
+          mode = "hide";
+          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
           fonts = {
             names = ["DejaVu Sans Mono" "FontAwesome5Free"];
             style = "Bold Semi-Condensed";
@@ -225,8 +235,25 @@
         blocks = [
           {
             block = "custom";
-            command = "sed 's/  //' <(curl 'https://wttr.in/St.%20George,UT?format=4&u' -s)";
+            command = "curl 'https://wttr.in/St.%20George,UT?format=4&u' -s";
             interval = 1200;
+          }
+          {
+            block = "time";
+            interval = 60;
+            timezone = "UTC";
+            format = "$timestamp.datetime(f:'%Z %R') ";
+          }
+          {
+            block = "time";
+            interval = 60;
+            timezone = "America/New_York";
+            format = "$timestamp.datetime(f:'%Z %R') ";
+          }
+          {
+            block = "time";
+            interval = 60;
+            format = "$timestamp.datetime(f:'%Z %R %d/%m ') ";
           }
         ];
         icons = "awesome5";
@@ -257,11 +284,6 @@
           }
           {
             block = "battery";
-          }
-          {
-            block = "time";
-            interval = 60;
-            format = " $timestamp.datetime(f:'%a %d/%m %R') ";
           }
         ];
         icons = "awesome5";
