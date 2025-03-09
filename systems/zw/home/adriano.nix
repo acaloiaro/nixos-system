@@ -4,6 +4,7 @@
   lib,
   kitty-grab,
   homeage,
+  helix-flake,
   ...
 }: {
   imports = [
@@ -37,8 +38,9 @@
     activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
     '';
-    packages = [
-      pkgs.zeal
+    packages = with pkgs; [
+      yazi
+      zeal
     ];
     file = {
       ".mozilla/native-messaging-hosts/com.justwatch.gopass.json".source = ./gopass/gopass-api-manifest.json;
@@ -293,6 +295,7 @@
   };
 
   programs.helix = {
+    package = helix-flake.packages.${pkgs.system}.default;
     enable = true;
     defaultEditor = true;
     settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);

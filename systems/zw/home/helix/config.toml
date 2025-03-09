@@ -64,6 +64,12 @@ C-j = "jump_view_down"
 C-k = "jump_view_up"
 C-l = "jump_view_right"
 "minus" = "file_picker_in_current_buffer_directory"
+C-y = [
+    ":sh rm -f /tmp/yazi-path",
+    ":insert-output yazi %{buffer_name} --chooser-file=/tmp/yazi-path",
+    ":open %sh{cat /tmp/yazi-path}",
+    ":redraw"
+]
 
 # from reddit
 V = ["goto_first_nonwhitespace", "extend_to_line_end"]

@@ -181,6 +181,9 @@
         "SURV-Guest100" = {
           pskRaw = "ext:SURV";
         };
+        "Sandy House Guest" = {
+          pskRaw = "ext:SANDY";
+        };
       };
     };
 

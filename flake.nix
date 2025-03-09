@@ -1,6 +1,15 @@
 {
   description = "NixOS configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://helix.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
+    ];
+  };
+
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   inputs.nur.url = "github:nix-community/NUR";
   inputs.home-manager = {
@@ -38,8 +47,8 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.helix-master = {
-    url = "github:helix-editor/helix/master";
+  inputs.helix-flake = {
+    url = "github:helix-editor/helix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -64,8 +73,9 @@
     kitty-grab,
     language-servers,
     sils,
-    helix-master,
+    helix-flake,
     lix-module,
+    helix,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
@@ -95,7 +105,10 @@
     homeConfigurations = {
       "adriano@zw" = lib.homeManagerConfiguration {
         inherit pkgs;
-        extraSpecialArgs = {inherit kitty-grab agenix homeage helix-master;};
+        extraSpecialArgs = {
+          inherit kitty-grab agenix homeage system;
+          helix-flake = helix;
+        };
         modules = [
           ./systems/zw/home/adriano.nix
         ];
@@ -103,29 +116,6 @@
     };
 
     nixosConfigurations = {
-      z1 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        inherit pkgs;
-        specialArgs = {inherit inputs;};
-        modules = [
-          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
-          nur.modules.nixos.default
-          agenix.nixosModules.default
-          ./systems/z1/configuration.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.backupFileExtension = "backup";
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.adriano = import ./systems/z1/home/adriano.nix;
-            home-manager.users.root = import ./systems/z1/home/root.nix;
-            home-manager.extraSpecialArgs = {
-              inherit kitty-grab agenix homeage helix-master;
-            };
-          }
-        ];
-      };
-
       zw = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         inherit pkgs;
