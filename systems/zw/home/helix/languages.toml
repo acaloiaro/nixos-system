@@ -84,3 +84,15 @@ command = "ltex-ls"
 
 [language-server.ltex-ls.config.ltex.dictionary]
 "en-US" = ["ewwe","flaberrasted"]
+
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golangci-lint-lsp.config]
+command = [
+  "golangci-lint",
+  "run",
+  "--output.json.path",
+  "stdout",
+  "--issues-exit-code=1",
+]

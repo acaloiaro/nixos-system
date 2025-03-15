@@ -32,16 +32,6 @@
     flake = false;
   };
 
-  inputs.ess = {
-    url = "github:acaloiaro/ess/v2.14.1";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
-  inputs.sils = {
-    url = "sourcehut:~jcmuller/simple-inserts-language-server/v0.3.3";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   inputs.language-servers = {
     url = "git+https://git.sr.ht/~bwolf/language-servers.nix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -59,7 +49,7 @@
   };
 
   inputs.lix-module = {
-    url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
+    url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-2.tar.gz";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -72,7 +62,6 @@
     nur,
     kitty-grab,
     language-servers,
-    sils,
     helix-flake,
     lix-module,
     helix,

@@ -538,7 +538,7 @@
 
   programs.chawan = {
     enable = true;
-    images = true;
+    images = false;
     cookie = true;
     cookie-jars-for = ["kagi.com" "sr.ht"];
     pager-keybindings = {"C-k" = ''() => pager.load("kagi:")'';};

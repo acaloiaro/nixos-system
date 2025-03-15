@@ -554,7 +554,6 @@
           di-tui
           direnv
           dmenu
-          ess.packages.${system}.default
           fprintd
           fzf
           gimp
@@ -583,7 +582,7 @@
           ncdu
           nodejs
           nodePackages.typescript-language-server
-          nomad_1_7
+          nomad_1_9
           nil # nix lsp
           nushell
           opentofu
@@ -593,7 +592,6 @@
           qrencode
           ripgrep
           rofi
-          sils.packages.${system}.default
           shutter
           stripe-cli
           slack
