@@ -64,18 +64,10 @@ C-j = "jump_view_down"
 C-k = "jump_view_up"
 C-l = "jump_view_right"
 "minus" = "file_picker_in_current_buffer_directory"
-C-y = [
-    ":sh rm -f /tmp/yazi-path",
-    ":insert-output yazi %{buffer_name} --chooser-file=/tmp/yazi-path",
-    ":open %sh{cat /tmp/yazi-path}",
-    ":redraw"
-]
 
 # from reddit
 V = ["goto_first_nonwhitespace", "extend_to_line_end"]
 D = ["ensure_selections_forward", "extend_to_line_end"]
-# D = ["goto_first_nonwhitespace", "extend_line", "delete_selection"]
-# x = "extend_line"
 a = ["append_mode", "collapse_selection"]
 i = ["insert_mode", "collapse_selection"]
 C-space = "signature_help"
@@ -90,9 +82,6 @@ G = "goto_last_line"
 "$" = "goto_line_end"
 C-w = { C-c = "wclose", c = "wclose" }
 C-r = "redo"
-#C-y = "scroll_up"
-#C-e = "scroll_down"
-# d = "kill_to_line_end"
 
 
 [keys.normal.";"]
@@ -102,6 +91,7 @@ a = "code_action"
 r = [":reload-all", ":lsp-restart"]
 c = ":character-info"
 t = ":run-shell-command make test"
+f = ":format"
 
 [keys.normal.g]
 a = "code_action"
