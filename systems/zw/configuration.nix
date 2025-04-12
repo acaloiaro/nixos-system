@@ -42,7 +42,6 @@
       };
     };
     console = {
-      font = "Isoveke";
       useXkbConfig = true; # use xkbOptions in tty.
     };
 
@@ -183,6 +182,9 @@
         };
         "Sandy House Guest" = {
           pskRaw = "ext:SANDY";
+        };
+        "VentureRV-57" = {
+          pskRaw = "ext:VENTURE_RV";
         };
       };
     };
@@ -529,6 +531,7 @@
     # Enable touchpad support (enabled default in most desktopManager).
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users = {
+      extraGroups.vboxusers.members = ["adriano"];
       mutableUsers = true;
       users.adriano = {
         isNormalUser = true;
@@ -545,7 +548,6 @@
           alejandra
           alsa-utils
           beeper
-          chawan
           clipmenu
           ctags
           dante
@@ -630,6 +632,11 @@
         dockerCompat = true;
         # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;
+      };
+      virtualbox.host = {
+        enable = true;
+        enableKvm = true;
+        addNetworkInterface = false;
       };
     };
   };

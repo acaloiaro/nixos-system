@@ -10,7 +10,6 @@
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/calendars.nix
-    ../../../common/chawan.nix
   ];
 
   homeage = {
@@ -30,7 +29,6 @@
     stateVersion = "23.05";
     sessionVariables = {
       "GO111MODULE" = "on";
-      "NOMAD_ADDR" = "http://cluster-0:4646";
       "PATH" = "$PATH:/home/adriano/go/bin";
     };
     username = "adriano";
@@ -407,17 +405,13 @@
       people = "vim ~/KB/pages/People.md";
       notes = "hx ~/KB";
       open = "xdg-open $argv";
-      quickqr = "qrencode -t ansiutf8 $1";
-      gpgen = "gopass generate '$1/$1@adriano.fyi'";
+      quickqr = "qrencode -t ansiutf8 $argv";
+      gpgen = "gopass generate \"$argv[1]/$argv[1]@adriano.fyi\"";
       ll = "ls -l";
       vi = "hx $argv";
       vim = "hx $argv";
-      rebuild = "sudo nixos-rebuild --flake .#zw switch";
-      rebuild-roampi = "nixos-rebuild switch --flake .#roampi --target-host pi@roampi --build-host pi@roampi --fast --use-remote-sudo";
-      nomad = "NOMAD_TOKEN=$(${pkgs.gopass}/bin/gopass show hetzner-cluster| grep admin_token | awk '{print $2}') nomad $argv;";
-      chatgpt = "OPENAI_API_KEY=$(${pkgs.gopass}/bin/gopass show openai.com/openai.com@adriano.fyi | grep api | cut -d ' ' -f 2) ${pkgs.chatgpt-cli}/bin/chatgpt $argv";
-      gbr = "git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads | fzf | awk '{print $4}')";
       jjd = ''jj diff '~ glob:"**/*_templ.txt" & ~ glob:"**/*_templ.go"' --git $argv'';
+      ncm-token = "${pkgs.gopass}/bin/gopass show ncm | grep Secret | awk '{print $4}'";
     };
     plugins = [
       {
@@ -538,24 +532,6 @@
 
   programs.chawan = {
     enable = true;
-    images = false;
-    cookie = true;
-    cookie-jars-for = ["kagi.com" "sr.ht"];
-    pager-keybindings = {"C-k" = ''() => pager.load("kagi:")'';};
-    omnirules = [
-      {
-        match = "^kagi:";
-        substitute-url =
-          # js
-          ''(x) => "https://kagi.com/search/?q=" + encodeURIComponent(x.split(":").slice(1).join(":"))'';
-      }
-    ];
-    siteconf = [
-      {
-        url = "https://news.ycombinator.com/.*";
-        cookie = true;
-      }
-    ];
   };
 
   programs.aerc = {
