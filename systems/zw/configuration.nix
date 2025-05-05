@@ -589,7 +589,6 @@
           nushell
           opentofu
           playerctl
-          podman
           python311Packages.sqlparse
           qrencode
           ripgrep
@@ -627,12 +626,6 @@
     };
 
     virtualisation = {
-      podman = {
-        enable = true;
-        dockerCompat = true;
-        # Required for containers under podman-compose to be able to talk to each other.
-        defaultNetwork.settings.dns_enabled = true;
-      };
       virtualbox.host = {
         enable = true;
         enableKvm = true;

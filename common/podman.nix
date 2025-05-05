@@ -13,7 +13,7 @@ in {
       podman = {
         enable = true;
         # Alias all docker commands to podman
-        dockerCompat = true;
+        dockerCompat = false;
         # Required for containers under podman-compose to be able to talk to each other.
         defaultNetwork.settings.dns_enabled = true;
         autoPrune = {
