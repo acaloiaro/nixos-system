@@ -207,9 +207,7 @@
       enable = true;
     };
 
-    programs.fish = {
-      enable = true;
-    };
+    programs.fish.enable = true;
     programs.gnupg.agent = {
       enable = true;
       enableSSHSupport = true;
@@ -221,6 +219,7 @@
       flake = "/home/adriano/git/nixos-system";
     };
     programs.dconf.enable = true;
+    programs.i3lock.enable = true;
     programs.i3lock.u2fSupport = true;
 
     # Backlight/brightness control
@@ -556,6 +555,7 @@
           di-tui
           direnv
           dmenu
+          docker
           fprintd
           fzf
           gimp
@@ -626,6 +626,7 @@
     };
 
     virtualisation = {
+      docker.enable = true;
       virtualbox.host = {
         enable = true;
         enableKvm = true;
