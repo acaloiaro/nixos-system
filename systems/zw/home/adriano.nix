@@ -37,6 +37,7 @@
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
     '';
     packages = with pkgs; [
+      nodePackages.prettier
       yazi
       zeal
     ];
@@ -706,13 +707,13 @@
         "x-scheme-handler/slack" = "Slack.desktop";
       };
     };
-    desktopEntries = {
-      beeper-desktop = {
-        name = "Beeper";
-        type = "Application";
-        exec = "beeper %U";
-        icon = "beeper";
-      };
-    };
+    # desktopEntries = {
+    #   beeper-desktop = {
+    #     name = "Beeper";
+    #     type = "Application";
+    #     exec = "beeper %U";
+    #     icon = "beeper";
+    #   };
+    # };
   };
 }
