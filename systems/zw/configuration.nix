@@ -89,6 +89,13 @@
         libvdpau-va-gl
       ];
     };
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
 
     nix = {
       package = pkgs.lix;
@@ -227,9 +234,6 @@
 
     # Fingerprint auth
     services.fprintd.enable = true;
-
-    # Alsa
-    services.pipewire.alsa.enable = true;
 
     # Yubikey
     services.udev.packages = [pkgs.yubikey-personalization];
