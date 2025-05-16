@@ -35,7 +35,7 @@ formatter = { command = 'prettier', args = ["--parser", "css"] }
 [[language]]
 name = "javascript"
 formatter = { command = 'prettier', args = ["--parser", "typescript"] }
-auto-format = true
+auto-format = false
 
 [[language]]
 name = "go"
