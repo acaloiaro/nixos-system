@@ -124,6 +124,7 @@
 
       workspaceAutoBackAndForth = true;
       window.border = 0;
+      window.titlebar = false;
 
       workspaceOutputAssign = [
         {
@@ -236,7 +237,7 @@
         blocks = [
           {
             block = "custom";
-            command = "curl 'https://wttr.in/St.%20George,UT?format=4&u' -s";
+            command = "curl 'https://wttr.in/Draper,UT?format=4&u' -s";
             interval = 1200;
           }
           {
