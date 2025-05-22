@@ -37,11 +37,20 @@
       tailscale_key = {
         file = ./secrets/tailscale_key.age;
       };
+      nix_serve_cache_key = {
+        file = ./secrets/nix_serve_cache_key.age;
+        mode = "400";
+        owner = "nix-serve";
+        group = "nix-serve";
+      };
     };
   };
 
   nix = {
     package = pkgs.nixVersions.stable;
+    settings = {
+      trusted-users = ["root" "jellybee"];
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -86,6 +95,34 @@
       IdleAction=sleep
       IdleActionSec=100000000000
     '';
+
+    nix-serve = {
+      enable = true;
+      secretKeyFile = config.age.secrets.nix_serve_cache_key.path;
+      port = 5676;
+      bindAddress = "0.0.0.0";
+      package = pkgs.nix-serve-ng;
+    };
+
+    syncthing = {
+      enable = false;
+      user = "pi";
+      dataDir = "/home/jellybee/.config/syncthing";
+      configDir = "/home/jellybee/.config/syncthing/config";
+      guiAddress = "100.123.165.8:8384";
+      overrideDevices = true; # overrides any devices added or deleted through the WebUI
+      overrideFolders = true; # overrides any folders added or deleted through the WebUI
+      devices = {
+        "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
+      };
+      folders = {
+        "Documents" = {
+          # Name of folder in Syncthing, also the folder ID
+          path = "/home/jellybee/Documents"; # Which folder to add to Syncthing
+          devices = ["z1" "zw"]; # Which devices to share the folder with
+        };
+      };
+    };
   };
 
   networking = {
@@ -121,6 +158,7 @@
 
   users.mutableUsers = true;
   users = {
+    groups."nix-serve" = {};
     users.jellybee = {
       isNormalUser = true;
       initialPassword = "Jellybee1";
@@ -128,30 +166,11 @@
       openssh.authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"
       ];
-      packages = with pkgs; [
-      ];
     };
-  };
 
-  services = {
-    syncthing = {
-      enable = false;
-      user = "pi";
-      dataDir = "/home/jellybee/.config/syncthing";
-      configDir = "/home/jellybee/.config/syncthing/config";
-      guiAddress = "100.123.165.8:8384";
-      overrideDevices = true; # overrides any devices added or deleted through the WebUI
-      overrideFolders = true; # overrides any folders added or deleted through the WebUI
-      devices = {
-        "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
-      };
-      folders = {
-        "Documents" = {
-          # Name of folder in Syncthing, also the folder ID
-          path = "/home/jellybee/Documents"; # Which folder to add to Syncthing
-          devices = ["z1" "zw"]; # Which devices to share the folder with
-        };
-      };
+    users."nix-serve" = {
+      isSystemUser = true;
+      group = "nix-serve";
     };
   };
 
