@@ -105,7 +105,7 @@
       settings = {
         trusted-users = ["root" "adriano"];
         substituters = [
-          "ssh://jellybee@jellybee"
+          # "http://jellybee:5676/"
           "https://nix-community.cachix.org"
           "https://cache.nixos.org/"
         ];
