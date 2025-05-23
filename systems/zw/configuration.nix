@@ -132,7 +132,6 @@
       networks = {
         "MTShadows" = {
           psk = "WinterChills";
-          priority = 100;
         };
         "labarbacoffee" = {
           psk = "labarbadraper";
@@ -140,7 +139,7 @@
         };
         "roam" = {
           pskRaw = "ext:ROAM_PSK";
-          priority = 2;
+          priority = 100;
         };
         "WGCR-2" = {
           psk = "Goose2010";
