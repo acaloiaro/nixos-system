@@ -476,7 +476,7 @@
       adriano = {
         id = 0;
         name = "adriano";
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
           floccus
           ublock-origin
           gopass-bridge
