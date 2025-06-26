@@ -532,7 +532,7 @@
     # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
     system.stateVersion = "23.05"; # Did you read the comment?
 
-    time.timeZone = "America/Denver";
+    time.timeZone = "America/Los_Angeles";
 
     # Enable touchpad support (enabled default in most desktopManager).
     # Define a user account. Don't forget to set a password with ‘passwd’.
