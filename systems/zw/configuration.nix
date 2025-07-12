@@ -89,6 +89,7 @@
         libvdpau-va-gl
       ];
     };
+
     security.rtkit.enable = true;
     services.pipewire = {
       enable = true;
@@ -192,6 +193,9 @@
         };
         "VentureRV-57" = {
           pskRaw = "ext:VENTURE_RV";
+        };
+        "Conversations" = {
+          psk = "hotchocolate";
         };
       };
     };

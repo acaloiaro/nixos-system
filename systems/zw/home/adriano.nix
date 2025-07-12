@@ -708,13 +708,5 @@
         "x-scheme-handler/slack" = "Slack.desktop";
       };
     };
-    # desktopEntries = {
-    #   beeper-desktop = {
-    #     name = "Beeper";
-    #     type = "Application";
-    #     exec = "beeper %U";
-    #     icon = "beeper";
-    #   };
-    # };
   };
 }
