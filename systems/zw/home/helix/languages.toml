@@ -40,7 +40,7 @@ auto-format = false
 [[language]]
 name = "go"
 formatter = { command = "goimports" }
-# config = { goimports = true, gofumpt = true, staticcheck = true, analyses = { unusedparams = true, unreachable = true } }
+language-servers = [ "gopls" ]
 
 [[language]]
 name = "nix"
