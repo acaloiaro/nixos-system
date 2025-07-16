@@ -63,7 +63,7 @@
     kitty-grab,
     language-servers,
     helix-flake,
-    lix-module,
+    # lix-module,
     helix,
     ...
   } @ inputs: let
@@ -115,7 +115,7 @@
           nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/zw/configuration.nix
-          lix-module.nixosModules.default
+          # lix-module.nixosModules.default
         ];
       };
 

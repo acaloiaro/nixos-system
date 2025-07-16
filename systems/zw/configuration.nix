@@ -99,7 +99,7 @@
     };
 
     nix = {
-      package = pkgs.lix;
+      # package = pkgs.lix;
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
