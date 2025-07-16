@@ -197,6 +197,9 @@
         "Conversations" = {
           psk = "hotchocolate";
         };
+        "tellmywifiiloveher" = {
+          psk = "stegosaurus";
+        };
       };
     };
 

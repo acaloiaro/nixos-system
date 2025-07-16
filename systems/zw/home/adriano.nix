@@ -237,7 +237,7 @@
         blocks = [
           {
             block = "custom";
-            command = "curl 'https://wttr.in/Draper,UT?format=4&u' -s";
+            command = "curl 'https://wttr.in/Revelstoke,BC?format=4&u' -s";
             interval = 1200;
           }
           {
