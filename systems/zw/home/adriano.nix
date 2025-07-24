@@ -374,8 +374,8 @@
 
   programs.kitty = {
     enable = true;
-    # themeFile = "GitHub_Dark_Dimmed"; # For normal/lower light environments
-    themeFile = "GitHub_Light"; # For higher light environments
+    themeFile = "GitHub_Dark_Dimmed"; # For normal/lower light environments
+    # themeFile = "GitHub_Light"; # For higher light environments
     extraConfig = ''
       # enabled_layouts fat,tall,stack
       enabled_layouts tall:bias=50;full_size=1;mirrored=false
