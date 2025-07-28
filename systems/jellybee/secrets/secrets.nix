@@ -2,5 +2,6 @@ let
   jellybee = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC9cmF9B0y4t0q02W7blS+AHpN5pt6E55bABwoIhtPA4Vwq2Cxi35T/DlnyKPQq2jL3eIALrSR0C3A3ASlEQHext1MV1x8rSo+Z8ouN0GL1vn208e7tDgCt3FbhkgrNoUTAbpvsRXjwFXPB4TbYfb3rhVxzoGXd/+AfdHGNUUyfA//loy9/rfFac8dGqLkxv30Doa6fT00El5ohQ4DuVvSREdFF070GzlX4TKjNz2Tr2D0FcXTHVbJxbcjDucSgoc+kE2fvmXm598nX0sczYSXTCcv+PHkcfwHpo+M5JBlpIP43RANghk5ILaxRFf9/qz8Loe3RhuZd6uZ7xS4hyf6wcBcf7LiiKdctZFkyiSSUXvVVH/gmHNWJa01gs2F/n+hglXitWDWmadTa5pEkT0jjv9eN4q0t5HAPdu5z6pNsHe02mrQZu97vimf/q6x1dXNoBiEd3tGrzsFytawl7l6LvZ91qI5eSflupn5C8qnSlvvuEPNwjmgyEZ46Oz3/Xp2EZPSWjw7JFvfb9hNUUqYsr54bG70l9sITxdSXQvVENAfwA3+129eycSyl7BsrqAdUOrbZKEnxyHC9QB/quzUz765OCW64ZGTr36mhCdQTWtKYq8NWWvKOi1fI/TnCp8FkRtEM2GAo1DNPKrFdhkHruiE83URkevt5ipvfJ6ZHUw== code@adriano.fyi";
 in {
   "tailscale_key.age".publicKeys = [jellybee];
+  "wireless_networks.age".publicKeys = [jellybee];
   "nix_serve_cache_key.age".publicKeys = [jellybee];
 }

@@ -37,6 +37,9 @@
       tailscale_key = {
         file = ./secrets/tailscale_key.age;
       };
+      wireless_networks = {
+        file = ./secrets/wireless_networks.age;
+      };
       nix_serve_cache_key = {
         file = ./secrets/nix_serve_cache_key.age;
         mode = "400";
@@ -141,6 +144,18 @@
 
       # allow you to SSH in over the public internet
       allowedTCPPorts = [22];
+    };
+
+    wireless = {
+      enable = true;
+      userControlled.enable = true;
+      secretsFile = config.age.secrets.wireless_networks.path;
+      networks = {
+        "roam" = {
+          pskRaw = "ext:ROAM_PSK";
+          priority = 100;
+        };
+      };
     };
   };
 
