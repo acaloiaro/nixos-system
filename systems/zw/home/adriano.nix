@@ -592,7 +592,6 @@
       maildirBasePath = "/home/adriano/.mail";
       accounts = {
         PastSight = {
-          primary = true;
           aerc = {
             enable = true;
           };
@@ -620,6 +619,7 @@
         };
 
         Personal = {
+          primary = true;
           aerc = {
             enable = true;
             # extraAccounts = {
