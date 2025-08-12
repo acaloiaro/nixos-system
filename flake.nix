@@ -32,11 +32,6 @@
     flake = false;
   };
 
-  inputs.language-servers = {
-    url = "git+https://git.sr.ht/~bwolf/language-servers.nix";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   inputs.helix-flake = {
     url = "github:helix-editor/helix";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -61,7 +56,6 @@
     agenix,
     nur,
     kitty-grab,
-    language-servers,
     helix-flake,
     # lix-module,
     helix,
