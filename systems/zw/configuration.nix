@@ -200,6 +200,7 @@
         "tellmywifiiloveher" = {
           psk = "stegosaurus";
         };
+        "Living Forest Wifi" = {};
       };
     };
 
@@ -642,7 +643,7 @@
     virtualisation = {
       docker.enable = true;
       virtualbox.host = {
-        enable = true;
+        enable = false;
         enableKvm = true;
         addNetworkInterface = false;
       };
