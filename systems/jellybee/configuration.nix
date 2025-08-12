@@ -166,6 +166,7 @@
       networks = {
         "roam" = {
           pskRaw = "ext:ROAM_PSK";
+        "Living Forest Wifi" = {
           priority = 100;
         };
       };
@@ -177,8 +178,10 @@
     jq
     kitty
     tailscale
+    ungoogled-chromium
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    wpa_supplicant_gui
     yt-dlp
     zfs
     zfstools
