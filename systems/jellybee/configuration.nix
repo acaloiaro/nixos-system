@@ -73,6 +73,7 @@
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale_key.path;
+      extraSetFlags = ["--advertise-exit-node"];
     };
     jellyfin = {
       enable = true;
@@ -144,6 +145,18 @@
 
       # allow you to SSH in over the public internet
       allowedTCPPorts = [22];
+    };
+
+    interfaces = {
+      wlo1.useDHCP = lib.mkDefault true;
+      enp1s0 = {
+        ipv4.addresses = [
+          {
+            address = "192.168.13.103";
+            prefixLength = 24;
+          }
+        ];
+      };
     };
 
     wireless = {
