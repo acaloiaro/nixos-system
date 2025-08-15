@@ -9,6 +9,7 @@ rulers = [120]
 completion-replace = true
 bufferline = "always"
 editor-config = true
+rainbow-brackets = true
 
 # cursorline = true
 # cursorcolumn = true
