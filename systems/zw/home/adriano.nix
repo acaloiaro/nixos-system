@@ -591,33 +591,6 @@
     email = {
       maildirBasePath = "/home/adriano/.mail";
       accounts = {
-        PastSight = {
-          aerc = {
-            enable = true;
-          };
-          realName = "Adriano Caloiaro";
-          address = "adriano@pastsight.com";
-          imap.host = "imap.gmail.com";
-          smtp.host = "smtp.gmail.com";
-          userName = "adriano@pastsight.com";
-          passwordCommand = "${pkgs.gopass}/bin/gopass show -o google.com/aerc/adriano@pastsight.com";
-
-          mbsync = {
-            enable = true;
-            create = "both";
-            expunge = "both";
-            remove = "both";
-          };
-          msmtp.enable = true;
-          notmuch.enable = true;
-
-          gpg = {
-            encryptByDefault = true;
-            signByDefault = true;
-            key = "C2BC56DE73CE3F75!";
-          };
-        };
-
         Personal = {
           primary = true;
           aerc = {
@@ -681,12 +654,6 @@
 
     calendar.accounts = {
       fastmail.remote.passwordCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "fastmail.com/me-aerc"];
-      "PastSight" = {
-        vdirsyncer = {
-          clientIdCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "google.com/adriano@pastsight.com/zw-dav-access-client-id"];
-          clientSecretCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "google.com/adriano@pastsight.com/zw-dav-access-client-secret"];
-        };
-      };
     };
   };
 

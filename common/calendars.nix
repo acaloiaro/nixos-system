@@ -26,29 +26,6 @@
           conflictResolution = "remote wins";
         };
       };
-
-      "PastSight" = {
-        khal = {
-          enable = true;
-          type = "discover";
-          color = "light blue";
-        };
-
-        local = {
-          type = "filesystem";
-          fileExt = ".ics";
-        };
-
-        remote.type = "google_calendar";
-
-        vdirsyncer = {
-          enable = true;
-          metadata = ["color"];
-          tokenFile = "${config.xdg.dataHome}/vdirsyncer/gmail-caldav-token";
-          collections = ["from a" "from b"];
-          conflictResolution = "remote wins";
-        };
-      };
     };
   };
 
