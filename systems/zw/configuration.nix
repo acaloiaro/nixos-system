@@ -200,7 +200,9 @@
         "tellmywifiiloveher" = {
           psk = "stegosaurus";
         };
-        "Living Forest Wifi" = {};
+        "RabbitHole" = {
+          psk = "sunshine7";
+        };
       };
     };
 
