@@ -364,6 +364,7 @@
       };
       git = {
         sign-on-push = true;
+        write-change-id-header = true;
       };
       ui = {
         paginate = "never";
