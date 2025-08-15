@@ -39,7 +39,7 @@
 
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
   inputs.nh = {
-    url = "github:viperML/nh";
+    url = "github:viperML/nh/v4.2.0-beta2";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
