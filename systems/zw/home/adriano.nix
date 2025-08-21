@@ -37,6 +37,7 @@
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
     '';
     packages = with pkgs; [
+      btsw
       nodePackages.prettier
       yazi
       zeal

@@ -43,6 +43,8 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.btsw = {
+    url = "https://flakes.adriano.fyi/btsw";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -61,14 +63,8 @@
     lib = nixpkgs.lib // home-manager.lib;
     overlays = [
       inputs.agenix.overlays.default
+      inputs.btsw.overlays.default
       nur.overlays.default
-      (
-        final: prev: {
-          # logseq = prev.logseq.override {
-          #   electron = prev.electron_27;
-          # };
-        }
-      )
     ];
     system = "x86_64-linux";
     pkgs = import nixpkgs {
