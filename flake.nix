@@ -43,8 +43,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.lix-module = {
-    url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0-2.tar.gz";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -57,7 +55,6 @@
     nur,
     kitty-grab,
     helix-flake,
-    # lix-module,
     helix,
     ...
   } @ inputs: let
@@ -109,7 +106,6 @@
           nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/zw/configuration.nix
-          # lix-module.nixosModules.default
         ];
       };
 
