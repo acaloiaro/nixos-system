@@ -51,6 +51,7 @@
   outputs = {
     nixpkgs,
     nixos-hardware,
+    nix-darwin,
     home-manager,
     homeage,
     agenix,
@@ -67,6 +68,7 @@
       nur.overlays.default
     ];
     system = "x86_64-linux";
+    darwinSystem = "aarch64-darwin";
     pkgs = import nixpkgs {
       config = {
         allowUnfree = true;
@@ -75,6 +77,16 @@
         ];
       };
       inherit overlays system;
+    };
+    darwin-pkgs = import nixpkgs {
+      system = darwinSystem;
+      config = {
+        allowUnfree = true;
+        permittedInsecurePackages = [
+          "electron-27.3.11"
+        ];
+      };
+      inherit overlays;
     };
   in {
     inherit lib;
@@ -87,6 +99,16 @@
         };
         modules = [
           ./systems/zw/home/adriano.nix
+        ];
+      };
+      "adriano.caloiaro@JJTH7GH17J" = lib.homeManagerConfiguration {
+        pkgs =  darwin-pkgs;
+        extraSpecialArgs = {
+          inherit kitty-grab agenix homeage darwinSystem;
+          helix-flake = helix;
+        };
+        modules = [
+          ./systems/greenhouse/home/adriano.caloiaro.nix
         ];
       };
     };
@@ -145,5 +167,24 @@
         ];
       };
     };
+
+    darwinConfigurations.JJTH7GH17J = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      specialArgs = { inherit inputs; };
+
+      modules = [
+        ./systems/greenhouse/darwin.nix
+        inputs.home-manager.darwinModules.home-manager
+        {
+          home-manager.backupFileExtension = "backup";
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit nix-darwin;
+          };
+        }
+      ];
+    };
+
   };
 }

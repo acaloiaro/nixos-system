@@ -1,0 +1,117 @@
+theme = "nord" # For normal/darker settings 
+
+[editor]
+auto-save = true
+color-modes = true
+end-of-line-diagnostics = "hint"
+true-color = true
+rulers = [120]
+completion-replace = true
+bufferline = "always"
+editor-config = true
+rainbow-brackets = true
+
+# cursorline = true
+# cursorcolumn = true
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "file-modification-indicator"]
+center = [ "version-control" ]
+  right = [
+    "diagnostics",
+    "workspace-diagnostics",
+    "primary-selection-length",
+    "selections",
+    "position-percentage",
+    "total-line-numbers",
+    "file-type"
+  ]
+separator = "│"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+other-lines = "error"
+prefix-len = 5
+
+[editor.lsp]
+display-messages = true
+auto-signature-help = false # this is covering completions
+display-inlay-hints = true
+goto-reference-include-declaration = false
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.soft-wrap]
+enable = true
+
+[editor.search]
+wrap-around = false
+
+[editor.whitespace]
+# render = "all"
+
+[editor.indent-guides]
+render = true
+character = "┋"
+skip-levels = 1
+
+[keys.normal]
+C-h = "jump_view_left"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
+C-l = "jump_view_right"
+"minus" = "file_picker_in_current_buffer_directory"
+
+# from reddit
+V = ["goto_first_nonwhitespace", "extend_to_line_end"]
+D = ["ensure_selections_forward", "extend_to_line_end"]
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+C-space = "signature_help"
+A-d = "delete_selection"
+d = "delete_selection_noyank"
+A-c = "change_selection"
+c = "change_selection_noyank"
+
+# vim goodness
+G = "goto_last_line"
+"^" = "goto_first_nonwhitespace"
+"$" = "goto_line_end"
+C-w = { C-c = "wclose", c = "wclose" }
+C-r = "redo"
+
+
+[keys.normal.";"]
+w = ":write"
+";" = ":w"
+a = "code_action"
+r = [":reload-all", ":lsp-restart"]
+c = ":character-info"
+t = ":run-shell-command make test"
+f = ":format"
+
+[keys.normal.g]
+a = "code_action"
+
+[keys.normal."space"]
+B = "file_picker_in_current_buffer_directory"
+H = ":toggle lsp.display-inlay-hints"
+
+[keys.normal.Z]
+Z = ":write-quit-all"
+Q = ":quit-all"
+
+[keys.select]
+x = "extend_line"
+";" = ["collapse_selection", "normal_mode"]
+V = "extend_to_line_end"
+
+
+[keys.insert]
+C-q = "collapse_selection"
+C-space = "signature_help"

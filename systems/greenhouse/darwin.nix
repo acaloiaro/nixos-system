@@ -1,6 +1,5 @@
 {
   pkgs,
-  nix-darwin,
   ...
 }: {
   system.keyboard.enableKeyMapping = true;
@@ -12,94 +11,40 @@
     shell = pkgs.fish;
     home = "/Users/adriano.caloiaro";
   };
-  environment.variables.HOMEBREW_NO_ANALYTICS = "1";
-
-  home-manager.users."adriano.caloiaro" = {
-    programs = {
-      jujutsu = {
-        enable = true;
-        settings = {
-          user = {
-            name = "Adriano Caloiaro";
-            email = "code@adriano.fyi";
-          };
-          # signing = {
-          #   backend = "gpg";
-          #   key = "C2BC56DE73CE3F75!";
-          # };
-          git = {
-            sign-on-push = true;
-            write-change-id-header = true;
-          };
-          ui = {
-            paginate = "never";
-            default-command = "log";
-          };
-        };
-      };
-
-      direnv = {
-        enable = true;
-        nix-direnv.enable = true;
-      };
-      kitty = {
-        enable = true;
-        themeFile = "Github_Dark_Dimmed";
-        extraConfig = ''
-          map Ctrl+Shift+h previous_tab
-          map Ctrl+Shift+l next_tab
-          font_size 14.0
-        '';
-      };
-      fzf.enable = true;
-      starship.enable = true;
-    };
-
-    home.stateVersion = "23.11";
+  environment.variables = {
+    HOMEBREW_NO_ANALYTICS = "1";
+    NH_FLAKE = "/Users/adriano.caloiaro/proj/nixos-system";
   };
   homebrew = {
     enable = true;
-
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
       upgrade = true;
     };
-
     brews = [
       "coreutils"
+      "pulseaudio"
     ];
-
     # Update these applicatons manually.
     # As brew would update them by unninstalling and installing the newest
     # version, it could lead to data loss.
     casks = [
       # "docker"
     ];
-
     taps = [
     ];
-
     masApps = {
       # Tailscale = 1475387142; # App Store URL id
       # TODO: Add tailscale when I have my adriano.caloiaro@greenhouse.io app store account back
     };
   };
-
   services = {
     aerospace = {
       enable = true;
-
       settings = {
         enable-normalization-flatten-containers = false;
         enable-normalization-opposite-orientation-for-nested-containers = false;
-
-        # # Mouse follows focus when focused monitor changes
-        # on-focused-monitor-changed = [
-        #   "move-mouse"
-        #   "monitor-lazy-center"
-        # ];
-
         gaps = let
           dim = 0;
           dims = {
@@ -181,12 +126,9 @@
     gnupg
     gopass
     helix
-    jujutsu
-    kitty
+    nh
     ripgrep
-    tailscale
     qrtool
-    qutebrowser
     vim
   ];
 
