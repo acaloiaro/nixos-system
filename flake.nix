@@ -38,11 +38,6 @@
   };
 
   inputs.nixos-hardware.url = "github:nixos/nixos-hardware";
-  inputs.nh = {
-    url = "github:viperML/nh/v4.2.0-beta2";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   inputs.btsw = {
     url = "https://flakes.adriano.fyi/btsw";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -120,7 +115,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
-          {environment.systemPackages = [agenix.packages.${system}.default inputs.nh.packages.${system}.default];}
+          {environment.systemPackages = [agenix.packages.${system}.default];}
           nur.modules.nixos.default
           agenix.nixosModules.default
           ./systems/zw/configuration.nix
