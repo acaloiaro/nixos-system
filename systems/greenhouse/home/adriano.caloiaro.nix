@@ -40,6 +40,7 @@
     # '';
     packages = with pkgs; [
       choose-gui  # Used as the selector for qute-pass (qutebrowser password management)
+      dict
       gopls
       nodePackages.prettier
       templ

@@ -1,19 +1,39 @@
 {
   pkgs,
   ...
-}: {
-  system.keyboard.enableKeyMapping = true;
-  system.keyboard.remapCapsLockToControl = true;
+}:
+{
   security.pam.services.sudo_local.touchIdAuth = true;
-  users.knownUsers = ["adriano.caloiaro"];
-  users.users."adriano.caloiaro" = {
-    uid = 502;
-    shell = pkgs.fish;
-    home = "/Users/adriano.caloiaro";
+  system = {
+    keyboard.enableKeyMapping = true;
+    keyboard.remapCapsLockToControl = true;
+    primaryUser = "adriano.caloiaro";
   };
-  environment.variables = {
-    HOMEBREW_NO_ANALYTICS = "1";
-    NH_FLAKE = "/Users/adriano.caloiaro/proj/nixos-system";
+  users = {
+    knownUsers = [ "adriano.caloiaro" ];
+    users."adriano.caloiaro" = {
+      uid = 502;
+      shell = pkgs.fish;
+      home = "/Users/adriano.caloiaro";
+    };
+  };
+  environment = {
+    etc = {
+      "dict.conf".text = "server dict.org";
+    };
+    variables = {
+      HOMEBREW_NO_ANALYTICS = "1";
+      NH_FLAKE = "/Users/adriano.caloiaro/proj/nixos-system";
+    };
+    systemPackages = with pkgs; [
+      gnupg
+      gopass
+      helix
+      nh
+      ripgrep
+      qrtool
+      vim
+    ];
   };
   homebrew = {
     enable = true;
@@ -24,19 +44,24 @@
     };
     brews = [
       "coreutils"
-      "pulseaudio"
+      {
+        name = "pulseaudio";
+        restart_service = "changed";
+        start_service = true;
+      }
     ];
     # Update these applicatons manually.
     # As brew would update them by unninstalling and installing the newest
     # version, it could lead to data loss.
     casks = [
-      # "docker"
+      "beeper"
+      "vlc"
+      "spotify"
     ];
     taps = [
     ];
     masApps = {
-      # Tailscale = 1475387142; # App Store URL id
-      # TODO: Add tailscale when I have my adriano.caloiaro@greenhouse.io app store account back
+      # Tailscale = 1475387142; # App Store URL id (keep for example purposes)
     };
   };
   services = {
@@ -45,37 +70,22 @@
       settings = {
         enable-normalization-flatten-containers = false;
         enable-normalization-opposite-orientation-for-nested-containers = false;
-        gaps = let
-          dim = 0;
-          dims = {
-            left = dim;
-            bottom = dim;
-            top = dim;
-            right = dim;
+        gaps =
+          let
+            dim = 0;
+            dims = {
+              left = dim;
+              bottom = dim;
+              top = dim;
+              right = dim;
+            };
+          in
+          {
+            outer = dims;
+            # inner = dims;
           };
-        in {
-          outer = dims;
-          # inner = dims;
-        };
 
         mode.main.binding = {
-          # alt-enter =
-          #   # osascript
-          #   ""
-          #     "exec-and-forget osascript -e ""
-          #       on is_running(appName)
-          #       	tell application "System Events" to (name of processes) contains appName
-          #       end is_running
-
-          #       if not is_running("kitty") then
-          #       	tell application "kitty" to activate
-          #       else
-          #       	tell application "System Events" to tell process "kitty"
-          #       		click menu item "New OS Window" of menu 1 of menu bar item "Shell" of menu bar 1
-          #       	end tell
-          #       end if"
-          #     ""
-          #   "";
           alt-slash = "layout tiles horizontal vertical";
           alt-comma = "layout accordion horizontal vertical";
 
@@ -120,39 +130,25 @@
       };
     };
   };
-  # List packages installed in system profile. To search by name, run:
-  # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs; [
-    gnupg
-    gopass
-    helix
-    nh
-    ripgrep
-    qrtool
-    vim
-  ];
 
-  # Set primary system user
-  system.primaryUser = "adriano.caloiaro";
-
-  # Necessary for using flakes on this system.
+  # Necessary for using flakes on this
   nix.settings.experimental-features = "nix-command flakes";
 
   # Enable alternative shell support in nix-darwin.
   programs = {
     fish.enable = true;
-    #   starship = {
-    #     enable = true;
-    #     enableFishIntegration = true;
-    #   };
+    # starship = {
+    #   enable = true;
+    #   enableFishIntegration = true;
+    # };
   };
 
   # Set Git commit hash for darwin-version.
-  system.configurationRevision = null;
+  configurationRevision = null;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 6;
+  stateVersion = 6;
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
