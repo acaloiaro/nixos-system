@@ -1,71 +1,18 @@
 {
-  pkgs,
+  lib,
+  config,
   ...
 }:
+with lib;
+let
+  cfg = config.aerospace;
+in
 {
-  security.pam.services.sudo_local.touchIdAuth = true;
-  system = {
-    keyboard.enableKeyMapping = true;
-    keyboard.remapCapsLockToControl = true;
-    primaryUser = "adriano.caloiaro";
+  options.aerospace = {
+    enable = mkEnableOption "Enable AeroSpace (https://github.com/nikitabobko/AeroSpace)";
   };
-  users = {
-    knownUsers = [ "adriano.caloiaro" ];
-    users."adriano.caloiaro" = {
-      uid = 502;
-      shell = pkgs.fish;
-      home = "/Users/adriano.caloiaro";
-    };
-  };
-  environment = {
-    etc = {
-      "dict.conf".text = "server dict.org";
-    };
-    variables = {
-      HOMEBREW_NO_ANALYTICS = "1";
-      NH_FLAKE = "/Users/adriano.caloiaro/proj/nixos-system";
-    };
-    systemPackages = with pkgs; [
-      gnupg
-      gopass
-      helix
-      nh
-      ripgrep
-      qrtool
-      vim
-    ];
-  };
-  homebrew = {
-    enable = true;
-    onActivation = {
-      autoUpdate = true;
-      cleanup = "zap";
-      upgrade = true;
-    };
-    brews = [
-      "coreutils"
-      {
-        name = "pulseaudio";
-        restart_service = "changed";
-        start_service = true;
-      }
-    ];
-    # Update these applicatons manually.
-    # As brew would update them by unninstalling and installing the newest
-    # version, it could lead to data loss.
-    casks = [
-      "beeper"
-      "vlc"
-      "spotify"
-    ];
-    taps = [
-    ];
-    masApps = {
-      # Tailscale = 1475387142; # App Store URL id (keep for example purposes)
-    };
-  };
-  services = {
-    aerospace = {
+  config = mkIf cfg.enable {
+    services.aerospace = {
       enable = true;
       settings = {
         enable-normalization-flatten-containers = false;
@@ -130,26 +77,4 @@
       };
     };
   };
-
-  # Necessary for using flakes on this
-  nix.settings.experimental-features = "nix-command flakes";
-
-  # Enable alternative shell support in nix-darwin.
-  programs = {
-    fish.enable = true;
-    # starship = {
-    #   enable = true;
-    #   enableFishIntegration = true;
-    # };
-  };
-
-  # Set Git commit hash for darwin-version.
-  configurationRevision = null;
-
-  # Used for backwards compatibility, please read the changelog before changing.
-  # $ darwin-rebuild changelog
-  stateVersion = 6;
-
-  # The platform the configuration will be used on.
-  nixpkgs.hostPlatform = "aarch64-darwin";
 }

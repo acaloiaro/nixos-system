@@ -35,9 +35,9 @@
     };
     username = "adriano.caloiaro";
     homeDirectory = "/Users/adriano.caloiaro";
-    # activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    #   ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
-    # '';
+    activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
+      ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+    '';
     packages = with pkgs; [
       choose-gui  # Used as the selector for qute-pass (qutebrowser password management)
       dict
@@ -240,57 +240,58 @@
     pinentry.package = pkgs.pinentry_mac;
   };
 
-  # programs.firefox = {
-  #   enable = true;
-  #   package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-  #     extraPolicies = {
-  #       CaptivePortal = false;
-  #       DisableFirefoxStudies = true;
-  #       DisablePocket = true;
-  #       DisableTelemetry = true;
-  #       DisableFirefoxAccounts = false;
-  #       NoDefaultBookmarks = true;
-  #       OfferToSaveLogins = false;
-  #       OfferToSaveLoginsDefault = false;
-  #       PasswordManagerEnabled = false;
-  #       FirefoxHome = {
-  #         Search = true;
-  #         Pocket = false;
-  #         Snippets = false;
-  #         TopSites = false;
-  #         Highlights = false;
-  #       };
-  #       UserMessaging = {
-  #         ExtensionRecommendations = false;
-  #         SkipOnboarding = true;
-  #       };
-  #     };
-  #   };
+  programs.firefox = {
+    enable = true;
+    package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
+      extraPolicies = {
+        CaptivePortal = false;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableTelemetry = true;
+        DisableFirefoxAccounts = false;
+        NoDefaultBookmarks = true;
+        OfferToSaveLogins = false;
+        OfferToSaveLoginsDefault = false;
+        PasswordManagerEnabled = false;
+        FirefoxHome = {
+          Search = true;
+          Pocket = false;
+          Snippets = false;
+          TopSites = false;
+          Highlights = false;
+        };
+        UserMessaging = {
+          ExtensionRecommendations = false;
+          SkipOnboarding = true;
+        };
+      };
+    };
 
-  #   profiles = {
-  #     adriano = {
-  #       id = 0;
-  #       name = "adriano";
-  #       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-  #         floccus
-  #         ublock-origin
-  #         gopass-bridge
-  #         tridactyl
-  #         noscript
-  #       ];
-  #     };
-  #   };
-  # };
+    profiles = {
+      adriano = {
+        id = 0;
+        name = "adriano";
+        extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
+          floccus
+          ublock-origin
+          gopass-bridge
+          tridactyl
+          noscript
+        ];
+      };
+    };
+  };
 
   programs.qutebrowser = {
     enable = true;
     searchEngines = {
+      aw = "https://wiki.archlinux.org/?search={}";
       DEFAULT = "https://kagi.com/search?q={}";
-      ddg = "https://duckduckgo.com/?q={}";
-      hm = "https://mipmip.github.io/home-manager-option-search/?query={}";
+      hm = "https://home-manager-options.extranix.com/?query={}";
       nixpkgs = "https://search.nixos.org/packages?query={}";
       nixos = "https://search.nixos.org/options?query={}";
       nixman = "https://nixos.org/manual/nix/unstable/?search={}";
+      w = "https://en.wikipedia.org/wiki/Special:Search?search={}&go=Go&ns0=1";
     };
     keyBindings =
       let
