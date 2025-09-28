@@ -1,8 +1,6 @@
 {
-  config,
   pkgs,
   lib,
-  kitty-grab,
   homeage,
   helix-flake,
   ...
@@ -11,6 +9,7 @@
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/calendars.nix
+    ../../../common/aerospace.nix
   ];
 
   # homeage = {
@@ -22,7 +21,7 @@
   #     symlinks = ["${config.xdg.configHome}/spotifyd/password"];
   #   };
   # };
-
+  modules.aerospace.enable = true;
   programs.home-manager = {
     enable = true;
   };
@@ -159,10 +158,10 @@
         name = "Adriano Caloiaro";
         email = "code@adriano.fyi";
       };
-      # signing = {
-      #   backend = "gpg";
-      #   key = "C2BC56DE73CE3F75!";
-      # };
+      signing = {
+        backend = "ssh";
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+      };
       git = {
         sign-on-push = true;
         write-change-id-header = true;
