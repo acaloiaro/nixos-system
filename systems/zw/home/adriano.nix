@@ -493,7 +493,7 @@
     enable = true;
     searchEngines = {
       DEFAULT = "https://kagi.com/search?q={}";
-      ddg = "https://duckduckgo.com/?q={}";
+      kg = "https://kagi.com/search?q={}";
       hm = "https://mipmip.github.io/home-manager-option-search/?query={}";
       nixpkgs = "https://search.nixos.org/packages?query={}";
       nixos = "https://search.nixos.org/options?query={}";
