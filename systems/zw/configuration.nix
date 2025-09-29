@@ -309,6 +309,8 @@
     };
     services.xserver = {
       enable = true;
+      autoRepeatDelay = 250;
+      autoRepeatInterval = 25;
       xkb = {
         options = "caps:ctrl_modifier";
         layout = "us";
