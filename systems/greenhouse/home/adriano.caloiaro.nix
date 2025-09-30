@@ -23,11 +23,21 @@
   #   };
   # };
   modules.aerospace.enable = true;
-  modules.greenhouse = {
+  greenhouse = {
     enable = true;
+    tooling = {
+      enable = true;
+      user = {
+        name = "Adriano Caloiaro";
+        email = "adriano.caloiaro@greenhouse.io";
+        gpg-key-id = "FEC90D2844EA9541";
+        ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+      };
+    };
     languages = {
-      go = true;
-      terraform = true;
+      go.enable = true;
+      terraform.enable = true;
+      ruby.enable = true;
     };
   };
   programs.home-manager = {
@@ -116,33 +126,6 @@
     enable = true;
     enableFishIntegration = true;
     settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Adriano Caloiaro";
-    userEmail = "code@adriano.fyi";
-
-    # signing = {
-    #   key = "C2BC56DE73CE3F75!";
-    #   signByDefault = true;
-    # };
-
-    # aliases = {
-    #   d = "difftool -y --extcmd=icdiff";
-    # };
-
-    extraConfig = {
-      push = {
-        autoSetupRemote = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      pull = {
-        rebase = true;
-      };
-    };
   };
 
   # programs.gh = {
