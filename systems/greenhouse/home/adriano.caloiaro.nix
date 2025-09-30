@@ -10,6 +10,7 @@
     homeage.homeManagerModules.homeage
     ../../../common/calendars.nix
     ../../../common/aerospace.nix
+    ../../../common/greenhouse
   ];
 
   # homeage = {
@@ -22,6 +23,13 @@
   #   };
   # };
   modules.aerospace.enable = true;
+  modules.greenhouse = {
+    enable = true;
+    languages = {
+      go = true;
+      terraform = true;
+    };
+  };
   programs.home-manager = {
     enable = true;
   };
@@ -29,22 +37,22 @@
   home = {
     stateVersion = "23.05";
     sessionVariables = {
-      "GO111MODULE" = "on";
-      "PATH" = "$PATH:/home/adriano/go/bin";
+      # FOO = "bar";
     };
     username = "adriano.caloiaro";
     homeDirectory = "/Users/adriano.caloiaro";
-    # activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
-    #   ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
-    # '';
+    activation.install-dictionaries = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+      # '';
     packages = with pkgs; [
-      choose-gui  # Used as the selector for qute-pass (qutebrowser password management)
-      gopls
+      choose-gui # Used as the selector for qute-pass (qutebrowser password management)
+      dict
+      glow
       nodePackages.prettier
       templ
-      terraform-lsp
       nil # nix lsp
       # vscode-html-language-server
+      solargraph # ruby LSP
       yazi
       # zeal
     ];

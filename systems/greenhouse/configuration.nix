@@ -3,11 +3,7 @@
   ...
 }:
 {
-  imports = [
-    ../../common/aerospace.nix
-  ];
   config = {
-    aerospace.enable = true;
     environment = {
       etc = {
         "dict.conf".text = "server dict.org";
@@ -35,7 +31,6 @@
       };
       brews = [
         "coreutils"
-        "dash"
         {
           name = "pulseaudio";
           restart_service = "changed";
@@ -47,8 +42,9 @@
       # version, it could lead to data loss.
       casks = [
         "beeper"
-        "vlc"
+        "logseq"
         "spotify"
+        "vlc"
       ];
       taps = [
       ];
@@ -67,7 +63,7 @@
     services = {
       defaultBrowser = {
         enable = true;
-        browser = "safari"; # or "chrome", "safari", "dia", etc.
+        browser = "chrome"; # or "chrome", "safari", "dia", etc.
       };
     };
     system = {
