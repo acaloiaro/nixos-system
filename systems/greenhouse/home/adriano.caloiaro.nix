@@ -26,7 +26,6 @@
   greenhouse = {
     enable = true;
     tooling = {
-      enable = true;
       user = {
         name = "Adriano Caloiaro";
         email = "adriano.caloiaro@greenhouse.io";
@@ -40,6 +39,7 @@
       ruby.enable = true;
     };
   };
+
   programs.home-manager = {
     enable = true;
   };
@@ -117,9 +117,7 @@
     enable = true;
     defaultEditor = true;
     settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);
-    languages = {
-      langauge = builtins.fromTOML (builtins.readFile ./helix/languages.toml);
-    };
+    languages = builtins.fromTOML (builtins.readFile ./helix/languages.toml); 
   };
 
   programs.starship = {

@@ -9,9 +9,9 @@ let
 in
 {
   imports = [
-    ../development/go
-    ../development/ruby
-    ../development/terraform
+    ../development/languages/go
+    ../development/languages/ruby
+    ../development/languages/terraform
     ../development/tooling
   ]
   ;
@@ -41,11 +41,11 @@ in
     };
   };
   config = mkIf cfg.enable {
-    development = {
-      go = cfg.languages.go;
+    tooling = mkIf (isAttrs cfg.tooling) cfg.tooling;
+    languages = mkIf (isAttrs cfg.languages) {
+      go = mkIf (cfg.languages.go != "") cfg.languages.go;
       ruby = cfg.languages.ruby;
       terraform = cfg.languages.terraform;
-      tooling = cfg.tooling;
     };
   };
 }

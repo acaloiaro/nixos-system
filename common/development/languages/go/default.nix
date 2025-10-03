@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.development.go;
+  cfg = config.languages.go;
 in
 {
-  options.development.go.enable = mkEnableOption "Enable go development tools";
+  options.languages.go.enable = mkEnableOption "Enable go development tools";
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       go_1_24

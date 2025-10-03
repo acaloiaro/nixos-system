@@ -1,14 +1,15 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 with lib;
 let
-  cfg = config.development.tooling;
+  cfg = config.tooling;
 in
 {
-  options.development.tooling = {
+  options.tooling = {
     enable = mkEnableOption "Configure developer tooling";
     user = mkOption {
       type = types.submodule {
@@ -28,27 +29,31 @@ in
           gpg-key-id = mkOption {
             type = types.str;
             default = "";
-            description = "GPG key ID of the user (empty if none).";
+            description = "GPG key ID for git commit signing";
           };
 
           ssh-public-key = mkOption {
             type = types.str;
             default = "";
-            description = "SSH public key of the user.";
+            description = "SSH public key used for jujutsu commit signing";
           };
           description = "User-specific tooling configuration.";
         };
       };
     };
   };
-  config = mkIf cfg.enable {
+  config = mkIf (isAttrs cfg.user) {
+    home.packages = [
+      pkgs.yarn
+    ];
+
     programs.git = {
       enable = true;
       userName = cfg.user.name;
       userEmail = cfg.user.email;
 
       signing = {
-        key = mkIf (cfg.user.gpg-key-id != "") cfg.user.gpg-key-id ; 
+        key = mkIf (cfg.user.gpg-key-id != "") cfg.user.gpg-key-id;
         signByDefault = true;
       };
 
@@ -62,7 +67,18 @@ in
         pull = {
           rebase = true;
         };
+        blame = {
+          ignoreRevsFile = ".git-blame-ignore-revs";
+        };
       };
+    };
+
+    # https://greenhouseio.atlassian.net/wiki/spaces/SE/pages/710803589/2.+Secure+Credentials+Connections#AWS-CLI%2C-AWS-Shim
+    home.sessionVariables = {
+      AWS_DEFAULT_PROFILE = "dev.use1";
+      AWS_PROFILE = "dev.use1";
+      AWS_SDK_LOAD_CONFIG = "true";
+      AWS_SESSION_TOKEN_TTL = "24h";
     };
   };
 }

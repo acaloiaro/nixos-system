@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.development.terraform;
+  cfg = config.languages.terraform;
 in
 {
-  options.development.terraform = {
+  options.languages.terraform = {
     enable = mkEnableOption "Enable terraform / terraform development tools";
   };
   config = mkIf cfg.enable {

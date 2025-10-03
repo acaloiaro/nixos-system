@@ -6,10 +6,10 @@
 }:
 with lib;
 let
-  cfg = config.development.ruby;
+  cfg = config.languages.ruby;
 in
 {
-  options.development.ruby = {
+  options.languages.ruby = {
     enable = mkEnableOption "Enable Ruby development tools";
   };
   config = mkIf cfg.enable {
