@@ -17,7 +17,6 @@ in
     ];
     home.sessionVariables = mkIf cfg.enable {
       "GO111MODULE" = "on";
-      "PATH" = "$PATH:$HOME/go/bin";
     };
   };
 }

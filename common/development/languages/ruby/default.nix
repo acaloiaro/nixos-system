@@ -18,9 +18,10 @@ in
       rubyPackages.pry
       solargraph
     ];
-    
-  home.activation.installRubyGems = ''
-    ${getExe' pkgs.ruby "gem"} install --user-install --no-document tty-prompt 
-  '';
+
+    home.activation.installRubyGems = ''
+      # tty-prompt is used by the "aws shim": https://greenhouseio.atlassian.net/wiki/spaces/SE/pages/710803589/2.+Secure+Credentials+Connections#AWS-CLI%2C-AWS-Shim
+      ${getExe' pkgs.ruby "gem"} install --user-install --no-document tty-prompt 
+    '';
   };
 }

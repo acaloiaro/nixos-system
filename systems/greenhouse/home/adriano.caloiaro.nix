@@ -13,6 +13,7 @@
     ../../../common/greenhouse
   ];
 
+  modules.aerospace.enable = true;
   # homeage = {
   #   identityPaths = ["/home/adriano/.ssh/id_rsa_agenix"];
   #   installationType = "systemd";
@@ -22,7 +23,6 @@
   #     symlinks = ["${config.xdg.configHome}/spotifyd/password"];
   #   };
   # };
-  modules.aerospace.enable = true;
   greenhouse = {
     enable = true;
     tooling = {
@@ -117,7 +117,7 @@
     enable = true;
     defaultEditor = true;
     settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);
-    languages = builtins.fromTOML (builtins.readFile ./helix/languages.toml); 
+    languages = builtins.fromTOML (builtins.readFile ./helix/languages.toml);
   };
 
   programs.starship = {
