@@ -2,6 +2,9 @@
   pkgs,
   ...
 }:
+let
+  primaryUser = "adriano.caloiaro";
+in
 {
   config = {
     environment = {
@@ -10,7 +13,7 @@
       };
       variables = {
         HOMEBREW_NO_ANALYTICS = "1";
-        NH_FLAKE = "/Users/adriano.caloiaro/proj/nixos-system";
+        NH_FLAKE = "/Users/${primaryUser}/proj/nixos-system";
       };
       systemPackages = with pkgs; [
         gnupg
@@ -26,7 +29,7 @@
       enable = true;
       onActivation = {
         autoUpdate = true;
-        cleanup = "zap";
+        # cleanup = "zap";
         upgrade = true;
       };
       brews = [
@@ -69,15 +72,15 @@
     system = {
       keyboard.enableKeyMapping = true;
       keyboard.remapCapsLockToControl = true;
-      primaryUser = "adriano.caloiaro";
+      primaryUser = primaryUser;
       stateVersion = 6;
     };
     users = {
-      knownUsers = [ "adriano.caloiaro" ];
-      users."adriano.caloiaro" = {
+      knownUsers = [ primaryUser ];
+      users."${primaryUser}" = {
         uid = 502;
         shell = pkgs.fish;
-        home = "/Users/adriano.caloiaro";
+        home = "/Users/${primaryUser}";
       };
     };
   };
