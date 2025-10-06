@@ -61,8 +61,6 @@
       nodePackages.prettier
       templ
       nil # nix lsp
-      # vscode-html-language-server
-      solargraph # ruby LSP
       yazi
       # zeal
     ];
