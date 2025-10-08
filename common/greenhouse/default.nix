@@ -13,8 +13,7 @@ in
     ../development/languages/ruby
     ../development/languages/terraform
     ../development/tooling
-  ]
-  ;
+  ];
   options.greenhouse = {
     enable = mkEnableOption "Greenhouse module installs developers tools";
     languages = {
@@ -36,7 +35,7 @@ in
     };
     tooling = mkOption {
       type = types.anything; # TODO: This should be a proper submodule type
-      default = {};
+      default = { };
       description = "";
     };
   };

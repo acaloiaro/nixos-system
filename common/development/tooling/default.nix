@@ -133,12 +133,47 @@ in
         unrtf
         wget
         yarn
+        (pkgs.writeShellApplication {
+          name = "docker-credential-grnhse-ecr-login"; # this will be the name of the binary
+          runtimeInputs = [
+            amazon-ecr-credential-helper
+          ];
+          text = ''
+            [[ ''${DEBUG:-false} = true ]] && set -x
+
+            export AWS_PROFILE="''${DOCKER_AWS_PROFILE:-ecr}"
+            export AWS_REGION="''${DOCKER_AWS_REGION:-''${AWS_REGION:-us-east-1}}"
+
+            # Test you can get a valid identity on the ecr profile
+            if ! aws sts get-caller-identity --profile "''${AWS_PROFILE}" --region "''${AWS_REGION}" >/dev/null; then
+              if ! aws sso --profile "''${AWS_PROFILE}" login >&2; then
+                >&2 echo "ERROR: Could not sso into AWS profile named ''${AWS_PROFILE}'; you may need to bootstrap your configuration or reach out to #platform-support"
+                exit 1
+              fi
+            fi
+
+            if ! command -v "docker-credential-ecr-login" >/dev/null 2>&1; then
+              >&2 echo "Install ECR Cred helper for docker from: https://github.com/awslabs/amazon-ecr-credential-helper/releases"
+              exit 1
+            fi
+
+            >&2 echo "Using aws profile: (''${AWS_PROFILE}) in (''${AWS_REGION})"
+            >&2 echo "You can override this with"
+            >&2 echo "  #> export DOCKER_AWS_PROFILE=profile_name_here"
+            >&2 echo
+            >&2 echo "If this command fails with: 'credentials not found in native keychain' or similar - try aws sso login --profile ''${AWS_PROFILE}"
+            >&2 echo
+            >&2 echo
+            exec docker-credential-ecr-login "''${@}"
+          '';
+        })
       ];
 
       sessionPath = [
         "/usr/bin"
         "${brewBin}"
         "$HOME/go/bin"
+        "$HOME/bin"
       ];
       # These env vars are used by the AWS cli: https://greenhouseio.atlassian.net/wiki/spaces/SE/pages/710803589/2.+Secure+Credentials+Connections#AWS-CLI%2C-AWS-Shim
       sessionVariables = {
@@ -148,41 +183,59 @@ in
         AWS_SESSION_TOKEN_TTL = "24h";
       };
 
-      file."${brewFileName}" = {
-        text =
-          (concatMapStrings (
-            tap:
-            ''tap "''
-            + tap
-            + ''
-              "
-            ''
+      file = {
+        ".config/containers/auth.json" = {
+          # text = ''
+          #   {
+          #     "credHelpers": {
+          #       "631819134151.dkr.ecr.us-east-1.amazonaws.com": "grnhse-ecr-login",
+          #       "378389870135.dkr.ecr.us-east-1.amazonaws.com": "grnhse-ecr-login",
+          #       "874364631781.dkr.ecr.us-east-1.amazonaws.com": "grnhse-ecr-login",
+          #       "public.ecr.aws": "grnhse-ecr-login"
+          #     }
+          #   }'';
+          text = ''
+            {
+              "credHelpers": {
+                "631819134151.dkr.ecr.us-east-1.amazonaws.com": "grnhse-ecr-login"
+              }       
+            }'';
+        };
+        "${brewFileName}" = {
+          text =
+            (concatMapStrings (
+              tap:
+              ''tap "''
+              + tap
+              + ''
+                "
+              ''
 
-          ) brewTaps)
-          + (concatMapStrings (
-            brew:
-            ''brew "''
-            + brew
-            + ''
-              "
-            ''
+            ) brewTaps)
+            + (concatMapStrings (
+              brew:
+              ''brew "''
+              + brew
+              + ''
+                "
+              ''
 
-          ) brewBrews)
-          + (concatMapStrings (
-            cask:
-            ''cask "''
-            + cask
-            + ''
-              "
-            ''
+            ) brewBrews)
+            + (concatMapStrings (
+              cask:
+              ''cask "''
+              + cask
+              + ''
+                "
+              ''
 
-          ) brewCasks);
-        onChange = ''
-          HOMEBREW_BUNDLE_FILE_GLOBAL=${brewFilePath} ${brewBin}/brew bundle install --no-upgrade --force --global
-        '';
+            ) brewCasks);
+          onChange = ''
+            HOMEBREW_BUNDLE_FILE_GLOBAL=${brewFilePath} ${brewBin}/brew bundle install --no-upgrade --force --global
+          '';
+        };
       };
     };
-
     programs = {
       git = {
         enable = true;

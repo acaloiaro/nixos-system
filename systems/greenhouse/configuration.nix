@@ -6,7 +6,11 @@ let
   primaryUser = "adriano.caloiaro";
 in
 {
+  imports = [
+    ./../../common/development/virtualization/podman.nix
+  ];
   config = {
+    development.services.podman.enabled = true;
     environment = {
       etc = {
         "dict.conf".text = "server dict.org";
@@ -34,11 +38,14 @@ in
       };
       brews = [
         "coreutils"
+        "podman" # Podman-desktop needs podman to be in a non-nix path, and since it checks homebrew's bin, we install it with homebrew
+        "krunkit"
         {
           name = "pulseaudio";
           restart_service = "changed";
           start_service = true;
         }
+        "vfkit" # Used by podman for virtualization
       ];
       # Update these applicatons manually.
       # As brew would update them by unninstalling and installing the newest
@@ -46,10 +53,13 @@ in
       casks = [
         "beeper"
         "logseq"
+        "podman-desktop"
+
         "spotify"
         "vlc"
       ];
       taps = [
+        "slp/krunkit" # Needed by podman-desktop/podman
       ];
       masApps = {
         # Tailscale = 1475387142; # App Store URL id (keep for example purposes)
