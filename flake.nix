@@ -49,6 +49,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.greenhouse-nix-modules = {
+    url = "git+ssh://git@github.com/grnhse/nix-modules.git";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs =
     {
       default-browser,
@@ -62,6 +67,7 @@
       kitty-grab,
       helix-flake,
       helix,
+      greenhouse-nix-modules,
       ...
     }@inputs:
     let
@@ -119,11 +125,19 @@
               agenix
               homeage
               darwinSystem
+              greenhouse-nix-modules
               ;
             helix-flake = helix;
           };
           modules = [
             ./systems/greenhouse/home/adriano.caloiaro.nix
+            inputs.greenhouse-nix-modules.home-manager
+            {
+              scm.authorName = "Adriano Caloiaro";
+              scm.authorEmail = "adriano.caloiaro@greenhouse.io";
+              scm.gpgKeyId = "FEC90D2844EA9541";
+              scm.sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+            }
           ];
         };
       };
@@ -195,6 +209,7 @@
         modules = [
           default-browser.darwinModules.default-browser
           ./systems/greenhouse/configuration.nix
+          inputs.greenhouse-nix-modules.nix-darwin
           inputs.home-manager.darwinModules.home-manager
           {
             home-manager.backupFileExtension = "backup";

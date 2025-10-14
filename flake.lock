@@ -140,6 +140,28 @@
         "type": "github"
       }
     },
+    "greenhouse-nix-modules": {
+      "inputs": {
+        "home-manager": "home-manager_2",
+        "nh": "nh",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1760477685,
+        "narHash": "sha256-ezsKY5cxNa9AnvqLG/eEgQh/nhERVcIF8W9l22MzfMg=",
+        "ref": "refs/heads/main",
+        "rev": "09cbac2fc379ef66d8b10fdaf4f056f0c947c2ef",
+        "revCount": 3,
+        "type": "git",
+        "url": "ssh://git@github.com/grnhse/nix-modules.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/grnhse/nix-modules.git"
+      }
+    },
     "helix": {
       "inputs": {
         "nixpkgs": "nixpkgs_3",
@@ -203,6 +225,27 @@
     "home-manager_2": {
       "inputs": {
         "nixpkgs": [
+          "greenhouse-nix-modules",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758545873,
+        "narHash": "sha256-0VP5cVd6DyibHNPC/IJ5Ut+KuNYUeKmr5ltzf+IcpjA=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "de5369834ff1f75246c46be89ef993392e961c26",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_3": {
+      "inputs": {
+        "nixpkgs": [
           "nixpkgs"
         ]
       },
@@ -257,6 +300,28 @@
       }
     },
     "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "greenhouse-nix-modules",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1755510252,
+        "narHash": "sha256-IPwAGaR9LO4LasxIFPqOTmIfliDsnzWVgzsaIekzRG4=",
+        "owner": "viperML",
+        "repo": "nh",
+        "rev": "8d690296fb3b898da565b33455a4227aed8a3133",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "ref": "v4.2.0-beta2",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
+    "nh_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -444,12 +509,13 @@
         "agenix": "agenix",
         "btsw": "btsw",
         "default-browser": "default-browser",
+        "greenhouse-nix-modules": "greenhouse-nix-modules",
         "helix": "helix",
         "helix-flake": "helix-flake",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager_3",
         "homeage": "homeage",
         "kitty-grab": "kitty-grab",
-        "nh": "nh",
+        "nh": "nh_2",
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",

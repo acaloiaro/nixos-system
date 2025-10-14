@@ -10,7 +10,6 @@
     homeage.homeManagerModules.homeage
     ../../../common/calendars.nix
     ../../../common/aerospace.nix
-    ../../../common/greenhouse
   ];
 
   modules.aerospace.enable = true;
@@ -23,22 +22,6 @@
   #     symlinks = ["${config.xdg.configHome}/spotifyd/password"];
   #   };
   # };
-  greenhouse = {
-    enable = true;
-    tooling = {
-      user = {
-        name = "Adriano Caloiaro";
-        email = "adriano.caloiaro@greenhouse.io";
-        gpg-key-id = "FEC90D2844EA9541";
-        ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
-      };
-    };
-    languages = {
-      go.enable = true;
-      terraform.enable = true;
-      ruby.enable = true;
-    };
-  };
 
   programs.home-manager = {
     enable = true;
