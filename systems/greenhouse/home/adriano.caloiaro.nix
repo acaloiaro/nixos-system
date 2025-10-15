@@ -38,6 +38,7 @@
         ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
       # '';
     packages = with pkgs; [
+      alejandra
       choose-gui # Used as the selector for qute-pass (qutebrowser password management)
       dict
       glow
