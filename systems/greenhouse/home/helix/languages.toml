@@ -78,6 +78,26 @@ name = "javascript"
 file-types = ["js"]
 language-servers = ["typescript-language-server"]
 
+[[language]]
+name = "ruby"
+scope = "source.ruby"
+injection-regex = "ruby"
+file-types = [
+  "rb",
+  "rake",
+  "rakefile",
+  "irb",
+  "gemfile",
+  "gemspec",
+  "Rakefile",
+  "Gemfile",
+]
+shebangs = ["ruby"]
+comment-token = "#"
+language-servers = ["solargraph"]
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal", "--server"] }
+
 [language-server."terraform-lsp"]
 command = "terraform-lsp"
 

@@ -4,8 +4,7 @@
   homeage,
   helix-flake,
   ...
-}:
-{
+}: {
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/calendars.nix
@@ -34,7 +33,7 @@
     };
     username = "adriano.caloiaro";
     homeDirectory = "/Users/adriano.caloiaro";
-    activation.install-dictionaries = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
         ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
       # '';
     packages = with pkgs; [
@@ -131,7 +130,7 @@
       };
       signing = {
         backend = "ssh";
-        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+        key = "~/.ssh/id_ed25519.pub";
       };
       git = {
         sign-on-push = true;
@@ -194,7 +193,7 @@
     settings = {
       enter_accept = false;
     };
-    flags = [ "--disable-up-arrow" ];
+    flags = ["--disable-up-arrow"];
   };
 
   services.gpg-agent = {
@@ -261,26 +260,24 @@
       nixos = "https://search.nixos.org/options?query={}";
       nixman = "https://nixos.org/manual/nix/unstable/?search={}";
     };
-    keyBindings =
-      let
-        pass_cmd = "spawn --userscript qute-pass --dmenu-invocation choose --mode gopass --password-store /Users/adriano.caloiaro/.local/share/gopass/stores/root";
-      in
-      {
-        normal = {
-          ",p" = pass_cmd;
-          ",Pu" = "${pass_cmd} --username-only";
-          ",Pp" = "${pass_cmd} --password-only";
-          ",Po" = "${pass_cmd} --otp-only";
-          ",," = "config-cycle tabs.show never always";
-          ",qc" = "spawn --userscript ~/.local/bin/qute-logseq";
-        };
+    keyBindings = let
+      pass_cmd = "spawn --userscript qute-pass --dmenu-invocation choose --mode gopass --password-store /Users/adriano.caloiaro/.local/share/gopass/stores/root";
+    in {
+      normal = {
+        ",p" = pass_cmd;
+        ",Pu" = "${pass_cmd} --username-only";
+        ",Pp" = "${pass_cmd} --password-only";
+        ",Po" = "${pass_cmd} --otp-only";
+        ",," = "config-cycle tabs.show never always";
+        ",qc" = "spawn --userscript ~/.local/bin/qute-logseq";
       };
+    };
     quickmarks = {
       nixpkgs = "https://github.com/NixOS/nixpkgs";
       home-manager = "https://github.com/nix-community/home-manager";
     };
     settings = {
-      spellcheck.languages = [ "en-US" ];
+      spellcheck.languages = ["en-US"];
       tabs = {
         position = "top";
         show = "always";
