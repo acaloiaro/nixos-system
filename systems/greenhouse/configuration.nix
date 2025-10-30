@@ -1,11 +1,6 @@
-{
-  pkgs,
-  ...
-}:
-let
+{pkgs, ...}: let
   primaryUser = "adriano.caloiaro";
-in
-{
+in {
   imports = [
   ];
   config = {
@@ -78,7 +73,7 @@ in
       stateVersion = 6;
     };
     users = {
-      knownUsers = [ primaryUser ];
+      knownUsers = [primaryUser];
       users."${primaryUser}" = {
         uid = 502;
         shell = pkgs.fish;

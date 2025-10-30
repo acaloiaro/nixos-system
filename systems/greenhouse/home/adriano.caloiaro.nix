@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   lib,
   homeage,
   helix-flake,
@@ -39,8 +40,11 @@
     packages = with pkgs; [
       alejandra
       choose-gui # Used as the selector for qute-pass (qutebrowser password management)
+      clang
+      darwin.libffi
       dict
       glow
+      llvm
       nodePackages.prettier
       templ
       nil # nix lsp
@@ -48,6 +52,7 @@
       # zeal
     ];
     file = {
+      ".config/home-manager".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/proj/nixos-system";
       ".qutebrowser/userscripts/qute-pass" = {
         text = ''
           #!/usr/bin/env bash
@@ -183,6 +188,9 @@
         src = pkgs.fishPlugins.plugin-git.src;
       }
     ];
+    loginShellInit = ''
+      . $HOME/.nix-profile/share/asdf-vm/asdf.fish
+    '';
   };
   programs.atuin = {
     enable = true;

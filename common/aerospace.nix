@@ -3,34 +3,31 @@
   config,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.modules.aerospace;
-in
-{
+in {
   options.modules.aerospace = {
     enable = mkEnableOption "Enable AeroSpace (https://github.com/nikitabobko/AeroSpace)";
   };
   config = mkIf cfg.enable {
     programs.aerospace = {
       enable = true;
+      userSettings.start-at-login = true;
       userSettings = {
         enable-normalization-flatten-containers = false;
         enable-normalization-opposite-orientation-for-nested-containers = false;
-        gaps =
-          let
-            dim = 0;
-            dims = {
-              left = dim;
-              bottom = dim;
-              top = dim;
-              right = dim;
-            };
-          in
-          {
-            outer = dims;
-            # inner = dims;
+        gaps = let
+          dim = 0;
+          dims = {
+            left = dim;
+            bottom = dim;
+            top = dim;
+            right = dim;
           };
+        in {
+          outer = dims;
+          # inner = dims;
+        };
 
         mode.main.binding = {
           alt-slash = "layout tiles horizontal vertical";

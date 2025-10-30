@@ -4,11 +4,9 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.languages.ruby;
-in
-{
+in {
   options.languages.ruby = {
     enable = mkEnableOption "Enable Ruby development tools";
   };
@@ -20,7 +18,7 @@ in
 
     home.activation.installRubyGems = ''
       # tty-prompt is used by the "aws shim": https://greenhouseio.atlassian.net/wiki/spaces/SE/pages/710803589/2.+Secure+Credentials+Connections#AWS-CLI%2C-AWS-Shim
-      ${getExe' pkgs.ruby "gem"} install --user-install --no-document tty-prompt 
+      # ${getExe' pkgs.ruby "gem"} install --user-install --no-document tty-prompt
     '';
   };
 }

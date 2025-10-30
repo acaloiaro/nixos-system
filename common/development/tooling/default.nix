@@ -4,8 +4,7 @@
   pkgs,
   ...
 }:
-with lib;
-let
+with lib; let
   cfg = config.tooling;
   stdenv = pkgs.stdenvNoCC;
   brewBin = "/opt/homebrew/bin";
@@ -27,8 +26,7 @@ let
   brewCasks = [
     "1password-cli"
   ];
-in
-{
+in {
   options.tooling = {
     enable = mkEnableOption "Configure developer tooling";
     user = mkOption {
@@ -71,16 +69,15 @@ in
         #   '';
         installSystemWideGems = ''
           # tty-prompt is used by the "aws shim": https://greenhouseio.atlassian.net/wiki/spaces/SE/pages/710803589/2.+Secure+Credentials+Connections#AWS-CLI%2C-AWS-Shim
-          ${lib.getExe' pkgs.ruby "gem"} install --user-install --no-document tty-prompt 
+          ${lib.getExe' pkgs.ruby "gem"} install --user-install --no-document tty-prompt
         '';
 
         # onFilesChange is the homebrew activation that ensures homebrew packages are installed when Brewfile.greenhouse changes
-        configureRequiredSoftware = hm.dag.entryAfter [ "installSystemWideGems" "onFilesChange" ] (
+        configureRequiredSoftware = hm.dag.entryAfter ["installSystemWideGems" "onFilesChange"] (
           ''
             export PATH="${
               lib.makeBinPath (
-                with pkgs;
-                [
+                with pkgs; [
                   awscli2
                   ruby
                 ]
@@ -204,32 +201,32 @@ in
         "${brewFileName}" = {
           text =
             (concatMapStrings (
-              tap:
-              ''tap "''
-              + tap
-              + ''
-                "
-              ''
-
-            ) brewTaps)
+                tap:
+                  ''tap "''
+                  + tap
+                  + ''
+                    "
+                  ''
+              )
+              brewTaps)
             + (concatMapStrings (
-              brew:
-              ''brew "''
-              + brew
-              + ''
-                "
-              ''
-
-            ) brewBrews)
+                brew:
+                  ''brew "''
+                  + brew
+                  + ''
+                    "
+                  ''
+              )
+              brewBrews)
             + (concatMapStrings (
-              cask:
-              ''cask "''
-              + cask
-              + ''
-                "
-              ''
-
-            ) brewCasks);
+                cask:
+                  ''cask "''
+                  + cask
+                  + ''
+                    "
+                  ''
+              )
+              brewCasks);
           onChange = ''
             HOMEBREW_BUNDLE_FILE_GLOBAL=${brewFilePath} ${brewBin}/brew bundle install --no-upgrade --force --global
           '';
