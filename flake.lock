@@ -149,10 +149,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1762216521,
-        "narHash": "sha256-4ZbWOqSEH8IHphsMMPfzx87d4KWU58NDmERmco5EQJk=",
-        "rev": "e15f02d7d75d314ff2f65ac214151cfdd0cdcc7e",
-        "revCount": 19,
+        "lastModified": 1763134119,
+        "narHash": "sha256-J0FKANmZXZTGC4l98AfOw+L22q6llg7njQgkSJpiJE8=",
+        "rev": "e7f6622d18e73aa19e471108d02011f7b8476f73",
+        "revCount": 20,
         "type": "git",
         "url": "file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules"
       },
