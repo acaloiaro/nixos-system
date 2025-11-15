@@ -149,10 +149,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1763134119,
-        "narHash": "sha256-J0FKANmZXZTGC4l98AfOw+L22q6llg7njQgkSJpiJE8=",
-        "rev": "e7f6622d18e73aa19e471108d02011f7b8476f73",
-        "revCount": 20,
+        "lastModified": 1763232238,
+        "narHash": "sha256-2UKlzRjfn2Ejd8wlFD3XpvdK87xnPGsuAVJ2eBdrzrM=",
+        "rev": "6461bf1fa114130fafd561e2ef0bb8b6c4a961d3",
+        "revCount": 21,
         "type": "git",
         "url": "file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules"
       },
@@ -249,11 +249,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758545873,
-        "narHash": "sha256-0VP5cVd6DyibHNPC/IJ5Ut+KuNYUeKmr5ltzf+IcpjA=",
+        "lastModified": 1763228015,
+        "narHash": "sha256-1rYieMVUyZ3kK/cBIr8mOusxrOEJ1/+2MsOg0oJ7b3A=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "de5369834ff1f75246c46be89ef993392e961c26",
+        "rev": "96156a9e86281c4bfc451236bc2ddfe4317e6f39",
         "type": "github"
       },
       "original": {
@@ -389,6 +389,23 @@
         "type": "github"
       }
     },
+    "nixpkgs-fish-4-1-0": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1759070547,
+        "narHash": "sha256-JVZl8NaVRYb0+381nl7LvPE+A774/dRpif01FKLrYFQ=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "647e5c14cbd5067f44ac86b74f014962df460840",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "647e5c14cbd5067f44ac86b74f014962df460840",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1753579242,
@@ -454,11 +471,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1759036355,
-        "narHash": "sha256-0m27AKv6ka+q270dw48KflE0LwQYrO7Fm4/2//KCVWg=",
+        "lastModified": 1762977756,
+        "narHash": "sha256-4PqRErxfe+2toFJFgcRKZ0UI9NSIOJa+7RXVtBhy4KE=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e9f00bd893984bc8ce46c895c3bf7cac95331127",
+        "rev": "c5ae371f1a6a7fd27823bc500d9390b38c05fa55",
         "type": "github"
       },
       "original": {
@@ -518,6 +535,7 @@
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
+        "nixpkgs-fish-4-1-0": "nixpkgs-fish-4-1-0",
         "nur": "nur"
       }
     },

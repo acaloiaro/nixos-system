@@ -11,6 +11,11 @@
   };
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+  # TODO fish-4.2.0 (the currently latest version) is currently broken in nixpkgs unstable. Remove this when it's fixed.
+  inputs.nixpkgs-fish-4-1-0 = {
+    url = "github:nixos/nixpkgs/647e5c14cbd5067f44ac86b74f014962df460840";
+    flake = false;
+  };
   inputs.nur.url = "github:nix-community/NUR";
   inputs.home-manager = {
     url = "github:nix-community/home-manager";
@@ -68,9 +73,18 @@
     helix-flake,
     helix,
     greenhouse-nix-modules,
+    nixpkgs-fish-4-1-0,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
+    # TODO remove when nixpkgs fish >= 4.2.0 tests pass on darwin
+    pkgs-old-fish = import nixpkgs-fish-4-1-0 {
+      system = darwinSystem;
+    };
+    fish-overlay = final: prev: {
+      # This is the corrected line:
+      fish = pkgs-old-fish.fish;
+    };
     overlays = [
       inputs.agenix.overlays.default
       inputs.btsw.overlays.default
@@ -95,7 +109,9 @@
           "electron-27.3.11"
         ];
       };
-      inherit overlays;
+      overlays = [
+        fish-overlay
+      ];
     };
   in {
     inherit lib;
