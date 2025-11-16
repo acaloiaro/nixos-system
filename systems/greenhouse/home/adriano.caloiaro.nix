@@ -112,41 +112,27 @@
     settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
   };
 
-  # programs.gh = {
+  # programs.jujutsu = {
   #   enable = true;
-
-  #   gitCredentialHelper = {
-  #     enable = true;
-  #   };
-
   #   settings = {
-  #     version = 1; # Workaround for https://github.com/nix-community/home-manager/issues/4744
-  #     editor = "hx";
-  #     git_protocol = "ssh";
+  #     user = {
+  #       name = "Adriano Caloiaro";
+  #       email = "code@adriano.fyi";
+  #     };
+  #     signing = {
+  #       backend = "ssh";
+  #       key = "~/.ssh/id_ed25519.pub";
+  #     };
+  #     git = {
+  #       sign-on-push = true;
+  #       write-change-id-header = true;
+  #     };
+  #     ui = {
+  #       paginate = "never";
+  #       default-command = "log";
+  #     };
   #   };
   # };
-
-  programs.jujutsu = {
-    enable = true;
-    settings = {
-      user = {
-        name = "Adriano Caloiaro";
-        email = "code@adriano.fyi";
-      };
-      signing = {
-        backend = "ssh";
-        key = "~/.ssh/id_ed25519.pub";
-      };
-      git = {
-        sign-on-push = true;
-        write-change-id-header = true;
-      };
-      ui = {
-        paginate = "never";
-        default-command = "log";
-      };
-    };
-  };
 
   programs.kitty = {
     enable = true;

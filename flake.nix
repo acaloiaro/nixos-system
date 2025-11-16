@@ -145,12 +145,20 @@
         };
         modules = [
           ./systems/greenhouse/home/adriano.caloiaro.nix
-          inputs.greenhouse-nix-modules.home-manager
+          inputs.greenhouse-nix-modules.home-manager.${system}
           {
-            scm.authorName = "Adriano Caloiaro";
-            scm.authorEmail = "adriano.caloiaro@greenhouse.io";
-            scm.gpgKeyId = "FEC90D2844EA9541";
-            scm.sshPublicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+            enable = true;
+            scm = {
+              jujutsu.enable = true;
+              git.enable = true;
+
+              user = {
+                name = "Adriano Caloiaroooo";
+                email = "adriano.caloiaro@greenhouse.io";
+                gpg-key-id = "FEC90D2844EA9541";
+                ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+              };
+            };
           }
         ];
       };
@@ -223,7 +231,7 @@
       modules = [
         default-browser.darwinModules.default-browser
         ./systems/greenhouse/configuration.nix
-        inputs.greenhouse-nix-modules.nix-darwin
+        inputs.greenhouse-nix-modules.nix-darwin.${system}
         inputs.home-manager.darwinModules.home-manager
         {
           home-manager.backupFileExtension = "backup";

@@ -140,19 +140,37 @@
         "type": "github"
       }
     },
+    "flake-utils": {
+      "inputs": {
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "greenhouse-nix-modules": {
       "inputs": {
+        "flake-utils": "flake-utils",
         "home-manager": "home-manager_2",
-        "nh": "nh",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1763232238,
-        "narHash": "sha256-2UKlzRjfn2Ejd8wlFD3XpvdK87xnPGsuAVJ2eBdrzrM=",
-        "rev": "6461bf1fa114130fafd561e2ef0bb8b6c4a961d3",
-        "revCount": 21,
+        "lastModified": 1763316033,
+        "narHash": "sha256-6ait0m3D9Gmp/rWpTEmm5UZD6lz+JlRCZZtj4rMtN+o=",
+        "rev": "83cc94a0049a7f0c6caaacce9c9b6a18f72d64cc",
+        "revCount": 27,
         "type": "git",
         "url": "file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules"
       },
@@ -229,11 +247,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758545873,
-        "narHash": "sha256-0VP5cVd6DyibHNPC/IJ5Ut+KuNYUeKmr5ltzf+IcpjA=",
+        "lastModified": 1763228015,
+        "narHash": "sha256-1rYieMVUyZ3kK/cBIr8mOusxrOEJ1/+2MsOg0oJ7b3A=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "de5369834ff1f75246c46be89ef993392e961c26",
+        "rev": "96156a9e86281c4bfc451236bc2ddfe4317e6f39",
         "type": "github"
       },
       "original": {
@@ -299,28 +317,6 @@
       }
     },
     "nh": {
-      "inputs": {
-        "nixpkgs": [
-          "greenhouse-nix-modules",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1755510252,
-        "narHash": "sha256-IPwAGaR9LO4LasxIFPqOTmIfliDsnzWVgzsaIekzRG4=",
-        "owner": "viperML",
-        "repo": "nh",
-        "rev": "8d690296fb3b898da565b33455a4227aed8a3133",
-        "type": "github"
-      },
-      "original": {
-        "owner": "viperML",
-        "ref": "v4.2.0-beta2",
-        "repo": "nh",
-        "type": "github"
-      }
-    },
-    "nh_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -531,7 +527,7 @@
         "home-manager": "home-manager_3",
         "homeage": "homeage",
         "kitty-grab": "kitty-grab",
-        "nh": "nh_2",
+        "nh": "nh",
         "nix-darwin": "nix-darwin",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_5",
@@ -597,6 +593,21 @@
       }
     },
     "systems_2": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_3": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
