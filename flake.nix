@@ -148,10 +148,15 @@
           inputs.greenhouse-nix-modules.home-manager.${system}
           {
             enable = true;
+            languages = {
+              ruby = {
+                enable = true;
+                version = "3.4.7";
+              };
+            };
             scm = {
               jujutsu.enable = true;
               git.enable = true;
-
               user = {
                 name = "Adriano Caloiaroooo";
                 email = "adriano.caloiaro@greenhouse.io";
