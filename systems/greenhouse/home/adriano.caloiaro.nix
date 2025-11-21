@@ -43,6 +43,7 @@
       clang
       darwin.libffi
       dict
+      gemini-cli
       glow
       llvm
       nodePackages.prettier
