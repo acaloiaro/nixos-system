@@ -94,14 +94,19 @@ file-types = [
 ]
 shebangs = ["ruby"]
 comment-token = "#"
-language-servers = ["solargraph", "sorbet"]
+language-servers = ["solargraph", "sorbet", "rubocop"]
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal", "--server"] }
 
 [language-server.sorbet]
 name = "sorbet"
 command = "srb"
-args = ["tc", "--lsp"]
+args = ["tc", "--lsp", "--enable-all-experimental-lsp-features", "--disable-watchman"]
+
+[language-server.rubocop]
+name = "rubocop"
+command = "rubocop"
+args = ["--lsp"]
 
 [language-server."terraform-lsp"]
 command = "terraform-lsp"
