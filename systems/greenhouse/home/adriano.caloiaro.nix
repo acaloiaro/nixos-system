@@ -13,16 +13,6 @@
   ];
 
   modules.aerospace.enable = true;
-  # homeage = {
-  #   identityPaths = ["/home/adriano/.ssh/id_rsa_agenix"];
-  #   installationType = "systemd";
-
-  #   file."spotify-player-config" = {
-  #     source = ../secrets/spotify_password.age;
-  #     symlinks = ["${config.xdg.configHome}/spotifyd/password"];
-  #   };
-  # };
-
   programs = {
     aerc = {
       enable = true;
