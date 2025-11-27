@@ -50,6 +50,7 @@ in {
       ];
       masApps = {
         # Tailscale = 1475387142; # App Store URL id (keep for example purposes)
+        flycut = 442160987;
       };
     };
     nix = {
