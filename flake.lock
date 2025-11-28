@@ -167,10 +167,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1763848649,
-        "narHash": "sha256-5BRzbuFGfHCjUJMti/hFP3fdMWgrouH/lDVilC9vD7g=",
-        "rev": "d5ee101abcafdbb92c9f56487fc8fc575131dfae",
-        "revCount": 31,
+        "lastModified": 1764346849,
+        "narHash": "sha256-G7mI8Yygr4frmsHXzAPeADB1L0nsD/l2G8FJhyOA6HU=",
+        "rev": "03a5fcf9a1d5cc13b8b57d4d055abaf38938afbc",
+        "revCount": 32,
         "type": "git",
         "url": "file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules"
       },
@@ -205,15 +205,16 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1755269578,
-        "narHash": "sha256-KiVR83GhEdKrBQm5JqAOSLbWsH8q4sN+acoLZziZCCM=",
-        "owner": "helix-editor",
+        "lastModified": 1764347258,
+        "narHash": "sha256-GTegAjPxp48t+7NQUCcmQvdz7vGIXFMLiQrdc2MkTwQ=",
+        "owner": "acaloiaro",
         "repo": "helix",
-        "rev": "a4a2b50a50971bc43952f5f75d19a56689793a6a",
+        "rev": "2bd01175747ebd49b166d10f3eaaccca48c0fc59",
         "type": "github"
       },
       "original": {
-        "owner": "helix-editor",
+        "owner": "acaloiaro",
+        "ref": "patchy",
         "repo": "helix",
         "type": "github"
       }

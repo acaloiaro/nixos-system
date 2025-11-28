@@ -39,7 +39,7 @@
   };
 
   inputs.helix-flake = {
-    url = "github:helix-editor/helix";
+    url = "github:acaloiaro/helix/patchy";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -141,7 +141,7 @@
             darwinSystem
             greenhouse-nix-modules
             ;
-          helix-flake = helix;
+          helix-flake = helix-flake;
         };
         modules = [
           ./systems/greenhouse/home/adriano.caloiaro.nix
