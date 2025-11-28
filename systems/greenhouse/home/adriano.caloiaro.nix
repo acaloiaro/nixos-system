@@ -193,6 +193,7 @@
       glow
       llvm
       nodePackages.prettier
+      patchy
       templ
       nil # nix lsp
       yazi
