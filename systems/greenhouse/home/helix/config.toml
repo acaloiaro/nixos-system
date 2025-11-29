@@ -11,9 +11,9 @@ bufferline = "always"
 editor-config = true
 rainbow-brackets = true
 
-[editor.inline-blame]
-show = "cursor-line"
-auto-fetch = true
+# [editor.inline-blame]
+# show = "cursor-line"
+# auto-fetch = true
 
 # cursorline = true
 # cursorcolumn = true
