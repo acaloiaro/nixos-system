@@ -128,11 +128,14 @@
       settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
     };
     qutebrowser = {
+      # This HM module is enabled, but only to write the settings.
+      # We actually want to use the qutebrowser from Homebrew, since it contains the correct plist that
+      # registers qutebrowser as a browser on MacOS
       enable = true;
       searchEngines = {
         DEFAULT = "https://kagi.com/search?q={}";
         ddg = "https://duckduckgo.com/?q={}";
-        hm = "https://mipmip.github.io/home-manager-option-search/?query={}";
+        hm = "https://home-manager-options.extranix.com/?query={}";
         nixpkgs = "https://search.nixos.org/packages?query={}";
         nixos = "https://search.nixos.org/options?query={}";
         nixman = "https://nixos.org/manual/nix/unstable/?search={}";
@@ -154,6 +157,9 @@
         home-manager = "https://github.com/nix-community/home-manager";
       };
       settings = {
+        url.start_pages = [
+          "https://kagi.com"
+        ];
         spellcheck.languages = ["en-US"];
         tabs = {
           position = "top";
