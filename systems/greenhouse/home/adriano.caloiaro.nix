@@ -128,9 +128,6 @@
       settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
     };
     qutebrowser = {
-      # This HM module is enabled, but only to write the settings.
-      # We actually want to use the qutebrowser from Homebrew, since it contains the correct plist that
-      # registers qutebrowser as a browser on MacOS
       enable = true;
       searchEngines = {
         DEFAULT = "https://kagi.com/search?q={}";

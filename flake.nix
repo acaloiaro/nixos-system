@@ -82,9 +82,9 @@
       system = darwinSystem;
     };
     fish-overlay = final: prev: {
-      # This is the corrected line:
       fish = pkgs-old-fish.fish;
     };
+    qutebrowser-overlay = import ./common/overlays/qutebrowser-macos-bundle-patch.nix;
     overlays = [
       inputs.agenix.overlays.default
       inputs.btsw.overlays.default
@@ -111,6 +111,7 @@
       };
       overlays = [
         fish-overlay
+        qutebrowser-overlay
       ];
     };
   in {

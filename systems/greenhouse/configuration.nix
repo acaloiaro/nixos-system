@@ -43,7 +43,6 @@ in {
         "beeper"
         "logseq"
         "maccy"
-        "qutebrowser"
         "spotify"
         "vlc"
       ];
