@@ -9,9 +9,9 @@
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/accounts/calendars.nix
-    ../..common/home-manager/helix
-    ../..common/home-manager/jira
-    ../..common/home-manager/qutebrowser
+    ../../../common/home-manager/helix
+    ../../../common/home-manager/jira
+    ../../../common/home-manager/qutebrowser
   ];
 
   homeage = {
@@ -336,7 +336,6 @@
       ll = "ls -l";
       vi = "hx $argv";
       vim = "hx $argv";
-      jjd = ''jj diff '~ glob:"**/*_templ.txt" & ~ glob:"**/*_templ.go"' --git $argv'';
       ncm-token = "${pkgs.gopass}/bin/gopass show ncm | grep Secret | awk '{print $4}'";
     };
     plugins = [
@@ -454,6 +453,10 @@
         mail-received = ''dunstify "New email from $AERC_FROM_NAME" "$AERC_SUBJECT"'';
       };
     };
+  };
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
   };
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;

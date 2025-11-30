@@ -128,13 +128,15 @@
         inherit pkgs;
         extraSpecialArgs = {
           inherit
-            kitty-grab
             agenix
             homeage
+            inputs
+            kitty-grab
             system
             ;
         };
         modules = [
+          (import ./common/overlays)
           ./systems/zw/home/adriano.nix
           ./common/home-manager/scm
           {
@@ -199,6 +201,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          (import ./common/overlays)
           {
             environment.systemPackages = [
               agenix.packages.${system}.default
