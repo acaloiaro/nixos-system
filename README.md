@@ -29,6 +29,10 @@ Beelink U59 Pro in RV
 
 Primarily runs Jellyfin.
 
+### Greenhouse
+
+MacBook Pro 15" work machine.
+
 ## Installing 
 
 ### z1/zw
