@@ -57,7 +57,7 @@
         nerd-fonts.iosevka
         roboto
         font-awesome_5
-        ubuntu_font_family
+        ubuntu-classic
         noto-fonts
         noto-fonts-color-emoji
         iosevka
@@ -78,8 +78,8 @@
       extraPackages = with pkgs; [
         intel-compute-runtime
         intel-media-driver
-        vaapiIntel
-        vaapiVdpau
+        intel-vaapi-driver
+        libva-vdpau-driver
         libvdpau-va-gl
       ];
     };
