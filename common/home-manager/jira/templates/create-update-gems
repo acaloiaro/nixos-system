@@ -1,0 +1,31 @@
+# vim: set nospell:
+---
+fields:
+  project:
+    key: TOPS
+  issuetype: # Task, Bug, Epic, Improvement, New Feature, Spike, Engineering Culture
+    name: Task
+  summary: |~
+    Update gems: APPLICATION
+  description: |~
+    Update gems: APPLICATION
+  assignee:
+    accountId: 557058:4b25101e-3528-4880-926d-153195e745d6
+
+  # Epic
+  #  $ jira list -q 'issuetype = Epic AND project = TOPS'
+  #    TOPS-960:  Tech Debt
+  #    TOPS-1097: Building application images for Dajoku
+  #    TOPS-1915: Incident Response Tigers
+  #    TOPS-1946: CD Pipeline v2
+  #    TOPS-2041: A bot that automatically takes incident response actions
+  #    TOPS-2042: Rebuilding git receive to deal with its issues
+  #    TOPS-806:  Usability
+  customfield_10007: TOPS-960
+  # Story points
+  customfield_10004: 1
+  labels: []
+  # Sprint
+  #   Values:
+  #   Values: <no value>
+  customfield_10006: 347

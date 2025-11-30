@@ -1,0 +1,2 @@
+issues: {{ range .issues }}
+- {{.key}} {{.fields.summary}}{{end}}

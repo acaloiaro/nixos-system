@@ -1,0 +1,25 @@
+fields:
+  project:
+    key: GREEN
+  issuetype: # Values: [10301]<no value>, 
+    name: Story
+  summary: Investigate and fix contamination XXX
+  description: |~
+    https://airtable.com/tblAY6a392L0ezrPK/viwLBgItRU4qSSEQ1
+  components: #
+    - name: GHR - Core
+  reporter:
+    name: juan
+  # Squad
+  customfield_10700:
+    id: "13332"
+    value: Recruiting Operations
+  # T-Shirt Size
+  customfield_10400: # Values: [10500]XS, [10501]S, [10502]M, [10503]L, [10504]XL
+    id: "10501"
+    value: "S"
+  # Feature Type
+  customfield_10500:
+    id: "10312"
+  # Epic
+  customfield_10007: GREEN-13974

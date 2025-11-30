@@ -1,0 +1,29 @@
+{{/* create template */ -}}
+# vim: set nospell:
+---
+fields:
+  project:
+    key: {{ or .overrides.project "" }}
+  issuetype: # Task, Bug, Epic, Improvement, New Feature, Spike, Engineering Culture
+    name: {{ or .overrides.issuetype "" }}
+  summary: 
+  description: |~
+    
+  reporter:
+    accountId: 557058:4b25101e-3528-4880-926d-153195e745d6
+  # Epic
+  #  $ jira list -q 'issuetype = Epic AND project = TOPS'
+  #    TOPS-806:  Usability
+  #    TOPS-960:  Tech Debt
+  #    TOPS-3960: dajoku metrics
+  #    TOPS-4197: dev-logs
+  #    TOPS-4301: anomaly detection
+  customfield_10007:
+  # Story points
+  customfield_10004:
+  labels: []
+  # Sprint
+  #   Values: {{ range .fields.customfield_10006.allowedValues }}{{.name}} ({{.id}}){{end}}
+  customfield_10006: 446
+  fixVersions: # Values: {{ range .meta.fields.fixVersions.allowedValues }}{{ if .released }}{{else}}{{.name}}, {{end}}{{end}}
+     - name: {{ or .overrides.fixVersions "" }}

@@ -1,0 +1,33 @@
+fields:
+  project:
+    key: GREEN
+  issuetype:
+    name: Story
+  summary: Update XXXXX
+  description: |~
+    Update XXXXX
+  components: #
+    - name: GHR - Core
+  reporter:
+    accountId: 557058:4b25101e-3528-4880-926d-153195e745d6
+  assignee:
+    accountId: 557058:4b25101e-3528-4880-926d-153195e745d6
+  # Squad
+  customfield_10700:
+    id: "13332"
+    value: Recruiting Operations
+  # T-Shirt Size
+  customfield_10400:
+    id: "10501"
+    value: "S"
+  # Feature Type
+  customfield_10500:
+    id: "10312"
+  # Risk Level
+  customfield_12601:
+    id: "13102"
+  # Epic
+  customfield_10007: GREEN-15837
+  # Design Reviewer
+  customfield_12810: # [13324] Caroline, [13325] Carolyn, [13326] Jaclyn, [13327] Sarah, [13328] No Designs to Review,•
+    id: "13328"

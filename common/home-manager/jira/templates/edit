@@ -1,0 +1,66 @@
+{{/* edit template */ -}}
+---
+# issue: {{ .key }} - created: {{ .fields.created | age}} ago
+update:
+  comment:
+    - add: 
+        body: |~
+          {{ or .overrides.comment "" | indent 10 }}
+fields:
+  summary: >-
+    {{ or .overrides.summary .fields.summary }}
+  description: |~
+    {{ or .overrides.description .fields.description "" | indent 4 }}
+{{- if and .meta.fields.components .meta.fields.components.allowedValues }}
+  components: # Values: {{ range .meta.fields.components.allowedValues }}{{.name}}, {{end}}{{if .overrides.components }}{{ range (split "," .overrides.components)}}
+    - name: {{.}}{{end}}{{else}}{{ range .fields.components }}
+    - name: {{ .name }}{{end}}{{end}}{{end}}
+{{- if .meta.fields.assignee}}
+  assignee:
+    displayName: {{ if .overrides.assignee }}{{.overrides.assignee}}{{else}}{{if .fields.assignee }}{{.fields.assignee.displayName}}{{end}}{{end}}
+    accountId: {{ if .overrides.assignee }}{{.overrides.assignee}}{{else}}{{if .fields.assignee }}{{.fields.assignee.accountId}}{{end}}{{end}}{{end}}
+{{- if .meta.fields.reporter}}
+  reporter:
+    displayName: {{ if .overrides.reporter }}{{ .overrides.reporter }}{{else if .fields.reporter}}{{ .fields.reporter.displayName }}{{end}}
+    accountId: {{ if .overrides.reporter }}{{ .overrides.reporter }}{{else if .fields.reporter}}{{ .fields.reporter.accountId }}{{end}}{{end}}
+{{- if .meta.fields.customfield_10110}}
+  # watchers
+  customfield_10110: {{ range .fields.customfield_10110 }}
+    - name: {{ .name }}{{end}}{{if .overrides.watcher}}
+    - name: {{ .overrides.watcher}}{{end}}{{end}}
+{{- if .meta.fields.customfield_12200}}
+  # PR
+  customfield_12200: {{ .fields.customfield_12200}}{{end}}
+{{- if .meta.fields.customfield_10300}}
+  # QA Manager
+  customfield_10300:
+    name: {{if .fields.customfield_10300}}{{ .fields.customfield_10300.name }}{{end}}{{end}}
+{{- if .meta.fields.customfield_12810}}
+  # Design reviewer
+  customfield_12810: # Values: {{ range .meta.fields.customfield_12810.allowedValues }}[{{.id}}]{{.value}}, {{end}}
+    id: {{if .fields.customfield_12810}}{{ .fields.customfield_12810.id }}{{end}}{{end}}
+{{- if .meta.fields.customfield_10007}}
+  # Epic
+  customfield_10007: {{.fields.customfield_10007}}
+{{end -}}
+{{- if .meta.fields.customfield_10006}}
+  # Sprint
+  # Values: {{ range .meta.fields.customfield_10006.allowedValues }}[{{.id}}]{{.value}}, {{end}}
+  customfield_10006: {{ range .fields.customfield_10006 }}
+    - {{ .id }} # {{ .name }} ({{.state}}){{end}}
+{{ end -}}
+{{- if .meta.fields.customfield_12842}}
+  # Risk Level
+  customfield_12842: # Values: {{ range .meta.fields.customfield_12842.allowedValues }}[{{.id}}]{{.value}}, {{end}}
+    id: {{if .fields.customfield_12842}}{{ .fields.customfield_12842.id }}{{end}}{{end}}
+  labels:
+  {{ range .fields.labels }}  - {{.}}
+  {{end -}}
+{{- if .meta.fields.priority }}
+  priority: # Values: {{ range .meta.fields.priority.allowedValues }}{{.name}}, {{end}}
+    name: {{ or .overrides.priority .fields.priority.name "" }}{{end}}
+# votes: {{ .fields.votes.votes }}
+# comments:
+# {{ range .fields.comment.comments }}  - | # {{.author.name}}, {{.created | age}} ago
+#     {{ or .body "" | indent 4 | comment}}
+# {{end}}

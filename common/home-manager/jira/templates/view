@@ -1,0 +1,63 @@
+{{/* view template */ -}}
+{{if .fields.issuetype -}}
+issuetype: {{ .fields.issuetype.name }}
+{{end -}}
+issue: {{ .key }}
+{{if .fields.created -}}
+created: {{ .fields.created | age }} ago
+{{end -}}
+{{if .fields.status -}}
+status: {{ .fields.status.name }}
+{{end -}}
+{{if .fields.customfield_10007 -}}
+epic: {{ .fields.customfield_10007 }}
+{{end -}}
+summary: {{ .fields.summary }}
+project: {{ .fields.project.key }}
+{{if .fields.components -}}
+components: {{ range .fields.components }}{{ .name }} {{end}}
+{{end -}}
+{{if .fields.assignee -}}
+assignee: {{ .fields.assignee.displayName }}
+{{end -}}
+reporter: {{ if .fields.reporter }}{{ .fields.reporter.displayName }}{{end}}
+{{if .fields.customfield_10110 -}}
+watchers: {{ range .fields.customfield_10110 }}{{ .name }} {{end}}
+{{end -}}
+{{if .fields.issuelinks -}}
+blockers: {{ range .fields.issuelinks }}{{if .outwardIssue}}{{ .outwardIssue.key }}[{{.outwardIssue.fields.status.name}}]{{end}}{{end}}
+depends: {{ range .fields.issuelinks }}{{if .inwardIssue}}{{ .inwardIssue.key }}[{{.inwardIssue.fields.status.name}}]{{end}}{{end}}
+{{end -}}
+{{if .fields.priority -}}
+priority: {{ .fields.priority.name }}
+{{end -}}
+{{if .fields.votes -}}
+votes: {{ .fields.votes.votes}}
+{{end -}}
+{{if .fields.labels -}}
+labels: {{ join ", " .fields.labels }}
+{{end -}}
+{{ if .fields.customfield_12200 -}}
+pull-request: {{ .fields.customfield_12200 }}
+{{end -}}
+{{ if .fields.customfield_10300 -}}
+qa-manager: {{ .fields.customfield_10300.name }}
+{{ end -}}
+{{ if .fields.customfield_12810 -}}
+design-reviewer: {{ .fields.customfield_12810.value }}
+{{ end -}}
+{{ if .fields.customfield_10004 -}}
+story points: {{ .fields.customfield_10004 }}
+{{ end -}}
+{{ if .fields.customfield_10006 -}}
+ sprints: {{ range .fields.customfield_10006 }}
+- {{ .name }} ({{ .id }}){{end}}
+{{ end -}}
+description:
+  {{ or .fields.description "" | indent 2 }}
+{{if .fields.comment.comments}}
+comments:
+{{ range .fields.comment.comments }}  - | # {{.author.name}}, {{.created | age}} ago
+    {{ or .body "" | indent 4}}
+{{end}}
+{{end -}}
