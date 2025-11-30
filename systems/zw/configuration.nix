@@ -11,8 +11,8 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./zfs.nix
-    ../../common/1password.nix
-    ../../common/podman.nix
+    ../../common/applications/1password.nix
+    ../../common/virtualization/podman.nix
     ./hosts-config.nix
   ];
 

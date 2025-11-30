@@ -9,7 +9,7 @@
 }: {
   imports = [
     homeage.homeManagerModules.homeage
-    ../../../common/calendars.nix
+    ../../../common/accounts/calendars.nix
   ];
 
   homeage = {

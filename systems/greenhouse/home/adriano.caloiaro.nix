@@ -8,8 +8,8 @@
 }: {
   imports = [
     homeage.homeManagerModules.homeage
-    ../../../common/calendars.nix
-    ../../../common/aerospace.nix
+    ../../../common/accounts/calendars.nix
+    ../../../common/desktop/aerospace.nix
   ];
 
   modules.aerospace.enable = true;
