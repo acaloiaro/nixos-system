@@ -146,15 +146,8 @@
         };
         modules = [
           ./systems/greenhouse/home/adriano.caloiaro.nix
-          inputs.greenhouse-nix-modules.home-manager.${system}
+          ./common/home-manager/scm
           {
-            enable = true;
-            languages = {
-              ruby = {
-                enable = true;
-                version = "3.4.7";
-              };
-            };
             scm = {
               jujutsu.enable = true;
               git.enable = true;
@@ -163,6 +156,16 @@
                 email = "adriano.caloiaro@greenhouse.io";
                 gpg-key-id = "FEC90D2844EA9541";
                 ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+              };
+            };
+          }
+          inputs.greenhouse-nix-modules.home-manager.${system}
+          {
+            enable = true;
+            languages = {
+              ruby = {
+                enable = true;
+                version = "3.4.7";
               };
             };
           }
