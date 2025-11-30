@@ -11,17 +11,11 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./zfs.nix
-    ../../common/applications/1password.nix
     ../../common/virtualization/podman.nix
     ./hosts-config.nix
   ];
 
   config = {
-    _1password = {
-      enable = true;
-      user = "adriano";
-    };
-
     # Configure secrets
     age = {
       identityPaths = ["/root/.ssh/id_rsa_agenix"];

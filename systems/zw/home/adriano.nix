@@ -9,6 +9,9 @@
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/accounts/calendars.nix
+    ../..common/home-manager/helix
+    ../..common/home-manager/jira
+    ../..common/home-manager/qutebrowser
   ];
 
   homeage = {
@@ -202,7 +205,6 @@
         "2" = [{class = "^kitty$";}];
         "3" = [{class = "^Beeper$";}];
         "4" = [{class = "^Logseq$";}];
-        "5" = [{class = "^1Password$";}];
         "6" = [{class = "^Slack$";}];
       };
       startup = [
@@ -290,84 +292,6 @@
         ];
         icons = "awesome5";
         theme = "nord-dark";
-      };
-    };
-  };
-
-  programs.helix = {
-    enable = true;
-    defaultEditor = true;
-    settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);
-    languages = {
-      langauge = builtins.fromTOML (builtins.readFile ./helix/languages.toml);
-    };
-  };
-
-  programs.starship = {
-    enable = true;
-    enableFishIntegration = true;
-    settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Adriano Caloiaro";
-    userEmail = "code@adriano.fyi";
-
-    signing = {
-      key = "C2BC56DE73CE3F75!";
-      signByDefault = true;
-    };
-
-    aliases = {
-      d = "difftool -y --extcmd=icdiff";
-    };
-
-    extraConfig = {
-      push = {
-        autoSetupRemote = true;
-      };
-      init = {
-        defaultBranch = "main";
-      };
-      pull = {
-        rebase = true;
-      };
-    };
-  };
-
-  programs.gh = {
-    enable = true;
-
-    gitCredentialHelper = {
-      enable = true;
-    };
-
-    settings = {
-      version = 1; # Workaround for https://github.com/nix-community/home-manager/issues/4744
-      editor = "hx";
-      git_protocol = "ssh";
-    };
-  };
-
-  programs.jujutsu = {
-    enable = true;
-    settings = {
-      user = {
-        name = "Adriano Caloiaro";
-        email = "code@adriano.fyi";
-      };
-      signing = {
-        backend = "gpg";
-        key = "C2BC56DE73CE3F75!";
-      };
-      git = {
-        sign-on-push = true;
-        write-change-id-header = true;
-      };
-      ui = {
-        paginate = "never";
-        default-command = "log";
       };
     };
   };
@@ -484,51 +408,6 @@
           noscript
         ];
       };
-    };
-  };
-
-  programs.qutebrowser = {
-    enable = true;
-    searchEngines = {
-      DEFAULT = "https://kagi.com/search?q={}";
-      kg = "https://kagi.com/search?q={}";
-      hm = "https://mipmip.github.io/home-manager-option-search/?query={}";
-      nixpkgs = "https://search.nixos.org/packages?query={}";
-      nixos = "https://search.nixos.org/options?query={}";
-      nixman = "https://nixos.org/manual/nix/unstable/?search={}";
-    };
-    keyBindings = let
-      pass_cmd = "spawn --userscript qute-pass --dmenu-invocation dmenu --mode gopass --password-store ~/.password-store";
-    in {
-      normal = {
-        ",p" = pass_cmd;
-        ",Pu" = "${pass_cmd} --username-only";
-        ",Pp" = "${pass_cmd} --password-only";
-        ",Po" = "${pass_cmd} --otp-only";
-        ",," = "config-cycle tabs.show never always";
-        ",qc" = "spawn --userscript ~/.local/bin/qute-logseq";
-      };
-    };
-    quickmarks = {
-      nixpkgs = "https://github.com/NixOS/nixpkgs";
-      home-manager = "https://github.com/nix-community/home-manager";
-    };
-    settings = {
-      spellcheck.languages = ["en-US"];
-      tabs = {
-        position = "top";
-        show = "always";
-        title = {
-          format = "{audio}{current_title}";
-          format_pinned = "{audio}📌 {current_title}";
-        };
-      };
-      fonts = {
-        default_size = "16px";
-      };
-
-      zoom.default = "120%";
-      content.javascript.clipboard = "access";
     };
   };
 
