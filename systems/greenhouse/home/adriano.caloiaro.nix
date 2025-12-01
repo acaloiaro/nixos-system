@@ -76,7 +76,6 @@
       enable = true;
       shellAliases = {
         quickqr = "qrencode -t ansiutf8 $argv";
-        jjd = ''jj diff '~ glob:"**/*_templ.txt" & ~ glob:"**/*_templ.go"' --git $argv'';
       };
       plugins = [
         {
@@ -125,7 +124,6 @@
     starship = {
       enable = true;
       enableFishIntegration = true;
-      settings = builtins.fromTOML (builtins.readFile ./starship/config.toml);
     };
     qutebrowser = {
       enable = true;

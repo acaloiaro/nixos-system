@@ -60,6 +60,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.starship-jj = {
+    url = "gitlab:lanastara_foss/starship-jj";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs = {
     default-browser,
     nixpkgs,
@@ -109,6 +114,9 @@
           "electron-27.3.11"
         ];
       };
+      modules = [
+        (import ./common/overlays)
+      ];
       overlays = [
         fish-overlay
         qutebrowser-overlay
@@ -136,6 +144,7 @@
         pkgs = darwin-pkgs;
         extraSpecialArgs = {
           inherit
+            inputs
             kitty-grab
             agenix
             homeage
@@ -145,6 +154,7 @@
           helix-flake = helix-flake;
         };
         modules = [
+          (import ./common/overlays)
           ./systems/greenhouse/home/adriano.caloiaro.nix
           ./common/home-manager/scm
           {
