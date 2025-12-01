@@ -3,13 +3,13 @@
   config,
   lib,
   homeage,
-  helix-flake,
   ...
 }: {
   imports = [
-    homeage.homeManagerModules.homeage
-    ../../../common/accounts/calendars.nix
     ../../../common/desktop/aerospace.nix
+    ../../../common/accounts/calendars.nix
+    ../../../common/home-manager/helix
+    homeage.homeManagerModules.homeage
   ];
 
   modules.aerospace.enable = true;
@@ -90,13 +90,6 @@
     fzf = {
       enable = true;
       enableFishIntegration = true;
-    };
-    helix = {
-      package = helix-flake.packages.${pkgs.system}.default;
-      enable = true;
-      defaultEditor = true;
-      settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);
-      languages = builtins.fromTOML (builtins.readFile ./helix/languages.toml);
     };
     home-manager.enable = true;
     kitty = {

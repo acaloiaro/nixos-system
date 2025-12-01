@@ -10,6 +10,7 @@ completion-replace = true
 bufferline = "always"
 editor-config = true
 rainbow-brackets = true
+text-width = 120
 
 # [editor.inline-blame]
 # show = "cursor-line"

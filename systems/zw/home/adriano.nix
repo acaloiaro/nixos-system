@@ -4,7 +4,6 @@
   lib,
   kitty-grab,
   homeage,
-  helix-flake,
   ...
 }: {
   imports = [
@@ -296,7 +295,6 @@
   };
 
   programs.helix = {
-    package = helix-flake.packages.${pkgs.system}.default;
     enable = true;
     defaultEditor = true;
     settings = builtins.fromTOML (builtins.readFile ./helix/config.toml);

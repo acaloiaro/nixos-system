@@ -75,7 +75,6 @@
     agenix,
     nur,
     kitty-grab,
-    helix-flake,
     helix,
     greenhouse-nix-modules,
     nixpkgs-fish-4-1-0,
@@ -134,7 +133,6 @@
             homeage
             system
             ;
-          helix-flake = helix;
         };
         modules = [
           ./systems/zw/home/adriano.nix
@@ -151,7 +149,6 @@
             darwinSystem
             greenhouse-nix-modules
             ;
-          helix-flake = helix-flake;
         };
         modules = [
           (import ./common/overlays)
