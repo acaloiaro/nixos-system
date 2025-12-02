@@ -9,6 +9,7 @@
     ../../../common/desktop/aerospace.nix
     ../../../common/accounts/calendars.nix
     ../../../common/home-manager/helix
+    ../../../common/home-manager/jira
     homeage.homeManagerModules.homeage
   ];
 

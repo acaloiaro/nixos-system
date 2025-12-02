@@ -127,6 +127,32 @@ with lib; {
             ltbd = ["ltb"] ++ details;
             lt = ["log" "--revisions" "tags()"];
             bl = ["bookmark" "list" "--no-pager"];
+            deployable = [
+              "log"
+              "--no-graph"
+              "--revisions"
+              "recent() & bookmarks()"
+              "--template"
+              "separate(
+               ' ',
+               commit_id.short(10),
+               description.first_line(),
+               '[' ++ committer.timestamp().ago(),
+               'by',
+               committer.email().local() ++ ',',
+               bookmarks ++ '(' ++ git_refs.any(|a| a.synced()) ++ ')]'
+              ) ++ \"\n\""
+            ];
+          };
+
+          revset-aliases = {
+            "abandoned_releases()" = "committer_date(before:'1 month ago') & remote_bookmarks('release-candidate')";
+            "closest_bookmark(to)" = "heads(::to & bookmarks())";
+            "default()" = "coalesce(trunk(),root())::present(@) | ancestors(visible_heads() & recent(), 2)";
+            "merged(to)" = "::to-";
+            "old()" = "committer_date(before:'1 month ago')";
+            "recent()" = "committer_date(after:'1 month ago')";
+            "relevant_commits(to)" = "(main..to):: | (main..to)-";
           };
 
           template-aliases = let

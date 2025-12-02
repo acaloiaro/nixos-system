@@ -99,6 +99,7 @@ r = [":reload-all", ":lsp-restart"]
 c = ":character-info"
 t = ":run-shell-command make test"
 f = ":format"
+y = ':! echo %{buffer_name} | pbcopy'
 
 [keys.normal.g]
 a = "code_action"
