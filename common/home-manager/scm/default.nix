@@ -155,6 +155,19 @@ with lib; {
         };
       };
       starship.settings = {
+        format = "$directory \${custom.jj} $all";
+        command_timeout = 150;
+
+        aws.disabled = true;
+        battery.disabled = false;
+        docker_context.disabled = true;
+        gcloud.disabled = true;
+        kubernetes.disabled = true;
+        nodejs.disabled = true;
+        ruby.disabled = false;
+        shell.disabled = false;
+        time.disabled = false;
+
         git_branch.disabled = true;
         git_metrics.disabled = true;
         git_state.disabled = true;
