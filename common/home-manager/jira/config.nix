@@ -1,15 +1,15 @@
 {
   endpoint = "https://greenhouseio.atlassian.net";
-  user = "juan";
-  login = "juan@greenhouse.io";
-  password-source = "pass";
+  login = "adriano.caloiaro@greenhouse.io";
   authentication-method = "api-token";
+  password-source = "gopass";
+  password-name = "atlassian.com/jira-cli";
   project = "GREEN";
-  team = "TOPS";
-  overrides = {
-    team_name = "TOPS";
-    team_id = "13335";
-  };
+  # team = "TOPS";
+  # overrides = {
+  #   team_name = "PHES";
+  #   team_id = "19c2cd93-cb4e-46af-a8cb-37a64c1e3ec4";
+  # };
   custom-commands = [
     {
       name = "mine-in-progress";

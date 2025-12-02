@@ -1,0 +1,50 @@
+diff --git a/search.go b/search.go
+index 1726fe6..abfa2fa 100644
+--- a/search.go
++++ b/search.go
+@@ -65,21 +65,21 @@ func (o *SearchOptions) ProvideSearchRequest() *jiradata.SearchRequest {
+ 	if o.QueryFields != "" {
+ 		fields := strings.Split(o.QueryFields, ",")
+ 		req.Fields = append(req.Fields, fields...)
+ 	}
+ 	req.StartAt = 0
+ 	req.MaxResults = o.MaxResults
+ 
+ 	return req
+ }
+ 
+-// https://docs.atlassian.com/jira/REST/cloud/#api/2/search-searchUsingSearchRequest
++// https://developer.atlassian.com/cloud/jira/platform/rest/v3/api-group-issue-search/#api-rest-api-3-search-jql-post
+ func (j *Jira) Search(sp SearchProvider, opts ...SearchOpt) (*jiradata.SearchResults, error) {
+ 	return Search(j.UA, j.Endpoint, sp, opts...)
+ }
+ 
+ type searchConfig struct {
+ 	autoPaginate bool
+ }
+ 
+ type SearchOpt func(*searchConfig)
+ 
+@@ -101,21 +101,21 @@ func Search(ua HttpClient, endpoint string, sp SearchProvider, opts ...SearchOpt
+ 		// max page size is 100
+ 		req.MaxResults = 100
+ 	}
+ 
+ 	issues := jiradata.Issues{}
+ 	for {
+ 		encoded, err := json.Marshal(req)
+ 		if err != nil {
+ 			return nil, err
+ 		}
+-		uri := URLJoin(endpoint, "rest/api/2/search")
++		uri := URLJoin(endpoint, "rest/api/3/search/jql")
+ 		resp, err := ua.Post(uri, "application/json", bytes.NewBuffer(encoded))
+ 		if err != nil {
+ 			return nil, err
+ 		}
+ 		defer resp.Body.Close()
+ 
+ 		if resp.StatusCode != 200 {
+ 			return nil, responseError(resp)
+ 		}
+ 
