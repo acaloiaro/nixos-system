@@ -52,6 +52,10 @@ with lib; {
     };
   };
   config = {
+    # Format: <email> <key_type> <key_content>
+    home.file.".ssh/allowed_signers".text = ''
+      ${config.scm.user.email} ${config.scm.user.ssh-public-key}
+    '';
     programs = {
       git = mkIf config.scm.git.enable {
         enable = true;
@@ -71,6 +75,11 @@ with lib; {
           };
           blame = {
             ignoreRevsFile = ".git-blame-ignore-revs";
+          };
+
+          gpg = {
+            format = "ssh";
+            ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
           };
         };
 
@@ -102,6 +111,7 @@ with lib; {
           signing = {
             backend = "ssh";
             key = config.scm.user.ssh-public-key;
+            backends.ssh.allowed-signers = "${config.home.homeDirectory}/.ssh/allowed_signers";
           };
           git = {
             private-commits = "description(glob:'wip*') | description(glob:'WIP*') | description(glob:'private:*') | description('scratch')";
@@ -180,6 +190,7 @@ with lib; {
           };
         };
       };
+
       starship.settings = {
         format = "$directory \${custom.jj} $all";
         command_timeout = 150;
