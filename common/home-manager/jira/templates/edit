@@ -28,9 +28,9 @@ fields:
   customfield_10110: {{ range .fields.customfield_10110 }}
     - name: {{ .name }}{{end}}{{if .overrides.watcher}}
     - name: {{ .overrides.watcher}}{{end}}{{end}}
-{{- if .meta.fields.customfield_12200}}
-  # PR
-  customfield_12200: {{ .fields.customfield_12200}}{{end}}
+  # {{- if .meta.fields.customfield_12200}}
+  #   # PR
+  #   customfield_12200: {{ .fields.customfield_12200}}{{end}}
 {{- if .meta.fields.customfield_10300}}
   # QA Manager
   customfield_10300:
