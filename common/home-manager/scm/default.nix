@@ -79,12 +79,13 @@ with lib; {
 
           gpg = {
             format = "ssh";
+            key = config.scm.user.ssh-public-key;
             ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
           };
         };
 
         signing = {
-          key = config.scm.user.gpg-key-id;
+          key = config.scm.user.ssh-public-key;
           signByDefault = true;
         };
       };

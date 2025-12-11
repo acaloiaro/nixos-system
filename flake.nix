@@ -161,7 +161,7 @@
               user = {
                 name = "Adriano Caloiaro";
                 email = "adriano.caloiaro@greenhouse.io";
-                gpg-key-id = "FEC90D2844EA9541";
+                gpg-key-id = "8E8D7473B70F3860341DD171FEC90D2844EA9541";
                 ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V";
               };
             };
