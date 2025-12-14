@@ -115,7 +115,7 @@ with lib; {
             backends.ssh.allowed-signers = "${config.home.homeDirectory}/.ssh/allowed_signers";
           };
           git = {
-            private-commits = "description(glob:'wip*') | description(glob:'WIP*') | description(glob:'private:*') | description('scratch')";
+            private-commits = "description(glob:'wip*') | description(glob:'WIP*') | description(glob:'private:*') | description(glob:'scratch*')";
             sign-on-push = true;
             write-change-id-header = true;
           };
