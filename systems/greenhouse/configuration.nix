@@ -55,6 +55,7 @@ in {
     };
     nix = {
       settings.experimental-features = "nix-command flakes";
+      settings.trusted-users = ["adriano.caloiaro"];
     };
     nixpkgs.hostPlatform = "aarch64-darwin";
     programs = {
