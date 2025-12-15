@@ -5,7 +5,7 @@
   ...
 }:
 with lib; {
-  options.scm = {
+  options.code = {
     jujutsu = mkOption {
       type = types.submodule {
         options = {
@@ -54,15 +54,15 @@ with lib; {
   config = {
     # Format: <email> <key_type> <key_content>
     home.file.".ssh/allowed_signers".text = ''
-      ${config.scm.user.email} ${config.scm.user.ssh-public-key}
+      ${config.code.user.email} ${config.code.user.ssh-public-key}
     '';
     programs = {
-      git = mkIf config.scm.git.enable {
+      git = mkIf config.code.git.enable {
         enable = true;
         settings = {
           user = {
-            name = config.scm.user.name;
-            email = [config.scm.user.email];
+            name = config.code.user.name;
+            email = [config.code.user.email];
           };
           push = {
             autoSetupRemote = true;
@@ -79,18 +79,18 @@ with lib; {
 
           gpg = {
             format = "ssh";
-            key = config.scm.user.ssh-public-key;
+            key = config.code.user.ssh-public-key;
             ssh.allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
           };
         };
 
         signing = {
-          key = config.scm.user.ssh-public-key;
+          key = config.code.user.ssh-public-key;
           signByDefault = true;
         };
       };
 
-      gh = mkIf config.scm.git.enable {
+      gh = mkIf config.code.git.enable {
         enable = true;
 
         gitCredentialHelper = {
@@ -102,16 +102,16 @@ with lib; {
         };
       };
 
-      jujutsu = mkIf config.scm.jujutsu.enable {
+      jujutsu = mkIf config.code.jujutsu.enable {
         enable = true;
         settings = {
           user = {
-            name = config.scm.user.name;
-            email = config.scm.user.email;
+            name = config.code.user.name;
+            email = config.code.user.email;
           };
           signing = {
             backend = "ssh";
-            key = config.scm.user.ssh-public-key;
+            key = config.code.user.ssh-public-key;
             backends.ssh.allowed-signers = "${config.home.homeDirectory}/.ssh/allowed_signers";
           };
           git = {
@@ -182,6 +182,16 @@ with lib; {
           templates = {
             git_push_bookmark = ''"${config.home.username}/push-" ++ change_id.short()'';
             log = "builtin_log_oneline";
+            draft_commit_description = ''
+              concat(
+                description,
+                "\n",
+                surround(
+                  "\nJJ: This commit contains the following changes:\n", "",
+                  indent("JJ:     ", diff.summary()),
+                ),
+              )
+            '';
           };
 
           ui = {

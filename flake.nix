@@ -167,9 +167,9 @@
         modules = [
           (import ./common/overlays)
           ./systems/greenhouse/home/adriano.caloiaro.nix
-          ./common/home-manager/scm
+          ./common/home-manager/code
           {
-            scm = {
+            code = {
               jujutsu.enable = true;
               git.enable = true;
               user = {
@@ -183,10 +183,14 @@
           inputs.greenhouse-nix-modules.home-manager.${system}
           {
             enable = true;
+            # I use my own SCM module, not the one from the greenhouse module
+            scm = {
+              git.enable = false;
+              jujutsu.enable = false;
+            };
             languages = {
               ruby = {
                 enable = true;
-                version = "3.4.7";
               };
             };
           }
