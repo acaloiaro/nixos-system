@@ -159,6 +159,13 @@
         '';
         executable = true;
       };
+      ".config/jiratui/config.toml" = {
+        text = ''
+          jira_api_username: 'adriano.caloiaro@greenhouse.io'
+          jira_api_token: '12345'
+          jira_api_base_url: 'https://greenhouseio.atlassian.net'
+        '';
+      };
     };
   };
 
