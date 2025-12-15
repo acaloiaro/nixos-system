@@ -6,10 +6,11 @@
   password-name = "atlassian.com/jira-cli";
   project = "GREEN";
   # team = "TOPS";
-  # overrides = {
-  #   team_name = "PHES";
-  #   team_id = "19c2cd93-cb4e-46af-a8cb-37a64c1e3ec4";
-  # };
+  overrides = {
+    team_name = "Post-Hire Ecosystem";
+    # team_id = "19c2cd93-cb4e-46af-a8cb-37a64c1e3ec4";
+    user = "557058:d182f6fb-29c2-4608-b08f-b0ad024d98cb";
+  };
   custom-commands = [
     {
       name = "mine-in-progress";
