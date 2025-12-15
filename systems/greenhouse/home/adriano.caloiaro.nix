@@ -140,6 +140,8 @@
       dict
       gemini-cli
       glow
+      go-grip # local markdown rendering in the browser
+      jiratui
       llvm
       nodePackages.prettier
       patchy
