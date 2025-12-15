@@ -12,8 +12,9 @@ in {
   config = mkIf cfg.enable {
     programs.aerospace = {
       enable = true;
-      userSettings.start-at-login = true;
-      userSettings = {
+      launchd.enable = true;
+      settings = {
+        start-at-login = true;
         enable-normalization-flatten-containers = false;
         enable-normalization-opposite-orientation-for-nested-containers = false;
         gaps = let
