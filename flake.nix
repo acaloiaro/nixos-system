@@ -138,14 +138,15 @@
         modules = [
           (import ./common/overlays)
           ./systems/zw/home/adriano.nix
-          ./common/home-manager/scm
+          ./common/home-manager/code
           {
-            scm = {
+            code = {
               jujutsu.enable = true;
               git.enable = true;
               user = {
                 name = "Adriano Caloiaro";
                 email = "code@adriano.fyi";
+                gpg-key-id = "8E8D7473B70F3860341DD171FEC90D2844EA9541";
                 ssh-public-key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s=";
               };
             };
@@ -184,6 +185,7 @@
           {
             enable = true;
             # I use my own SCM module, not the one from the greenhouse module
+            # That's why this one is disabled
             scm = {
               git.enable = false;
               jujutsu.enable = false;
