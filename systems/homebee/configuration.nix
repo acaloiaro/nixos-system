@@ -65,6 +65,7 @@
       defaultSession = "none+i3";
     };
     transmission = {
+      package = pkgs.transmission_4;
       enable = true;
       settings = {
         rpc-bind-address = "100.98.79.116";
@@ -118,11 +119,6 @@
         xterm.enable = false;
       };
     };
-
-    logind.extraConfig = ''
-      IdleAction=sleep
-      IdleActionSec=100000000000
-    '';
   };
 
   networking = {
