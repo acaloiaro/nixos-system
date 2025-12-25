@@ -41,6 +41,7 @@
     packages = with pkgs; [
       btsw
       nodePackages.prettier
+      opencloud-desktop
       yazi
       zeal
     ];

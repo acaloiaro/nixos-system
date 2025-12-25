@@ -107,6 +107,17 @@
       openFirewall = true;
     };
     openssh.enable = true;
+    opencloud = {
+      enable = true;
+      address = "127.0.0.1";
+      port = 9200;
+      stateDir = "/var/opencloud";
+      environment = {
+        OC_INSECURE = "true";
+        OC_URL = "https://homebee.bison-lizard.ts.net";
+        OC_LOG_LEVEL = "info";
+      };
+    };
     xserver = {
       enable = true;
       xkb = {
