@@ -11,9 +11,14 @@
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
+    ../../../common/home-manager/ai-agents
     homeage.homeManagerModules.homeage
   ];
 
+  ai-agents = {
+    enable = true;
+    crush.enable = true;
+  };
   modules.aerospace.enable = true;
   programs = {
     aerc = {
@@ -96,7 +101,7 @@
         }
       ];
       loginShellInit = ''
-        . $HOME/.nix-profile/share/asdf-vm/asdf.fish
+        # . $HOME/.nix-profile/share/asdf-vm/asdf.fish
       '';
     };
     fzf = {
@@ -124,6 +129,15 @@
         active_border_color      none
         font_size                14.0
       '';
+      environment = {
+        # for gemini
+        "GOOGLE_CLOUD_PROJECT" = "elegant-pipe-468016-d8";
+        "GOOGLE_CLOUD_LOCATION" = "global";
+        # for gemini via crush
+        "VERTEXAI_LOCATION" = "$GOOGLE_CLOUD_LOCATION";
+        "VERTEXAI_PROJECT" = "$GOOGLE_CLOUD_PROJECT";
+      };
+
       shellIntegration.enableFishIntegration = true;
     };
     starship = {
