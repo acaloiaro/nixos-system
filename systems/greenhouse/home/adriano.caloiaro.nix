@@ -69,6 +69,16 @@
     };
     chawan = {
       enable = true;
+      settings = {
+        buffer = {
+          images = true;
+          cookies = true;
+          cookie = "save";
+        };
+        external = {
+          cookie-file = "~/.config/chawan/cookies.txt";
+        };
+      };
     };
     direnv = {
       enable = true;
