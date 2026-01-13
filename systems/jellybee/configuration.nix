@@ -40,6 +40,8 @@
       };
       wireless_networks = {
         file = ./secrets/wireless_networks.age;
+        owner = "wpa_supplicant";
+        group = "wpa_supplicant";
       };
       nix_serve_cache_key = {
         file = ./secrets/nix_serve_cache_key.age;
@@ -71,6 +73,9 @@
   i18n.defaultLocale = "en_US.UTF-8";
   services = {
     adguardhome.enable = true;
+    displayManager = {
+      defaultSession = "none+i3";
+    };
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale_key.path;
@@ -83,23 +88,16 @@
     openssh.enable = true;
     xserver = {
       enable = true;
-      layout = "us";
-      xkbOptions = "caps:ctrl_modifier";
-
-      windowManager.i3.enable = true;
-      displayManager = {
-        defaultSession = "none+i3";
+      xkb = {
+        options = "caps:ctrl_modifier";
+        layout = "us";
       };
+      windowManager.i3.enable = true;
 
       desktopManager = {
         xterm.enable = false;
       };
     };
-
-    logind.extraConfig = ''
-      IdleAction=sleep
-      IdleActionSec=100000000000
-    '';
 
     nix-serve = {
       enable = true;
@@ -117,14 +115,16 @@
       guiAddress = "100.123.165.8:8384";
       overrideDevices = true; # overrides any devices added or deleted through the WebUI
       overrideFolders = true; # overrides any folders added or deleted through the WebUI
-      devices = {
-        "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
-      };
-      folders = {
-        "Documents" = {
-          # Name of folder in Syncthing, also the folder ID
-          path = "/home/jellybee/Documents"; # Which folder to add to Syncthing
-          devices = ["z1" "zw"]; # Which devices to share the folder with
+      settings = {
+        devices = {
+          "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
+        };
+        folders = {
+          "Documents" = {
+            # Name of folder in Syncthing, also the folder ID
+            path = "/home/jellybee/Documents"; # Which folder to add to Syncthing
+            devices = ["z1" "zw"]; # Which devices to share the folder with
+          };
         };
       };
     };
@@ -149,15 +149,17 @@
     };
 
     interfaces = {
-      wlo1.useDHCP = lib.mkDefault true;
-      enp1s0 = {
-        ipv4.addresses = [
-          {
-            address = "192.168.13.103";
-            prefixLength = 24;
-          }
-        ];
-      };
+      wlo1.useDHCP = true;
+      enp1s0.useDHCP = true;
+      # This was a static IP until the patch cable stopped working. Now we reserve .103 for wlo1 on the router.
+      # enp1s0 = {
+      #   ipv4.addresses = [
+      #     {
+      #       address = "192.168.13.103";
+      #       prefixLength = 24;
+      #     }
+      #   ];
+      # };
     };
 
     wireless = {
@@ -167,8 +169,6 @@
       networks = {
         "roam" = {
           pskRaw = "ext:ROAM_PSK";
-        "Living Forest Wifi" = {
-          priority = 100;
         };
       };
     };
