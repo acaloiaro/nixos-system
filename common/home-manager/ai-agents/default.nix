@@ -5,7 +5,6 @@
   ...
 }: let
   cfg = config.ai-agents;
-  json = pkgs.formats.json {};
 in {
   imports = [
     ./crush.nix
@@ -23,6 +22,14 @@ in {
           args = ["mcp-server-git" "--repository" "${config.home.homeDirectory}/proj/nixos-system"];
           command = "uvx";
         };
+        glean = {
+          type = "http";
+          url = "https://greenhouse-be.glean.com/mcp/default";
+        };
+        jira = {
+          type = "http";
+          url = "https://mcp.atlassian.com/v1/mcp";
+        };
       };
     };
   };
@@ -31,21 +38,26 @@ in {
     ai-agents.crush.enable = true;
 
     home = {
-      file.".cursor/mcp.json".source = json.generate "cursor-mcp-config" {inherit (cfg) mcpServers;};
-
       packages = with pkgs; [
-        nodejs_24 # for npx
         uv # for uvx
       ];
     };
 
     programs = {
-      aider-chat.enable = true;
-      codex.enable = true;
+      # aider-chat.enable = true;
+      # codex.enable = true;
 
       opencode = {
         enable = true;
         enableMcpIntegration = true;
+        rules = ''
+        '';
+        settings = {
+          theme = "opencode";
+          # model = "anthropic/claude-sonnet-4-20250514";
+          autoshare = false;
+          autoupdate = true;
+        };
       };
 
       mcp = {
@@ -59,7 +71,7 @@ in {
       };
 
       fabric-ai = {
-        enable = true;
+        enable = false;
         enableZshIntegration = true;
       };
     };
