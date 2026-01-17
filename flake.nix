@@ -22,10 +22,15 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.disko = {
+    url = "github:nix-community/disko";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   inputs.agenix = {
     url = "github:ryantm/agenix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+
   inputs.default-browser.url = "github:szympajka/nix-browser";
 
   inputs.homeage = {
@@ -227,6 +232,7 @@
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
           nur.modules.nixos.default
           agenix.nixosModules.default
+          inputs.disko.nixosModules.default
           ./systems/jellybee/configuration.nix
           home-manager.nixosModules.home-manager
           {
