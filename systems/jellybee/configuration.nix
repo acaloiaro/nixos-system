@@ -71,10 +71,12 @@
   my = {
     opencloud = {
       enable = true;
-      hostname = "jellybee.bison-lizard.ts.net";
+      hostname = "jellybee.bison-lizard.ts.net:9200";
       serve = {
-        port = 80;
-        backend = "localhost:9200";
+        http = {
+          port = 9200;
+          backend = "localhost:9200";
+        };
       };
     };
   };

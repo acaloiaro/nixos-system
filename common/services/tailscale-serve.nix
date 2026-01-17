@@ -37,23 +37,26 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.user.services =
+    systemd.services =
       mapAttrs' (
         name: serviceCfg:
           nameValuePair "tailscale-serve-${name}" {
             description = "Tailscale serve for ${name}";
-            after = ["tailscale.service"];
+            after = ["tailscaled.service" "network-online.target"];
+            wants = ["network-online.target"];
             wantedBy = ["multi-user.target"];
             serviceConfig = {
               Type = "oneshot";
               RemainAfterExit = true;
               ExecStart = let
-                servers = builtins.map (s: "tcp ${toString s.port} ${s.backend}") (builtins.attrValues serviceCfg.mappings);
+                servers = builtins.map (s: "${toString s.port} https+insecure://${s.backend}") (builtins.attrValues serviceCfg.mappings);
               in
                 pkgs.writeShellScript "tailscale-serve-${name}" ''
-                  ${pkgs.tailscale}/bin/tailscale serve --bg ${builtins.concatStringsSep " " servers}
+                  ${pkgs.tailscale}/bin/tailscale serve --bg --https ${builtins.concatStringsSep " " servers}
                 '';
               ExecStop = "${pkgs.tailscale}/bin/tailscale serve --reset";
+              Restart = "on-failure";
+              RestartSec = "5s";
             };
           }
       )
