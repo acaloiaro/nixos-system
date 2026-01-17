@@ -9,7 +9,7 @@ with lib; let
 in {
   options.services.tailscale-serve = {
     enable = mkEnableOption "Enable Tailscale serve functionality";
-    
+
     services = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
@@ -20,7 +20,7 @@ in {
                   type = types.port;
                   description = "The public port to serve: e.g. 80";
                 };
-                local = mkOption {
+                backend = mkOption {
                   type = types.str;
                   description = "The local address to serve: e.g. localhost:9200";
                 };
@@ -35,31 +35,28 @@ in {
       description = "Named Tailscale serve configurations";
     };
   };
-  
+
   config = mkIf cfg.enable {
-    systemd.user.services = mapAttrs' (name: serviceCfg:
-      nameValuePair "tailscale-serve-${name}" {
-        Unit = {
-          Description = "Tailscale serve for ${name}";
-          After = "tailscale.service";
-        };
-
-        Install = {
-          WantedBy = ["multi-user.target"];
-        };
-
-        Service = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStart = let
-            servers = builtins.map (s: "tcp ${toString s.port} ${s.local}") (builtins.attrValues serviceCfg.mappings);
-          in
-            pkgs.writeShellScript "tailscale-serve-${name}" ''
-              ${pkgs.tailscale}/bin/tailscale serve --bg ${builtins.concatStringsSep " " servers}
-            '';
-          ExecStop = "${pkgs.tailscale}/bin/tailscale serve --reset";
-        };
-      }
-    ) cfg.services;
+    systemd.user.services =
+      mapAttrs' (
+        name: serviceCfg:
+          nameValuePair "tailscale-serve-${name}" {
+            description = "Tailscale serve for ${name}";
+            after = ["tailscale.service"];
+            wantedBy = ["multi-user.target"];
+            serviceConfig = {
+              Type = "oneshot";
+              RemainAfterExit = true;
+              ExecStart = let
+                servers = builtins.map (s: "tcp ${toString s.port} ${s.backend}") (builtins.attrValues serviceCfg.mappings);
+              in
+                pkgs.writeShellScript "tailscale-serve-${name}" ''
+                  ${pkgs.tailscale}/bin/tailscale serve --bg ${builtins.concatStringsSep " " servers}
+                '';
+              ExecStop = "${pkgs.tailscale}/bin/tailscale serve --reset";
+            };
+          }
+      )
+      cfg.services;
   };
 }

@@ -68,7 +68,16 @@
     };
   };
 
-  my.opencloud.enable = true;
+  my = {
+    opencloud = {
+      enable = true;
+      hostname = "jellybee.bison-lizard.ts.net";
+      serve = {
+        port = 80;
+        backend = "localhost:9200";
+      };
+    };
+  };
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "America/Denver";

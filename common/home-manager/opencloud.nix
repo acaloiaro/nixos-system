@@ -13,9 +13,9 @@ in {
 
   options.my.opencloud = {
     enable = mkEnableOption "Enable Opencloud Server";
-    tailnetHostname = mkOption {
+    hostname = mkOption {
       type = types.str;
-      description = "The tailnet hostname for the Opencloud server.";
+      description = "The hostname for the Opencloud server.";
     };
     serve = mkOption {
       type = types.attrsOf (types.submodule {
@@ -24,7 +24,7 @@ in {
             type = types.port;
             description = "The public port to serve: e.g. 80";
           };
-          local = mkOption {
+          backend = mkOption {
             type = types.str;
             description = "The local address to serve: e.g. localhost:9200";
           };
@@ -34,7 +34,7 @@ in {
       description = "A set of public port to local address mappings to serve.";
     };
   };
-  
+
   config = mkIf cfg.enable {
     services.opencloud = {
       enable = true;
@@ -43,7 +43,7 @@ in {
       stateDir = "/opencloud";
       environment = {
         OC_INSECURE = "true";
-        OC_URL = "https://${cfg.tailnetHostname}";
+        OC_URL = "https://${cfg.hostname}";
         OC_LOG_LEVEL = "info";
       };
     };
