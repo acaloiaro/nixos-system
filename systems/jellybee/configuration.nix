@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ../../common/home-manager/opencloud.nix
   ];
 
   boot = {
@@ -67,6 +68,7 @@
     };
   };
 
+  my.opencloud.enable = true;
   nixpkgs.config.allowUnfree = true;
 
   time.timeZone = "America/Denver";
