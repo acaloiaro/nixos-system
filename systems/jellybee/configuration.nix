@@ -85,6 +85,12 @@
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
   services = {
+    silverbullet = {
+      enable = true;
+      user = "opencloud"; # Gives it access to store its data in /opencloud
+      listenAddress = "100.99.204.21";
+      spaceDir = "/opencloud/storage/users/users/9f52c3b9-10a9-4510-90a0-06455628af67/silverbullet";
+    };
     adguardhome.enable = true;
     displayManager = {
       defaultSession = "none+i3";
