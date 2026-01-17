@@ -1,18 +1,40 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }:
 with lib; let
   cfg = config.my.opencloud;
 in {
+  imports = [
+    ../services/tailscale-serve.nix
+  ];
+
   options.my.opencloud = {
     enable = mkEnableOption "Enable Opencloud Server";
     tailnetHostname = mkOption {
       type = types.str;
       description = "The tailnet hostname for the Opencloud server.";
     };
+    serve = mkOption {
+      type = types.attrsOf (types.submodule {
+        options = {
+          port = mkOption {
+            type = types.port;
+            description = "The public port to serve: e.g. 80";
+          };
+          local = mkOption {
+            type = types.str;
+            description = "The local address to serve: e.g. localhost:9200";
+          };
+        };
+      });
+      default = {};
+      description = "A set of public port to local address mappings to serve.";
+    };
   };
+  
   config = mkIf cfg.enable {
     services.opencloud = {
       enable = true;
@@ -25,15 +47,12 @@ in {
         OC_LOG_LEVEL = "info";
       };
     };
-    services.tailscale.serve = {
+
+    # Use the new tailscale-serve module
+    services.tailscale-serve = {
       enable = true;
-      config = {
-        tcp = {
-          "80" = {
-            http = true;
-            local = "127.0.0.1:9200";
-          };
-        };
+      services.opencloud = {
+        mappings = cfg.serve;
       };
     };
   };
