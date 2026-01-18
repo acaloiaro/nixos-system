@@ -24,6 +24,11 @@ in {
                   type = types.str;
                   description = "The local address to serve: e.g. localhost:9200";
                 };
+                insecure = mkOption {
+                  type = types.bool;
+                  default = false;
+                  description = "Connect to the backend insecurely via https (self-signed certs ok). When false (default), connects via http.";
+                };
               };
             });
             default = {};
@@ -49,7 +54,12 @@ in {
               Type = "oneshot";
               RemainAfterExit = true;
               ExecStart = let
-                servers = builtins.map (s: "${toString s.port} https+insecure://${s.backend}") (builtins.attrValues serviceCfg.mappings);
+                servers = mapAttrsToList (mappingName: mappingCfg: 
+                  let
+                    protocol = if mappingCfg.insecure then "https+insecure://" else "http://";
+                  in
+                    "${toString mappingCfg.port} ${protocol}${mappingCfg.backend}"
+                ) serviceCfg.mappings;
               in
                 pkgs.writeShellScript "tailscale-serve-${name}" ''
                   ${pkgs.tailscale}/bin/tailscale serve --bg --https ${builtins.concatStringsSep " " servers}

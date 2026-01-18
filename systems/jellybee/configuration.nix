@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ./disko.nix
     ../../common/home-manager/opencloud.nix
+    ../../common/services/tailscale-serve.nix
   ];
 
   boot = {
@@ -89,6 +90,7 @@
 
   time.timeZone = "America/Denver";
   i18n.defaultLocale = "en_US.UTF-8";
+
   services = {
     silverbullet = {
       enable = true;
@@ -96,6 +98,18 @@
       listenAddress = "100.99.204.21";
       spaceDir = "/mnt/opencloud/adriano/silverbullet";
     };
+    # Use the new tailscale-serve module
+    tailscale-serve = {
+      enable = true;
+      services.silverbullet = {
+        mappings = {
+          http = {
+            port = 3000;
+            backend = "100.99.204.21:3000";
+            insecure = true;
+          };
+        };
+      };
     };
     adguardhome.enable = true;
     displayManager = {
