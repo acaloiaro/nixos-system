@@ -78,12 +78,6 @@
     opencloud = {
       enable = true;
       hostname = "jellybee.bison-lizard.ts.net:9200";
-      serve = {
-        http = {
-          port = 9200;
-          backend = "localhost:9200";
-        };
-      };
     };
   };
   nixpkgs.config.allowUnfree = true;
@@ -97,6 +91,7 @@
       user = "silverbullet";
       listenAddress = "100.99.204.21";
       spaceDir = "/mnt/opencloud/adriano/silverbullet";
+      envFile = "/etc/silverbullet/env";
     };
     # Use the new tailscale-serve module
     tailscale-serve = {
@@ -106,7 +101,6 @@
           http = {
             port = 3000;
             backend = "100.99.204.21:3000";
-            insecure = true;
           };
         };
       };
@@ -260,6 +254,10 @@
       createHome = true;
     };
   };
+
+  environment.etc."silverbullet/env".text = ''
+    SB_INDEX_PAGE=Home
+  '';
 
   # Configure davfs2
   environment.etc."davfs2/davfs2.conf".text = ''
