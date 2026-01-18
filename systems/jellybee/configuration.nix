@@ -80,6 +80,7 @@
       dataDir = "/mnt/opencloud/adriano/silverbullet";
       webdav = {
         enable = true;
+        url = "https://jellybee.bison-lizard.ts.net:9200/remote.php/dav/spaces/094a577f-1bfd-483e-ae2a-d277cb24bb11$baa79013-0ccf-4ab1-ad5c-45299685c50f"; # Adriano's 'Personal'
         mountPoint = "/mnt/opencloud";
       };
     };
