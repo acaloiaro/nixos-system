@@ -9,7 +9,6 @@ with lib; let
 in {
   options.services.tailscale-serve = {
     enable = mkEnableOption "Enable Tailscale serve functionality";
-
     services = mkOption {
       type = types.attrsOf (types.submodule {
         options = {
@@ -54,12 +53,16 @@ in {
               Type = "oneshot";
               RemainAfterExit = true;
               ExecStart = let
-                servers = mapAttrsToList (mappingName: mappingCfg: 
-                  let
-                    protocol = if mappingCfg.insecure then "https+insecure://" else "http://";
-                  in
-                    "${toString mappingCfg.port} ${protocol}${mappingCfg.backend}"
-                ) serviceCfg.mappings;
+                servers =
+                  mapAttrsToList (
+                    mappingName: mappingCfg: let
+                      protocol =
+                        if mappingCfg.insecure
+                        then "https+insecure://"
+                        else "http://";
+                    in "${toString mappingCfg.port} ${protocol}${mappingCfg.backend}"
+                  )
+                  serviceCfg.mappings;
               in
                 pkgs.writeShellScript "tailscale-serve-${name}" ''
                   ${pkgs.tailscale}/bin/tailscale serve --bg --https ${builtins.concatStringsSep " " servers}
