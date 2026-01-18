@@ -4,4 +4,5 @@ in {
   "tailscale_key.age".publicKeys = [jellybee];
   "wireless_networks.age".publicKeys = [jellybee];
   "nix_serve_cache_key.age".publicKeys = [jellybee];
+  "opencloud_app_key.age".publicKeys = [jellybee];
 }

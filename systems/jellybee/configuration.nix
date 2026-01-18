@@ -50,6 +50,11 @@
         owner = "nix-serve";
         group = "nix-serve";
       };
+      opencloud_app_key = {
+        file = ./secrets/opencloud_app_key.age;
+        owner = "silverbullet";
+        group = "silverbullet";
+      };
     };
   };
 
@@ -87,9 +92,10 @@
   services = {
     silverbullet = {
       enable = true;
-      user = "opencloud";
+      user = "silverbullet";
       listenAddress = "100.99.204.21";
-      spaceDir = "/mnt/opencloud/adriano";
+      spaceDir = "/mnt/opencloud/adriano/silverbullet";
+    };
     };
     adguardhome.enable = true;
     displayManager = {
@@ -210,7 +216,10 @@
 
   users.mutableUsers = true;
   users = {
-    groups."nix-serve" = {};
+    groups = {
+      "nix-serve" = {};
+      "davfs2" = {};
+    };
     users.jellybee = {
       isNormalUser = true;
       initialPassword = "Jellybee1";
@@ -225,10 +234,15 @@
       group = "nix-serve";
     };
 
+    users.davfs2 = {
+      isSystemUser = true;
+      group = "davfs2";
+    };
+
     users.silverbullet = {
       isSystemUser = true;
-      group = "users";
-      home = "/mnt/opencloud";
+      group = "silverbullet";
+      home = "/mnt/opencloud/adriano";
       createHome = true;
     };
   };
@@ -240,11 +254,10 @@
   '';
 
   # Create empty secrets file if authentication is not needed
-  environment.etc."davfs2/secrets".text = ''
-    # OpenCloud WebDAV credentials (if needed)
-    # https://jellybee.bison-lizard.ts.net:9200 username password
-  '';
-  environment.etc."davfs2/secrets".mode = "0600";
+  environment.etc."davfs2/secrets" = {
+    source = config.age.secrets.opencloud_app_key.path;
+    mode = "0600";
+  };
 
   # WebDAV mount for silverbullet
   systemd.services.opencloud-webdav-mount = {
@@ -258,11 +271,11 @@
       RemainAfterExit = true;
       User = "root";
       ExecStartPre = [
-        "${pkgs.coreutils}/bin/mkdir -p /home/silverbullet/opencloud-mount"
-        "${pkgs.coreutils}/bin/chown silverbullet:users /home/silverbullet/opencloud-mount"
+        "${pkgs.coreutils}/bin/mkdir -p /mnt/opencloud/adriano"
+        "${pkgs.coreutils}/bin/chown silverbullet:silverbullet /mnt/opencloud/adriano"
       ];
-      ExecStart = "${pkgs.mount}/bin/mount -t davfs https://jellybee.bison-lizard.ts.net:9200 /home/silverbullet/opencloud-mount -o uid=silverbullet,gid=users,file_mode=0664,dir_mode=0775,conf=/etc/davfs2/davfs2.conf";
-      ExecStop = "${pkgs.umount}/bin/umount /home/silverbullet/opencloud-mount";
+      ExecStart = "${pkgs.mount}/bin/mount -t davfs https://jellybee.bison-lizard.ts.net:9200/remote.php/dav/spaces/094a577f-1bfd-483e-ae2a-d277cb24bb11$baa79013-0ccf-4ab1-ad5c-45299685c50f /mnt/opencloud/adriano -o uid=silverbullet,gid=users,file_mode=0664,dir_mode=0775,conf=/etc/davfs2/davfs2.conf";
+      ExecStop = "${pkgs.umount}/bin/umount /mnt/home/adriano";
     };
   };
 

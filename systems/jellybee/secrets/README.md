@@ -20,7 +20,7 @@ Re-keying must be done when new keys are added.
 
 ## Adding secrets 
 
-To add new secrets, edit `secrets.nix` and then edit this contents of the new secrets with:
+To add new secrets, edit `secrets.nix` and add the secret by name and then:
 
 > agenix -e <SECRET NAME>
 
