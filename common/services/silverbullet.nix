@@ -17,10 +17,23 @@ in {
       type = types.str;
       description = "The location on disk where data is stored";
     };
+    webdav = mkOption {
+      type = types.submodule {
+        options = {
+          enable = mkEnableOption "Enable mounting silverbullet's data directory from webdav";
+          mountPoint = mkOption {
+            type = types.path;
+            description = "The location to mount the webdav share, e.g. /mnt/silverbullet";
+          };
+        };
+      };
+      default = {};
+      description = "Configure silverbullet to mount a webdav directory before starting";
+    };
   };
 
   config = mkIf cfg.enable {
-    age = {
+    age = mkIf cfg.webdav.enable {
       secrets = {
         opencloud_app_key = {
           # TODO: move this secret out of jellybee's system dir
@@ -34,8 +47,11 @@ in {
     services.silverbullet = {
       enable = true;
       user = "silverbullet";
-      listenAddress = "100.99.204.21";
-      spaceDir = cfg.dataDir;
+      listenAddress = "localhost";
+      spaceDir =
+        if cfg.webdav.enable
+        then "${cfg.webdav.mountPoint}/silverbullet"
+        else cfg.dataDir;
       envFile = "/etc/silverbullet/env";
     };
 
@@ -46,14 +62,14 @@ in {
         mappings = {
           http = {
             port = 3000;
-            backend = "100.99.204.21:3000";
+            backend = "localhost:3000";
           };
         };
       };
     };
 
-    # Make the home page `Home` instead of `index`
     environment = {
+      # Make the home page `Home` instead of `index`
       etc."silverbullet/env".text = ''
         SB_INDEX_PAGE=Home
       '';
@@ -68,17 +84,17 @@ in {
       # <URL> username password
       #
       # Each entry in this file is separated by a newline
-      etc."davfs2/secrets" = {
+      etc."davfs2/secrets" = mkIf cfg.webdav.enable {
         source = config.age.secrets.opencloud_app_key.path;
         mode = "0600";
       };
     };
 
     users = {
-      groups = {
+      groups = mkIf cfg.webdav.enable {
         "davfs2" = {};
       };
-      users.davfs2 = {
+      users.davfs2 = mkIf cfg.webdav.enable {
         isSystemUser = true;
         group = "davfs2";
       };
@@ -86,16 +102,17 @@ in {
       users.silverbullet = {
         isSystemUser = true;
         group = "silverbullet";
-        home = "/mnt/opencloud/adriano";
+        home = "/home/opencloud";
         createHome = true;
       };
     };
-    environment.systemPackages = with pkgs; [
-      davfs2
-    ];
+    environment.systemPackages = with pkgs;
+      mkIf cfg.webdav.enable [
+        davfs2
+      ];
 
     # WebDAV mount for silverbullet
-    systemd.services.opencloud-webdav-mount = {
+    systemd.services.opencloud-webdav-mount = mkIf cfg.webdav.enable {
       description = "Mount OpenCloud WebDAV for Silverbullet";
       after = ["network-online.target" "opencloud.service"];
       wants = ["network-online.target"];
@@ -106,16 +123,16 @@ in {
         RemainAfterExit = true;
         User = "root";
         ExecStartPre = [
-          "${pkgs.coreutils}/bin/mkdir -p /mnt/opencloud/adriano"
-          "${pkgs.coreutils}/bin/chown silverbullet:silverbullet /mnt/opencloud/adriano"
+          "${pkgs.coreutils}/bin/mkdir -p ${cfg.webdav.mountPoint}"
+          "${pkgs.coreutils}/bin/chown silverbullet:silverbullet ${cfg.webdav.mountPoint}"
         ];
-        ExecStart = "${pkgs.mount}/bin/mount -t davfs https://jellybee.bison-lizard.ts.net:9200/remote.php/dav/spaces/094a577f-1bfd-483e-ae2a-d277cb24bb11$baa79013-0ccf-4ab1-ad5c-45299685c50f /mnt/opencloud/adriano -o uid=silverbullet,gid=users,file_mode=0664,dir_mode=0775,conf=/etc/davfs2/davfs2.conf";
-        ExecStop = "${pkgs.umount}/bin/umount /mnt/home/adriano";
+        ExecStart = "${pkgs.mount}/bin/mount -t davfs https://jellybee.bison-lizard.ts.net:9200/remote.php/dav/spaces/094a577f-1bfd-483e-ae2a-d277cb24bb11$baa79013-0ccf-4ab1-ad5c-45299685c50f ${cfg.webdav.mountPoint} -o uid=silverbullet,gid=users,file_mode=0664,dir_mode=0775,conf=/etc/davfs2/davfs2.conf";
+        ExecStop = "${pkgs.umount}/bin/umount ${cfg.webdav.mountPoint}";
       };
     };
 
     # Ensure silverbullet starts after the mount
-    systemd.services.silverbullet = {
+    systemd.services.silverbullet = mkIf cfg.webdav.enable {
       after = ["opencloud-webdav-mount.service"];
       requires = ["opencloud-webdav-mount.service"];
     };

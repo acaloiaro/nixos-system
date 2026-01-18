@@ -78,6 +78,10 @@
     services.silverbullet = {
       enable = true;
       dataDir = "/mnt/opencloud/adriano/silverbullet";
+      webdav = {
+        enable = true;
+        mountPoint = "/mnt/opencloud";
+      };
     };
   };
   nixpkgs.config.allowUnfree = true;
