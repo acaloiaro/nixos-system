@@ -15,10 +15,21 @@
     homeage.homeManagerModules.homeage
   ];
 
+  homeage = {
+    identityPaths = ["/Users/adriano.caloiaro/.ssh/id_ed25519"];
+    installationType = "activation";
+    mount = "${config.xdg.dataHome}/homeage";
+
+    file."opencode-github-mcp-pat" = {
+      source = ../secrets/rekeyed/5ae977030dd1a7c5a43ed5d43ddce066-opencode-github-mcp-pat.age;
+      symlinks = ["${config.xdg.configHome}/opencode/github-pat"];
+    };
+  };
+
   ai-agents = {
     enable = true;
     crush.enable = true;
-    githubPatPath = "/run/agenix/opencode-github-mcp-pat";
+    githubPatPath = "${config.xdg.configHome}/opencode/github-pat";
   };
   modules.aerospace.enable = true;
   programs = {
