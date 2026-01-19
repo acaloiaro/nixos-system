@@ -37,11 +37,6 @@
 
   inputs.default-browser.url = "github:szympajka/nix-browser";
 
-  inputs.homeage = {
-    url = "github:jordanisaacs/homeage";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   inputs.kitty-grab = {
     url = "github:yurikhan/kitty_grab";
     flake = false;
@@ -81,7 +76,6 @@
     nixos-hardware,
     nix-darwin,
     home-manager,
-    homeage,
     agenix,
     agenix-rekey,
     nur,
@@ -166,7 +160,6 @@
         extraSpecialArgs = {
           inherit
             agenix
-            homeage
             inputs
             kitty-grab
             system
@@ -197,7 +190,6 @@
             inputs
             kitty-grab
             agenix
-            homeage
             darwinSystem
             greenhouse-nix-modules
             ;
@@ -276,7 +268,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
-              inherit agenix homeage;
+              inherit agenix;
             };
           }
         ];
@@ -298,7 +290,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = {
-              inherit agenix homeage;
+              inherit agenix;
             };
           }
         ];
@@ -317,14 +309,14 @@
         ./systems/greenhouse/configuration.nix
         inputs.greenhouse-nix-modules.nix-darwin.${system}
         inputs.home-manager.darwinModules.home-manager
-        {
-          home-manager.backupFileExtension = "backup";
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
-            inherit nix-darwin;
-          };
-        }
+{
+            home-manager.backupFileExtension = "backup";
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit agenix;
+            };
+          }
       ];
     };
     agenix-rekey = inputs.agenix-rekey.configure {
