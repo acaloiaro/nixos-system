@@ -7,12 +7,13 @@
   ...
 }: {
   imports = [
-    homeage.homeManagerModules.homeage
     ../../../common/accounts/calendars.nix
     ../../../common/home-manager/ai-agents
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
+    ../../../common/secrets.nix
+    homeage.homeManagerModules.homeage
   ];
 
   homeage = {
@@ -22,6 +23,11 @@
     file."spotify-player-config" = {
       source = ../secrets/spotify_password.age;
       symlinks = ["${config.xdg.configHome}/spotifyd/password"];
+    };
+
+    file."opencode-github-mcp-pat" = {
+      source = ../secrets/rekeyed/26b527921b819fc981e6620873959634-opencode-github-mcp-pat.age;
+      symlinks = ["${config.xdg.configHome}/opencode/github-pat"];
     };
   };
 
@@ -543,7 +549,7 @@
 
   ai-agents = {
     enable = true;
-    githubPatPath = /run/agenix/opencode-github-mcp-pat;
+    githubPatPath = "${config.xdg.configHome}/opencode/github-pat";
   };
 
   xdg = {
