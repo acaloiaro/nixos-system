@@ -11,7 +11,7 @@ in {
   config = {
     age.secrets.opencode-github-mcp-pat.owner = "adriano.caloiaro";
     age.rekey = {
-      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE91Gv3hh4dkznl1o2+5xJQBEIvDVo7UWxjm93nQfRmE age-key-greenhouse";
       localStorageDir = ./. + "/secrets/rekeyed/";
     };
     environment = {

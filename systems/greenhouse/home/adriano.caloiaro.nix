@@ -16,12 +16,12 @@
   ];
 
   homeage = {
-    identityPaths = ["/Users/adriano.caloiaro/.ssh/id_ed25519"];
+    identityPaths = ["/Users/adriano.caloiaro/.ssh/id_ed25519_age"];
     installationType = "activation";
     mount = "${config.xdg.dataHome}/homeage";
 
     file."opencode-github-mcp-pat" = {
-      source = ../secrets/rekeyed/5ae977030dd1a7c5a43ed5d43ddce066-opencode-github-mcp-pat.age;
+      source = ../secrets/rekeyed/77a39e994d8cf562989a38aaf709171b-opencode-github-mcp-pat.age;
       symlinks = ["${config.xdg.configHome}/opencode/github-pat"];
     };
   };
