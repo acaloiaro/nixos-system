@@ -64,8 +64,8 @@
   };
 
   inputs.greenhouse-nix-modules = {
-    # url = "git+ssh://git@github.com/grnhse/nix-modules.git";
-    url = "git+file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules";
+    url = "git+ssh://git@github.com/grnhse/nix-modules.git";
+    # url = "git+file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 

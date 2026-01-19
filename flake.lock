@@ -334,16 +334,17 @@
         ]
       },
       "locked": {
-        "lastModified": 1767101864,
+        "lastModified": 1767102115,
         "narHash": "sha256-TVfErXdrlyMfRALLQFiaE6x+EHfu7JtpMjDM/gEd6sg=",
-        "rev": "d3ad5770e0728a28982f07f094d7a3b4f739825d",
+        "ref": "refs/heads/main",
+        "rev": "383d2b9c013e1c8464694558610ffd1eb0856e4f",
         "revCount": 35,
         "type": "git",
-        "url": "file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules"
+        "url": "ssh://git@github.com/grnhse/nix-modules.git"
       },
       "original": {
         "type": "git",
-        "url": "file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules"
+        "url": "ssh://git@github.com/grnhse/nix-modules.git"
       }
     },
     "helix": {
