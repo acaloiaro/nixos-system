@@ -55,7 +55,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    ai-agents.crush.enable = false;
+    ai-agents.crush.enable = lib.mkDefault false;
 
     home = {
       packages = with pkgs; [

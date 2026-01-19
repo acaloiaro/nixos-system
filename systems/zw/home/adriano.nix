@@ -12,7 +12,7 @@
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
-    homeage.homeManagerModules.homeage
+    ../../../common/home-manager/homeage
   ];
 
   homeage = {

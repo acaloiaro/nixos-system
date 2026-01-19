@@ -12,7 +12,7 @@
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
     ../../../common/home-manager/ai-agents
-    homeage.homeManagerModules.homeage
+    ../../../common/home-manager/homeage
   ];
 
   homeage = {
