@@ -9,6 +9,7 @@
   imports = [
     homeage.homeManagerModules.homeage
     ../../../common/accounts/calendars.nix
+    ../../../common/home-manager/ai-agents
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
@@ -538,6 +539,11 @@
     calendar.accounts = {
       fastmail.remote.passwordCommand = ["${pkgs.gopass}/bin/gopass" "show" "-o" "fastmail.com/me-aerc"];
     };
+  };
+
+  ai-agents = {
+    enable = true;
+    githubPatPath = /run/agenix/opencode-github-mcp-pat;
   };
 
   xdg = {
