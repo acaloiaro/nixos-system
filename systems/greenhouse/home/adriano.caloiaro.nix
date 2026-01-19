@@ -21,7 +21,7 @@
     mount = "${config.xdg.dataHome}/homeage";
 
     file."opencode-github-mcp-pat" = {
-      source = ../secrets/rekeyed/77a39e994d8cf562989a38aaf709171b-opencode-github-mcp-pat.age;
+      source = ../secrets/rekeyed/JJTH7GH17J/77a39e994d8cf562989a38aaf709171b-opencode-github-mcp-pat.age;
       symlinks = ["${config.xdg.configHome}/opencode/github-pat"];
     };
   };

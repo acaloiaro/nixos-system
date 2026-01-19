@@ -12,7 +12,7 @@ in {
     age.secrets.opencode-github-mcp-pat.owner = "adriano.caloiaro";
     age.rekey = {
       hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE91Gv3hh4dkznl1o2+5xJQBEIvDVo7UWxjm93nQfRmE age-key-greenhouse";
-      localStorageDir = ./. + "/secrets/rekeyed/";
+      localStorageDir = ./. + "/secrets/rekeyed/JJTH7GH17J";
     };
     environment = {
       etc = {
@@ -24,7 +24,6 @@ in {
       };
       systemPackages = with pkgs; [
         age
-        inputs.agenix.packages.${pkgs.system}.default
         gnupg
         gopass
         helix

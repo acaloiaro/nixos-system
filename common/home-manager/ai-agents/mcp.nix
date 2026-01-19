@@ -18,7 +18,7 @@ in {
     git.enable = mkMcpEnableOption "git";
     github.enable = mkMcpEnableOption "github";
     github.patPath = lib.mkOption {
-      type = lib.types.nullOr lib.types.path;
+      type = lib.types.nullOr lib.types.str;
       default = null;
       description = "Path to the decrypted file containing the GitHub Personal Access Token.";
     };

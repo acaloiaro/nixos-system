@@ -3,7 +3,7 @@
   pkgs,
   lib,
   kitty-grab,
-  homeage,
+  agenix,
   ...
 }: {
   imports = [
@@ -12,21 +12,21 @@
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
-    ../../../common/home-manager/homeage
+    agenix.homeManagerModules.default
   ];
 
-  homeage = {
+  age = {
     identityPaths = ["/home/adriano/.ssh/id_rsa_agenix"];
-    installationType = "systemd";
+    secrets = {
+      "spotify-player-config" = {
+        file = ../secrets/spotify_password.age;
+        mode = "400";
+      };
 
-    file."spotify-player-config" = {
-      source = ../secrets/spotify_password.age;
-      symlinks = ["${config.xdg.configHome}/spotifyd/password"];
-    };
-
-    file."opencode-github-mcp-pat" = {
-      source = ../secrets/rekeyed/26b527921b819fc981e6620873959634-opencode-github-mcp-pat.age;
-      symlinks = ["${config.xdg.configHome}/opencode/github-pat"];
+      "opencode-github-mcp-pat" = {
+        file = ../secrets/rekeyed/zw/26b527921b819fc981e6620873959634-opencode-github-mcp-pat.age;
+        mode = "400";
+      };
     };
   };
 
@@ -549,7 +549,9 @@
   ai-agents = {
     enable = true;
     crush.enable = false;
-    mcp.github.patPath = "${config.xdg.configHome}/opencode/github-pat";
+    mcp.glean.enable = false;
+    mcp.atlassian.enable = false;
+    mcp.github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
   };
 
   xdg = {
