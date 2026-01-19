@@ -9,7 +9,7 @@
       "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
     ];
   };
-
+  inputs.determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
   # TODO fish-4.2.0 (the currently latest version) is currently broken in nixpkgs unstable. Remove this when it's fixed.
   inputs.nixpkgs-fish-4-1-0 = {
@@ -236,6 +236,7 @@
         specialArgs = {inherit inputs;};
 
         modules = [
+          inputs.determinate.nixosModules.default
           (import ./common/overlays)
           {
             environment.systemPackages = [
