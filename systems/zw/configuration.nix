@@ -23,6 +23,7 @@
       secrets = {
         wireless_networks = {
           file = ./secrets/wireless_networks.age;
+          owner = "wpa_supplicant";
         };
 
         tailscale_key = {
