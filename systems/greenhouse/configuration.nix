@@ -1,9 +1,19 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   primaryUser = "adriano.caloiaro";
 in {
   imports = [
+    ../../common/secrets.nix
   ];
   config = {
+    age.secrets.opencode-github-mcp-pat.owner = "adriano.caloiaro";
+    age.rekey = {
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V adriano.caloiaro@JJTH7GH17J";
+      localStorageDir = ./. + "/secrets/rekeyed/";
+    };
     environment = {
       etc = {
         "dict.conf".text = "server dict.org";
@@ -13,6 +23,8 @@ in {
         NH_FLAKE = "/Users/${primaryUser}/proj/nixos-system";
       };
       systemPackages = with pkgs; [
+        age
+        inputs.agenix.packages.${pkgs.system}.default
         gnupg
         gopass
         helix

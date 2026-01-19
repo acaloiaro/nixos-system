@@ -18,6 +18,7 @@
   ai-agents = {
     enable = true;
     crush.enable = true;
+    githubPatPath = "/run/agenix/opencode-github-mcp-pat";
   };
   modules.aerospace.enable = true;
   programs = {

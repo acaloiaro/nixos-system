@@ -30,6 +30,10 @@
     url = "github:ryantm/agenix";
     inputs.nixpkgs.follows = "nixpkgs";
   };
+  inputs.agenix-rekey = {
+    url = "github:oddlama/agenix-rekey";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   inputs.default-browser.url = "github:szympajka/nix-browser";
 
@@ -71,6 +75,7 @@
   };
 
   outputs = {
+    self,
     default-browser,
     nixpkgs,
     nixos-hardware,
@@ -78,6 +83,7 @@
     home-manager,
     homeage,
     agenix,
+    agenix-rekey,
     nur,
     kitty-grab,
     helix,
@@ -126,8 +132,34 @@
         qutebrowser-overlay
       ];
     };
+
+    # Wrapper to handle the dynamic master key
+    mkRekeyApp = system: pkgs: let
+      rekeyPackage = inputs.agenix-rekey.packages.${system}.default;
+    in {
+      type = "app";
+      program = "${pkgs.writeShellScript "rekey-wrapper" ''
+        # Create the file expected by the config
+        # We use the repo root context
+        REPO_ROOT=$(git rev-parse --show-toplevel)
+        MASTER_KEY_FILE="$REPO_ROOT/master.key"
+
+        # Cleanup on exit
+        trap 'rm -f "$MASTER_KEY_FILE"' EXIT
+
+        # Get the master key from gopass
+        echo "Retrieving master key from gopass..."
+        ${pkgs.gopass}/bin/gopass show -o systems/age.master > "$MASTER_KEY_FILE"
+        chmod 600 "$MASTER_KEY_FILE"
+
+        # Run the actual rekey command
+        ${rekeyPackage}/bin/agenix rekey "$@"
+      ''}";
+    };
   in {
     inherit lib;
+    apps.${system}.rekey = mkRekeyApp system pkgs;
+    apps.${darwinSystem}.rekey = mkRekeyApp darwinSystem darwin-pkgs;
     homeConfigurations = {
       "adriano@zw" = lib.homeManagerConfiguration {
         inherit pkgs;
@@ -221,6 +253,8 @@
           }
           nur.modules.nixos.default
           agenix.nixosModules.default
+          agenix-rekey.nixosModules.default
+          ./common/rekey.nix
           ./systems/zw/configuration.nix
         ];
       };
@@ -232,6 +266,8 @@
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
           nur.modules.nixos.default
           agenix.nixosModules.default
+          agenix-rekey.nixosModules.default
+          ./common/rekey.nix
           inputs.disko.nixosModules.default
           ./systems/jellybee/configuration.nix
           home-manager.nixosModules.home-manager
@@ -253,6 +289,8 @@
           {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
           nur.modules.nixos.default
           agenix.nixosModules.default
+          agenix-rekey.nixosModules.default
+          ./common/rekey.nix
           ./systems/homebee/configuration.nix
           home-manager.nixosModules.home-manager
           {
@@ -273,6 +311,9 @@
 
       modules = [
         default-browser.darwinModules.default-browser
+        agenix.darwinModules.default
+        agenix-rekey.nixosModules.default
+        ./common/rekey.nix
         ./systems/greenhouse/configuration.nix
         inputs.greenhouse-nix-modules.nix-darwin.${system}
         inputs.home-manager.darwinModules.home-manager
@@ -285,6 +326,10 @@
           };
         }
       ];
+    };
+    agenix-rekey = inputs.agenix-rekey.configure {
+      userFlake = self;
+      nixosConfigurations = self.nixosConfigurations // self.darwinConfigurations;
     };
   };
 }

@@ -7,6 +7,24 @@ The contents of this repository are organized as follows:
 - `systems`: These are complete nix modules for configuring specific systems. Unforutnately they're not "role based" systems, but explicit systems. I'd like to change that. 
 - `images`: This directory contains a flake for building SD card images. Ideally, SD card images could also be complete systems e.g. for building a pi sd card. However, cross-compiling issues have prevented me from doing so. For now, sd card images are phase 1 in and two-phase install process.
 
+## Adding secrets
+
+1.  Encrypt the secret using the master key's public key
+
+> echo "my-super-secret-password" | age -r age13sgljsr9srgxjxncl49qsn9dkkstcqct3ck9s7n2yu4lzelgp4uqcajgtj -o ./path/to/my-secret.age
+    
+2.  Add the secret to your Nix configuration
+```
+age.secrets.my-secret = {
+  rekeyFile = ./secrets/my-secret.age; # Point to the file you just created
+  # mode = "600"; # Optional, default is 400
+  # owner = "root"; # Optional
+};
+```
+
+3. Rekey the secrets. This will read the master key (via your gopass wrapper), decrypt my-secret.age, and re-encrypt it for specific hosts that use it 
+> nix run .#rekey
+
 ## Systems 
 
 ### z1

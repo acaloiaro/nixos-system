@@ -14,6 +14,12 @@ in {
   with types; {
     enable = mkEnableOption "AI Agents";
 
+    githubPatPath = mkOption {
+      type = nullOr path;
+      default = null;
+      description = "Path to the decrypted file containing the GitHub Personal Access Token.";
+    };
+
     mcpServers = mkOption {
       description = "MCP Configurations";
       type = attrs;
@@ -22,6 +28,20 @@ in {
           args = ["mcp-server-git" "--repository" "${config.home.homeDirectory}/proj/nixos-system"];
           command = "uvx";
         };
+        github =
+          if cfg.githubPatPath != null
+          then {
+            command = "${pkgs.bash}/bin/bash";
+            args = [
+              "-c"
+              "export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat ${cfg.githubPatPath}) && exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-github"
+            ];
+          }
+          else {
+            # Opencode is not yet compatible with using github's remote MCP server with oauth
+            type = "http";
+            url = "https://api.githubcopilot.com/mcp/";
+          };
         glean = {
           type = "http";
           url = "https://greenhouse-be.glean.com/mcp/default";
@@ -40,21 +60,18 @@ in {
     home = {
       packages = with pkgs; [
         uv # for uvx
+        nodejs
       ];
     };
 
     programs = {
-      # aider-chat.enable = true;
-      # codex.enable = true;
-
       opencode = {
         enable = true;
         enableMcpIntegration = true;
         rules = ''
         '';
         settings = {
-          theme = "opencode";
-          # model = "anthropic/claude-sonnet-4-20250514";
+          theme = "nord";
           autoshare = false;
           autoupdate = true;
         };
