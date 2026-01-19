@@ -12,7 +12,6 @@
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
-    ../../../common/secrets.nix
     homeage.homeManagerModules.homeage
   ];
 
@@ -549,6 +548,7 @@
 
   ai-agents = {
     enable = true;
+    crush.enable = false;
     githubPatPath = "${config.xdg.configHome}/opencode/github-pat";
   };
 
