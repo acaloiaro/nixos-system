@@ -549,7 +549,7 @@
   ai-agents = {
     enable = true;
     crush.enable = false;
-    githubPatPath = "${config.xdg.configHome}/opencode/github-pat";
+    mcp.github.patPath = "${config.xdg.configHome}/opencode/github-pat";
   };
 
   xdg = {

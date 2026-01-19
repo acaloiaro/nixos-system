@@ -29,7 +29,7 @@
   ai-agents = {
     enable = true;
     crush.enable = true;
-    githubPatPath = "${config.xdg.configHome}/opencode/github-pat";
+    mcp.github.patPath = "${config.xdg.configHome}/opencode/github-pat";
   };
   modules.aerospace.enable = true;
   programs = {

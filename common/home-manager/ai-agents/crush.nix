@@ -46,21 +46,7 @@ in {
     xdg.configFile."crush/crush.json".source = (pkgs.formats.json {}).generate "crush-config" {
       "$schema" = "https://charm.land/crush.json";
 
-      lsp = {
-        go.command = lib.getExe pkgs.gopls;
-        nix.command = lib.getExe pkgs.nil;
-        ruby = {
-          command = lib.getExe pkgs.solargraph;
-          args = ["stdio"];
-          env = {
-            RUBYOPT = "-W0";
-          };
-        };
-        typescript = {
-          args = ["--stdio"];
-          command = lib.getExe pkgs.typescript-language-server;
-        };
-      };
+      lsp = config.ai-agents.lspServers;
 
       mcp = let
         transformMcpServer = name: server: {
