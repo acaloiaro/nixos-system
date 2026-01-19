@@ -401,39 +401,6 @@
       };
     };
 
-    services = {
-      syncthing = {
-        enable = true;
-        user = "adriano";
-        dataDir = "/home/adriano/.config/syncthing";
-        configDir = "/home/adriano/.config/syncthing/config";
-        guiAddress = "100.81.21.118:8384";
-        overrideDevices = true; # overrides any devices added or deleted through the WebUI
-        overrideFolders = true; # overrides any folders added or deleted through the WebUI
-        settings = {
-          devices = {
-            "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
-            "roampi" = {id = "PD2KG67-FKNO6QS-UTY24Q7-L6QQM6B-KL5NYMZ-A5HKAEH-4VYLSZR-WCCBPQT";};
-            "Miniroam" = {id = "F7UWLCE-JPZXXU2-4SHXZ3X-BM3T3U7-DTSVPVA-TXFYB67-5TCR574-MSYRJQR";};
-            "homepi" = {id = "CGBRCYB-2USPMPW-VKMVC4N-7SF2QLX-W5WWKHX-YD22FCO-XFNTJPC-RCKW5AY";};
-            "Megaroam" = {id = "6SRZN3S-POHIH7U-NGJUAVE-MZU6DDF-O74WU5W-VBJ4TAE-5WZTYOV-7GVIIAF";};
-          };
-          folders = {
-            "Documents" = {
-              # Name of folder in Syncthing, also the folder ID
-              path = "/home/adriano/Documents"; # Which folder to add to Syncthing
-              devices = ["roampi" "Miniroam" "homepi" "z1" "Megaroam"]; # Which devices to share the folder with
-            };
-            "KB" = {
-              # Name of folder in Syncthing, also the folder ID
-              path = "/home/adriano/KB"; # Which folder to add to Syncthing
-              devices = ["roampi" "Miniroam" "homepi" "z1" "Megaroam"]; # Which devices to share the folder with
-            };
-          };
-        };
-      };
-    };
-
     # Only allow authentication with my serial id
     security.pam.yubico = {
       enable = true;
