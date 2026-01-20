@@ -240,7 +240,6 @@
           (import ./common/overlays)
           {
             environment.systemPackages = [
-              agenix.packages.${system}.default
               inputs.nh.packages.${system}.default
             ];
           }
@@ -256,7 +255,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
+          {environment.systemPackages = [];}
           nur.modules.nixos.default
           agenix.nixosModules.default
           agenix-rekey.nixosModules.default
@@ -279,7 +278,7 @@
         system = "x86_64-linux";
         specialArgs = {inherit inputs;};
         modules = [
-          {environment.systemPackages = [agenix.packages.x86_64-linux.default];}
+          {environment.systemPackages = [];}
           nur.modules.nixos.default
           agenix.nixosModules.default
           agenix-rekey.nixosModules.default

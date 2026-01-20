@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  homeage,
+  agenix,
   ...
 }: {
   imports = [
@@ -12,24 +12,23 @@
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
     ../../../common/home-manager/ai-agents
-    ../../../common/home-manager/homeage
+    agenix.homeManagerModules.default
   ];
 
-  homeage = {
+  age = {
     identityPaths = ["/Users/adriano.caloiaro/.ssh/id_ed25519_age"];
-    installationType = "activation";
-    mount = "${config.xdg.dataHome}/homeage";
-
-    file."opencode-github-mcp-pat" = {
-      source = ../secrets/rekeyed/JJTH7GH17J/77a39e994d8cf562989a38aaf709171b-opencode-github-mcp-pat.age;
-      symlinks = ["${config.xdg.configHome}/opencode/github-pat"];
+    secrets = {
+      "opencode-github-mcp-pat" = {
+        file = ../secrets/rekeyed/JJTH7GH17J/77a39e994d8cf562989a38aaf709171b-opencode-github-mcp-pat.age;
+        mode = "400";
+      };
     };
   };
 
   ai-agents = {
     enable = true;
     crush.enable = true;
-    mcp.github.patPath = "${config.xdg.configHome}/opencode/github-pat";
+    mcp.github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
   };
   modules.aerospace.enable = true;
   programs = {

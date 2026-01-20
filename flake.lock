@@ -360,6 +360,24 @@
     },
     "flake-utils": {
       "inputs": {
+        "systems": "systems_3"
+      },
+      "locked": {
+        "lastModified": 1731533236,
+        "narHash": "sha256-l0KFg5HjrsfsO/JpG+r7fRrqm12kzFHyUHqHCVpMMbI=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_2": {
+      "inputs": {
         "systems": [
           "starship-jj",
           "systems"
@@ -427,6 +445,28 @@
         "type": "github"
       }
     },
+    "greenhouse-nix-modules": {
+      "inputs": {
+        "flake-utils": "flake-utils",
+        "home-manager": "home-manager_2",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1767102115,
+        "narHash": "sha256-TVfErXdrlyMfRALLQFiaE6x+EHfu7JtpMjDM/gEd6sg=",
+        "ref": "refs/heads/main",
+        "rev": "383d2b9c013e1c8464694558610ffd1eb0856e4f",
+        "revCount": 35,
+        "type": "git",
+        "url": "ssh://git@github.com/grnhse/nix-modules.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.com/grnhse/nix-modules.git"
+      }
+    },
     "helix": {
       "inputs": {
         "nixpkgs": "nixpkgs_5",
@@ -489,6 +529,27 @@
       }
     },
     "home-manager_2": {
+      "inputs": {
+        "nixpkgs": [
+          "greenhouse-nix-modules",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763228015,
+        "narHash": "sha256-1rYieMVUyZ3kK/cBIr8mOusxrOEJ1/+2MsOg0oJ7b3A=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "96156a9e86281c4bfc451236bc2ddfe4317e6f39",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "home-manager_3": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -836,9 +897,10 @@
         "default-browser": "default-browser",
         "determinate": "determinate",
         "disko": "disko",
+        "greenhouse-nix-modules": "greenhouse-nix-modules",
         "helix": "helix",
         "helix-flake": "helix-flake",
-        "home-manager": "home-manager_2",
+        "home-manager": "home-manager_3",
         "kitty-grab": "kitty-grab",
         "nh": "nh",
         "nix-darwin": "nix-darwin",
@@ -911,11 +973,11 @@
     "starship-jj": {
       "inputs": {
         "fenix": "fenix",
-        "flake-utils": "flake-utils",
+        "flake-utils": "flake-utils_2",
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems_3"
+        "systems": "systems_4"
       },
       "locked": {
         "lastModified": 1766582868,
@@ -962,6 +1024,21 @@
       }
     },
     "systems_3": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
+    "systems_4": {
       "locked": {
         "lastModified": 1681028828,
         "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
