@@ -6,8 +6,9 @@
   ...
 }: {
   imports = [
-    ../../../common/desktop/aerospace.nix
     ../../../common/accounts/calendars.nix
+    ../../../common/desktop/aerospace.nix
+    ../../../common/secrets.nix
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
@@ -16,19 +17,26 @@
   ];
 
   age = {
-    identityPaths = ["/Users/adriano.caloiaro/.ssh/id_ed25519_age"];
-    secrets = {
-      "opencode-github-mcp-pat" = {
-        file = ../secrets/rekeyed/JJTH7GH17J/77a39e994d8cf562989a38aaf709171b-opencode-github-mcp-pat.age;
-        mode = "400";
-      };
+    identityPaths = [
+      "/Users/adriano.caloiaro/.ssh/id_ed25519_age"
+    ];
+    rekey = {
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE91Gv3hh4dkznl1o2+5xJQBEIvDVo7UWxjm93nQfRmE age-key-greenhouse";
+      localStorageDir = ./. + "/secrets/rekeyed/";
+    };
+    secrets."circleci-mcp-pat" = {
+      rekeyFile = ./secrets/circleci-mcp-pat.age;
     };
   };
 
   ai-agents = {
     enable = true;
     crush.enable = true;
-    mcp.github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
+    mcp.github.patPath = config.age.secrets."opencode-github-mcp-pat".path;
+    mcp.circleci = {
+      enable = true;
+      patPath = config.age.secrets.circleci-mcp-pat.path;
+    };
   };
   modules.aerospace.enable = true;
   programs = {
@@ -168,6 +176,7 @@
         ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
       # '';
     packages = with pkgs; [
+      agenix
       alejandra
       choose-gui # Used as the selector for qute-pass (qutebrowser password management)
       clang

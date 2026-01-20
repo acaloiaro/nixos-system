@@ -9,10 +9,21 @@ in {
     ../../common/secrets.nix
   ];
   config = {
-    age.secrets.opencode-github-mcp-pat.owner = "adriano.caloiaro";
-    age.rekey = {
-      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE91Gv3hh4dkznl1o2+5xJQBEIvDVo7UWxjm93nQfRmE age-key-greenhouse";
-      localStorageDir = ./. + "/secrets/rekeyed/JJTH7GH17J";
+    age = {
+      identityPaths = [
+        "/Users/adriano.caloiaro/.ssh/id_ed25519_age"
+      ];
+      rekey = {
+        hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE91Gv3hh4dkznl1o2+5xJQBEIvDVo7UWxjm93nQfRmE age-key-greenhouse";
+        localStorageDir = ./. + "/secrets/rekeyed";
+      };
+      secrets = {
+        opencode-github-mcp-pat = {
+          rekeyFile = ../../common/secrets/opencode-github-mcp-pat.age;
+          owner = "adriano.caloiaro";
+          mode = "400";
+        };
+      };
     };
     environment = {
       etc = {
@@ -27,6 +38,7 @@ in {
         gnupg
         gopass
         helix
+        inputs.agenix-rekey.packages.${system}.default
         nh
         ripgrep
         qrtool

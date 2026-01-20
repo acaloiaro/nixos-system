@@ -95,7 +95,7 @@
     };
     qutebrowser-overlay = import ./common/overlays/qutebrowser-macos-bundle-patch.nix;
     overlays = [
-      inputs.agenix.overlays.default
+      inputs.agenix-rekey.overlays.default
       inputs.btsw.overlays.default
       nur.overlays.default
     ];
@@ -121,10 +121,12 @@
       modules = [
         (import ./common/overlays)
       ];
-      overlays = [
-        fish-overlay
-        qutebrowser-overlay
-      ];
+      overlays =
+        [
+          fish-overlay
+          qutebrowser-overlay
+        ]
+        ++ overlays;
     };
 
     # Wrapper to handle the dynamic master key
@@ -166,6 +168,9 @@
             ;
         };
         modules = [
+          agenix.homeManagerModules.default
+          agenix-rekey.homeManagerModules.default
+          ./common/rekey.nix
           (import ./common/overlays)
           ./systems/zw/home/adriano.nix
           ./common/home-manager/code
@@ -195,7 +200,10 @@
             ;
         };
         modules = [
+          agenix.homeManagerModules.default
+          agenix-rekey.homeManagerModules.default
           (import ./common/overlays)
+          ./common/rekey.nix
           ./systems/greenhouse/home/adriano.caloiaro.nix
           ./common/home-manager/code
           {
@@ -309,19 +317,20 @@
         ./systems/greenhouse/configuration.nix
         inputs.greenhouse-nix-modules.nix-darwin.${system}
         inputs.home-manager.darwinModules.home-manager
-{
-            home-manager.backupFileExtension = "backup";
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {
-              inherit agenix;
-            };
-          }
+        {
+          home-manager.backupFileExtension = "backup";
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit agenix;
+          };
+        }
       ];
     };
     agenix-rekey = inputs.agenix-rekey.configure {
       userFlake = self;
       nixosConfigurations = self.nixosConfigurations // self.darwinConfigurations;
+      homeConfigurations = self.homeConfigurations;
     };
   };
 }
