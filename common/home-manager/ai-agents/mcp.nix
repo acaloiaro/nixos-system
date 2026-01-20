@@ -22,6 +22,12 @@ in {
       default = null;
       description = "Path to the decrypted file containing the GitHub Personal Access Token.";
     };
+    circleci.enable = mkMcpEnableOption "circleci";
+    circleci.patPath = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Path to the decrypted file containing the CircleCI API Token.";
+    };
     glean.enable = mkMcpEnableOption "glean";
     atlassian.enable = mkMcpEnableOption "atlassian";
   };
@@ -58,6 +64,19 @@ in {
             url = "https://api.githubcopilot.com/mcp/";
           };
         }
+      ))
+      (lib.mkIf cfg.mcp.circleci.enable (
+        if cfg.mcp.circleci.patPath != null
+        then {
+          circleci = {
+            command = "${pkgs.bash}/bin/bash";
+            args = [
+              "-c"
+              "export CIRCLECI_TOKEN=$(cat ${cfg.mcp.circleci.patPath}) && exec ${pkgs.nodejs}/bin/npx -y @circleci/mcp-server-circleci@latest"
+            ];
+          };
+        }
+        else {}
       ))
       (lib.mkIf cfg.mcp.glean.enable {
         glean = {
