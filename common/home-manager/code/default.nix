@@ -221,33 +221,13 @@ with lib; {
         git_state.disabled = true;
         git_status.disabled = true;
 
-        custom = let
-          detect_jj = "jj --ignore-working-copy root";
-        in
-          {
-            jj = {
-              command = "prompt";
-              ignore_timeout = true;
-              shell = [(lib.getExe pkgs.starship-jj) "--ignore-working-copy" "starship"];
-              use_stdin = false;
-              when = true;
-            };
-          }
-          // builtins.listToAttrs (map (p: {
-              name = p;
-              value = {
-                when = "! ${detect_jj}";
-                command = "starship module ${p}";
-                style = "";
-                description = "Only show ${p} if we're not in a jujutsu repository";
-              };
-            }) [
-              "git_branch"
-              "git_commit"
-              "git_metrics"
-              "git_state"
-              "git_status"
-            ]);
+        jj = {
+          command = "prompt";
+          ignore_timeout = true;
+          shell = [(lib.getExe pkgs.starship-jj) "--ignore-working-copy" "starship"];
+          use_stdin = false;
+          when = true;
+        };
       };
       fish.shellAliases =
         {
