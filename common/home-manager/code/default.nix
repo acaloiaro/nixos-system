@@ -221,7 +221,7 @@ with lib; {
         git_state.disabled = true;
         git_status.disabled = true;
 
-        jj = {
+        custom.jj = {
           command = "prompt";
           ignore_timeout = true;
           shell = [(lib.getExe pkgs.starship-jj) "--ignore-working-copy" "starship"];
