@@ -3,9 +3,10 @@ name: jira
 description: Guidelines for creating and managing Jira tickets in the Greenhouse organization. Use when working with jira tickets, breaking down large tasks into sub-tasks, writing acceptance criteria, or setting Jira custom fields.
 ---
 
-# Jira Ticket Creation
+# Jira Ticket management
 
 cloudId=28363aa1-5a3e-4e70-9ca4-7b347c22f288
+projectIdOrKey=GREEN
 
 ## Overall approach
 
@@ -18,6 +19,7 @@ When asked to create a Jira ticket, I will:
 - Start with a high-level understanding of the request
 - Identify the core functionality or change needed
 - Determine the affected systems or components
+- Determine whether I have enough information to come up with BDD scenarios 
 
 When asked to modify a Jira ticket, I will:
 - Fetch the ticket first to get context
@@ -49,15 +51,21 @@ Link to the correct epic if information is available.
 
 - Squad: `Post-Hire Ecosystem`
 
-## Acceptance Criteria
+## Linking tickets
 
-Use Gherkin language (Given/When/Then):
+Sometimes the user will ask me to link jira cards together with "blocks" or "blocked by" relationships.
 
-```gherkin
-Given [precondition]
-When [action]
-Then [expected result]
-```
+For these requests, the jira is not sufficient because it has not way to set these relationships.
+
+### Establishing/updating links
+
+Use the `jira` cli issuelink subcommand
+usage: jira issuelink [<flags>] <OUTWARDISSUE> <ISSUELINKTYPE> <INWARDISSUE>
+
+### Determining which link types exist
+
+Use the `jira` cli issuelinktypes subcommand
+usage: jira issuelinktypes 
 
 ## Templates
 
@@ -80,6 +88,13 @@ Explain the greater context of why the change is being made and what value it wi
 - [ ] Criterion 1 - [concrete, measurable outcome]
 - [ ] Criterion 2 - [what can be demoed or validated]
 - [ ] Criterion 3 - [business or technical acceptance gate]
+
+** BDD ** 
+```gherkin
+Given [precondition]
+When [action]
+Then [expected result]
+```
 
 **Scope**
 
@@ -124,6 +139,8 @@ Outstanding Questions (OPTIONAL)
 [Any additional context, links to Confluence pages, related documents, or discussion notes]
 
 ### Story
+
+issueTypeId=10301
 
 **Summary**
 Sould be short, descriptive, and represent the changes being made
