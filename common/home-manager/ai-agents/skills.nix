@@ -115,7 +115,7 @@ in {
       timers.git-sync-anthropic-skills = {
         Unit.Description = "Git sync timer for anthropic-skills";
         Timer = {
-          OnCalendar = "*:0/120"; # Every 2 hours
+          OnCalendar = "00:00"; # Midnight
           Persistent = true;
         };
         Install.WantedBy = ["timers.target"];
@@ -124,7 +124,7 @@ in {
       timers.git-sync-humanizer = {
         Unit.Description = "Git sync timer for humanizer";
         Timer = {
-          OnCalendar = "*:0/120"; # Every 2 hours
+          OnCalendar = "00:00"; # Midnight
           Persistent = true;
         };
         Install.WantedBy = ["timers.target"];
