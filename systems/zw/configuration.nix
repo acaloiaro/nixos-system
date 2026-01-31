@@ -58,6 +58,7 @@
     environment.systemPackages = with pkgs; [
       neovim
       wget
+      inputs.agenix-rekey.packages.${system}.default
     ];
 
     environment.pathsToLink = ["/libexec"];
