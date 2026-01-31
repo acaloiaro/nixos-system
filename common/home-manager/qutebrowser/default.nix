@@ -1,4 +1,4 @@
-{config, ...}: {
+{config, pkgs, ...}: {
   programs.qutebrowser = {
     enable = true;
     searchEngines = {
@@ -10,7 +10,8 @@
       nixman = "https://nixos.org/manual/nix/unstable/?search={}";
     };
     keyBindings = let
-      pass_cmd = "spawn --userscript qute-pass --dmenu-invocation choose --mode gopass --password-store ${config.home.homeDirectory}/.local/share/gopass/stores/root";
+      dmenu_cmd = if pkgs.stdenv.isLinux then "rofi -dmenu" else "choose";
+      pass_cmd = "spawn --userscript qute-pass --dmenu-invocation ${dmenu_cmd} --mode gopass --password-store ${config.home.homeDirectory}/.local/share/gopass/stores/root";
     in {
       normal = {
         ",p" = pass_cmd;
