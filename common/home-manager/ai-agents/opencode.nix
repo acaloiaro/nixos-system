@@ -17,6 +17,9 @@ in {
         theme = "nord";
         autoshare = false;
         autoupdate = true;
+        plugin = [
+          "@mohak34/opencode-notifier@latest"
+        ];
       };
     };
   };
