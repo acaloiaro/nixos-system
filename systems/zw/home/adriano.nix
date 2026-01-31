@@ -32,6 +32,11 @@
         rekeyFile = ../../../common/secrets/opencode-github-mcp-pat.age;
         mode = "400";
       };
+
+      "opencode-context7-api-key" = {
+        rekeyFile = ../../../common/secrets/opencode-context7-api-key.age;
+        mode = "400";
+      };
     };
   };
 
@@ -553,10 +558,15 @@
 
   ai-agents = {
     enable = true;
-    crush.enable = false;
-    mcp.glean.enable = false;
-    mcp.atlassian.enable = false;
-    mcp.github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
+    mcp = {
+      context7 = {
+        enable = true;
+        patPath = config.age.secrets."opencode-context7-api-key".path;
+      };
+      glean.enable = false;
+      atlassian.enable = false;
+      github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
+    };
   };
 
   xdg = {
