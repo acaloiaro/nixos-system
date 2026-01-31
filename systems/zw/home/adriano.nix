@@ -48,6 +48,7 @@
     sessionVariables = {
       "GO111MODULE" = "on";
       "PATH" = "$PATH:/home/adriano/go/bin";
+      "SHELL" = "/run/current-system/sw/bin/zsh";
     };
     username = "adriano";
     homeDirectory = "/home/adriano";
@@ -60,6 +61,8 @@
       opencloud-desktop
       yazi
       zeal
+      zellij
+      zsh
     ];
     file = {
       ".mozilla/native-messaging-hosts/com.justwatch.gopass.json".source = ./gopass/gopass-api-manifest.json;
@@ -200,7 +203,7 @@
         "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
-        "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty";
+        "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty --shell /run/current-system/sw/bin/zsh";
         "${modifier}+d" = "exec ${pkgs.rofi}/bin/rofi -modi drun -show drun";
         "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${modifier}+Shift+x" = "exec systemctl suspend";
@@ -333,41 +336,51 @@
       active_border_color      none
       font_size                12.0
     '';
-    shellIntegration.enableFishIntegration = true;
+    shellIntegration.enableZshIntegration = true;
   };
 
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
   };
-  programs.fish = {
+  programs.zsh = {
     enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    dotDir = config.home.homeDirectory;
+    initContent = ''
+      eval "$(zellij setup --generate-auto-start zsh)"
+    '';
     shellAliases = {
-      addresses = "hx ~/KB/pages/Important\ Addresses.md";
+      addresses = "hx ~/KB/pages/Important\\ Addresses.md";
       ideas = "hx ~/KB/pages/Notes/ideas/";
       people = "vim ~/KB/pages/People.md";
       notes = "hx ~/KB";
-      open = "xdg-open $argv";
-      quickqr = "qrencode -t ansiutf8 $argv";
-      gpgen = "gopass generate \"$argv[1]/$argv[1]@adriano.fyi\"";
+      open = "xdg-open $*";
+      quickqr = "qrencode -t ansiutf8";
+      gpgen = "gopass generate \"$1/$1@adriano.fyi\"";
       ll = "ls -l";
-      vi = "hx $argv";
-      vim = "hx $argv";
-      ncm-token = "${pkgs.gopass}/bin/gopass show ncm | grep Secret | awk '{print $4}'";
+      vi = "hx $*";
+      vim = "hx $*";
+      ncm-token = "${pkgs.gopass}/bin/gopass show ncm | grep Secret | awk '{print \$4}'";
     };
-    plugins = [
-      {
-        name = "plugin-git";
-        src = pkgs.fishPlugins.plugin-git.src;
-      }
-    ];
+  };
+
+  programs.zellij = {
+    enable = true;
+    settings = {
+      theme = "nord";
+      session_serialization = true;
+      auto_layout = true;
+    };
   };
   programs.atuin = {
     enable = true;
     daemon = {
       enable = true;
     };
-    enableFishIntegration = true;
+    enableZshIntegration = true;
     settings = {
       enter_accept = false;
     };
@@ -473,7 +486,7 @@
   };
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
+    enableZshIntegration = true;
   };
   programs.mbsync.enable = true;
   programs.msmtp.enable = true;

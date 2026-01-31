@@ -229,7 +229,7 @@ with lib; {
           when = true;
         };
       };
-      fish.shellAliases =
+      zsh.shellAliases =
         {
           jjbs = "jj bookmark set --revision @-";
           jjbsm = "jjbs main";
