@@ -17,6 +17,11 @@
 
   age = {
     identityPaths = ["/home/adriano/.ssh/id_rsa_agenix"];
+    rekey = {
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE91Gv3hh4dkznl1o2+5xJQBEIvDVo7UWxjm93nQfRmE age-key-greenhouse";
+      localStorageDir = ./. + "/secrets/rekeyed/";
+    };
+
     secrets = {
       "spotify-player-config" = {
         file = ../secrets/spotify_password.age;
@@ -24,7 +29,7 @@
       };
 
       "opencode-github-mcp-pat" = {
-        file = ../secrets/rekeyed/zw/26b527921b819fc981e6620873959634-opencode-github-mcp-pat.age;
+        rekeyFile = ../../../common/secrets/opencode-github-mcp-pat.age;
         mode = "400";
       };
     };
