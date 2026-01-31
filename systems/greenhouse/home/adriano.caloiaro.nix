@@ -217,6 +217,10 @@
     };
   };
 
+  programs.qutebrowser.settings = {
+    zoom.default = "100%";
+  };
+
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;

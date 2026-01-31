@@ -373,6 +373,7 @@
       theme = "nord";
       session_serialization = true;
       auto_layout = true;
+      pane_frames = false;
     };
   };
   programs.atuin = {
@@ -580,6 +581,10 @@
       atlassian.enable = false;
       github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
     };
+  };
+
+  programs.qutebrowser.settings = {
+    zoom.default = "120%";
   };
 
   xdg = {
