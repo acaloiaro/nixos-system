@@ -50,11 +50,9 @@ in {
         if cfg.mcp.github.patPath != null
         then {
           github = {
-            command = "${pkgs.bash}/bin/bash";
-            args = [
-              "-c"
-              "export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat ${cfg.mcp.github.patPath}) && exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-github"
-            ];
+            type = "http";
+            url = "https://api.githubcopilot.com/mcp";
+            headers.Authorization = "{env:GITHUB_PERSONAL_ACCESS_TOKEN_MCP}";
           };
         }
         else {

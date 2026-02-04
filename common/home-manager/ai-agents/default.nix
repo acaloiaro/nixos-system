@@ -46,6 +46,12 @@ in {
     };
 
     programs = {
+      fish.shellInit = ''
+        # bash
+        if test -f "${config.ai-agents.mcp.github.patPath}"
+          set -x GITHUB_PERSONAL_ACCESS_TOKEN_MCP (cat "${config.ai-agents.mcp.github.patPath}")
+        end
+      '';
       claude-code = {
         mcpServers = cfg.mcpServers;
         enable = true;
