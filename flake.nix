@@ -221,6 +221,7 @@
           inputs.greenhouse-nix-modules.home-manager.${system}
           {
             enable = true;
+            username = "adriano.caloiaro";
             # I use my own SCM module, not the one from the greenhouse module
             # That's why this one is disabled
             scm = {
