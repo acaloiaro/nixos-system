@@ -32,6 +32,10 @@
   ai-agents = {
     enable = true;
     crush.enable = false;
+    mcp.context7 = {
+      enable = true;
+      patPath = config.age.secrets."opencode-context7-api-key".path;
+    };
     mcp.github.patPath = config.age.secrets."opencode-github-mcp-pat".path;
     mcp.circleci = {
       enable = true;

@@ -16,11 +16,17 @@
 in {
   options.ai-agents.mcp = {
     git.enable = mkMcpEnableOption "git";
+    context7.enable = mkMcpEnableOption "context7";
     github.enable = mkMcpEnableOption "github";
     github.patPath = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default = null;
       description = "Path to the decrypted file containing the GitHub Personal Access Token.";
+    };
+    context7.patPath = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Path to the decrypted file containing the Context7 API key";
     };
     circleci.enable = mkMcpEnableOption "circleci";
     circleci.patPath = lib.mkOption {
@@ -40,12 +46,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     ai-agents.mcpServers = lib.mkMerge [
-      (lib.mkIf cfg.mcp.git.enable {
-        git = {
-          args = ["mcp-server-git" "--repository" "${config.home.homeDirectory}/proj/nixos-system"];
-          command = "uvx";
-        };
-      })
       (lib.mkIf cfg.mcp.github.enable (
         if cfg.mcp.github.patPath != null
         then {
@@ -62,6 +62,20 @@ in {
             url = "https://api.githubcopilot.com/mcp/";
           };
         }
+      ))
+      (lib.mkIf cfg.mcp.context7.enable (
+        if cfg.mcp.context7.patPath != null
+        then {
+          context7 = {
+            enable = true;
+            type = "remote";
+            url = "https://mcp.context7.com/mcp";
+            headers = {
+              CONTEXT7_API_KEY = "{env:CONTEXT7_API_KEY}";
+            };
+          };
+        }
+        else {}
       ))
       (lib.mkIf cfg.mcp.circleci.enable (
         if cfg.mcp.circleci.patPath != null
