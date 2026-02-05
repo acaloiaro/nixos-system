@@ -20,6 +20,11 @@ in {
         plugin = [
           "@mohak34/opencode-notifier@latest"
         ];
+        permission.bash = {
+          "rm*" = "ask";
+          "git *" = "ask";
+          "jj git push*" = "ask";
+        };
       };
     };
   };
