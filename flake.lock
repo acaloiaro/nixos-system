@@ -454,11 +454,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1770307136,
-        "narHash": "sha256-ny85N8vcUqdhWivHBXQv09K0wAk7shyST61MkP7Bmi8=",
+        "lastModified": 1770421406,
+        "narHash": "sha256-14sHahFFfQDVU3cMxpd2T5DNwyMU4oCODKyrGI4mVaQ=",
         "ref": "refs/heads/main",
-        "rev": "8e315a6032b666898ca1930865d4a03c59ef29a2",
-        "revCount": 46,
+        "rev": "3fa7bd5875718c216a85bd1ad7911a7725cd0e16",
+        "revCount": 52,
         "type": "git",
         "url": "ssh://git@github.com/grnhse/nix-modules.git"
       },
