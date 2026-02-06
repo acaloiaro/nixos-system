@@ -47,10 +47,11 @@
   modules.aerospace.enable = true;
   modules.zellij = {
     enable = true;
-    theme = "nord";
+    theme = "custom-nord";
     sessionSerialization = true;
+    autoTabName = true;
     autoLayout = true;
-    paneFrames = true;
+    paneFrames = false;
     autoStart = true;
   };
   programs = {
@@ -156,6 +157,9 @@
         titlebar-only            yes
         active_border_color      none
         font_size                14.0
+
+        # macOS: Make Option key work as Alt for zellij keybindings
+        macos_option_as_alt yes
       '';
       environment = {
         # for gemini

@@ -31,7 +31,6 @@ in {
       };
       variables = {
         HOMEBREW_NO_ANALYTICS = "1";
-        NH_FLAKE = "/Users/${primaryUser}/proj/nixos-system";
       };
       systemPackages = with pkgs; [
         age
