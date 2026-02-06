@@ -13,6 +13,7 @@
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
     ../../../common/home-manager/ai-agents
+    ../../../common/home-manager/zellij
     agenix.homeManagerModules.default
   ];
 
@@ -42,7 +43,16 @@
       patPath = config.age.secrets.circleci-mcp-pat.path;
     };
   };
+
   modules.aerospace.enable = true;
+  modules.zellij = {
+    enable = true;
+    theme = "nord";
+    sessionSerialization = true;
+    autoLayout = true;
+    paneFrames = true;
+    autoStart = true;
+  };
   programs = {
     aerc = {
       enable = true;
@@ -89,7 +99,7 @@
       # daemon = {
       #   enable = true;
       # };
-      enableFishIntegration = true;
+      enableZshIntegration = true;
       settings = {
         enter_accept = false;
       };
@@ -112,24 +122,19 @@
       enable = true;
       nix-direnv.enable = true;
     };
-    fish = {
+    zsh = {
       enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
+      dotDir = config.home.homeDirectory;
       shellAliases = {
-        quickqr = "qrencode -t ansiutf8 $argv";
+        quickqr = "qrencode -t ansiutf8";
       };
-      plugins = [
-        {
-          name = "plugin-git";
-          src = pkgs.fishPlugins.plugin-git.src;
-        }
-      ];
-      loginShellInit = ''
-        # . $HOME/.nix-profile/share/asdf-vm/asdf.fish
-      '';
     };
     fzf = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
     };
     home-manager.enable = true;
     kitty = {
@@ -161,11 +166,11 @@
         "VERTEXAI_PROJECT" = "$GOOGLE_CLOUD_PROJECT";
       };
 
-      shellIntegration.enableFishIntegration = true;
+      shellIntegration.enableZshIntegration = true;
     };
     starship = {
       enable = true;
-      enableFishIntegration = true;
+      enableZshIntegration = true;
     };
   };
 
@@ -196,6 +201,7 @@
       templ
       nil # nix lsp
       yazi
+      zsh
       # zeal
     ];
     file = {

@@ -82,7 +82,7 @@ in {
     };
     nixpkgs.hostPlatform = "aarch64-darwin";
     programs = {
-      fish.enable = true;
+      zsh.enable = true;
     };
     security.pam.services.sudo_local.touchIdAuth = true;
     services = {
@@ -101,7 +101,7 @@ in {
       knownUsers = [primaryUser];
       users."${primaryUser}" = {
         uid = 502;
-        shell = pkgs.fish;
+        shell = pkgs.zsh;
         home = "/Users/${primaryUser}";
       };
     };

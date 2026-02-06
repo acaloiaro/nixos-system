@@ -12,6 +12,7 @@
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/qutebrowser
+    ../../../common/home-manager/zellij
     agenix.homeManagerModules.default
   ];
 
@@ -61,7 +62,6 @@
       opencloud-desktop
       yazi
       zeal
-      zellij
       zsh
     ];
     file = {
@@ -349,9 +349,6 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     dotDir = config.home.homeDirectory;
-    initContent = ''
-      eval "$(zellij setup --generate-auto-start zsh)"
-    '';
     shellAliases = {
       addresses = "hx ~/KB/pages/Important\\ Addresses.md";
       ideas = "hx ~/KB/pages/Notes/ideas/";
@@ -367,15 +364,15 @@
     };
   };
 
-  programs.zellij = {
+  modules.zellij = {
     enable = true;
-    settings = {
-      theme = "nord";
-      session_serialization = true;
-      auto_layout = true;
-      pane_frames = false;
-    };
+    theme = "nord";
+    sessionSerialization = true;
+    autoLayout = true;
+    paneFrames = false;
+    autoStart = true;
   };
+
   programs.atuin = {
     enable = true;
     daemon = {
