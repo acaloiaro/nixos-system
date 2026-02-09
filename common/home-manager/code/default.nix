@@ -197,7 +197,7 @@ with lib; {
           ui = {
             show-cryptographic-signatures = true;
             default-command = ["status" "--no-pager"];
-            diff-formatter = ":git";
+            # diff-formatter = ":git";
           };
         };
       };
