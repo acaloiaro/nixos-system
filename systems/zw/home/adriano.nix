@@ -355,7 +355,7 @@
       people = "vim ~/KB/pages/People.md";
       notes = "hx ~/KB";
       open = "xdg-open $*";
-      quickqr = "qrencode -t ansiutf8";
+      quickqr = "qrencode -t ansiutf8 $*";
       gpgen = "gopass generate \"$1/$1@adriano.fyi\"";
       ll = "ls -l";
       vi = "hx $*";

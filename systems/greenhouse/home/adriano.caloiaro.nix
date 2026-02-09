@@ -55,6 +55,18 @@
     autoStart = true;
   };
   programs = {
+    ssh = {
+      enable = true;
+      matchBlocks = {
+        "*" = {
+          addKeysToAgent = "yes";
+          extraOptions = {
+            UseKeychain = "yes";
+            IdentityFile = "~/.ssh/id_ed25519";
+          };
+        };
+      };
+    };
     aerc = {
       enable = true;
       extraConfig = {
@@ -130,8 +142,15 @@
       syntaxHighlighting.enable = true;
       dotDir = config.home.homeDirectory;
       shellAliases = {
-        quickqr = "qrencode -t ansiutf8";
+        open = "xdg-open $*";
+        quickqr = "qrencode -t ansiutf8 $*";
       };
+      initContent = ''
+        # Function to generate gopass entries
+        gpgen() {
+          gopass generate "$1/$1@adriano.fyi"
+        }
+      '';
     };
     fzf = {
       enable = true;
