@@ -93,20 +93,25 @@ file-types = [
   "Gemfile",
 ]
 shebangs = ["ruby"]
+roots = ["sorbet/config", "Gemfile"]
 comment-token = "#"
-language-servers = ["solargraph", "sorbet", "rubocop"]
+language-servers = ["solargraph", "rubocop"]
 indent = { tab-width = 2, unit = "  " }
-formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal", "--server"] }
+formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal"] }
 
-[language-server.sorbet]
-name = "sorbet"
-command = "srb"
-args = ["tc", "--lsp", "--enable-all-experimental-lsp-features", "--disable-watchman"]
+[language-server.solargraph]
+command = "solargraph"
+args = ["stdio"]
+config.diagnostics = true
 
 [language-server.rubocop]
-name = "rubocop"
 command = "rubocop"
 args = ["--lsp"]
+
+[language-server.sorbet]
+command = "srb"
+args = ["tc", "--lsp", "--enable-all-experimental-lsp-features", "--disable-watchman"]
+required-root-patterns = ["sorbet/config"]
 
 [language-server."terraform-lsp"]
 command = "terraform-lsp"
