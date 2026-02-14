@@ -125,28 +125,6 @@
       bindAddress = "0.0.0.0";
       package = pkgs.nix-serve-ng;
     };
-
-    syncthing = {
-      enable = false;
-      user = "pi";
-      dataDir = "/home/jellybee/.config/syncthing";
-      configDir = "/home/jellybee/.config/syncthing/config";
-      guiAddress = "100.123.165.8:8384";
-      overrideDevices = true; # overrides any devices added or deleted through the WebUI
-      overrideFolders = true; # overrides any folders added or deleted through the WebUI
-      settings = {
-        devices = {
-          "z1" = {id = "MXXILUU-IUTJYFM-5QW4SAL-SJB5EJY-NJ57ROO-OUI3KRK-G2AS3OU-7GXJKQU";};
-        };
-        folders = {
-          "Documents" = {
-            # Name of folder in Syncthing, also the folder ID
-            path = "/home/jellybee/Documents"; # Which folder to add to Syncthing
-            devices = ["z1" "zw"]; # Which devices to share the folder with
-          };
-        };
-      };
-    };
   };
 
   networking = {
