@@ -13,6 +13,7 @@
     ./zfs.nix
     ../../common/virtualization/podman.nix
     ../../common/secrets.nix
+    ../../common/binary-cache.nix
     ./hosts-config.nix
   ];
 
@@ -113,7 +114,6 @@
       settings = {
         trusted-users = ["root" "adriano"];
         substituters = [
-          # "http://jellybee:5676/"
           "https://nix-community.cachix.org"
           "https://cache.nixos.org/"
         ];
