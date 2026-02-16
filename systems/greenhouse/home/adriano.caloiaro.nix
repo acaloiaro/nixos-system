@@ -57,6 +57,7 @@
   programs = {
     ssh = {
       enable = true;
+      enableDefaultConfig = false;
       matchBlocks = {
         "*" = {
           addKeysToAgent = "yes";
@@ -223,6 +224,7 @@
       patchy
       templ
       nil # nix lsp
+      qrtool
       yazi
       zsh
       # zeal

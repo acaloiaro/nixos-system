@@ -58,6 +58,7 @@
 
   nix = {
     package = pkgs.nixFlakes;
+    settings.warn-dirty = false;
     extraOptions = ''
       experimental-features = nix-command flakes
     '';

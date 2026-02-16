@@ -18,6 +18,7 @@
   ];
 
   config = {
+    substituters.private.enable = true;
     # Configure secrets
     age = {
       identityPaths = ["/root/.ssh/id_rsa_agenix"];
@@ -112,6 +113,7 @@
         experimental-features = nix-command flakes
       '';
       settings = {
+        warn-dirty = false;
         trusted-users = ["root" "adriano"];
         substituters = [
           "https://nix-community.cachix.org"

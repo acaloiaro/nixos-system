@@ -7,8 +7,10 @@
 in {
   imports = [
     ../../common/secrets.nix
+    ../../common/binary-cache.nix
   ];
   config = {
+    substituters.private.enable = false;
     age = {
       identityPaths = [
         "/Users/adriano.caloiaro/.ssh/id_ed25519_age"
@@ -40,7 +42,6 @@ in {
         inputs.agenix-rekey.packages.${system}.default
         nh
         ripgrep
-        qrtool
         vim
       ];
     };
@@ -68,14 +69,12 @@ in {
         "spotify"
         "vlc"
       ];
-      taps = [
-        "slp/krunkit" # Needed by podman-desktop/podman
-      ];
       masApps = {
         # Tailscale = 1475387142; # App Store URL id (keep for example purposes)
       };
     };
     nix = {
+      settings.warn-dirty = false;
       settings.experimental-features = "nix-command flakes";
       settings.trusted-users = ["adriano.caloiaro"];
     };

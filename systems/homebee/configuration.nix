@@ -53,7 +53,10 @@
       dates = "weekly";
       options = "--delete-older-than 7d";
     };
-    settings.trusted-users = ["hombee"];
+    settings = {
+      warn-dirty = false;
+      trusted-users = ["hombee"];
+    };
   };
 
   nixpkgs.config.allowUnfree = true;

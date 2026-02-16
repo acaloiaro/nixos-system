@@ -58,6 +58,7 @@
   nix = {
     package = pkgs.nixVersions.stable;
     settings = {
+      warn-dirty = false;
       trusted-users = ["root" "jellybee"];
     };
     extraOptions = ''
