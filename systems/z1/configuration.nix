@@ -91,7 +91,7 @@
   networking.hostName = "z1"; # Define your hostname.
   networking.wireless = {
     enable = true;
-    userControlled.enable = true;
+    userControlled = true;
   };
   networking.wireless.environmentFile = config.age.secrets.wireless_networks.path;
   networking.wireless.networks = {

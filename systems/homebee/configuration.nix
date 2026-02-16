@@ -137,7 +137,7 @@
     hostId = "0cb3361a";
     wireless = {
       enable = true;
-      userControlled.enable = true;
+      userControlled = true;
       secretsFile = config.age.secrets.wireless_networks.path;
       networks = {
         "3216240371" = {

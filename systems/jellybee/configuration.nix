@@ -161,7 +161,7 @@
 
     wireless = {
       enable = true;
-      userControlled.enable = true;
+      userControlled = true;
       secretsFile = config.age.secrets.wireless_networks.path;
       networks = {
         "roam" = {
