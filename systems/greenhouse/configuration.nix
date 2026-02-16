@@ -77,6 +77,7 @@ in {
       settings.warn-dirty = false;
       settings.experimental-features = "nix-command flakes";
       settings.trusted-users = ["adriano.caloiaro"];
+      settings.connect-timeout = 5;
     };
     nixpkgs.hostPlatform = "aarch64-darwin";
     programs = {
