@@ -205,9 +205,19 @@
     };
     username = "adriano.caloiaro";
     homeDirectory = "/Users/adriano.caloiaro";
-    activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
-        ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
-      # '';
+    activation = {
+      register-qutebrowser-with-launch-services = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        # When qutebrowser gets re-built, LaunchServices doesn't know that it's a valid browser until it has processed its not bundle.
+        #
+        # This causes launch services to process the qutebrowser bundle on every activation.
+        /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/LaunchServices.framework/Versions/A/Support/lsregister -f ~/Applications/Home\ Manager\ Apps/qutebrowser.app/
+      '';
+      install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
+        if [ ! -f "$HOME/Library/Application Support/qutebrowser/qtwebengine_dictionaries/en-US-10-1.bdic" ]; then
+          ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+        fi
+      '';
+    };
     packages = with pkgs; [
       agenix
       alejandra
