@@ -49,14 +49,14 @@ in {
       zsh.initContent = ''
         # bash
         ${lib.optionalString (cfg.mcp.github.patPath != null) ''
-        if [ -f "${cfg.mcp.github.patPath}" ]; then
-          export GITHUB_PERSONAL_ACCESS_TOKEN_MCP=$(cat "${cfg.mcp.github.patPath}")
-        fi
+          if [ -f "${cfg.mcp.github.patPath}" ]; then
+            export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat "${cfg.mcp.github.patPath}")
+          fi
         ''}
         ${lib.optionalString (cfg.mcp.context7.patPath != null) ''
-        if [ -f "${cfg.mcp.context7.patPath}" ]; then
-          export CONTEXT7_API_KEY=$(cat "${cfg.mcp.context7.patPath}")
-        fi
+          if [ -f "${cfg.mcp.context7.patPath}" ]; then
+            export CONTEXT7_API_KEY=$(cat "${cfg.mcp.context7.patPath}")
+          fi
         ''}
       '';
       claude-code = {

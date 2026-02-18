@@ -50,9 +50,11 @@ in {
         if cfg.mcp.github.patPath != null
         then {
           github = {
-            type = "http";
-            url = "https://api.githubcopilot.com/mcp";
-            headers.Authorization = "{env:GITHUB_PERSONAL_ACCESS_TOKEN_MCP}";
+            command = "${pkgs.bash}/bin/bash";
+            args = [
+              "-c"
+              "export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat ${cfg.mcp.github.patPath}) && exec ${pkgs.nodejs}/bin/npx -y @modelcontextprotocol/server-github"
+            ];
           };
         }
         else {
@@ -67,12 +69,11 @@ in {
         if cfg.mcp.context7.patPath != null
         then {
           context7 = {
-            enabled = false;
-            type = "remote";
-            url = "https://mcp.context7.com/mcp";
-            headers = {
-              CONTEXT7_API_KEY = "{env:CONTEXT7_API_KEY}";
-            };
+            command = "${pkgs.bash}/bin/bash";
+            args = [
+              "-c"
+              "exec ${pkgs.nodejs}/bin/npx -y @upstash/context7-mcp --api-key $(cat ${cfg.mcp.context7.patPath})"
+            ];
           };
         }
         else {}
