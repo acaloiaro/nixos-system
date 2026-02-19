@@ -65,6 +65,7 @@ in {
           auto_layout = cfg.autoLayout;
           auto_tab_name = cfg.autoTabName;
           pane_frames = cfg.paneFrames;
+          show_startup_tips = false;
           keybinds = {
             normal = {
               # Vim-style pane focus switching
