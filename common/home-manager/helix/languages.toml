@@ -97,7 +97,8 @@ roots = ["sorbet/config", "Gemfile"]
 comment-token = "#"
 language-servers = ["solargraph", "rubocop"]
 indent = { tab-width = 2, unit = "  " }
-formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal"] }
+# I prefer project-level formatting 
+# formatter = { command = "rubocop", args = ["--stdin", "foo.rb", "-a", "--stderr", "--fail-level", "fatal"] }
 
 [language-server.solargraph]
 command = "solargraph"
