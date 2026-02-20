@@ -572,11 +572,11 @@
     mcp = {
       context7 = {
         enable = true;
-        patPath = config.age.secrets."opencode-context7-api-key".path;
+        secretFile = config.age.secrets."opencode-context7-api-key".path;
       };
       glean.enable = false;
       atlassian.enable = false;
-      github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
+      github.secretFile = config.age.secrets.opencode-github-mcp-pat.path;
     };
   };
 

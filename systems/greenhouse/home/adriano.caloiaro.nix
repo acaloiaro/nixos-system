@@ -32,15 +32,22 @@
 
   ai-agents = {
     enable = true;
-    crush.enable = false;
-    mcp.context7 = {
-      enable = true;
-      patPath = config.age.secrets."opencode-context7-api-key".path;
+    claude-code = {
+      settings.rules = ''
+        # Version and source control
+        - Never, ever use 'git'. Always use 'jj'.
+      '';
     };
-    mcp.github.patPath = config.age.secrets."opencode-github-mcp-pat".path;
-    mcp.circleci = {
-      enable = true;
-      patPath = config.age.secrets.circleci-mcp-pat.path;
+    mcp = {
+      circleci = {
+        enable = true;
+        secretFile = config.age.secrets.circleci-mcp-pat.path;
+      };
+      context7 = {
+        enable = true;
+        secretFile = config.age.secrets."opencode-context7-api-key".path;
+      };
+      github.secretFile = config.age.secrets."opencode-github-mcp-pat".path;
     };
   };
 
