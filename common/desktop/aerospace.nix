@@ -35,10 +35,10 @@ in {
           alt-comma = "layout accordion horizontal vertical";
 
           # See: https://nikitabobko.github.io/AeroSpace/commands#focus
-          alt-h = "focus left";
-          alt-j = "focus down";
-          alt-k = "focus up";
-          alt-l = "focus right";
+          ctrl-cmd-h = "focus left";
+          ctrl-cmd-j = "focus down";
+          ctrl-cmd-k = "focus up";
+          ctrl-cmd-l = "focus right";
 
           # See: https://nikitabobko.github.io/AeroSpace/commands#move
           alt-shift-h = "move left";
