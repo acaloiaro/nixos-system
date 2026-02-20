@@ -70,6 +70,32 @@
       ln -sf "$DEST_DIR" "$CURRENT_LINK"
     '';
   };
+
+  # Syn juan's skills
+  sync-juan-skills = pkgs.writeShellApplication {
+    name = "sync-juan-skills";
+    runtimeInputs = with pkgs; [git coreutils];
+    text = ''
+      set -euo pipefail
+      REPO_URL="https://github.com/grnhse/nix-configs-jcmuller.git"
+      DEST_DIR="${config.xdg.configHome}/skills/sources/juan-skills"
+      CURRENT_LINK="$DEST_DIR/current"
+
+      mkdir -p "$(dirname "$DEST_DIR")"
+
+      if [ ! -d "$DEST_DIR/.git" ]; then
+        git clone "$REPO_URL" "$DEST_DIR"
+      else
+        cd "$DEST_DIR"
+        git fetch origin
+        git reset --hard origin/main
+      fi
+
+      # Create symlink to current
+      rm -f "$CURRENT_LINK"
+      ln -sf "$DEST_DIR" "$CURRENT_LINK"
+    '';
+  };
 in {
   options.ai-agents = with lib;
   with types; {
@@ -156,6 +182,16 @@ in {
         config = {
           Label = "git-sync-humanizer";
           Program = lib.getExe sync-humanizer;
+          StartInterval = 7200; # 2 hours in seconds
+          RunAtLoad = true;
+        };
+      };
+
+      git-sync-juan-skills = {
+        enable = true;
+        config = {
+          Label = "git-sync-juan-skills";
+          Program = lib.getExe sync-juan-skills;
           StartInterval = 7200; # 2 hours in seconds
           RunAtLoad = true;
         };
