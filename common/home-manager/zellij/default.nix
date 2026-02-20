@@ -70,10 +70,10 @@ in {
           keybinds = {
             normal = {
               # Vim-style pane focus switching
-              "bind \"Alt h\"" = {MoveFocus = "Left";};
+              "bind \"Alt h\"" = {MoveFocusOrTab = "Left";};
               "bind \"Alt j\"" = {MoveFocus = "Down";};
               "bind \"Alt k\"" = {MoveFocus = "Up";};
-              "bind \"Alt l\"" = {MoveFocus = "Right";};
+              "bind \"Alt l\"" = {MoveFocusOrTab = "Right";};
             };
             pane = {
               # Vim-style pane navigation in pane mode
@@ -86,8 +86,6 @@ in {
               # Vim-style tab navigation in tab mode
               "bind \"h\"" = {GoToPreviousTab = {};};
               "bind \"l\"" = {GoToNextTab = {};};
-              "bind \"j\"" = {GoToNextTab = {};};
-              "bind \"k\"" = {GoToPreviousTab = {};};
             };
           };
           themes = {
