@@ -22,8 +22,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.default-browser.url = "github:szympajka/nix-browser";
-
   inputs.kitty-grab = {
     url = "github:yurikhan/kitty_grab";
     flake = false;
@@ -45,12 +43,6 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.greenhouse-nix-modules = {
-    # url = "git+ssh://git@github.com/grnhse/nix-modules.git";
-    url = "git+file:/Users/adriano.caloiaro/proj/greenhouse-nix-modules";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
-
   inputs.starship-jj = {
     url = "gitlab:lanastara_foss/starship-jj";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -58,29 +50,23 @@
 
   outputs = {
     self,
-    default-browser,
     nixpkgs,
     nixos-hardware,
-    nix-darwin,
     home-manager,
     agenix,
     agenix-rekey,
     nur,
     kitty-grab,
     helix,
-    greenhouse-nix-modules,
     ...
   } @ inputs: let
     lib = nixpkgs.lib // home-manager.lib;
-    # TODO remove when nixpkgs fish >= 4.2.0 tests pass on darwin
-    qutebrowser-overlay = import ./common/overlays/qutebrowser-macos-bundle-patch.nix;
     overlays = [
       inputs.agenix-rekey.overlays.default
       inputs.btsw.overlays.default
       nur.overlays.default
     ];
     system = "x86_64-linux";
-    darwinSystem = "aarch64-darwin";
     pkgs = import nixpkgs {
       config = {
         allowUnfree = true;
@@ -89,23 +75,6 @@
         ];
       };
       inherit overlays system;
-    };
-    darwin-pkgs = import nixpkgs {
-      system = darwinSystem;
-      config = {
-        allowUnfree = true;
-        permittedInsecurePackages = [
-          "electron-27.3.11"
-        ];
-      };
-      modules = [
-        (import ./common/overlays)
-      ];
-      overlays =
-        [
-          qutebrowser-overlay
-        ]
-        ++ overlays;
     };
 
     # Wrapper to handle the dynamic master key
@@ -134,7 +103,6 @@
   in {
     inherit lib;
     apps.${system}.rekey = mkRekeyApp system pkgs;
-    apps.${darwinSystem}.rekey = mkRekeyApp darwinSystem darwin-pkgs;
     homeConfigurations = {
       "adriano@zw" = lib.homeManagerConfiguration {
         inherit pkgs;
@@ -162,55 +130,6 @@
                 email = "code@adriano.fyi";
                 gpg-key-id = "8E8D7473B70F3860341DD171FEC90D2844EA9541";
                 ssh-public-key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s=";
-              };
-            };
-          }
-        ];
-      };
-      "adriano.caloiaro@JJTH7GH17J" = lib.homeManagerConfiguration {
-        pkgs = darwin-pkgs;
-        extraSpecialArgs = {
-          inherit
-            inputs
-            kitty-grab
-            agenix
-            darwinSystem
-            greenhouse-nix-modules
-            ;
-        };
-        modules = [
-          agenix.homeManagerModules.default
-          agenix-rekey.homeManagerModules.default
-          (import ./common/overlays)
-          ./common/rekey.nix
-          ./systems/greenhouse/home/adriano.caloiaro.nix
-          ./common/home-manager/code
-          {
-            code = {
-              jujutsu.enable = true;
-              git.enable = true;
-              user = {
-                name = "Adriano Caloiaro";
-                email = "adriano.caloiaro@greenhouse.io";
-                gpg-key-id = "8E8D7473B70F3860341DD171FEC90D2844EA9541";
-                ssh-public-key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINCARMVM8mwZBCFsnmr/hd0atFEj9oTOATzBajLGkS9V";
-              };
-            };
-          }
-          inputs.greenhouse-nix-modules.home-manager.${system}
-          rec {
-            enable = true;
-            username = "adriano.caloiaro";
-            nhFlakePath = "/Users/${username}/proj/nixos-system";
-            # I use my own SCM module, not the one from the greenhouse module
-            # That's why this one is disabled
-            scm = {
-              git.enable = false;
-              jujutsu.enable = false;
-            };
-            languages = {
-              ruby = {
-                enable = true;
               };
             };
           }
@@ -286,31 +205,9 @@
       };
     };
 
-    darwinConfigurations.JJTH7GH17J = nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      specialArgs = {inherit inputs;};
-
-      modules = [
-        default-browser.darwinModules.default-browser
-        agenix.darwinModules.default
-        agenix-rekey.nixosModules.default
-        ./common/rekey.nix
-        ./systems/greenhouse/configuration.nix
-        inputs.greenhouse-nix-modules.nix-darwin.${system}
-        inputs.home-manager.darwinModules.home-manager
-        {
-          home-manager.backupFileExtension = "backup";
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
-            inherit agenix;
-          };
-        }
-      ];
-    };
     agenix-rekey = inputs.agenix-rekey.configure {
       userFlake = self;
-      nixosConfigurations = self.nixosConfigurations // self.darwinConfigurations;
+      nixosConfigurations = self.nixosConfigurations;
       homeConfigurations = self.homeConfigurations;
     };
   };
