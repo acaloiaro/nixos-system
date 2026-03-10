@@ -567,16 +567,15 @@
     };
   };
 
+
   ai-agents = {
     enable = true;
     mcp = {
       context7 = {
         enable = true;
-        secretFile = config.age.secrets."opencode-context7-api-key".path;
+        patPath = config.age.secrets."opencode-context7-api-key".path;
       };
-      glean.enable = false;
-      atlassian.enable = false;
-      github.secretFile = config.age.secrets.opencode-github-mcp-pat.path;
+      github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
     };
   };
 

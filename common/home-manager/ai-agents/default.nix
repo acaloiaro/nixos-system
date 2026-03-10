@@ -1,28 +1,65 @@
-# Personal override layer for ai-agents (module definition comes from greenhouse-nix-modules).
-#
-# This file sets option values and adds personal skill sources / local skills
-# on top of the base ai-agents module.
 {
   config,
   lib,
+  pkgs,
   ...
-}: {
-  config = lib.mkIf config.ai-agents.enable {
-    # Personal skill sources (in addition to the defaults from greenhouse-nix-modules)
-    ai-agents.opencode.enable = true;
-    ai-agents.mcp.github.enable = true;
-    ai-agents.skillSources = [
-      {
-        name = "juan-skills";
-        url = "https://github.com/grnhse/nix-configs-jcmuller.git";
-        excludedSkills = ["jira-ticket-creation"];
-      }
-    ];
+}: let
+  cfg = config.ai-agents;
+in {
+  imports = [
+    ./opencode.nix
+    ./mcp.nix
+    ./lsp.nix
+    ./skills.nix
+  ];
 
-    # Deploy personal local skills (general-code-style, etc.)
-    xdg.configFile."skills/sources/personal" = {
-      source = ./skills;
-      recursive = true;
+  options.ai-agents = with lib;
+  with types; {
+    enable = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable the AI Agents module.";
+      example = lib.literalExpression ''
+        {
+          enable = true;
+          opencode.enable = false;
+          mcp = {
+            glean.enable = false;
+            atlassian.enable = false;
+          };
+        }
+      '';
+    };
+  };
+
+  config = lib.mkIf cfg.enable {
+    ai-agents.opencode.enable = lib.mkDefault true;
+
+    home = {
+      packages = with pkgs; [
+        uv # for uvx
+        nodejs
+      ];
+    };
+
+    programs = {
+      zsh.initContent = ''
+        # bash
+        ${lib.optionalString (cfg.mcp.github.patPath != null) ''
+          if [ -f "${cfg.mcp.github.patPath}" ]; then
+            export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat "${cfg.mcp.github.patPath}")
+          fi
+        ''}
+        ${lib.optionalString (cfg.mcp.context7.patPath != null) ''
+          if [ -f "${cfg.mcp.context7.patPath}" ]; then
+            export CONTEXT7_API_KEY=$(cat "${cfg.mcp.context7.patPath}")
+          fi
+        ''}
+      '';
+      claude-code = {
+        mcpServers = cfg.mcpServers;
+        enable = false;
+      };
     };
   };
 }
