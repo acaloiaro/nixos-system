@@ -212,6 +212,9 @@
         "RabbitHole" = {
           psk = "sunshine7";
         };
+        "MyOptimum c647cd" = {
+          psk = "8328-emerald-20";
+        };
       };
     };
 
