@@ -13,7 +13,6 @@ This repository manages the configuration for my personal and work infrastructur
 | Hostname | Type | Hardware | Description |
 |----------|------|----------|-------------|
 | **zw** | NixOS | IBM ThinkPad | Primary work laptop. Uses manual ZFS partitioning. |
-| **greenhouse** | macOS | MacBook Pro | Work machine (Hostname: `JJTH7GH17J`). Managed via `nix-darwin`. |
 | **homebee** | NixOS | Beelink Mini S12 | Home media server running Jellyfin. |
 | **jellybee** | NixOS | Beelink U59 Pro | Mobile media server (RV) running Jellyfin. Uses `disko` for partitioning. |
 
