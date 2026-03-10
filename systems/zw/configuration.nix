@@ -251,9 +251,6 @@
     programs.i3lock.enable = true;
     programs.i3lock.u2fSupport = true;
 
-    # Backlight/brightness control
-    programs.light.enable = true;
-
     # Fingerprint auth
     services.fprintd.enable = true;
 
