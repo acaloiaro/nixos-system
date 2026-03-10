@@ -43,7 +43,7 @@
     stateVersion = "23.05";
     sessionVariables = {
       "GO111MODULE" = "on";
-      "PATH" = "$PATH:/home/adriano/go/bin";
+      "PATH" = "$PATH:/home/adriano/go/bin:$HOME/.nix-profile/bin";
       "SHELL" = "/run/current-system/sw/bin/zsh";
     };
     username = "adriano";
