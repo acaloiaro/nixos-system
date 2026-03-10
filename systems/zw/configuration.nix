@@ -526,7 +526,7 @@
       mutableUsers = true;
       users.adriano = {
         isNormalUser = true;
-        extraGroups = ["wheel" "networkmanager" "docker"]; # Enable ‘sudo’ for the user.
+        extraGroups = ["wheel" "networkmanager" "docker" "wpa_supplicant"];
         password = "Iliketochangeitchangeit";
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
