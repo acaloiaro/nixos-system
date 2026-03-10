@@ -43,7 +43,8 @@
     stateVersion = "23.05";
     sessionVariables = {
       "GO111MODULE" = "on";
-      "PATH" = "$PATH:/home/adriano/go/bin:$HOME/.nix-profile/bin";
+      "PATH" = "$HOME/.local/bin:$PATH:/home/adriano/go/bin:$HOME/.nix-profile/bin";
+      "PINENTRY" = "${pkgs.pinentry-rofi}/bin/pinentry-rofi";
       "SHELL" = "/run/current-system/sw/bin/zsh";
     };
     username = "adriano";
@@ -52,9 +53,20 @@
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
     '';
     packages = with pkgs; [
+      age
       btsw
+      gnome-keyring
       nodePackages.prettier
       opencloud-desktop
+      pinentry-rofi
+      (symlinkJoin {
+        name = "pinentry-wrapper";
+        paths = [pinentry-rofi];
+        postBuild = ''
+          mkdir -p $out/bin
+          ln -s ${pinentry-rofi}/bin/pinentry-rofi $out/bin/pinentry
+        '';
+      })
       yazi
       zeal
       zsh
@@ -344,6 +356,13 @@
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     dotDir = config.home.homeDirectory;
+    initContent = lib.mkBefore ''
+      # Start gnome-keyring daemon if not already running (for i3/wm users)
+      if [ -z "$GNOME_KEYRING_CONTROL" ]; then
+        dbus-update-activation-environment --all
+        eval "$(gnome-keyring-daemon --start --components=secrets)"
+      fi
+    '';
     shellAliases = {
       addresses = "hx ~/KB/pages/Important\\ Addresses.md";
       ideas = "hx ~/KB/pages/Notes/ideas/";
@@ -390,7 +409,12 @@
     defaultCacheTtl = 60 * 60 * 24;
     defaultCacheTtlSsh = 60 * 60 * 24;
   };
+  services.gnome-keyring = {
+    enable = true;
+    components = ["pkcs11" "secrets"]; # secrets provides D-Bus Secret Service
+  };
 
+  xdg.autostart.enable = true; # Enable creation of XDG autostart entries.
   programs.firefox = {
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
