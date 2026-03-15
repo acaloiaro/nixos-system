@@ -8,6 +8,7 @@
 in {
   imports = [
     ./opencode.nix
+    ./claude.nix
     ./mcp.nix
     ./lsp.nix
     ./skills.nix
@@ -34,6 +35,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     ai-agents.opencode.enable = lib.mkDefault true;
+    ai-agents.claude-code.enable = lib.mkDefault true;
 
     home = {
       packages = with pkgs; [
@@ -61,5 +63,18 @@ in {
         enable = true;
       };
     };
+    programs.zsh.initContent = ''
+      # bash
+      ${lib.optionalString (cfg.mcp.github.patPath != null) ''
+        if [ -f "${cfg.mcp.github.patPath}" ]; then
+          export GITHUB_PERSONAL_ACCESS_TOKEN=$(cat "${cfg.mcp.github.patPath}")
+        fi
+      ''}
+      ${lib.optionalString (cfg.mcp.context7.patPath != null) ''
+        if [ -f "${cfg.mcp.context7.patPath}" ]; then
+          export CONTEXT7_API_KEY=$(cat "${cfg.mcp.context7.patPath}")
+        fi
+      ''}
+    '';
   };
 }

@@ -586,15 +586,17 @@
     };
   };
 
-
   ai-agents = {
     enable = true;
+    # claude-code.enable = true;
     mcp = {
       context7 = {
         enable = true;
         patPath = config.age.secrets."opencode-context7-api-key".path;
       };
       github.patPath = config.age.secrets.opencode-github-mcp-pat.path;
+      glean.enable = false;
+      atlassian.enable = false;
     };
   };
 
