@@ -341,7 +341,7 @@
       hide_window_decorations  yes
       titlebar-only            yes
       active_border_color      none
-      font_size                12.0
+      font_size                13.8
     '';
     shellIntegration.enableZshIntegration = true;
   };
@@ -601,7 +601,8 @@
   };
 
   programs.qutebrowser.settings = {
-    zoom.default = "120%";
+    fonts.default_size = lib.mkForce "18px";
+    zoom.default = "138%";
   };
 
   xdg = {
