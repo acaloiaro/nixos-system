@@ -98,6 +98,8 @@ in {
               # Vim-style tab navigation in tab mode
               "bind \"h\"" = {GoToPreviousTab = {};};
               "bind \"l\"" = {GoToNextTab = {};};
+              "bind \"H\"" = {MoveTab = "Left";};
+              "bind \"L\"" = {MoveTab = "Right";};
             };
           };
           themes = {
