@@ -51,6 +51,18 @@ in {
       default = {};
       description = "Additional settings to merge into the zellij configuration";
     };
+
+    defaultSessionName = mkOption {
+      type = types.str;
+      default = "default";
+      description = "Name of the session to create or attach to on shell startup";
+    };
+
+    defaultSessionLayout = mkOption {
+      type = types.nullOr types.lines;
+      default = null;
+      description = "KDL layout content for the default session. When set, this is written to ~/.config/zellij/layouts/<defaultSessionName>.kdl and used on session creation.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -213,10 +225,28 @@ in {
         // cfg.extraSettings;
     };
 
+    home.file = mkIf (cfg.defaultSessionLayout != null) {
+      ".config/zellij/layouts/${cfg.defaultSessionName}.kdl".text = cfg.defaultSessionLayout;
+    };
+
     programs.zsh = mkIf cfg.autoStart {
-      initContent = ''
-        eval "$(zellij setup --generate-auto-start zsh)"
-      '';
+      initContent =
+        if cfg.defaultSessionLayout != null
+        then ''
+          if [[ -z "$ZELLIJ" ]]; then
+            if zellij list-sessions 2>/dev/null | grep -q "^${cfg.defaultSessionName}$"; then
+              zellij attach ${cfg.defaultSessionName}
+            else
+              zellij -s ${cfg.defaultSessionName} -l ${cfg.defaultSessionName}
+            fi
+            if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+              exit
+            fi
+          fi
+        ''
+        else ''
+          eval "$(zellij setup --generate-auto-start zsh)"
+        '';
     };
   };
 }
