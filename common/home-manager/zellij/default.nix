@@ -237,7 +237,7 @@ in {
             if zellij list-sessions 2>/dev/null | grep -q "^${cfg.defaultSessionName}$"; then
               zellij attach ${cfg.defaultSessionName}
             else
-              zellij -s ${cfg.defaultSessionName} -l ${cfg.defaultSessionName}
+              zellij -s ${cfg.defaultSessionName} -n ${cfg.defaultSessionName}
             fi
             if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
               exit
