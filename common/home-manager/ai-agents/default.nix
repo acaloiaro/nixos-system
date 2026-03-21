@@ -58,7 +58,7 @@ in {
       '';
       claude-code = {
         mcpServers = cfg.mcpServers;
-        enable = false;
+        enable = true;
       };
     };
   };

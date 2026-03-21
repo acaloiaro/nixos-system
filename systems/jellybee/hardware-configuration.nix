@@ -17,7 +17,7 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
   boot.zfs = {
-    extraPools = ["storage" "opencloud"];
+    extraPools = ["storage"];
     forceImportRoot = true;
   };
 
