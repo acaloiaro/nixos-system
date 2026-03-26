@@ -237,7 +237,7 @@ in {
         then ''
           if [[ -z "$ZELLIJ" ]]; then
             if zellij list-sessions 2>/dev/null | grep -q "^${cfg.defaultSessionName}$"; then
-              zellij attach ${cfg.defaultSessionName}
+              zellij attach ${cfg.defaultSessionName} -f
             else
               zellij -s ${cfg.defaultSessionName} -n ${cfg.defaultSessionName}
             fi
