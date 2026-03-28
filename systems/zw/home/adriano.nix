@@ -375,6 +375,7 @@
       vi = "hx $*";
       vim = "hx $*";
       ncm-token = "${pkgs.gopass}/bin/gopass show ncm | grep Secret | awk '{print \$4}'";
+      nomad = "NOMAD_ADDR=http://ncm-4:4646 NOMAD_TOKEN=$(gopass show systems/ncm | grep \"Secret ID\" | awk '{print $4}') nomad $*";
     };
   };
 
