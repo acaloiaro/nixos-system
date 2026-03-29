@@ -121,41 +121,6 @@ in {
     # So we use custom launchd agents that call git directly
     systemd.user = lib.mkIf pkgs.stdenv.isLinux {
       # Git sync services for Linux using simple git commands
-      services.git-sync-anthropic-skills = {
-        Unit.Description = "Git sync for anthropic-skills";
-        Service = {
-          Type = "oneshot";
-          ExecStart = lib.getExe sync-anthropic-skills;
-        };
-      };
-
-      services.git-sync-humanizer = {
-        Unit.Description = "Git sync for humanizer";
-        Service = {
-          Type = "oneshot";
-          ExecStart = lib.getExe sync-humanizer;
-        };
-      };
-
-      # Timers for periodic sync
-      timers.git-sync-anthropic-skills = {
-        Unit.Description = "Git sync timer for anthropic-skills";
-        Timer = {
-          OnCalendar = "00:00"; # Midnight
-          Persistent = true;
-        };
-        Install.WantedBy = ["timers.target"];
-      };
-
-      timers.git-sync-humanizer = {
-        Unit.Description = "Git sync timer for humanizer";
-        Timer = {
-          OnCalendar = "00:00"; # Midnight
-          Persistent = true;
-        };
-        Install.WantedBy = ["timers.target"];
-      };
-
       services.ai-skills = {
         Unit.Description = "Collect ai skills from different sources";
         Service = {
@@ -167,26 +132,6 @@ in {
 
     launchd.agents = lib.mkIf pkgs.stdenv.isDarwin {
       # Git sync agents for macOS using simple git commands
-      git-sync-anthropic-skills = {
-        enable = true;
-        config = {
-          Label = "git-sync-anthropic-skills";
-          Program = lib.getExe sync-anthropic-skills;
-          StartInterval = 7200; # 2 hours in seconds
-          RunAtLoad = true;
-        };
-      };
-
-      git-sync-humanizer = {
-        enable = true;
-        config = {
-          Label = "git-sync-humanizer";
-          Program = lib.getExe sync-humanizer;
-          StartInterval = 7200; # 2 hours in seconds
-          RunAtLoad = true;
-        };
-      };
-
       git-sync-juan-skills = {
         enable = true;
         config = {
