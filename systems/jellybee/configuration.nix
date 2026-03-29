@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ./disko.nix
     ../../common/services/opencloud.nix
+    ../../common/services/rclone-webdav-sync.nix
     ../../common/services/silverbullet.nix
     ../../common/services/tailscale-serve.nix
   ];
@@ -59,6 +60,9 @@
       };
       opencloud_b2 = {
         rekeyFile = ./secrets/opencloud_b2.age;
+      };
+      opencloud_webdav_password = {
+        rekeyFile = ./secrets/opencloud_webdav_password.age;
       };
     };
   };
@@ -110,7 +114,7 @@
         remotePath = "";
       };
       interval = "daily";
-      bandwidthLimit = "250k"; # null = disabled
+      bandwidthLimit = "128k"; # null = disabled
       rcloneArgs = ["-v" "--progress" "-c" "--transfers" "1"];
     };
   };
