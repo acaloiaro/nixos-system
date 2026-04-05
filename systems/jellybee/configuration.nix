@@ -131,7 +131,7 @@
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale_key.path;
-      extraSetFlags = ["--advertise-exit-node"];
+      extraSetFlags = ["--advertise-exit-node" "--advertise-routes=192.168.100.0/24"];
     };
     jellyfin = {
       enable = true;
