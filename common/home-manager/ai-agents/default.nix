@@ -35,7 +35,6 @@ in {
 
   config = lib.mkIf cfg.enable {
     ai-agents.opencode.enable = lib.mkDefault true;
-    ai-agents.claude-code.enable = lib.mkDefault true;
 
     home = {
       packages = with pkgs; [
@@ -44,12 +43,6 @@ in {
       ];
     };
 
-    programs = {
-      claude-code = {
-        mcpServers = cfg.mcpServers;
-        enable = true;
-      };
-    };
     programs.zsh.initContent = ''
       # bash
       ${lib.optionalString (cfg.mcp.github.patPath != null) ''

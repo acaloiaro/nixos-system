@@ -345,6 +345,20 @@
     '';
     shellIntegration.enableZshIntegration = true;
   };
+  programs.lsp-mux = {
+    enable = true;
+
+    # Global settings (inherited by all profiles unless overridden).
+    logFile = "/tmp/lsp-mux.log";
+    logLevel = "info";
+    requestTimeout = "10s";
+    degradationThreshold = 3;
+
+    profiles = {
+      go.enable = true;
+      nix.enable = true;
+    };
+  };
 
   programs.direnv = {
     enable = true;
@@ -589,7 +603,33 @@
 
   ai-agents = {
     enable = true;
-    # claude-code.enable = true;
+    claude-code = {
+      enable = true;
+      marketplaces = {
+        lsp-mux = {
+          url = "https://git.sr.ht/~jcmuller/lsp-mux";
+        };
+      };
+      enabledPlugins = {
+        "lsp-mux-nix-nix@lsp-mux" = true;
+        "lsp-mux-go-nix@lsp-mux" = true;
+        "lsp-mux-python@lsp-mux" = true;
+      };
+      hooks = {
+        PostToolUse = [
+          {
+            matcher = "Bash";
+            "if" = "Bash(jj *)";
+            hooks = [
+              {
+                type = "command";
+                command = "ctxrl --hook";
+              }
+            ];
+          }
+        ];
+      };
+    };
     mcp = {
       context7 = {
         enable = true;

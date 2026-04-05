@@ -8,7 +8,7 @@
     url = "github:nix-community/home-manager";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-
+  inputs.lsp-mux.url = "sourcehut:~jcmuller/lsp-mux";
   inputs.disko = {
     url = "github:nix-community/disko";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -64,6 +64,7 @@
     overlays = [
       inputs.agenix-rekey.overlays.default
       inputs.btsw.overlays.default
+      inputs.lsp-mux.overlays.default
       nur.overlays.default
     ];
     system = "x86_64-linux";
@@ -120,6 +121,7 @@
         modules = [
           agenix.homeManagerModules.default
           agenix-rekey.homeManagerModules.default
+          inputs.lsp-mux.homeManagerModules.default
           ./common/rekey.nix
           (import ./common/overlays)
           ./systems/zw/home/adriano.nix
