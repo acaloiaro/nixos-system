@@ -266,8 +266,8 @@
         blocks = [
           {
             block = "custom";
-            command = "curl 'https://wttr.in/Revelstoke,BC?format=4&u' -s";
-            interval = 1200;
+            command = "curl -s https://jellybee.bison-lizard.ts.net/whereami | jq -r '\"\\(.conditions.emoji // \"\") \\(.conditions.label // \"\")  \\(.location.name // \"?\")\"'";
+            interval = 60;
           }
           {
             block = "time";
@@ -294,8 +294,8 @@
         blocks = [
           {
             block = "custom";
-            command = "sed 's/  //' <(curl 'https://wttr.in/St.%20George,UT?format=4&u' -s)";
-            interval = 1200;
+            command = "curl -s https://jellybee.bison-lizard.ts.net/whereami | jq -r '.weather | \"\\(.tempf // \"?\")°F  \\(.humidity // \"?\")%  💨 \\(.windspeedmph // \"?\")mph\"'";
+            interval = 60;
           }
           {
             block = "net";
