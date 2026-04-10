@@ -65,8 +65,6 @@ in {
         DynamicUser = true;
       };
     };
-    # tailscale0 is already a trusted interface so no firewall changes are needed
-    # for tailnet access; this only opens the port on non-tailscale interfaces.
-    networking.firewall.allowedTCPPorts = mkIf cfg.enable [];
+    networking.firewall.allowedTCPPorts = [ 22495 ];
   };
 }
