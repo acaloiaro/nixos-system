@@ -266,7 +266,7 @@
         blocks = [
           {
             block = "custom";
-            command = "curl -s https://jellybee.bison-lizard.ts.net/whereami | jq -r '\"\\(.conditions.emoji // \"\") \\(.conditions.label // \"\")  \\(.location.name // \"?\")\"'";
+            command = "curl -s https://jellybee.bison-lizard.ts.net/whereami | jq -r '\"\\(.conditions.emoji // \"\") \\(.conditions.label // \"\")  \\(.location.name // \"?\")  \\(.weather.tempf // \"?\")°F  \\(.weather.humidity // \"?\")%  💨 \\(.weather.windspeedmph // \"?\")mph\"'";
             interval = 60;
           }
           {
@@ -292,11 +292,6 @@
       };
       bottom = {
         blocks = [
-          {
-            block = "custom";
-            command = "curl -s https://jellybee.bison-lizard.ts.net/whereami | jq -r '.weather | \"\\(.tempf // \"?\")°F  \\(.humidity // \"?\")%  💨 \\(.windspeedmph // \"?\")mph\"'";
-            interval = 60;
-          }
           {
             block = "net";
             format = " {$signal_strength $ssid $frequency|} $device $icon  ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K)";
