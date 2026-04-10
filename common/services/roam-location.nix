@@ -65,6 +65,6 @@ in {
         DynamicUser = true;
       };
     };
-    networking.firewall.allowedTCPPorts = [];
+    networking.firewall.allowedTCPPorts = [ 22495 ];
   };
 }
