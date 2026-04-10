@@ -1010,11 +1010,11 @@
     "roam-location": {
       "flake": false,
       "locked": {
-        "lastModified": 1775794254,
-        "narHash": "sha256-70hSphykNlFKkee8yrff4C5uhLcL0MsSL0SWr1JYAMU=",
+        "lastModified": 1775794971,
+        "narHash": "sha256-7Rs6IiaMFe1P6jd6WAEIj9zAmmfWColk9dNe2ldxxNI=",
         "owner": "acaloiaro",
         "repo": "roam-location",
-        "rev": "895b4864a6ff5436537e1dd50910fa5043383cca",
+        "rev": "9acfe814c5ceb2f2bd8073b2e57d972b52d4641c",
         "type": "github"
       },
       "original": {
