@@ -610,19 +610,21 @@
         "lsp-mux-go-nix@lsp-mux" = true;
         "lsp-mux-python@lsp-mux" = true;
       };
-      hooks = {
-        PostToolUse = [
-          {
-            matcher = "Bash";
-            "if" = "Bash(jj *)";
-            hooks = [
-              {
-                type = "command";
-                command = "ctxrl --hook";
-              }
-            ];
-          }
-        ];
+      settings = {
+        hooks = {
+          PostToolUse = [
+            {
+              matcher = "Bash";
+              "if" = "Bash(jj *)";
+              hooks = [
+                {
+                  type = "command";
+                  command = "ctxrl --hook";
+                }
+              ];
+            }
+          ];
+        };
       };
     };
     mcp = {
