@@ -48,6 +48,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.roam-location = {
+    url = "github:acaloiaro/roam-location/starlink-location";
+    flake = false;
+  };
+
   outputs = {
     self,
     nixpkgs,

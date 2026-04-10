@@ -14,6 +14,7 @@
     ../../common/services/rclone-webdav-sync.nix
     ../../common/services/silverbullet.nix
     ../../common/services/tailscale-serve.nix
+    ../../common/services/roam-location.nix
   ];
 
   boot = {
@@ -83,6 +84,8 @@
     };
   };
 
+  my.services.roam-location.enable = true;
+
   my = {
     opencloud = {
       enable = true;
@@ -131,7 +134,7 @@
     tailscale = {
       enable = true;
       authKeyFile = config.age.secrets.tailscale_key.path;
-      extraSetFlags = ["--advertise-exit-node" "--advertise-routes=192.168.100.0/24"];
+      extraSetFlags = ["--advertise-exit-node"];
     };
     jellyfin = {
       enable = true;

@@ -1007,6 +1007,23 @@
         "type": "github"
       }
     },
+    "roam-location": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1775793807,
+        "narHash": "sha256-8ry52du60L6V7A9zbWFU+DUj5uEOrzcZQWI/xyI7DXQ=",
+        "owner": "acaloiaro",
+        "repo": "roam-location",
+        "rev": "7c55e15b9ba1ad97ecb79d0aab4338986f9afc07",
+        "type": "github"
+      },
+      "original": {
+        "owner": "acaloiaro",
+        "ref": "starlink-location",
+        "repo": "roam-location",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -1023,6 +1040,7 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_7",
         "nur": "nur",
+        "roam-location": "roam-location",
         "starship-jj": "starship-jj"
       }
     },
