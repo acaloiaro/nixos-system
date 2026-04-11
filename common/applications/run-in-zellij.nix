@@ -27,9 +27,35 @@
           exit 1
         fi
 
+        fifo=$(mktemp -u /tmp/run-in-zellij-XXXXXX)
+        mkfifo "$fifo"
+
+        inner=$(mktemp /tmp/run-in-zellij-inner-XXXXXX.sh)
+        chmod +x "$inner"
+
+        exitfile=$(mktemp /tmp/run-in-zellij-result-XXXXXX)
+        trap 'rm -f "$fifo" "$inner" "$exitfile"' EXIT
+
+        {
+          printf '#!/usr/bin/env bash\n'
+          printf '%q ' "$@"
+          printf '\n'
+          printf 'echo $? > %q\n' "$fifo"
+        } > "$inner"
+
+        # Read from fifo in background before launching zellij so the reader
+        # is ready whether zellij run blocks or not; write result to exitfile
+        # so it's accessible in the parent shell (subshell vars are not)
+        cat "$fifo" > "$exitfile" &
+        reader_pid=$!
+
         zellij run --floating --close-on-exit --name "run-in-zellij" \
           --width "$width" --height "$height" --x "$x" --y "$y" \
-          -- "$@"
+          -- bash "$inner"
+
+        wait "$reader_pid"
+        exit_code=$(cat "$exitfile")
+        exit "''${exit_code:-1}"
       '';
     })
   ];

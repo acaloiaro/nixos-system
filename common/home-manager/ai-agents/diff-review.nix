@@ -18,7 +18,7 @@ in {
       type = lib.types.str;
       default = "diff -u";
       description = "Diff command passed to the hook. Last two args are always original and proposed file paths. Store paths may be interpolated.";
-      example = "run-in-zellij -- difft";
+      example = "run-in-zellij -- difft-review";
     };
 
     context = lib.mkOption {
@@ -46,6 +46,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [
+      (pkgs.writeShellApplication {
+        name = "difft-review";
+        runtimeInputs = with pkgs; [difftastic];
+        text = ''
+          difft "$1" "$2"
+          printf "\nApprove? [y/N] "
+          read -r r < /dev/tty
+          [ "$r" = y ]
+        '';
+      })
+    ];
+
     xdg.configFile."claude-diff-review/config.json".text = builtins.toJSON {
       enabled = true;
       command = cfg.command;
