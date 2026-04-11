@@ -8,6 +8,7 @@
 }: {
   imports = [
     ../../../common/accounts/calendars.nix
+    ../../../common/applications/run-in-zellij.nix
     ../../../common/home-manager/ai-agents
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
@@ -604,27 +605,34 @@
         lsp-mux = {
           url = "https://git.sr.ht/~jcmuller/lsp-mux";
         };
+        jcmuller-plugins = {
+          url = "https://git.sr.ht/~jcmuller/claude-plugins";
+        };
       };
       enabledPlugins = {
         "lsp-mux-nix-nix@lsp-mux" = true;
         "lsp-mux-go-nix@lsp-mux" = true;
         "lsp-mux-python@lsp-mux" = true;
       };
+      diff-review = {
+        enable = true;
+        command = "run-in-zellij -- difft";
+      };
       settings = {
-        hooks = {
-          PostToolUse = [
-            {
-              matcher = "Bash";
-              "if" = "Bash(jj *)";
-              hooks = [
-                {
-                  type = "command";
-                  command = "ctxrl --hook";
-                }
-              ];
-            }
-          ];
-        };
+        # hooks = {
+        # PostToolUse = [
+        #   {
+        #     matcher = "Bash";
+        #     "if" = "Bash(jj *)";
+        #     hooks = [
+        #       {
+        #         type = "command";
+        #         command = "ctxrl --hook";
+        #       }
+        #     ];
+        #   }
+        # ];
+        # };
       };
     };
     mcp = {

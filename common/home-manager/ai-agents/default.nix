@@ -9,6 +9,7 @@ in {
   imports = [
     ./opencode.nix
     ./claude.nix
+    ./diff-review.nix
     ./mcp.nix
     ./lsp.nix
     ./skills.nix
