@@ -1,4 +1,6 @@
-{...}: {
+{pkgs, ...}: {
+  home.packages = [pkgs.difftastic];
+
   programs.helix = {
     enable = true;
     defaultEditor = true;

@@ -78,10 +78,6 @@
         source = ./gopass;
         recursive = true;
       };
-      ".config/helix" = {
-        source = ./helix;
-        recursive = true;
-      };
       ".config/nix" = {
         source = ./nix;
         recursive = true;
@@ -616,7 +612,7 @@
       };
       diff-review = {
         enable = true;
-        command = "run-in-zellij -- difft";
+        command = "run-in-zellij -- difft-review";
       };
       settings = {
         # hooks = {
