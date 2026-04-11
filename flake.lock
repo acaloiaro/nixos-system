@@ -1010,16 +1010,18 @@
     "roam-location": {
       "flake": false,
       "locked": {
-        "lastModified": 1775825296,
-        "narHash": "sha256-EH+JWLgrAt5jZDwteX0m3CmHYOxFf9sKmDPUDso4OaI=",
+        "lastModified": 1775832350,
+        "narHash": "sha256-AUFLkP1Xb4uJ2e6Asa226mFudreiX3PTaELdbJ6Ow0g=",
+        "lastModified": 1775932944,
+        "narHash": "sha256-sBW/p4+dtEHKXYpvZufYDxcxv7hXmzqRLmP3BEuHNOo=",
         "owner": "acaloiaro",
         "repo": "roam-location",
-        "rev": "3e4a26e6d002f03627c6d895a799af6bd9333e14",
+        "rev": "2aa59c57b07c6d85de50e753f57b4f9f810f6ff0",
+        "rev": "5dae01b00f60bc42b5afae50679a7eba63f10ffa",
         "type": "github"
       },
       "original": {
         "owner": "acaloiaro",
-        "ref": "starlink-location",
         "repo": "roam-location",
         "type": "github"
       }

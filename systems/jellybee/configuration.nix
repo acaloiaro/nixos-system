@@ -84,7 +84,14 @@
     };
   };
 
-  my.services.roam-location.enable = true;
+  my.services.roam-location = {
+    enable = true;
+    webdav = {
+      url = "https://oc.adriano.fyi/remote.php/dav/spaces/83a99993-00a1-444a-aa64-dbb3ba57660b$a1baa040-cba8-4118-ba06-46277c732f60/Data/location";
+      user = "adriano";
+      passwordFile = config.age.secrets.opencloud_webdav_password.path;
+    };
+  };
 
   my = {
     opencloud = {

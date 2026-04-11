@@ -49,7 +49,7 @@
   };
 
   inputs.roam-location = {
-    url = "github:acaloiaro/roam-location/starlink-location";
+    url = "github:acaloiaro/roam-location";
     flake = false;
   };
 
