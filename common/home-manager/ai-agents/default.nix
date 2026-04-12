@@ -7,7 +7,6 @@
   cfg = config.ai-agents;
 in {
   imports = [
-    ./opencode.nix
     ./claude.nix
     ./diff-review.nix
     ./mcp.nix
@@ -24,7 +23,6 @@ in {
       example = lib.literalExpression ''
         {
           enable = true;
-          opencode.enable = false;
           mcp = {
             glean.enable = false;
             atlassian.enable = false;
@@ -35,8 +33,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    ai-agents.opencode.enable = lib.mkDefault true;
-
     home = {
       packages = with pkgs; [
         uv # for uvx

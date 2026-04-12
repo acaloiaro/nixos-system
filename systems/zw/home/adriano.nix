@@ -613,6 +613,7 @@
       diff-review = {
         enable = true;
         command = "run-in-zellij -- difft-review";
+        decision = "exit-code";
       };
       settings = {
         # hooks = {

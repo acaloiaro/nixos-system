@@ -231,6 +231,7 @@ fi
 
 # --- Launch diff tool ---
 
+hook_json=""
 read -ra cmd_parts <<<"$diff_cmd"
 
 # Vim-family: lock left pane read-only, focus right pane
@@ -260,7 +261,12 @@ tmux-split)
 	tmux split-window -h -c "$file_dir" -- "${cmd_parts[@]}" "$display_path" "$proposed_path" || diff_exit=$?
 	;;
 direct | *)
-	(cd "$file_dir" && "${cmd_parts[@]}" "$display_path" "$proposed_path") || diff_exit=$?
+	if [[ "$effective_decision" == "hook-output" ]]; then
+		# Capture stdout as the hook JSON response; visual output goes to the terminal via the runner
+		hook_json=$(cd "$file_dir" && "${cmd_parts[@]}" "$display_path" "$proposed_path") || diff_exit=$?
+	else
+		(cd "$file_dir" && "${cmd_parts[@]}" "$display_path" "$proposed_path") || diff_exit=$?
+	fi
 	;;
 esac
 
@@ -313,7 +319,19 @@ content_changed() {
 	! cmp -s "$proposed_path" "$proposed_backup"
 }
 
-if [[ "$effective_decision" == "ask" ]]; then
+if [[ "$effective_decision" == "hook-output" ]]; then
+	if [[ -n "${hook_json:-}" ]]; then
+		echo "$hook_json"
+	else
+		jq -n '{
+      hookSpecificOutput: {
+        hookEventName: "PreToolUse",
+        permissionDecision: "deny",
+        permissionDecisionReason: "Diff review produced no output"
+      }
+    }'
+	fi
+elif [[ "$effective_decision" == "ask" ]]; then
 	if content_changed; then
 		emit_updated_input "$proposed_path"
 	else

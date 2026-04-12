@@ -34,13 +34,14 @@ in {
     };
 
     decision = lib.mkOption {
-      type = lib.types.enum ["auto" "exit-code" "ask"];
+      type = lib.types.enum ["auto" "exit-code" "ask" "hook-output"];
       default = "exit-code";
       description = ''
         How the hook determines allow/deny after the diff tool exits.
         exit-code: non-zero exit rejects (works with vim-family, helix, and custom wrappers).
         ask: always prompt the user regardless of exit code.
         auto: exit-code for terminal tools, ask for GUI tools.
+        hook-output: the diff command emits the hook JSON decision to stdout (e.g. run-in-zellij --emit-hook-json).
       '';
     };
   };
