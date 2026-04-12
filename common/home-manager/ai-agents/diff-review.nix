@@ -50,9 +50,9 @@ in {
     home.packages = [
       (pkgs.writeShellApplication {
         name = "difft-review";
-        runtimeInputs = with pkgs; [difftastic];
+        runtimeInputs = with pkgs; [sdiff];
         text = ''
-          difft "$1" "$2"
+          sdiff "$1" "$2"
           printf "\nApprove? [y/N] "
           read -r r < /dev/tty
           [ "$r" = y ]

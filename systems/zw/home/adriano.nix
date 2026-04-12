@@ -56,6 +56,7 @@
     packages = with pkgs; [
       age
       btsw
+      sdiff
       gnome-keyring
       prettier
       opencloud-desktop

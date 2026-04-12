@@ -43,6 +43,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.sdiff = {
+    url = "git+https://tangled.org/adriano.tngl.sh/sdiff";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.starship-jj = {
     url = "gitlab:lanastara_foss/starship-jj";
     inputs.nixpkgs.follows = "nixpkgs";
@@ -70,6 +75,7 @@
       inputs.agenix-rekey.overlays.default
       inputs.btsw.overlays.default
       inputs.lsp-mux.overlays.default
+      (final: _prev: { sdiff = inputs.sdiff.packages.${system}.default; })
       nur.overlays.default
     ];
     system = "x86_64-linux";

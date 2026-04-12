@@ -408,6 +408,24 @@
         "type": "github"
       }
     },
+    "flake-parts_7": {
+      "inputs": {
+        "nixpkgs-lib": "nixpkgs-lib_4"
+      },
+      "locked": {
+        "lastModified": 1775087534,
+        "narHash": "sha256-91qqW8lhL7TLwgQWijoGBbiD4t7/q75KTi8NxjVmSmA=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "3107b77cd68437b9a76194f0f7f9c55f2329ca5b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
     "flake-utils": {
       "inputs": {
         "systems": [
@@ -841,6 +859,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-lib_4": {
+      "locked": {
+        "lastModified": 1774748309,
+        "narHash": "sha256-+U7gF3qxzwD5TZuANzZPeJTZRHS29OFQgkQ2kiTJBIQ=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "333c4e0545a6da976206c74db8773a1645b5870a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
     "nixpkgs-regression": {
       "locked": {
         "lastModified": 1643052045,
@@ -1040,6 +1073,7 @@
         "nixpkgs": "nixpkgs_7",
         "nur": "nur",
         "roam-location": "roam-location",
+        "sdiff": "sdiff",
         "starship-jj": "starship-jj"
       }
     },
@@ -1100,6 +1134,27 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "sdiff": {
+      "inputs": {
+        "flake-parts": "flake-parts_7",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1776043315,
+        "narHash": "sha256-QNS8MSU66tG5/CMnOVtXseo4Au2jM+vXyr38YHuBzSs=",
+        "ref": "refs/heads/main",
+        "rev": "860b11dab5fe24c1f7b75b13054e77379c968ff7",
+        "revCount": 5,
+        "type": "git",
+        "url": "https://tangled.org/adriano.tngl.sh/sdiff"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://tangled.org/adriano.tngl.sh/sdiff"
       }
     },
     "starship-jj": {
