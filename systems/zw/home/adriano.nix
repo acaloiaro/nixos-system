@@ -56,7 +56,7 @@
     packages = with pkgs; [
       age
       btsw
-      sdiff
+      hookable
       gnome-keyring
       prettier
       opencloud-desktop
@@ -611,12 +611,21 @@
         "lsp-mux-go-nix@lsp-mux" = true;
         "lsp-mux-python@lsp-mux" = true;
       };
-      diff-review = {
-        enable = true;
-        command = "run-in-zellij -- difft-review";
-        decision = "exit-code";
-      };
       settings = {
+        hooks = {
+          PreToolUse = [
+            {
+              matcher = "Edit|Write";
+              hooks = [
+                {
+                  type = "command";
+                  command = "run-in-zellij -- hookable --interactive --no-exit-code --cmd '${lib.getExe pkgs.adiff} -i'";
+                }
+              ];
+            }
+          ];
+        };
+
         # hooks = {
         # PostToolUse = [
         #   {
