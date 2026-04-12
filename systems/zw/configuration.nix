@@ -566,7 +566,7 @@
           ltex-ls
           chatgpt-cli
           git
-          go_1_24
+          go
           gopls
           golangci-lint-langserver
           golangci-lint
@@ -578,7 +578,7 @@
           nix-index
           ncdu
           nodejs
-          nodePackages.typescript-language-server
+          typescript-language-server
           nomad_1_9
           nil # nix lsp
           nushell

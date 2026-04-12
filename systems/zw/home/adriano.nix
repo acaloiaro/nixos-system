@@ -57,7 +57,7 @@
       age
       btsw
       gnome-keyring
-      nodePackages.prettier
+      prettier
       opencloud-desktop
       pinentry-rofi
       (symlinkJoin {
