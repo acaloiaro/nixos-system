@@ -86,6 +86,7 @@ in {
               "bind \"Alt j\"" = {MoveFocus = "Down";};
               "bind \"Alt k\"" = {MoveFocus = "Up";};
               "bind \"Alt l\"" = {MoveFocusOrTab = "Right";};
+              "bind \"Ctrl m\"" = {SwitchToMode = "Move";};
             };
             pane = {
               # Vim-style pane navigation in pane mode
