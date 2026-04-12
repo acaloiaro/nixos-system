@@ -105,6 +105,14 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
+      wireplumber.extraConfig."51-bluez-config" = {
+        "monitor.bluez.properties" = {
+          "bluez5.enable-sbc-xq" = true;
+          "bluez5.enable-msbc" = true;
+          "bluez5.enable-hw-volume" = true;
+          "bluez5.codecs" = ["ldac" "aptx_hd" "aptx" "aac" "sbc_xq" "sbc"];
+        };
+      };
     };
 
     nix = {
@@ -356,12 +364,12 @@
         {
           keys = [114];
           events = ["key"];
-          command = "/run/current-system/sw/bin/runuser -l adriano -c 'amixer -q set Master 5%- unmute'";
+          command = "/run/current-system/sw/bin/runuser -l adriano -c 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-'";
         }
         {
           keys = [115];
           events = ["key"];
-          command = "/run/current-system/sw/bin/runuser -l adriano -c 'amixer -q set Master 5%+ unmute'";
+          command = "/run/current-system/sw/bin/runuser -l adriano -c 'wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+'";
         }
       ];
     };

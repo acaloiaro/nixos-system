@@ -203,9 +203,9 @@
         "Cancel" = "exec playerctl stop";
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioPause" = "exec playerctl play-pause";
-        "XF86AudioMute" = "exec amixer set Master toggle";
-        "XF86AudioLowerVolume" = "exec amixer set Master 4%-";
-        "XF86AudioRaiseVolume" = "exec amixer set Master 4%+";
+        "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+        "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 4%-";
+        "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 4%+";
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
         "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty --shell /run/current-system/sw/bin/zsh";
