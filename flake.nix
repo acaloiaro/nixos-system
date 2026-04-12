@@ -43,8 +43,13 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  inputs.sdiff = {
-    url = "git+https://tangled.org/adriano.tngl.sh/sdiff";
+  inputs.adiff = {
+    url = "git+https://tangled.org/adriano.tngl.sh/adiff";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  inputs.hookable = {
+    url = "git+https://tangled.org/adriano.tngl.sh/hookable";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -74,8 +79,9 @@
     overlays = [
       inputs.agenix-rekey.overlays.default
       inputs.btsw.overlays.default
+      inputs.hookable.overlays.default
       inputs.lsp-mux.overlays.default
-      (final: _prev: { sdiff = inputs.sdiff.packages.${system}.default; })
+      inputs.adiff.overlays.default
       nur.overlays.default
     ];
     system = "x86_64-linux";
