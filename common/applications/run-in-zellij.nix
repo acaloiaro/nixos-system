@@ -37,8 +37,12 @@
         chmod +x "$inner"
         trap 'rm -f "$fifo" "$inner" "$exitfile" "$outfile" "$stdinfile"' EXIT
 
-        # Capture stdin before zellij takes over the terminal
-        cat > "$stdinfile"
+        # Capture stdin before zellij takes over the terminal.
+        # Skip when stdin is a TTY — cat would block waiting for EOF
+        # that never arrives from an interactive keyboard.
+        if [[ ! -t 0 ]]; then
+          cat > "$stdinfile"
+        fi
 
         # Inner script: run the command, capturing output, then signal exit code via the fifo.
         # The fifo write blocks until the parent's background reader consumes it,
