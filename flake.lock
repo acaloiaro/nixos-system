@@ -8,17 +8,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1776632594,
-        "narHash": "sha256-wTK3q2Dr8K8TgYjBTBh+9SKBdKsrx+orIMu+k0AyBfw=",
-        "ref": "refs/heads/main",
-        "rev": "ce614fe094759c524a1f74be47aabb6aedc27df5",
-        "revCount": 10,
-        "type": "git",
-        "url": "https://tangled.org/adriano.tngl.sh/adiff"
+        "narHash": "sha256-J8HfxJ41JVTZ1zIQFOXJDZLwSP4gURjulZwYMYPZnBE=",
+        "type": "tarball",
+        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/1d9e769676fdff95c9bf36f9d179ff8b1824b539.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://tangled.org/adriano.tngl.sh/adiff"
+        "type": "tarball",
+        "url": "https://flakes.adriano.fyi/adiff"
       }
     },
     "agenix": {
@@ -715,17 +711,13 @@
         ]
       },
       "locked": {
-        "lastModified": 1776632343,
         "narHash": "sha256-otZiyB9U+b3FeWR76CrQ4KEZwOuwKLhFsP2778YT7TQ=",
-        "ref": "refs/heads/main",
-        "rev": "cfbc5096339949c68cb0bee45796302e06ac8109",
-        "revCount": 2,
-        "type": "git",
-        "url": "https://tangled.org/adriano.tngl.sh/hookable"
+        "type": "tarball",
+        "url": "https://tangled.org/did:plc:my5qvasrclwe2gtquvyodfxr/archive/57d41dde76c49aad7bc92c7c6dda76b20b4301d6.tar.gz"
       },
       "original": {
-        "type": "git",
-        "url": "https://tangled.org/adriano.tngl.sh/hookable"
+        "type": "tarball",
+        "url": "https://flakes.adriano.fyi/hookable"
       }
     },
     "kitty-grab": {

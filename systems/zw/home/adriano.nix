@@ -54,6 +54,7 @@
       ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
     '';
     packages = with pkgs; [
+      adiff
       age
       btsw
       hookable

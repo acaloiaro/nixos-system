@@ -44,12 +44,12 @@
   };
 
   inputs.adiff = {
-    url = "git+https://tangled.org/adriano.tngl.sh/adiff";
+    url = "https://flakes.adriano.fyi/adiff";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
   inputs.hookable = {
-    url = "git+https://tangled.org/adriano.tngl.sh/hookable";
+    url = "https://flakes.adriano.fyi/hookable";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
