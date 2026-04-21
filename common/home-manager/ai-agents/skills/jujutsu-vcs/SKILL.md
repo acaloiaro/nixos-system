@@ -20,6 +20,30 @@ Use jujutsu exclusively. NEVER use git commands.
 - Working copy is automatically snapshotted (no staging area)
 - Changes are immutable; rewriting creates new change IDs
 
+## Interactive Commands
+
+Some jj subcommands require a TTY — they open `$EDITOR`, a TUI diff selector, or a merge tool. Run these inside a floating zellij pane with `run-in-zellij`, otherwise they will fail or hang:
+
+```bash
+run-in-zellij -- <interactive jj command>
+```
+
+Interactive commands that require `run-in-zellij`:
+
+- `jj describe` (without `-m`) — opens `$EDITOR` for the change description
+- `jj commit` (without `-m`) — opens `$EDITOR` for the change description
+- `jj split` — opens the interactive diff selector
+- `jj split -i` / `jj split --interactive` — interactive diff selector
+- `jj squash -i` / `jj squash --interactive` — interactive diff selector
+- `jj restore -i` / `jj restore --interactive` — interactive diff selector
+- `jj diffedit` — opens the configured diff editor
+- `jj resolve` — opens the configured merge tool for conflicts
+- `jj config edit` — opens `$EDITOR` for the config file
+- `jj diff --tool difft` (and other TUI diff tools) — interactive pager/viewer
+- `jj log` with a TUI pager (`less`, `delta --paging=always`, etc.) when output is long
+
+Non-interactive alternative: whenever you already know the description, pass `-m "msg"` to `jj describe`/`jj commit` so no editor is needed and `run-in-zellij` can be skipped.
+
 ## Common Workflows
 
 ### Make Changes and Push
