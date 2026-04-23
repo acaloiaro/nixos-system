@@ -2,7 +2,7 @@
   home.packages = [
     (pkgs.writeShellApplication {
       name = "run-in-zellij";
-      runtimeInputs = with pkgs; [zellij];
+      runtimeInputs = with pkgs; [zellij jq];
       text = ''
         # Usage: run-in-zellij [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]
 
@@ -25,6 +25,23 @@
         if [[ $# -lt 1 ]]; then
           echo "Usage: run-in-zellij [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]" >&2
           exit 1
+        fi
+
+        # Pin the floating pane to the caller's tab. Without --tab-id,
+        # zellij attaches it to whichever tab the user is currently viewing,
+        # which hijacks their focus when background agents trigger us.
+        tab_id_args=()
+        if [[ -n "''${ZELLIJ:-}" && -n "''${ZELLIJ_PANE_ID:-}" ]]; then
+          caller_tab_id=$(
+            zellij action list-panes --json --tab 2>/dev/null \
+              | jq -r --argjson pid "$ZELLIJ_PANE_ID" \
+                  'map(select(.id == $pid and (.is_plugin | not))) | .[0].tab_id // empty'
+          )
+          if [[ -n "$caller_tab_id" ]]; then
+            tab_id_args=(--tab-id "$caller_tab_id")
+          else
+            echo "run-in-zellij: could not resolve tab for pane $ZELLIJ_PANE_ID; floating pane may open on the active tab" >&2
+          fi
         fi
 
         fifo=$(mktemp -u /tmp/run-in-zellij-XXXXXX)
@@ -62,6 +79,7 @@
 
         zellij run --floating --close-on-exit --name "run-in-zellij" \
           --width "$width" --height "$height" --x "$x" --y "$y" \
+          "''${tab_id_args[@]}" \
           -- bash "$inner" > /dev/null
 
         # Block until the inner script has written the exit code via the fifo.
