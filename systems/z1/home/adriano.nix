@@ -208,6 +208,7 @@
     userEmail = "code@adriano.fyi";
 
     signing = {
+      format = "openpgp";
       key = "C2BC56DE73CE3F75!";
       signByDefault = true;
     };
@@ -347,6 +348,7 @@
   };
 
   programs.firefox = {
+    configPath = ".mozilla/firefox";
     enable = true;
     package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
       extraPolicies = {

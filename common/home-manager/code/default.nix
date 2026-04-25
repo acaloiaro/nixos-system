@@ -85,6 +85,7 @@ with lib; {
         };
 
         signing = {
+          format = null;
           key = config.code.user.ssh-public-key;
           signByDefault = true;
         };

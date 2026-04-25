@@ -275,6 +275,7 @@
       nix-direnv.enable = true;
     };
     firefox = {
+      configPath = ".mozilla/firefox";
       enable = true;
       package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
         extraPolicies = {
