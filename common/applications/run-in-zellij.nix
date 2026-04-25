@@ -3,6 +3,7 @@
     (pkgs.writeShellApplication {
       name = "run-in-zellij";
       runtimeInputs = with pkgs; [zellij jq];
+      excludeShellChecks = ["SC2016"];
       text = ''
         # Usage: run-in-zellij [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]
 
@@ -66,9 +67,14 @@
         # which is what prevents --close-on-exit from racing ahead.
         {
           printf '#!/usr/bin/env bash\n'
+          # Only shadow the pane's keyboard stdin when there is real piped data;
+          # redirecting an empty file blocks y/n and other interactive prompts.
+          printf '[[ -s %q ]] && exec 0< %q\n' "$stdinfile" "$stdinfile"
           printf '%q ' "$@"
-          printf '< %q > %q 2>&1\n' "$stdinfile" "$outfile"
-          printf 'echo $? > %q\n' "$fifo"
+          # tee: show output in the pane so the user can see prompts, and also
+          # capture it to outfile for the caller.
+          printf '2>&1 | tee %q\n' "$outfile"
+          printf 'echo "''${PIPESTATUS[0]}" > %q\n' "$fifo"
         } > "$inner"
 
         # Start the fifo reader before launching zellij so it is ready
