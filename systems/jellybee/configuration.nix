@@ -84,15 +84,6 @@
     };
   };
 
-  my.services.roam-location = {
-    enable = true;
-    webdav = {
-      url = "https://oc.adriano.fyi/remote.php/dav/spaces/83a99993-00a1-444a-aa64-dbb3ba57660b$a1baa040-cba8-4118-ba06-46277c732f60/Data/location";
-      user = "adriano";
-      passwordFile = config.age.secrets.opencloud_webdav_password.path;
-    };
-  };
-
   my = {
     opencloud = {
       enable = true;
@@ -104,28 +95,38 @@
         credentialsFile = config.age.secrets.opencloud_b2.path;
       };
     };
-    services.silverbullet = {
-      enable = true;
-      dataDir = "/mnt/opencloud/adriano/silverbullet";
-      webdav = {
+    services = {
+      roam-location = {
         enable = true;
-        url = "https://jellybee.bison-lizard.ts.net:9200/remote.php/dav/spaces/094a577f-1bfd-483e-ae2a-d277cb24bb11$baa79013-0ccf-4ab1-ad5c-45299685c50f"; # Adriano's 'Personal'
-        mountPoint = "/mnt/opencloud";
+        webdav = {
+          url = "https://oc.adriano.fyi/remote.php/dav/spaces/83a99993-00a1-444a-aa64-dbb3ba57660b$a1baa040-cba8-4118-ba06-46277c732f60/Data/location";
+          user = "adriano";
+          passwordFile = config.age.secrets.opencloud_webdav_password.path;
+        };
       };
-    };
-    services.rclone-webdav-sync = {
-      enable = true;
-      sourcePath = "/storage";
-      webdav = {
-        url = "https://oc.adriano.fyi/remote.php/dav/spaces/83a99993-00a1-444a-aa64-dbb3ba57660b$a1baa040-cba8-4118-ba06-46277c732f60/Media/jellybee";
-        user = "adriano";
-        passwordFile = config.age.secrets.opencloud_webdav_password.path;
-        vendor = "other";
-        remotePath = "";
+      silverbullet = {
+        enable = true;
+        dataDir = "/mnt/opencloud/adriano/silverbullet";
+        webdav = {
+          enable = true;
+          url = "https://jellybee.bison-lizard.ts.net:9200/remote.php/dav/spaces/094a577f-1bfd-483e-ae2a-d277cb24bb11$baa79013-0ccf-4ab1-ad5c-45299685c50f"; # Adriano's 'Personal'
+          mountPoint = "/mnt/opencloud";
+        };
       };
-      interval = "daily";
-      bandwidthLimit = "128k"; # null = disabled
-      rcloneArgs = ["-v" "--progress" "-c" "--transfers" "1"];
+      rclone-webdav-sync = {
+        enable = true;
+        sourcePath = "/storage";
+        webdav = {
+          url = "https://oc.adriano.fyi/remote.php/dav/spaces/83a99993-00a1-444a-aa64-dbb3ba57660b$a1baa040-cba8-4118-ba06-46277c732f60/Media/jellybee";
+          user = "adriano";
+          passwordFile = config.age.secrets.opencloud_webdav_password.path;
+          vendor = "other";
+          remotePath = "";
+        };
+        interval = "daily";
+        bandwidthLimit = "128k"; # null = disabled
+        rcloneArgs = ["-v" "--progress" "-c" "--transfers" "1"];
+      };
     };
   };
   nixpkgs.config.allowUnfree = true;
@@ -134,6 +135,12 @@
   i18n.defaultLocale = "en_US.UTF-8";
 
   services = {
+    gpsd = {
+      enable = true;
+      devices = ["/dev/ttyACM0"];
+      readonly = false;
+    };
+
     adguardhome.enable = true;
     displayManager = {
       defaultSession = "none+i3";
@@ -219,6 +226,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    gpsd
     helix
     jq
     kitty
