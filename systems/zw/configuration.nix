@@ -354,12 +354,12 @@
         {
           keys = [225];
           events = ["key"];
-          command = "/run/current-system/sw/bin/light -A 10";
+          command = "/run/current-system/sw/bin/brightnessctl set 10%+";
         }
         {
           keys = [224];
           events = ["key"];
-          command = "/run/current-system/sw/bin/light -U 10";
+          command = "/run/current-system/sw/bin/brightnessctl set 10%-";
         }
         {
           keys = [114];
@@ -537,7 +537,7 @@
       mutableUsers = true;
       users.adriano = {
         isNormalUser = true;
-        extraGroups = ["wheel" "networkmanager" "docker" "wpa_supplicant"];
+        extraGroups = ["wheel" "networkmanager" "docker" "wpa_supplicant" "video"];
         password = "Iliketochangeitchangeit";
         shell = pkgs.zsh;
         openssh.authorizedKeys.keys = [
@@ -550,6 +550,7 @@
           alejandra
           alsa-utils
           beeper
+          brightnessctl
           clipmenu
           ctags
           dante
