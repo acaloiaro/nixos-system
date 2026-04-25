@@ -8,7 +8,10 @@
     url = "github:nix-community/home-manager";
     inputs.nixpkgs.follows = "nixpkgs";
   };
-  inputs.lsp-mux.url = "sourcehut:~jcmuller/lsp-mux";
+  inputs.lsp-mux = {
+    url = "sourcehut:~jcmuller/lsp-mux";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
   inputs.disko = {
     url = "github:nix-community/disko";
     inputs.nixpkgs.follows = "nixpkgs";
