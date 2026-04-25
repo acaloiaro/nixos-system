@@ -103,52 +103,6 @@
   };
 
   ai-agents = {
-    claude-code = {
-      enable = true;
-      enabledPlugins = {
-        "lsp-mux-go-nix@lsp-mux" = true;
-        "lsp-mux-nix-nix@lsp-mux" = true;
-        "lsp-mux-python@lsp-mux" = true;
-      };
-      marketplaces = {
-        jcmuller-plugins = {
-          url = "https://git.sr.ht/~jcmuller/claude-plugins";
-        };
-        lsp-mux = {
-          url = "https://git.sr.ht/~jcmuller/lsp-mux";
-        };
-      };
-      settings = {
-        hooks = {
-          PreToolUse = [
-            {
-              matcher = "Edit|Write";
-              hooks = [
-                {
-                  type = "command";
-                  command = "run-in-zellij -- hookable --interactive --no-exit-code --cmd '${lib.getExe pkgs.adiff} -i'";
-                }
-              ];
-            }
-          ];
-        };
-
-        # hooks = {
-        # PostToolUse = [
-        #   {
-        #     matcher = "Bash";
-        #     "if" = "Bash(jj *)";
-        #     hooks = [
-        #       {
-        #         type = "command";
-        #         command = "ctxrl --hook";
-        #       }
-        #     ];
-        #   }
-        # ];
-        # };
-      };
-    };
     enable = true;
     mcp = {
       atlassian.enable = false;
@@ -281,6 +235,40 @@
     };
     chawan = {
       enable = true;
+    };
+    claude-code = {
+      enable = true;
+      settings = {
+        hooks = {
+          PreToolUse = [
+            {
+              matcher = "Edit|Write";
+              hooks = [
+                {
+                  type = "command";
+                  command = "run-in-zellij -- hookable --interactive --no-exit-code --cmd '${lib.getExe pkgs.adiff} -i'";
+                }
+              ];
+            }
+          ];
+        };
+        extraKnownMarketplaces = {
+          jcmuller-plugins.source = {
+            source = "git";
+            url = "https://git.sr.ht/~jcmuller/claude-plugins";
+          };
+          lsp-mux.source = {
+            source = "git";
+            url = "https://git.sr.ht/~jcmuller/lsp-mux";
+          };
+        };
+        enabledPlugins = {
+          "lsp-mux-go-nix@lsp-mux" = true;
+          "lsp-mux-nix-nix@lsp-mux" = true;
+          "lsp-mux-python@lsp-mux" = true;
+        };
+        mcpServers = config.ai-agents.mcpServers;
+      };
     };
     direnv = {
       enable = true;

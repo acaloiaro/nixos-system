@@ -7,7 +7,6 @@
   cfg = config.ai-agents;
 in {
   imports = [
-    ./claude.nix
     ./mcp.nix
     ./lsp.nix
     ./skills.nix

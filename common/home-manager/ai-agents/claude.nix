@@ -98,8 +98,9 @@ in {
   config = lib.mkIf cfg.enable {
     programs.claude-code = {
       enable = true;
-      mcpServers = config.ai-agents.mcpServers;
-      settings = cfg.settings // lib.optionalAttrs (cfg.marketplaces != {}) {
+      settings = cfg.settings // lib.optionalAttrs (config.ai-agents.mcpServers != {}) {
+        mcpServers = config.ai-agents.mcpServers;
+      } // lib.optionalAttrs (cfg.marketplaces != {}) {
         extraKnownMarketplaces = lib.mapAttrs (_: mp: {
           source = lib.filterAttrs (_: v: v != null) {
             inherit (mp) source url repo package path;
