@@ -513,10 +513,10 @@
     config = rec {
       modifier = "Mod4";
       assigns = {
-        "1" = [{class = "^qutebrowser$";}];
-        "2" = [{class = "^kitty$";}];
-        "3" = [{class = "^Beeper$";}];
-        "4" = [{class = "^Logseq$";}];
+        "b:browser" = [{class = "^qutebrowser$";}];
+        "t:term" = [{class = "^kitty$";}];
+        "c:chat" = [{class = "^Beeper$";}];
+        "n:notes" = [{class = "^Logseq$";}];
         "6" = [{class = "^Slack$";}];
       };
       bars = [
@@ -548,6 +548,28 @@
         outer = 1;
       };
       keybindings = lib.mkOptionDefault {
+        # Workspaces
+        "${modifier}+b" = "workspace b:browser";
+        "${modifier}+t" = "workspace t:term";
+        "${modifier}+c" = "workspace c:chat";
+        "${modifier}+n" = "workspace n:notes";
+        "${modifier}+v" = "workspace v:video";
+        "${modifier}+Shift+b" = "move container to workspace b:browser";
+        "${modifier}+Shift+t" = "move container to workspace t:term";
+        "${modifier}+Shift+c" = "move container to workspace c:chat";
+        "${modifier}+Shift+n" = "move container to workspace n:notes";
+        "${modifier}+Shift+v" = "move container to workspace v:video";
+        # Remove default number bindings for renamed workspaces
+        "${modifier}+1" = null;
+        "${modifier}+2" = null;
+        "${modifier}+3" = null;
+        "${modifier}+4" = null;
+        "${modifier}+5" = null;
+        "${modifier}+Shift+1" = null;
+        "${modifier}+Shift+2" = null;
+        "${modifier}+Shift+3" = null;
+        "${modifier}+Shift+4" = null;
+        "${modifier}+Shift+5" = null;
         # Move
         "${modifier}+Shift+h" = "move left";
         "${modifier}+Shift+j" = "move down";
@@ -603,23 +625,23 @@
       workspaceOutputAssign = [
         {
           output = "eDP-1";
-          workspace = "1";
+          workspace = "b:browser";
         }
         {
           output = "eDP-1";
-          workspace = "2";
+          workspace = "t:term";
         }
         {
           output = "eDP-1";
-          workspace = "3";
+          workspace = "c:chat";
         }
         {
           output = "eDP-1";
-          workspace = "4";
+          workspace = "n:notes";
         }
         {
           output = "eDP-1";
-          workspace = "5";
+          workspace = "v:video";
         }
         {
           output = "DP-1";
