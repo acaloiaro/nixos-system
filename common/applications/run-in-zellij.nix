@@ -45,15 +45,20 @@
           fi
         fi
 
-        fifo=$(mktemp -u /tmp/run-in-zellij-XXXXXX)
-        mkfifo "$fifo"
+        # All per-invocation artifacts live in one tempdir so concurrent
+        # callers can't collide on filenames. BSD mktemp (macOS) only
+        # substitutes trailing X's, which made the previous per-file
+        # template `...-inner-XXXXXX.sh` resolve to a literal name and
+        # fail under concurrency.
+        tmpdir=$(mktemp -d /tmp/run-in-zellij-XXXXXX)
+        trap 'rm -rf "$tmpdir"' EXIT
 
-        exitfile=$(mktemp /tmp/run-in-zellij-result-XXXXXX)
-        outfile=$(mktemp /tmp/run-in-zellij-output-XXXXXX)
-        stdinfile=$(mktemp /tmp/run-in-zellij-stdin-XXXXXX)
-        inner=$(mktemp /tmp/run-in-zellij-inner-XXXXXX.sh)
-        chmod +x "$inner"
-        trap 'rm -f "$fifo" "$inner" "$exitfile" "$outfile" "$stdinfile"' EXIT
+        fifo="$tmpdir/fifo"
+        exitfile="$tmpdir/exit"
+        outfile="$tmpdir/out"
+        stdinfile="$tmpdir/stdin"
+        inner="$tmpdir/inner.sh"
+        mkfifo "$fifo"
 
         # Capture stdin before zellij takes over the terminal.
         # Skip when stdin is a TTY — cat would block waiting for EOF
