@@ -8,9 +8,9 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-aen0Az6baZtsVUZRaHfhnhh6VSEliWK/II8okya6rjk=",
+        "narHash": "sha256-EDPiqyk79GDov5uR4UhFrsN6VQqlwEX06BWZIyWk020=",
         "type": "tarball",
-        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/1531f3efaebbc4c8874189635ecc6e30e4ddd270.tar.gz"
+        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/9f1f55a5eedd5df4860c35fc2bd6403413ce1d30.tar.gz"
       },
       "original": {
         "type": "tarball",
