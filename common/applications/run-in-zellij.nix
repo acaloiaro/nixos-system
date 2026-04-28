@@ -5,8 +5,9 @@
       runtimeInputs = with pkgs; [zellij jq];
       excludeShellChecks = ["SC2016"];
       text = ''
-        # Usage: run-in-zellij [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]
+        # Usage: run-in-zellij [--name N] [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]
 
+        name="run-in-zellij"
         width="80%"
         height="80%"
         x="10%"
@@ -14,6 +15,7 @@
 
         while [[ $# -gt 0 ]]; do
           case "$1" in
+            --name)   name="$2";   shift 2 ;;
             --width)  width="$2";  shift 2 ;;
             --height) height="$2"; shift 2 ;;
             --x)      x="$2";      shift 2 ;;
@@ -24,7 +26,7 @@
         done
 
         if [[ $# -lt 1 ]]; then
-          echo "Usage: run-in-zellij [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]" >&2
+          echo "Usage: run-in-zellij [--name N] [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]" >&2
           exit 1
         fi
 
@@ -88,7 +90,7 @@
         cat "$fifo" > "$exitfile" &
         reader_pid=$!
 
-        zellij run --floating --close-on-exit --name "run-in-zellij" \
+        zellij run --floating --close-on-exit --name "$name" \
           --width "$width" --height "$height" --x "$x" --y "$y" \
           "''${tab_id_args[@]}" \
           -- bash "$inner" > /dev/null
