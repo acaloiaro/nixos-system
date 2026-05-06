@@ -4,7 +4,7 @@ final: prev: {
       owner = "acaloiaro";
       repo = "glow";
       rev = "master";
-      hash = "sha256-I5kgoYqAuyPfVKdgaovrP3W2/DbcalQCjJVX+W3J/ac=";
+      hash = "sha256-my2lKbXmUysnxC96MtnjEb216362vzXu2ZBMeKvn9+c=";
     };
 
     vendorHash = "sha256-rICfbrAh9ow2yLsXtx3y02LMR9oxDQuk20WrMX3P1xM=";
