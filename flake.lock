@@ -8,9 +8,9 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-EDPiqyk79GDov5uR4UhFrsN6VQqlwEX06BWZIyWk020=",
+        "narHash": "sha256-i87iJCkE0n7wehWFiKcYvIIhc+OJLvMnJ+lrgQ0BHd4=",
         "type": "tarball",
-        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/9f1f55a5eedd5df4860c35fc2bd6403413ce1d30.tar.gz"
+        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/991b6bbe47893a0b109caf0e0e6252db22be9c1e.tar.gz"
       },
       "original": {
         "type": "tarball",
@@ -711,9 +711,9 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-otZiyB9U+b3FeWR76CrQ4KEZwOuwKLhFsP2778YT7TQ=",
+        "narHash": "sha256-MdbCqHiFUbfN8PSD9aVz/fwDE+pTQ71251q9nTxhswg=",
         "type": "tarball",
-        "url": "https://tangled.org/did:plc:my5qvasrclwe2gtquvyodfxr/archive/57d41dde76c49aad7bc92c7c6dda76b20b4301d6.tar.gz"
+        "url": "https://tangled.org/did:plc:my5qvasrclwe2gtquvyodfxr/archive/8e7695e579e8d4a18a18d21db3609a10ea2ab198.tar.gz"
       },
       "original": {
         "type": "tarball",
