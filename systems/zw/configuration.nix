@@ -160,7 +160,11 @@
           "Manzanita Cafe" = {
             psk = "Manzanita2024";
           };
-          Miniroam = {
+          "Livebox-6A40" = {
+            psk = "w59eAsdNGPDv72NoxG";
+            priority = 98;
+          };
+          Skinnyroam = {
             pskRaw = "ext:MINIROAM_PSK";
             priority = 99;
           };
@@ -535,88 +539,88 @@
           "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQD1LwyUmY8yaaIfPKn9aUIsbm8NkcLvx8MOILtKubMxOvnJ+ZkOQnqve/KE+VNdvOzlZgnnLA24ZAeM5fD8n/WFVjDRsKqXVAfZOIygm2/P1RzEK5+AoVOeIC25DhizNGJ0pE8F4aSVTmTtOq5kOf1bTSuVhv3p/k6ZusrzBI2HOEOUg/sfs3Q1L7wHDHTA5qxqYACLebGocq0KqWPW4GTJ67XEMiNIENBh4EEEDTaeQZjRomeeR0ssDlrNAabf+vp+dxEtyHXS9dPznCFUIh7KyCx1oKLBl/O3B2NuVycXdo2yGpPGF6iKC6HW6lBHkYWfmgunQ4NOZWpbFFF0nT7K/kbFjmQKn3h7xuH3wXqs+iGXlDCQ1c/7YKarrD/JOsyWN/qHj9nto5QE40GZZRqhO1i16jCgMTyk0VLwZ5Eq6+zAKBKBQ2t/aFov4i05LuM3geg3LO4BoyQnP/ikuDb4ENRb1+wlJp9kCk2YKZeLwcgBXYg9xkXpX5ZnQl9E26s= adriano@zenity"
         ];
         packages = with pkgs;
-          with inputs; [
-            abook
-            activitywatch
-            alejandra
-            alsa-utils
-            beeper
-            brightnessctl
-            chatgpt-cli
-            clipmenu
-            ctags
-            dante
-            dict
-            dig
-            di-tui
-            direnv
-            dmenu
-            docker
-            fprintd
-            fzf
-            gimp
-            git
-            glow
-            gnumake
-            go
-            golangci-lint
-            golangci-lint-langserver
-            gopass
-            gopass-jsonapi
-            gopls
-            gscreenshot
-            hugo
-            icdiff
-            inetutils
-            ivpn
-            jq
-            kitty
-            lazygit
-            libreoffice
-            logseq
-            ltex-ls
-            ncdu
-            nil
-            nix-index
-            nodejs
-            nomad_1_9
-            nushell
-            opentofu
-            pandoc
-            playerctl
-            python3
-            python311Packages.sqlparse
-            qrencode
-            ripgrep
-            rofi
-            shutter
-            simplescreenrecorder
-            slack
-            speedtest-cli
-            spotify-player
-            stripe-cli
-            tailscale
-            taplo
-            terraform
-            terraform-lsp
-            tmux
-            tree
-            typescript-language-server
-            ungoogled-chromium
-            unzip
-            usbutils
-            vlc
-            vscode-langservers-extracted
-            w3m
-            weechat
-            widevine-cdm
-            wpa_supplicant_gui
-            xclip
-            xsel
-            yubikey-manager
-            zeal
-            zoom-us
-          ];
+        with inputs; [
+          abook
+          activitywatch
+          alejandra
+          alsa-utils
+          beeper
+          brightnessctl
+          chatgpt-cli
+          clipmenu
+          ctags
+          dante
+          dict
+          dig
+          di-tui
+          direnv
+          dmenu
+          docker
+          fprintd
+          fzf
+          gimp
+          git
+          glow
+          gnumake
+          go
+          golangci-lint
+          golangci-lint-langserver
+          gopass
+          gopass-jsonapi
+          gopls
+          gscreenshot
+          hugo
+          icdiff
+          inetutils
+          ivpn
+          jq
+          kitty
+          lazygit
+          libreoffice
+          logseq
+          ltex-ls
+          ncdu
+          nil
+          nix-index
+          nodejs
+          nomad_1_9
+          nushell
+          opentofu
+          pandoc
+          playerctl
+          python3
+          python311Packages.sqlparse
+          qrencode
+          ripgrep
+          rofi
+          shutter
+          simplescreenrecorder
+          slack
+          speedtest-cli
+          spotify-player
+          stripe-cli
+          tailscale
+          taplo
+          terraform
+          terraform-lsp
+          tmux
+          tree
+          typescript-language-server
+          ungoogled-chromium
+          unzip
+          usbutils
+          vlc
+          vscode-langservers-extracted
+          w3m
+          weechat
+          widevine-cdm
+          wpa_supplicant_gui
+          xclip
+          xsel
+          yubikey-manager
+          zeal
+          zoom-us
+        ];
         password = "Iliketochangeitchangeit";
         shell = pkgs.zsh;
       };
