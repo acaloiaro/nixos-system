@@ -9,7 +9,7 @@
   socat,
   ...
 }: let
-  version = "2.1.119";
+  version = "2.1.162";
 
   # Upstream switched at 2.1.113+ from a JS bundle run under bun to one native
   # binary per platform shipped as an optionalDependency. We fetch that
@@ -18,20 +18,20 @@
   sources = {
     aarch64-darwin = {
       pkg = "claude-code-darwin-arm64";
-      hash = "sha256-faK1JsyiXNnDY3BbtP70Dyk8EirUbR14uK66tIXDG6Y="; # aarch64-darwin
+      hash = "sha256-7D+/YxNPvgqI+hM+zTlLJiuGH41fmpH6613N6gm6mDU="; # aarch64-darwin
     };
     x86_64-darwin = {
       pkg = "claude-code-darwin-x64";
-      hash = "sha256-x38Q7to9tmLjj1i2L8HZf3QB/njfmnmtXBoUnqBi44M="; # x86_64-darwin
+      hash = "sha256-soKWIlyYMs9yNpt57UWOh7pi8ToglkMA6Clcbu9TxW8="; # x86_64-darwin
     };
     aarch64-linux = {
       pkg = "claude-code-linux-arm64";
-      hash = "sha256-RkKTMRFpNnveae1VqkmPxzB5XGSXu4aveGjpNt23L+4="; # aarch64-linux
+      hash = "sha256-6sBbQZrndgRYqPql8oJpde+CVew2hqWeBUY/0t2dHPs="; # aarch64-linux
       interpreter = "ld-linux-aarch64.so.1";
     };
     x86_64-linux = {
       pkg = "claude-code-linux-x64";
-      hash = "sha256-fVe3LUhRbfqbTeutDKOGzhj1XTQu6pONYXE8RS+AkDM="; # x86_64-linux
+      hash = "sha256-7GQR+4jzoF042T62HXTGwLys2h2/lCzYZvCk6FuNXBE="; # x86_64-linux
       interpreter = "ld-linux-x86-64.so.2";
     };
   };
