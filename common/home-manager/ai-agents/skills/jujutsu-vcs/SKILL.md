@@ -22,13 +22,13 @@ Use jujutsu exclusively. NEVER use git commands.
 
 ## Interactive Commands
 
-Some jj subcommands require a TTY — they open `$EDITOR`, a TUI diff selector, or a merge tool. Run these inside a floating zellij pane with `run-in-zellij`, otherwise they will fail or hang:
+Some jj subcommands require a TTY — they open `$EDITOR`, a TUI diff selector, or a merge tool. Run these inside a floating multiplexer pane with `run-in-mux` (works in both zellij and tmux), otherwise they will fail or hang:
 
 ```bash
-run-in-zellij -- <interactive jj command>
+run-in-mux -- <interactive jj command>
 ```
 
-Interactive commands that require `run-in-zellij`:
+Interactive commands that require `run-in-mux`:
 
 - `jj describe` (without `-m`) — opens `$EDITOR` for the change description
 - `jj commit` (without `-m`) — opens `$EDITOR` for the change description
@@ -42,7 +42,7 @@ Interactive commands that require `run-in-zellij`:
 - `jj diff --tool difft` (and other TUI diff tools) — interactive pager/viewer
 - `jj log` with a TUI pager (`less`, `delta --paging=always`, etc.) when output is long
 
-Non-interactive alternative: whenever you already know the description, pass `-m "msg"` to `jj describe`/`jj commit` so no editor is needed and `run-in-zellij` can be skipped.
+Non-interactive alternative: whenever you already know the description, pass `-m "msg"` to `jj describe`/`jj commit` so no editor is needed and `run-in-mux` can be skipped.
 
 ## Common Workflows
 

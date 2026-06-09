@@ -8,7 +8,7 @@
 }: {
   imports = [
     ../../../common/accounts/calendars.nix
-    ../../../common/applications/run-in-zellij.nix
+    ../../../common/applications/run-in-mux.nix
     ../../../common/home-manager/ai-agents
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
@@ -246,7 +246,7 @@
               hooks = [
                 {
                   type = "command";
-                  command = "run-in-zellij -- hookable --interactive --no-exit-code --cmd '${lib.getExe pkgs.adiff} -i'";
+                  command = "run-in-mux -- hookable --interactive --no-exit-code --cmd '${lib.getExe pkgs.adiff} -i'";
                 }
               ];
             }
