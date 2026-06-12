@@ -249,7 +249,17 @@
               hooks = [
                 {
                   type = "command";
-                  command = "run-in-mux -- hookable --interactive --no-exit-code --cmd '${lib.getExe pkgs.adiff} -i'";
+                  command = ''
+                    hook_json=$(cat)
+                    name=$(printf '%s' "$hook_json" | ${lib.getExe pkgs.jq} -r '
+                      (.tool_name // "tool") as $t |
+                      (.tool_input.file_path // "") as $f |
+                      if $f == "" then "\($t): (no file)"
+                      else "\($t): \($f | split("/") | last)"
+                      end
+                    ' 2>/dev/null || echo "claude-edit")
+                    printf '%s' "$hook_json" | run-in-mux --name "$name" --width '100%' --x '0%' --y '5%' -- ${lib.getExe pkgs.hookable} --interactive --no-exit-code --accept-key 'ctrl+a' --reject-key 'ctrl+r' --cmd '${lib.getExe pkgs.adiff} -i'
+                  '';
                 }
               ];
             }
