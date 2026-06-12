@@ -163,12 +163,15 @@
         '';
       })
       prettier
+      swaylock
       yazi
       zeal
       zsh
     ];
     sessionVariables = {
+      "ELECTRON_OZONE_PLATFORM_HINT" = "auto";
       "GO111MODULE" = "on";
+      "MOZ_ENABLE_WAYLAND" = "1";
       "PATH" = "$HOME/.local/bin:$PATH:/home/adriano/go/bin:$HOME/.nix-profile/bin";
       "PINENTRY" = "${pkgs.pinentry-rofi}/bin/pinentry-rofi";
       "SHELL" = "/run/current-system/sw/bin/zsh";
@@ -451,6 +454,9 @@
         open = "xdg-open $*";
         people = "vim ~/KB/pages/People.md";
         quickqr = "qrencode -t ansiutf8 $*";
+        screenshot = ''grim -g "$(slurp)" ~/Pictures/$(date +%Y%m%d_%H%M%S).png'';
+        screencopy = ''grim -g "$(slurp)" - | wl-copy'';
+        screenrecord = ''wf-recorder -g "$(slurp)" -f ~/Videos/$(date +%Y%m%d_%H%M%S).mp4'';
         vi = "hx $*";
         vim = "hx $*";
       };
@@ -477,13 +483,17 @@
       enable = true;
       postExec = "${config.xdg.configHome}/mbsync/postExec";
     };
-    screen-locker = {
+    swayidle = {
       enable = true;
-      inactiveInterval = 30;
-      lockCmd = "${pkgs.i3lock}/bin/i3lock -n -c 000000";
-      xautolock = {
-        detectSleep = true;
-        enable = true;
+      timeouts = [
+        {
+          timeout = 30 * 60;
+          command = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+        }
+      ];
+      events = {
+        before-sleep = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
+        lock = "${pkgs.swaylock}/bin/swaylock -f -c 000000";
       };
     };
     vdirsyncer.enable = true;
@@ -509,15 +519,24 @@
     };
   };
 
-  xsession.windowManager.i3 = {
+  wayland.windowManager.sway = {
+    enable = true;
+    package = pkgs.symlinkJoin {
+      name = "sway";
+      paths = [pkgs.sway];
+      nativeBuildInputs = [pkgs.makeWrapper];
+      postBuild = ''
+        wrapProgram $out/bin/sway \
+          --set-default XDG_CACHE_HOME /tmp
+      '';
+    };
     config = rec {
       modifier = "Mod4";
       assigns = {
-        "b:browser" = [{class = "^qutebrowser$";}];
-        "t:term" = [{class = "^kitty$";}];
-        "c:chat" = [{class = "^Beeper$";}];
-        "n:notes" = [{class = "^Logseq$";}];
-        "6" = [{class = "^Slack$";}];
+        "b:browser" = [{app_id = "^qutebrowser$";}];
+        "t:term" = [{app_id = "^kitty$";}];
+        "c:chat" = [{app_id = "beeper";} {app_id = "Beeper";} {class = "Beeper";} {app_id = "slack";} {class = "Slack";}];
+        "n:notes" = [{app_id = "Logseq";} {app_id = "logseq";} {class = "Logseq";}];
       };
       bars = [
         {
@@ -526,6 +545,7 @@
             size = 12.0;
             style = "Bold Semi-Condensed";
           };
+          hiddenState = "hide";
           mode = "hide";
           position = "bottom";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
@@ -537,6 +557,7 @@
             size = 12.0;
             style = "Bold Semi-Condensed";
           };
+          hiddenState = "hide";
           mode = "hide";
           position = "top";
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
@@ -547,17 +568,34 @@
         inner = 3;
         outer = 1;
       };
+      input = {
+        "type:keyboard" = {
+          xkb_layout = "us";
+          xkb_options = "caps:ctrl_modifier";
+          repeat_delay = "250";
+          repeat_rate = "40";
+        };
+        "type:touchpad" = {
+          accel_profile = "flat";
+          pointer_accel = "0.5";
+          natural_scroll = "enabled";
+          dwt = "enabled";
+          tap = "enabled";
+        };
+      };
       keybindings = lib.mkOptionDefault {
         # Workspaces
         "${modifier}+b" = "workspace b:browser";
-        "${modifier}+t" = "workspace t:term";
         "${modifier}+c" = "workspace c:chat";
         "${modifier}+n" = "workspace n:notes";
+        "${modifier}+t" = "workspace t:term";
+        "${modifier}+u" = "workspace u:unassigned";
         "${modifier}+v" = "workspace v:video";
         "${modifier}+Shift+b" = "move container to workspace b:browser";
-        "${modifier}+Shift+t" = "move container to workspace t:term";
         "${modifier}+Shift+c" = "move container to workspace c:chat";
         "${modifier}+Shift+n" = "move container to workspace n:notes";
+        "${modifier}+Shift+t" = "move container to workspace t:term";
+        "${modifier}+Shift+u" = "move container to workspace u:unassigned";
         "${modifier}+Shift+v" = "move container to workspace v:video";
         # Remove default number bindings for renamed workspaces
         "${modifier}+1" = null;
@@ -590,7 +628,7 @@
         "XF86AudioPause" = "exec playerctl play-pause";
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 4%+";
-        "XF86Display" = "exec xrandr --output DP-1 --mode 1920x1080 --left-of eDP-1 --auto";
+        "XF86Display" = "exec ${pkgs.wlr-randr}/bin/wlr-randr --output DP-1 --on --mode 1920x1080 --pos 0,0";
         "XF86Go" = "exec playerctl play";
         "XF86MonBrightnessDown" = "exec brightnessctl set 4%-";
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
@@ -599,29 +637,30 @@
         {
           always = true;
           command = "qutebrowser";
-          notification = false;
         }
         {
           always = true;
           command = "kitty";
-          notification = false;
         }
         {
           always = true;
           command = "beeper";
-          notification = false;
         }
         {
           always = true;
           command = "logseq";
-          notification = false;
         }
       ];
       window = {
         border = 0;
         titlebar = false;
       };
+      floating = {
+        border = 0;
+        titlebar = false;
+      };
       workspaceAutoBackAndForth = true;
+      workspaceLayout = "default";
       workspaceOutputAssign = [
         {
           output = "eDP-1";
@@ -661,7 +700,5 @@
         }
       ];
     };
-    enable = true;
-    package = pkgs.i3;
   };
 }

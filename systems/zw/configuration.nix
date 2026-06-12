@@ -3,6 +3,7 @@
 # and in the NixOS manual (accessible by running `nixos-help`).
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
@@ -237,9 +238,9 @@
         enable = true;
         enableSSHSupport = true;
       };
-      i3lock = {
+      sway = {
         enable = true;
-        u2fSupport = true;
+        xwayland.enable = true;
       };
       nh = {
         clean = {
@@ -256,7 +257,14 @@
     security = {
       pam = {
         services = {
-          i3lock.u2fAuth = true;
+          swaylock = {
+            u2fAuth = true;
+            fprintAuth = true;
+            # Move fprintd after pam_unix (order 11700) so password is tried first.
+            # Correct password = instant; fingerprint-only = instant;
+            # wrong password = fprintd activates (touch to recover, or wait for timeout).
+            rules.auth.fprintd.order = lib.mkForce 11800;
+          };
           login.u2fAuth = true;
           sudo.u2fAuth = true;
         };
@@ -273,6 +281,7 @@
           mode = "challenge-response";
         };
       };
+      polkit.enable = true;
       rtkit.enable = true;
     };
 
@@ -304,8 +313,12 @@
       };
       blueman.enable = true;
       dbus.enable = true;
-      displayManager = {
-        defaultSession = "none+i3";
+      greetd = {
+        enable = true;
+        settings.default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember --cmd sway";
+          user = "greeter";
+        };
       };
       fprintd.enable = true;
       ivpn.enable = true;
@@ -395,14 +408,13 @@
         packages = [pkgs.yubikey-personalization];
       };
       xserver = {
+        # Kept enabled for XWayland (supports X11 apps like wpa_supplicant_gui, Zoom, etc.)
         autoRepeatDelay = 250;
         autoRepeatInterval = 25;
         desktopManager = {
           xterm.enable = false;
         };
         enable = true;
-        # Can't figure out how to enable natural scrolling. Ideally what I want is natural scrolling AND palm detection,
-        # but for now, it seems like I can't have both without getting my hands more dirty. Switching back to libinput
         synaptics = {
           accelFactor = "0.01";
           enable = false;
@@ -410,15 +422,22 @@
           palmDetect = true;
           twoFingerScroll = true;
         };
-        windowManager.i3.enable = true;
         xkb = {
           layout = "us";
           options = "caps:ctrl_modifier";
         };
       };
+
     };
 
     substituters.private.enable = false;
+
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+      config.common.default = ["wlr" "gtk"];
+    };
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
@@ -430,6 +449,10 @@
 
     systemd = {
       services = {
+        wpa_supplicant = {
+          after = ["agenix.service"];
+          wants = ["agenix.service"];
+        };
         address-book-sync = {
           description = "Syncs the Fastmail address book";
           enable = true;
@@ -459,10 +482,11 @@
           };
         };
         khal-notify = {
-          description = "Calendar notification with i3-nagbar";
+          description = "Calendar event notification";
           enable = true;
           environment = {
-            DISPLAY = ":0";
+            WAYLAND_DISPLAY = "wayland-1";
+            XDG_RUNTIME_DIR = "/run/user/1000";
           };
           script = with pkgs; ''
             set -euo pipefail
@@ -506,7 +530,8 @@
             					in="$(( - $in )) min. ago"
             				fi
             				echo "Reminding of $title ($in)"
-            				${i3}/bin/i3-nagbar -t $prio -m "$in: $title $desc" || echo notify-send failed
+            				urgency=$([ "$prio" = "warning" ] && echo normal || echo "$prio")
+            				${libnotify}/bin/notify-send -u "$urgency" "$in: $title" "$desc" || echo notify-send failed
             				break
             			fi
             		done
@@ -555,14 +580,19 @@
           beeper
           brightnessctl
           chatgpt-cli
-          clipmenu
+          wl-clipboard
+          grim
+          slurp
+          wf-recorder
+          wlr-randr
+          kanshi
           ctags
           dante
           dict
           dig
           di-tui
           direnv
-          dmenu
+          rofi
           docker
           fprintd
           fzf
@@ -576,7 +606,7 @@
           gopass
           gopass-jsonapi
           gopls
-          gscreenshot
+          libnotify
           hugo
           icdiff
           inetutils
@@ -601,8 +631,6 @@
           qrencode
           ripgrep
           rofi
-          shutter
-          simplescreenrecorder
           slack
           speedtest-cli
           spotify-player
@@ -623,8 +651,6 @@
           weechat
           widevine-cdm
           wpa_supplicant_gui
-          xclip
-          xsel
           yubikey-manager
           zeal
           zoom-us

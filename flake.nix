@@ -92,7 +92,7 @@
       config = {
         allowUnfree = true;
         permittedInsecurePackages = [
-          "electron-27.3.11"
+          "electron-39.8.10"
         ];
       };
       inherit overlays system;
