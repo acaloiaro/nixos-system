@@ -28,11 +28,19 @@
         opencode-github-mcp-pat = {
           owner = "adriano";
         };
+        nomad_token = {
+          rekeyFile = ./secrets/nomad_token.age;
+          owner = "adriano";
+        };
+        spotify_password = {
+          rekeyFile = ./secrets/spotify_password.age;
+          owner = "adriano";
+        };
         tailscale_key = {
-          file = ./secrets/tailscale_key.age;
+          rekeyFile = ./secrets/tailscale_key.age;
         };
         wireless_networks = {
-          file = ./secrets/wireless_networks.age;
+          rekeyFile = ./secrets/wireless_networks.age;
           owner = "wpa_supplicant";
         };
       };
