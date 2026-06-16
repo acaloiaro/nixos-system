@@ -451,6 +451,10 @@
 
     systemd = {
       services = {
+        greetd = {
+          after = ["fprintd.service"];
+          wants = ["fprintd.service"];
+        };
         wpa_supplicant = {
           after = ["agenix.service"];
           wants = ["agenix.service"];
