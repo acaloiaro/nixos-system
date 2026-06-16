@@ -1,0 +1,5 @@
+{
+  "name": "version-control",
+  "description": "Whenever version control is used, use jujutsu instead of git",
+  "version": "1.0.4"
+}

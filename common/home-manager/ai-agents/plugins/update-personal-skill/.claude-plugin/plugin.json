@@ -1,0 +1,5 @@
+{
+  "name": "update-personal-skill",
+  "description": "Update an existing skill in the my-skills marketplace",
+  "version": "2.0.0"
+}

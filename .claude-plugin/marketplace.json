@@ -1,0 +1,43 @@
+{
+  "name": "my-skills",
+  "owner": {
+    "name": "Adriano Caloiaro"
+  },
+  "metadata": {
+    "description": "Personal, system-agnostic skills shared across all of Adriano's machines",
+    "version": "1.0.0",
+    "pluginRoot": "./common/home-manager/ai-agents/plugins"
+  },
+  "plugins": [
+    {
+      "name": "adriano-voice",
+      "source": "./common/home-manager/ai-agents/plugins/adriano-voice",
+      "description": "Rewrite prose in Adriano Caloiaro's communication style",
+      "version": "1.0.1"
+    },
+    {
+      "name": "adriano-voice-code-comments",
+      "source": "./common/home-manager/ai-agents/plugins/adriano-voice-code-comments",
+      "description": "Write code comments in Adriano Caloiaro's code-comment voice",
+      "version": "1.0.2"
+    },
+    {
+      "name": "version-control",
+      "source": "./common/home-manager/ai-agents/plugins/version-control",
+      "description": "Whenever version control is used, use jujutsu instead of git",
+      "version": "1.0.4"
+    },
+    {
+      "name": "create-personal-skill",
+      "source": "./common/home-manager/ai-agents/plugins/create-personal-skill",
+      "description": "Scaffold a new skill in the my-skills marketplace",
+      "version": "2.0.0"
+    },
+    {
+      "name": "update-personal-skill",
+      "source": "./common/home-manager/ai-agents/plugins/update-personal-skill",
+      "description": "Update an existing skill in the my-skills marketplace",
+      "version": "2.0.0"
+    }
+  ]
+}

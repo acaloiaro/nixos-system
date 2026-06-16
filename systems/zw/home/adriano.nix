@@ -274,11 +274,20 @@
             source = "git";
             url = "https://git.sr.ht/~jcmuller/lsp-mux";
           };
+          my-skills.source = {
+            source = "github";
+            repo = "acaloiaro/nixos-system";
+          };
         };
         enabledPlugins = {
           "lsp-mux-go-nix@lsp-mux" = true;
           "lsp-mux-nix-nix@lsp-mux" = true;
           "lsp-mux-python@lsp-mux" = true;
+          "adriano-voice@my-skills" = true;
+          "adriano-voice-code-comments@my-skills" = true;
+          "create-personal-skill@my-skills" = true;
+          "update-personal-skill@my-skills" = true;
+          "version-control@my-skills" = true;
         };
         mcpServers = config.ai-agents.mcpServers;
       };

@@ -1,15 +1,15 @@
 ---
-name: jujutsu-vcs
-description: Version control workflow using jujutsu (jj) exclusively. Use when managing version control, committing changes, viewing history, working with bookmarks, rebasing, squashing, or syncing with remote repositories. DO NOT use git commands - use jj commands instead. Jujutsu uses bookmarks (not branches), changes (not commits), and has automatic working copy snapshotting.
+name: version-control
+description: Version control workflow using jujutsu (jj) exclusively. Use for any version control operation — commits, bookmarks, diffs, history, rebasing, squashing, or syncing with remotes. DO NOT use git commands; use jj commands instead. Jujutsu uses bookmarks (not branches), changes (not commits), and automatically snapshots the working copy.
 ---
 
-# Jujutsu Version Control
+# Version Control (Jujutsu)
 
-> **Note**: This documentation is current as of jujutsu version **0.37.0**. Run `jj --version` to check your version and `jj help` for the latest command reference.
+> **Note**: Current as of jujutsu version **0.37.0**. Run `jj --version` to check your version and `jj help` for the latest command reference.
 
 **Forget everything you know about git.**
 
-Use jujutsu exclusively. NEVER use git commands.
+Use jujutsu exclusively. NEVER use git commands directly — always use `jj`.
 
 ## Key Concepts
 
@@ -20,12 +20,24 @@ Use jujutsu exclusively. NEVER use git commands.
 - Working copy is automatically snapshotted (no staging area)
 - Changes are immutable; rewriting creates new change IDs
 
+## Bookmark Naming Convention
+
+When creating bookmarks (which become branch names when pushed to the git remote), use:
+
+```
+acaloiaro/<task-id>/<generated-bookmark-name>
+```
+
+- `acaloiaro` — always prefix with the user's identifier.
+- `<task-id>` — the issue/ticket ID **only when you're already aware of one** in the current context. Use whatever tracker is in play: a Jira key (`GREEN-12345`), a Trello card ID, a Linear/GitHub issue number, etc. If no task ID is in context, **omit this segment entirely** and use `acaloiaro/<generated-bookmark-name>`. Never invent or guess an ID.
+- `<generated-bookmark-name>` — a short, kebab-case summary of the work (e.g., `fix-auth-redirect`, `add-bulk-export`).
+
 ## Interactive Commands
 
 Some jj subcommands require a TTY — they open `$EDITOR`, a TUI diff selector, or a merge tool. Run these inside a floating multiplexer pane with `run-in-mux` (works in both zellij and tmux), otherwise they will fail or hang:
 
 ```bash
-run-in-mux -- <interactive jj command>
+run-in-mux -- hookable --interactive --no-exit-code --cmd '<interactive jj command>'
 ```
 
 Interactive commands that require `run-in-mux`:
@@ -51,7 +63,7 @@ Non-interactive alternative: whenever you already know the description, pass `-m
 ```bash
 # Make your changes to files (automatically snapshotted)
 jj describe -m "your commit message"
-jj bookmark create your-bookmark-name
+jj bookmark create acaloiaro/your-bookmark-name
 jj git push
 ```
 
@@ -62,7 +74,7 @@ jj git fetch
 jj new main
 # Make changes...
 jj describe -m "message"
-jj bookmark create feature-name
+jj bookmark create acaloiaro/feature-name
 jj git push
 ```
 
@@ -126,8 +138,6 @@ jj bookmark list                     # List all bookmarks (alias: jj b l)
 jj bookmark track name --remote origin  # Track remote bookmark (alias: jj b t)
 ```
 
-For complete bookmark reference, see [references/bookmarks.md](references/bookmarks.md).
-
 ### History Rewriting
 
 ```bash
@@ -167,8 +177,6 @@ jj git push --bookmark new-name       # Push new name
 jj git push --deleted                 # Delete old name from remote
 ```
 
-For complete git push reference, see [references/git-push.md](references/git-push.md).
-
 ## Revset Basics
 
 Common revset expressions:
@@ -184,7 +192,7 @@ Common revset expressions:
 | `::x`         | x and all ancestors                |
 | `x::`         | x and all descendants              |
 
-For complete revset syntax, see [references/revsets.md](references/revsets.md) or run `jj help -k revsets`.
+For complete revset syntax, run `jj help -k revsets`.
 
 ## Important Notes
 
@@ -192,12 +200,3 @@ For complete revset syntax, see [references/revsets.md](references/revsets.md) o
 - Working copy is always automatically snapshotted
 - Use `jj help <command>` for detailed command help
 - Use `jj help -k <keyword>` for topic help (e.g., `jj help -k revsets`)
-
-## Detailed References
-
-For exhaustive command documentation, see:
-
-- [references/commands.md](references/commands.md) - Complete list of all commands and subcommands
-- [references/bookmarks.md](references/bookmarks.md) - Complete bookmark command reference
-- [references/git-push.md](references/git-push.md) - Complete git push command reference
-- [references/revsets.md](references/revsets.md) - Complete revset syntax reference
