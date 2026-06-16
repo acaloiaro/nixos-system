@@ -285,8 +285,8 @@
           "lsp-mux-python@lsp-mux" = true;
           "adriano-voice@my-skills" = true;
           "adriano-voice-code-comments@my-skills" = true;
-          "create-personal-skill@my-skills" = true;
-          "update-personal-skill@my-skills" = true;
+          "create-my-skills@my-skills" = true;
+          "update-my-skills@my-skills" = true;
           "version-control@my-skills" = true;
         };
         mcpServers = config.ai-agents.mcpServers;

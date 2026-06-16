@@ -1,10 +1,10 @@
 ---
-name: create-personal-skill
-description: Scaffold a new skill plugin in the personal my-skills marketplace. Use when asked to create a personal skill, add a new skill, or /create-personal-skill.
+name: create-my-skills
+description: Scaffold a new skill plugin in the personal my-skills marketplace. Use when asked to create a personal skill, add a new skill, or /create-my-skills.
 argument-hint: "[skill-name] [description of what the skill should do]"
 ---
 
-# Create Personal Skill
+# Create My Skill
 
 Create a new skill plugin in the `my-skills` marketplace. These skills are system-agnostic and shared across every machine, so they live in the `nixos-system` repo and **must contain no machine-specific absolute paths or work-specific content**.
 

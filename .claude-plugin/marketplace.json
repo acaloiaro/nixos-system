@@ -28,14 +28,14 @@
       "version": "1.0.4"
     },
     {
-      "name": "create-personal-skill",
-      "source": "./common/home-manager/ai-agents/plugins/create-personal-skill",
+      "name": "create-my-skills",
+      "source": "./common/home-manager/ai-agents/plugins/create-my-skills",
       "description": "Scaffold a new skill in the my-skills marketplace",
       "version": "2.0.0"
     },
     {
-      "name": "update-personal-skill",
-      "source": "./common/home-manager/ai-agents/plugins/update-personal-skill",
+      "name": "update-my-skills",
+      "source": "./common/home-manager/ai-agents/plugins/update-my-skills",
       "description": "Update an existing skill in the my-skills marketplace",
       "version": "2.0.0"
     }

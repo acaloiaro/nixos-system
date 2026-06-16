@@ -1,10 +1,10 @@
 ---
-name: update-personal-skill
-description: Update an existing skill in the personal my-skills marketplace. Use when asked to update, edit, or modify a personal skill, or /update-personal-skill.
+name: update-my-skills
+description: Update an existing skill in the personal my-skills marketplace. Use when asked to update, edit, or modify a personal skill, or /update-my-skills.
 argument-hint: "[skill-name] [description of changes]"
 ---
 
-# Update Personal Skill
+# Update My Skill
 
 Modify an existing skill plugin in the `my-skills` marketplace.
 
