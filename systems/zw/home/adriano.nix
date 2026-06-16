@@ -644,22 +644,10 @@
         "XF86MonBrightnessUp" = "exec brightnessctl set 4%+";
       };
       startup = [
-        {
-          always = true;
-          command = "qutebrowser";
-        }
-        {
-          always = true;
-          command = "kitty";
-        }
-        {
-          always = true;
-          command = "beeper";
-        }
-        {
-          always = true;
-          command = "logseq";
-        }
+        {command = "qutebrowser";}
+        {command = "kitty";}
+        {command = "beeper";}
+        {command = "logseq";}
       ];
       window = {
         border = 0;
