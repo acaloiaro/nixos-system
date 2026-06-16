@@ -208,6 +208,9 @@
           "WGCR-2" = {
             psk = "Goose2010";
           };
+          "Colibri" = {
+            pskRaw = "ext:COLIBRI";
+          };
         };
         secretsFile = config.age.secrets.wireless_networks.path;
         userControlled = true;
@@ -427,7 +430,6 @@
           options = "caps:ctrl_modifier";
         };
       };
-
     };
 
     substituters.private.enable = false;
