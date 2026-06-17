@@ -404,15 +404,15 @@ in {
           height = 24;
           modules-left = ["custom/whereami"];
           modules-center = [];
-          modules-right = ["clock#utc" "clock#et" "clock#cet" "clock#local"];
+          modules-right = ["clock#pt" "clock#et" "clock#utc" "clock#cet" "clock#date"];
           "custom/whereami" = {
             exec = "curl -sf --max-time 10 https://jellybee.bison-lizard.ts.net/whereami 2>/dev/null | jq -r '\"\\(.conditions.emoji // \"\") \\(.conditions.label // \"\")  \\(.location.name // \"?\")  \\(.weather.tempf // \"?\")°F  \\(.weather.humidity // \"?\")%  💨 \\(.weather.windspeedmph // \"?\")mph\"' 2>/dev/null || echo '? whereami'";
             interval = 60;
             format = "{}";
           };
-          "clock#utc" = {
-            format = "UTC {:%H:%M} ";
-            timezone = "UTC";
+          "clock#pt" = {
+            format = "PT {:%H:%M} ";
+            timezone = "America/Los_Angeles";
             interval = 60;
           };
           "clock#et" = {
@@ -420,13 +420,18 @@ in {
             timezone = "America/New_York";
             interval = 60;
           };
+          "clock#utc" = {
+            format = "UTC {:%H:%M} ";
+            timezone = "UTC";
+            interval = 60;
+          };
           "clock#cet" = {
             format = "CET {:%H:%M} ";
             timezone = "Europe/Berlin";
             interval = 60;
           };
-          "clock#local" = {
-            format = "{:%Z %H:%M %d/%m} ";
+          "clock#date" = {
+            format = "{:%a %d/%m}";
             interval = 60;
           };
         }
