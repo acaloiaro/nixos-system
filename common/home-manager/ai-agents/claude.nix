@@ -42,6 +42,22 @@ in {
       description = "Memory config passed through to programs.claude-code.memory.";
     };
 
+    plugins = lib.mkOption {
+      type = lib.types.listOf (lib.types.either lib.types.package lib.types.path);
+      default = [];
+      description = "Standalone plugins passed through to programs.claude-code.plugins.";
+      example = lib.literalExpression ''
+        [
+          (pkgs.fetchFromGitHub {
+            owner = "some-org";
+            repo = "claude-plugin";
+            rev = "abc123";
+            hash = "sha256-...";
+          })
+        ]
+      '';
+    };
+
     marketplaces = lib.mkOption {
       type = lib.types.attrsOf (lib.types.submodule {
         options = {
@@ -109,6 +125,7 @@ in {
       } // lib.optionalAttrs (cfg.enabledPlugins != {}) {
         enabledPlugins = cfg.enabledPlugins;
       };
+      plugins = cfg.plugins;
       agents = cfg.agents;
       commands = cfg.commands;
       hooks = cfg.hooks;

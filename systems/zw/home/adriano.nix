@@ -348,63 +348,107 @@
     home-manager = {
       enable = true;
     };
-    i3status-rust = {
-      bars = {
-        bottom = {
-          blocks = [
-            {
-              block = "net";
-              format = " {$signal_strength $ssid $frequency|} $device $icon  ^icon_net_down $speed_down.eng(prefix:K) ^icon_net_up $speed_up.eng(prefix:K)";
-              interval = 5;
-            }
-            {
-              block = "memory";
-              interval = 5;
-            }
-            {
-              block = "cpu";
-              interval = 5;
-            }
-            {
-              block = "sound";
-            }
-            {
-              block = "battery";
-            }
-          ];
-          icons = "awesome5";
-          theme = "nord-dark";
-        };
-        top = {
-          blocks = [
-            {
-              block = "custom";
-              command = "curl -s https://jellybee.bison-lizard.ts.net/whereami | jq -r '\"\\(.conditions.emoji // \"\") \\(.conditions.label // \"\")  \\(.location.name // \"?\")  \\(.weather.tempf // \"?\")°F  \\(.weather.humidity // \"?\")%  💨 \\(.weather.windspeedmph // \"?\")mph\"'";
-              interval = 60;
-            }
-            {
-              block = "time";
-              format = "$timestamp.datetime(f:'%Z %R') ";
-              interval = 60;
-              timezone = "UTC";
-            }
-            {
-              block = "time";
-              format = "$timestamp.datetime(f:'%Z %R') ";
-              interval = 60;
-              timezone = "America/New_York";
-            }
-            {
-              block = "time";
-              format = "$timestamp.datetime(f:'%Z %R %d/%m ') ";
-              interval = 60;
-            }
-          ];
-          icons = "awesome5";
-          theme = "nord-dark";
-        };
-      };
+    waybar = {
       enable = true;
+      settings = [
+        {
+          layer = "top";
+          position = "bottom";
+          height = 24;
+          modules-left = ["sway/workspaces"];
+          modules-center = [];
+          modules-right = ["network" "memory" "cpu" "wireplumber" "battery" "tray"];
+          "sway/workspaces" = {
+            disable-scroll = true;
+            all-outputs = true;
+          };
+          network = {
+            interval = 5;
+            format-wifi = "{essid} ({signalStrength}%)  ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}";
+            format-ethernet = "{ifname}  ↓{bandwidthDownBytes} ↑{bandwidthUpBytes}";
+            format-disconnected = "disconnected";
+          };
+          memory = {
+            interval = 5;
+            format = " {used:.1f}G";
+          };
+          cpu = {
+            interval = 5;
+            format = " {usage}%";
+          };
+          wireplumber = {
+            format = "{volume}% {icon}";
+            format-muted = " muted";
+            format-icons = ["" "" ""];
+            on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
+          };
+          battery = {
+            interval = 30;
+            format = "{capacity}% {icon}";
+            format-charging = "{capacity}%  ";
+            format-icons = ["" "" "" "" ""];
+          };
+          tray = {spacing = 10;};
+        }
+        {
+          layer = "top";
+          position = "top";
+          height = 24;
+          modules-left = ["custom/whereami"];
+          modules-center = [];
+          modules-right = ["clock#utc" "clock#et" "clock#cet" "clock#local"];
+          "custom/whereami" = {
+            exec = "curl -sf --max-time 10 https://jellybee.bison-lizard.ts.net/whereami 2>/dev/null | jq -r '\"\\(.conditions.emoji // \"\") \\(.conditions.label // \"\")  \\(.location.name // \"?\")  \\(.weather.tempf // \"?\")°F  \\(.weather.humidity // \"?\")%  💨 \\(.weather.windspeedmph // \"?\")mph\"' 2>/dev/null || echo '? whereami'";
+            interval = 60;
+            format = "{}";
+          };
+          "clock#utc" = {
+            format = "UTC {:%H:%M} ";
+            timezone = "UTC";
+            interval = 60;
+          };
+          "clock#et" = {
+            format = "ET {:%H:%M} ";
+            timezone = "America/New_York";
+            interval = 60;
+          };
+          "clock#cet" = {
+            format = "CET {:%H:%M} ";
+            timezone = "Europe/Berlin";
+            interval = 60;
+          };
+          "clock#local" = {
+            format = "{:%Z %H:%M %d/%m} ";
+            interval = 60;
+          };
+        }
+      ];
+      style = ''
+        * {
+          font-family: "DejaVu Sans Mono", "Font Awesome 5 Free";
+          font-size: 16px;
+          min-height: 0;
+        }
+        window#waybar {
+          background: #2E3440;
+          color: #81A1C1;
+        }
+        #network, #memory, #cpu, #wireplumber, #battery, #tray,
+        #custom-whereami, #clock, #workspaces {
+          padding: 0 8px;
+          color: #81A1C1;
+        }
+        #workspaces button {
+          padding: 0 4px;
+          color: #4C566A;
+        }
+        #workspaces button.focused {
+          color: #ECEFF4;
+        }
+        #battery.charging { color: #A3BE8C; }
+        #battery.warning:not(.charging) { color: #EBCB8B; }
+        #battery.critical:not(.charging) { color: #BF616A; }
+      '';
     };
     kitty = {
       enable = true;
@@ -550,12 +594,13 @@
     enable = true;
     package = pkgs.symlinkJoin {
       name = "sway";
-      paths = [pkgs.sway];
-      nativeBuildInputs = [pkgs.makeWrapper];
-      postBuild = ''
-        wrapProgram $out/bin/sway \
-          --set-default XDG_CACHE_HOME /tmp
-      '';
+      paths = [
+        (pkgs.writeShellScriptBin "sway" ''
+          export XDG_CACHE_HOME=''${XDG_CACHE_HOME:-/tmp}
+          exec ${pkgs.sway}/bin/sway "$@" 2>/tmp/sway.log
+        '')
+        pkgs.sway
+      ];
     };
     config = rec {
       modifier = "Mod4";
@@ -565,32 +610,7 @@
         "c:chat" = [{app_id = "beeper";} {app_id = "Beeper";} {class = "Beeper";} {app_id = "slack";} {class = "Slack";}];
         "n:notes" = [{app_id = "Logseq";} {app_id = "logseq";} {class = "Logseq";}];
       };
-      bars = [
-        {
-          fonts = {
-            names = ["DejaVu Sans Mono" "FontAwesome5Free"];
-            size = 12.0;
-            style = "Bold Semi-Condensed";
-          };
-          hiddenState = "hide";
-          mode = "hide";
-          position = "bottom";
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-bottom.toml";
-          trayOutput = "primary";
-        }
-        {
-          fonts = {
-            names = ["DejaVu Sans Mono" "FontAwesome5Free"];
-            size = 12.0;
-            style = "Bold Semi-Condensed";
-          };
-          hiddenState = "hide";
-          mode = "hide";
-          position = "top";
-          statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs ~/.config/i3status-rust/config-top.toml";
-          trayOutput = "primary";
-        }
-      ];
+      bars = [];
       gaps = {
         inner = 3;
         outer = 1;
@@ -665,6 +685,8 @@
         {command = "kitty";}
         {command = "beeper";}
         {command = "logseq";}
+        {command = "waybar";}
+        {command = "bash -c 'sleep 1 && pkill -SIGUSR1 waybar'";}
       ];
       window = {
         border = 0;
@@ -715,5 +737,9 @@
         }
       ];
     };
+    extraConfig = ''
+      bindsym --no-repeat Super_L exec pkill -SIGUSR1 waybar
+      bindsym --release Super_L exec pkill -SIGUSR1 waybar
+    '';
   };
 }
