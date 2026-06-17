@@ -7,10 +7,9 @@
   ...
 }: let
   waybar-peek = pkgs.writeShellScriptBin "waybar-peek" ''
-    STATE=/tmp/waybar-peek
     case "$1" in
-      show) [ -f "$STATE" ] || { touch "$STATE"; pkill -SIGUSR1 waybar; } ;;
-      hide) [ -f "$STATE" ] && { rm "$STATE"; pkill -SIGUSR1 waybar; } ;;
+      show) pkill -SIGUSR1 waybar ;;
+      hide) pkill -SIGUSR2 waybar ;;
     esac
   '';
 in {
@@ -363,6 +362,9 @@ in {
           layer = "overlay";
           position = "bottom";
           height = 24;
+          start_hidden = true;
+          "on-sigusr1" = "show";
+          "on-sigusr2" = "hide";
           modules-left = ["sway/workspaces"];
           modules-center = [];
           modules-right = ["network" "memory" "cpu" "wireplumber" "battery" "tray"];
@@ -402,6 +404,9 @@ in {
           layer = "overlay";
           position = "top";
           height = 24;
+          start_hidden = true;
+          "on-sigusr1" = "show";
+          "on-sigusr2" = "hide";
           modules-left = ["custom/whereami"];
           modules-center = [];
           modules-right = ["clock#pt" "clock#et" "clock#utc" "clock#cet" "clock#date"];
@@ -699,7 +704,6 @@ in {
         {command = "beeper";}
         {command = "logseq";}
         {command = "waybar";}
-        {command = "bash -c 'sleep 1 && pkill -SIGUSR1 waybar'";}
       ];
       window = {
         border = 0;
