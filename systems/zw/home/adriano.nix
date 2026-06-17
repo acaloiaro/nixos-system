@@ -380,23 +380,23 @@ in {
           };
           memory = {
             interval = 5;
-            format = " {used:.1f}G";
+            format = " {used:.1f}G";
           };
           cpu = {
             interval = 5;
-            format = " {usage}%";
+            format = " {usage}%";
           };
           wireplumber = {
-            format = "{volume}% {icon}";
-            format-muted = " muted";
-            format-icons = ["" "" ""];
+            format = "{icon} {volume}%";
+            format-muted = " muted";
+            format-icons = ["" "" ""];
             on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
           };
           battery = {
             interval = 30;
-            format = "{capacity}% {icon}";
-            format-charging = "{capacity}%  ";
-            format-icons = ["" "" "" "" ""];
+            format = "{icon} {capacity}%";
+            format-charging = " {capacity}%";
+            format-icons = ["" "" "" "" ""];
           };
           tray = {spacing = 10;};
         }
@@ -443,7 +443,8 @@ in {
       ];
       style = ''
         * {
-          font-family: "DejaVu Sans Mono", "Font Awesome 5 Free";
+          font-family: "Font Awesome 5 Free", "DejaVu Sans Mono";
+          font-weight: bold;
           font-size: 16px;
           min-height: 0;
         }
