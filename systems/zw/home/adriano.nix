@@ -278,10 +278,6 @@
             source = "github";
             repo = "acaloiaro/nixos-system";
           };
-          mattpocock-skills.source = {
-            source = "github";
-            repo = "mattpocock/skills";
-          };
         };
         enabledPlugins = {
           "lsp-mux-go-nix@lsp-mux" = true;
@@ -292,11 +288,17 @@
           "create-my-skills@my-skills" = true;
           "update-my-skills@my-skills" = true;
           "version-control@my-skills" = true;
-          "grill-me@mattpocock-skills" = true;
-          "grill-me-with-docs@mattpocock-skills" = true;
         };
         mcpServers = config.ai-agents.mcpServers;
       };
+      plugins = [
+        (pkgs.fetchFromGitHub {
+          owner = "mattpocock";
+          repo = "skills";
+          rev = "694fa30311e02c2639942308513555e61ee84a6f";
+          hash = "sha256-NGRKdnHSBKoR48zGotmJ3zGXnQ58ogudv8T4Va/2DSY=";
+        })
+      ];
     };
     direnv = {
       enable = true;
