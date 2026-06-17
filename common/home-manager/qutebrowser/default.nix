@@ -58,6 +58,10 @@
 
       # zoom.default = "120%";
       content.javascript.clipboard = "access";
+
+      qt.args = [
+        "disable-gpu-compositing"
+      ];
     };
   };
 }
