@@ -5,7 +5,15 @@
   kitty-grab,
   agenix,
   ...
-}: {
+}: let
+  waybar-peek = pkgs.writeShellScriptBin "waybar-peek" ''
+    STATE=/tmp/waybar-peek
+    case "$1" in
+      show) [ -f "$STATE" ] || { touch "$STATE"; pkill -SIGUSR1 waybar; } ;;
+      hide) [ -f "$STATE" ] && { rm "$STATE"; pkill -SIGUSR1 waybar; } ;;
+    esac
+  '';
+in {
   imports = [
     ../../../common/accounts/calendars.nix
     ../../../common/applications/run-in-mux.nix
@@ -352,7 +360,7 @@
       enable = true;
       settings = [
         {
-          layer = "top";
+          layer = "overlay";
           position = "bottom";
           height = 24;
           modules-left = ["sway/workspaces"];
@@ -391,7 +399,7 @@
           tray = {spacing = 10;};
         }
         {
-          layer = "top";
+          layer = "overlay";
           position = "top";
           height = 24;
           modules-left = ["custom/whereami"];
@@ -632,12 +640,12 @@
       };
       keybindings = lib.mkOptionDefault {
         # Workspaces
-        "${modifier}+b" = "workspace b:browser";
-        "${modifier}+c" = "workspace c:chat";
-        "${modifier}+n" = "workspace n:notes";
-        "${modifier}+t" = "workspace t:term";
-        "${modifier}+u" = "workspace u:unassigned";
-        "${modifier}+v" = "workspace v:video";
+        "${modifier}+b" = "workspace b:browser; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+c" = "workspace c:chat; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+n" = "workspace n:notes; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+t" = "workspace t:term; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+u" = "workspace u:unassigned; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+v" = "workspace v:video; exec ${waybar-peek}/bin/waybar-peek hide";
         "${modifier}+Shift+b" = "move container to workspace b:browser";
         "${modifier}+Shift+c" = "move container to workspace c:chat";
         "${modifier}+Shift+n" = "move container to workspace n:notes";
@@ -738,8 +746,8 @@
       ];
     };
     extraConfig = ''
-      bindsym --no-repeat Super_L exec pkill -SIGUSR1 waybar
-      bindsym --release Super_L exec pkill -SIGUSR1 waybar
+      bindsym --no-repeat Super_L exec ${waybar-peek}/bin/waybar-peek show
+      bindsym --release Super_L exec ${waybar-peek}/bin/waybar-peek hide
     '';
   };
 }
