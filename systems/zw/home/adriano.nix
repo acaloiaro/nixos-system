@@ -171,6 +171,7 @@ in {
       })
       prettier
       swaylock
+      ungoogled-chromium
       yazi
       zeal
       zsh
@@ -625,7 +626,7 @@ in {
     config = rec {
       modifier = "Mod4";
       assigns = {
-        "b:browser" = [{app_id = "^qutebrowser$";}];
+        "b:browser" = [{app_id = "^qutebrowser$";} {app_id = "chromium-browser";}];
         "t:term" = [{app_id = "^kitty$";}];
         "c:chat" = [{app_id = "beeper";} {app_id = "Beeper";} {class = "Beeper";} {app_id = "slack";} {class = "Slack";}];
         "n:notes" = [{app_id = "Logseq";} {app_id = "logseq";} {class = "Logseq";}];
@@ -710,6 +711,24 @@ in {
       window = {
         border = 0;
         titlebar = false;
+        commands = [
+          {
+            criteria = {instance = "chromium-browser";};
+            command = "floating disable";
+          }
+          {
+            criteria = {instance = "chromium-browser";};
+            command = "focus";
+          }
+          {
+            criteria = {app_id = ".blueman-manager-wrapped";};
+            command = "focus";
+          }
+          {
+            criteria = {app_id = ".blueman-manager-wrapped";};
+            command = "floating disable";
+          }
+        ];
       };
       floating = {
         border = 0;

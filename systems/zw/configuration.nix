@@ -648,7 +648,6 @@
           tmux
           tree
           typescript-language-server
-          ungoogled-chromium
           unzip
           usbutils
           vlc
