@@ -296,6 +296,7 @@ in {
           "update-my-skills@my-skills" = true;
           "version-control@my-skills" = true;
         };
+        includeCoAuthoredBy = false;
         mcpServers = config.ai-agents.mcpServers;
       };
       plugins = [
