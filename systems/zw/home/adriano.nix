@@ -365,10 +365,20 @@ in {
       settings = [
         {
           layer = "overlay";
+          "exclusive-zone" = 0;
+          "mode" = "peek";
           position = "bottom";
           height = 24;
           start_hidden = true;
-          "on-sigusr1" = "show";
+          modes = {
+            peek = {
+              layer = "overlay";
+              exclusive = false;
+              passthrough = false;
+              visible = true;
+            };
+          };
+          "on-sigusr1" = "toggle";
           "on-sigusr2" = "hide";
           modules-left = ["sway/workspaces"];
           modules-center = [];
@@ -407,10 +417,20 @@ in {
         }
         {
           layer = "overlay";
+          "exclusive-zone" = 0;
+          "mode" = "peek";
           position = "top";
           height = 24;
           start_hidden = true;
-          "on-sigusr1" = "show";
+          modes = {
+            peek = {
+              layer = "overlay";
+              exclusive = false;
+              passthrough = false;
+              visible = true;
+            };
+          };
+          "on-sigusr1" = "toggle";
           "on-sigusr2" = "hide";
           modules-left = ["custom/whereami"];
           modules-center = [];
