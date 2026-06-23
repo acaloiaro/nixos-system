@@ -124,7 +124,10 @@ in {
 
   home = {
     activation.install-dictionaries = lib.hm.dag.entryAfter ["writeBoundary"] ''
-      ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+      dict_dir="$HOME/.local/share/qutebrowser/qtwebengine_dictionaries"
+      if ! ls "$dict_dir"/en-US*.bdic 2>/dev/null | grep -q .; then
+        ${pkgs.qutebrowser}/share/qutebrowser/scripts/dictcli.py install en-US
+      fi
     '';
     file = {
       ".config/gopass" = {
