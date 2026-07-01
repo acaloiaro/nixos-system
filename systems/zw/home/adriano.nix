@@ -111,6 +111,7 @@ in {
 
   ai-agents = {
     enable = true;
+    claude-code.agentsDir = "${config.home.homeDirectory}/git/nixos-system/common/home-manager/ai-agents/agents";
     mcp = {
       atlassian.enable = false;
       context7 = {

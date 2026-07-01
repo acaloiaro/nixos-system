@@ -24,6 +24,17 @@ in {
       description = "Custom agents passed through to programs.claude-code.agents.";
     };
 
+    agentsDir = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = ''
+        Absolute path to a directory of agent .md files. Symlinked directly into
+        the claude agents directory so edits are picked up without re-applying
+        home-manager. Mutually exclusive with agents.
+      '';
+      example = "/home/user/git/nixos-system/common/home-manager/ai-agents/agents";
+    };
+
     commands = lib.mkOption {
       type = lib.types.attrs;
       default = {};
@@ -130,6 +141,11 @@ in {
       commands = cfg.commands;
       hooks = cfg.hooks;
       memory = cfg.memory;
+    };
+
+    home.file = lib.mkIf (cfg.agentsDir != null) {
+      "${config.programs.claude-code.configDir}/agents".source =
+        config.lib.file.mkOutOfStoreSymlink cfg.agentsDir;
     };
   };
 }
