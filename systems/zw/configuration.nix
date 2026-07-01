@@ -211,6 +211,9 @@
           "Colibri" = {
             pskRaw = "ext:COLIBRI";
           };
+          "MEO-F135E5-5G" = {
+            psk = "625DA57547";
+          };
         };
         secretsFile = config.age.secrets.wireless_networks.path;
         userControlled = true;
