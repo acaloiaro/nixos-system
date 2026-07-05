@@ -339,7 +339,7 @@
           naturalScrolling = true;
         };
       };
-      openntpd.enable = true;
+      timesyncd.enable = true;
       openssh = {
         enable = true;
         settings.PasswordAuthentication = true;
