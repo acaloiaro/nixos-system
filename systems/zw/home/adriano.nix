@@ -161,6 +161,7 @@ in {
       adiff
       age
       btsw
+      element-desktop
       gnome-keyring
       hookable
       opencloud-desktop
