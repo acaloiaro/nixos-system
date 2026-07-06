@@ -534,7 +534,7 @@ in {
       ];
       style = ''
         * {
-          font-family: "Font Awesome 5 Free", "DejaVu Sans Mono";
+          font-family: "DejaVu Sans Mono", "Font Awesome 5 Free";
           font-weight: bold;
           font-size: 16px;
           min-height: 0;
@@ -717,7 +717,7 @@ in {
       assigns = {
         "b:browser" = [{app_id = "^qutebrowser$";} {app_id = "chromium-browser";}];
         "t:term" = [{app_id = "^kitty$";}];
-        "c:chat" = [{app_id = "beeper";} {app_id = "Beeper";} {class = "Beeper";} {app_id = "slack";} {class = "Slack";}];
+        "c:chat" = [{app_id = "beeper";} {app_id = "Beeper";} {class = "Beeper";} {app_id = "element";} {app_id = "slack";} {class = "Slack";}];
         "n:notes" = [{app_id = "Logseq";} {app_id = "logseq";} {class = "Logseq";}];
       };
       bars = [];
@@ -794,6 +794,7 @@ in {
         {command = "qutebrowser";}
         {command = "kitty";}
         {command = "beeper";}
+        {command = "element-desktop";}
         {command = "logseq";}
         {command = "waybar";}
       ];
@@ -816,6 +817,10 @@ in {
           {
             criteria = {app_id = ".blueman-manager-wrapped";};
             command = "floating disable";
+          }
+          {
+            criteria = {workspace = "c:chat";};
+            command = "layout tabbed";
           }
         ];
       };
