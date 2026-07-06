@@ -828,6 +828,15 @@ in {
         border = 0;
         titlebar = false;
       };
+      colors = {
+        focused = {
+          border = "#4C566A";
+          background = "#4C566A";
+          text = "#ECEFF4";
+          indicator = "#88C0D0";
+          childBorder = "#4C566A";
+        };
+      };
       workspaceAutoBackAndForth = true;
       workspaceLayout = "default";
       workspaceOutputAssign = [
