@@ -5,11 +5,30 @@
       runtimeInputs = with pkgs; [zellij tmux jq];
       excludeShellChecks = ["SC2016"];
       text = ''
-        # Usage: run-in-mux [--name N] [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]
+        # Usage: run-in-mux [--name N] [--width W] [--height H] [--x X] [--y Y] [--help] [--] <command> [args...]
         #
         # Runs <command> in a floating overlay of whichever terminal multiplexer
         # the caller is inside: a zellij floating pane or a tmux popup. When the
         # caller is in neither, the command runs inline in the current terminal.
+
+        usage() {
+          cat <<'EOF'
+Usage: run-in-mux [OPTIONS] [--] <command> [args...]
+
+Run a command in a floating overlay of the active terminal multiplexer
+(Zellij floating pane or tmux popup). When running outside a multiplexer,
+the command runs inline in the current terminal.
+
+Options:
+  --name  N    Pane title (default: run-in-mux)
+  --width  W   Pane width, px or % (default: 80%)
+  --height H   Pane height, px or % (default: 80%)
+  --x     X    Horizontal offset, px or % (default: 10%)
+  --y     Y    Vertical offset, px or % (default: 10%)
+  --help       Show this help and exit
+  --           End option parsing; remaining args are the command
+EOF
+        }
 
         name="run-in-mux"
         width="80%"
@@ -24,13 +43,14 @@
             --height) height="$2"; shift 2 ;;
             --x)      x="$2";      shift 2 ;;
             --y)      y="$2";      shift 2 ;;
+            --help)   usage; exit 0 ;;
             --)       shift; break ;;
             *)        break ;;
           esac
         done
 
         if [[ $# -lt 1 ]]; then
-          echo "Usage: run-in-mux [--name N] [--width W] [--height H] [--x X] [--y Y] [--] <command> [args...]" >&2
+          usage >&2
           exit 1
         fi
 
