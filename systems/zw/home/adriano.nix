@@ -6,10 +6,6 @@
   agenix,
   ...
 }: let
-  zj-which-key = pkgs.fetchurl {
-    url = "https://github.com/johnae/zj-which-key/releases/download/v0.2.0/zj_which_key.wasm";
-    sha256 = "1yy9kzy2c3xklsskmid7w3zr2f3041kx1a4r2f40bshjc8wdqbhy";
-  };
   waybar-peek = pkgs.writeShellScriptBin "waybar-peek" ''
     case "$1" in
       show) pkill -SIGUSR1 waybar ;;
@@ -136,18 +132,6 @@ in {
       fi
     '';
     file = {
-      ".cache/zellij/permissions.kdl".text = ''
-        "${pkgs.zellijPlugins.zjstatus}" {
-            RunCommands
-            ReadApplicationState
-            ChangeApplicationState
-        }
-        "${zj-which-key}" {
-            ReadApplicationState
-            ChangeApplicationState
-            MessageAndLaunchOtherPlugins
-        }
-      '';
       ".config/gopass" = {
         recursive = true;
         source = ./gopass;
@@ -219,6 +203,8 @@ in {
     sessionSerialization = true;
     theme = "nord";
     defaultSessionName = "default";
+    zjstatus.enable = true;
+    zjWhichKey.enable = true;
     defaultSessionLayout = ''
       layout {
           default_tab_template {
@@ -257,17 +243,6 @@ in {
   };
 
   programs = {
-    zellij.extraConfig = ''
-      load_plugins {
-          "file:${zj-which-key}" {
-              auto_show "true"
-              delay_secs "0.3"
-              position "bottom-right"
-              max_height_pct "40"
-          }
-      }
-    '';
-
     aerc = {
       enable = true;
       extraConfig = {

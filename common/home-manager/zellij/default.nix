@@ -6,6 +6,10 @@
 }:
 with lib; let
   cfg = config.modules.zellij;
+  zj-which-key = pkgs.fetchurl {
+    url = "https://github.com/johnae/zj-which-key/releases/download/v0.2.0/zj_which_key.wasm";
+    sha256 = "1yy9kzy2c3xklsskmid7w3zr2f3041kx1a4r2f40bshjc8wdqbhy";
+  };
 in {
   options.modules.zellij = {
     enable = mkEnableOption "zellij terminal multiplexer";
@@ -62,6 +66,34 @@ in {
       type = types.nullOr types.lines;
       default = null;
       description = "KDL layout content for the default session. When set, this is written to ~/.config/zellij/layouts/<defaultSessionName>.kdl and used on session creation.";
+    };
+
+    zjstatus = {
+      enable = mkEnableOption "zjstatus status bar plugin";
+    };
+
+    zjWhichKey = {
+      enable = mkEnableOption "zj-which-key plugin";
+      autoShow = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Automatically show the which-key overlay";
+      };
+      delaySecs = mkOption {
+        type = types.str;
+        default = "0.3";
+        description = "Delay in seconds before showing the overlay";
+      };
+      position = mkOption {
+        type = types.str;
+        default = "bottom-right";
+        description = "Position of the which-key overlay";
+      };
+      maxHeightPct = mkOption {
+        type = types.str;
+        default = "40";
+        description = "Maximum height as a percentage of the terminal";
+      };
     };
   };
 
@@ -226,11 +258,40 @@ in {
           };
         }
         // cfg.extraSettings;
+      extraConfig = mkIf cfg.zjWhichKey.enable ''
+        load_plugins {
+            "file:${zj-which-key}" {
+                auto_show "${if cfg.zjWhichKey.autoShow then "true" else "false"}"
+                delay_secs "${cfg.zjWhichKey.delaySecs}"
+                position "${cfg.zjWhichKey.position}"
+                max_height_pct "${cfg.zjWhichKey.maxHeightPct}"
+            }
+        }
+      '';
     };
 
-    home.file = mkIf (cfg.defaultSessionLayout != null) {
-      ".config/zellij/layouts/${cfg.defaultSessionName}.kdl".text = cfg.defaultSessionLayout;
-    };
+    home.file = mkMerge [
+      (mkIf (cfg.defaultSessionLayout != null) {
+        ".config/zellij/layouts/${cfg.defaultSessionName}.kdl".text = cfg.defaultSessionLayout;
+      })
+      (mkIf (cfg.zjstatus.enable || cfg.zjWhichKey.enable) {
+        ".cache/zellij/permissions.kdl".text =
+          (optionalString cfg.zjstatus.enable ''
+            "${pkgs.zellijPlugins.zjstatus}" {
+                RunCommands
+                ReadApplicationState
+                ChangeApplicationState
+            }
+          '')
+          + (optionalString cfg.zjWhichKey.enable ''
+            "${zj-which-key}" {
+                ReadApplicationState
+                ChangeApplicationState
+                MessageAndLaunchOtherPlugins
+            }
+          '');
+      })
+    ];
 
     programs.zsh = mkIf cfg.autoStart {
       initContent =
