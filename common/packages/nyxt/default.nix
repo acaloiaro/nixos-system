@@ -75,7 +75,7 @@
     src = linuxSrc;
   };
 
-  linuxPkg = appimageTools.wrapType2 {
+  baseLinuxPkg = appimageTools.wrapType2 {
     inherit pname version meta;
     src = linuxSrc;
 
@@ -86,6 +86,18 @@
         $out/share/pixmaps/nyxt.png
     '';
   };
+
+  # wrapType2 uses buildFHSEnv whose extraInstallCommands doesn't load the
+  # makeWrapper hook, so we wrap in a second pass where makeWrapper is available.
+  linuxPkg = runCommand "${pname}-${version}" {
+    nativeBuildInputs = [makeWrapper];
+    inherit meta;
+  } ''
+    cp -r ${baseLinuxPkg} $out
+    chmod -R u+w $out
+    wrapProgram $out/bin/${pname} \
+      --set APPIMAGE_EXTRACT_AND_RUN 1
+  '';
 in
   if stdenv.hostPlatform.isDarwin
   then darwinPkg
