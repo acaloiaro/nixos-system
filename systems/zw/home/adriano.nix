@@ -23,6 +23,7 @@ in {
     ../../../common/home-manager/ai-agents
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
+    ../../../common/home-manager/nyxt
     ../../../common/home-manager/qutebrowser
     ../../../common/home-manager/zellij
     agenix.homeManagerModules.default
@@ -617,13 +618,6 @@ in {
       dotDir = config.home.homeDirectory;
       enable = true;
       enableCompletion = true;
-      initContent = lib.mkBefore ''
-        # Start gnome-keyring daemon if not already running (for i3/wm users)
-        if [ -z "$GNOME_KEYRING_CONTROL" ]; then
-          dbus-update-activation-environment --all
-          eval "$(gnome-keyring-daemon --start --components=secrets)"
-        fi
-      '';
       shellAliases = {
         addresses = "hx ~/KB/pages/Important\\ Addresses.md";
         gpgen = "gopass generate \"$1/$1@adriano.fyi\"";
