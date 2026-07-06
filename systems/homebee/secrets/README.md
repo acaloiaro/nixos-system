@@ -1,3 +1,5 @@
+> **Note:** This system uses plain `agenix`, not `agenix-rekey`. See the top-level README for the new workflow used on `zw`.
+
 # About 
 
 This directory contains encrypted secrets. 

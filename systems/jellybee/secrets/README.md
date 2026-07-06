@@ -1,3 +1,5 @@
+> **Note:** This system is partially migrated to `agenix-rekey`. Some secrets use `rekeyFile`; others still use the plain `agenix` workflow below. See the top-level README for the new workflow.
+
 # About 
 
 This directory contains encrypted secrets. 
