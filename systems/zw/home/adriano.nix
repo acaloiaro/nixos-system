@@ -176,6 +176,7 @@ in {
       })
       prettier
       swaylock
+      nyxt
       ungoogled-chromium
       yazi
       zeal

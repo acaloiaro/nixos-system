@@ -4,5 +4,6 @@
     (import ./claude-code)
     (import ./go-jira.nix)
     (import ./glow.nix)
+    (import ./nyxt.nix)
   ];
 }
