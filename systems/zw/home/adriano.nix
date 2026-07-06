@@ -6,6 +6,10 @@
   agenix,
   ...
 }: let
+  zj-which-key = pkgs.fetchurl {
+    url = "https://github.com/johnae/zj-which-key/releases/download/v0.2.0/zj_which_key.wasm";
+    sha256 = "1yy9kzy2c3xklsskmid7w3zr2f3041kx1a4r2f40bshjc8wdqbhy";
+  };
   waybar-peek = pkgs.writeShellScriptBin "waybar-peek" ''
     case "$1" in
       show) pkill -SIGUSR1 waybar ;;
@@ -131,6 +135,18 @@ in {
       fi
     '';
     file = {
+      ".cache/zellij/permissions.kdl".text = ''
+        "${pkgs.zellijPlugins.zjstatus}" {
+            RunCommands
+            ReadApplicationState
+            ChangeApplicationState
+        }
+        "${zj-which-key}" {
+            ReadApplicationState
+            ChangeApplicationState
+            MessageAndLaunchOtherPlugins
+        }
+      '';
       ".config/gopass" = {
         recursive = true;
         source = ./gopass;
@@ -201,9 +217,56 @@ in {
     paneFrames = false;
     sessionSerialization = true;
     theme = "nord";
+    defaultSessionName = "default";
+    defaultSessionLayout = ''
+      layout {
+          default_tab_template {
+              children
+              pane size=1 borderless=true {
+                  plugin location="file:${pkgs.zellijPlugins.zjstatus}" {
+                      format_left  "{tabs}"
+                      format_right "{mode}#[bg=#3B4252,fg=#D8DEE9] ({session}) "
+                      format_space "#[bg=#3B4252]"
+
+                      tab_normal "#[bg=#3B4252,fg=#D8DEE9] {name} "
+                      tab_active "#[bg=#88C0D0,fg=#2E3440,bold] {name} "
+
+                      mode_normal  "#[bg=#3B4252,fg=#D8DEE9] NORMAL "
+                      mode_locked  "#[bg=#BF616A,fg=#2E3440,bold] LOCKED "
+                      mode_resize  "#[bg=#D08770,fg=#2E3440,bold] RESIZE "
+                      mode_pane    "#[bg=#EBCB8B,fg=#2E3440,bold] PANE "
+                      mode_tab     "#[bg=#A3BE8C,fg=#2E3440,bold] TAB "
+                      mode_scroll  "#[bg=#B48EAD,fg=#2E3440,bold] SCROLL "
+                      mode_move    "#[bg=#81A1C1,fg=#2E3440,bold] MOVE "
+                      mode_tmux    "#[bg=#81A1C1,fg=#2E3440,bold] TMUX "
+                  }
+              }
+          }
+          tab name="Music" {
+              pane command="di-tui"
+          }
+          tab name="Nix" cwd="/home/adriano/git/nixos-system" {
+              pane
+          }
+          tab name="Scratch" cwd="/home/adriano/git/scratch" {
+              pane
+          }
+      }
+    '';
   };
 
   programs = {
+    zellij.extraConfig = ''
+      load_plugins {
+          "file:${zj-which-key}" {
+              auto_show "true"
+              delay_secs "0.3"
+              position "bottom-right"
+              max_height_pct "40"
+          }
+      }
+    '';
+
     aerc = {
       enable = true;
       extraConfig = {
