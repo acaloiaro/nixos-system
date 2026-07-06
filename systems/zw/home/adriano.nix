@@ -735,15 +735,15 @@ in {
         "${modifier}+Shift+4" = null;
         "${modifier}+Shift+5" = null;
         # Move
-        "${modifier}+Shift+h" = "move left";
-        "${modifier}+Shift+j" = "move down";
-        "${modifier}+Shift+k" = "move up";
-        "${modifier}+Shift+l" = "move right";
+        "${modifier}+Shift+h" = "move left; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+Shift+j" = "move down; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+Shift+k" = "move up; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+Shift+l" = "move right; exec ${waybar-peek}/bin/waybar-peek hide";
         # Focus
-        "${modifier}+h" = "focus left";
-        "${modifier}+j" = "focus down";
-        "${modifier}+k" = "focus up";
-        "${modifier}+l" = "focus right";
+        "${modifier}+h" = "focus left; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+j" = "focus down; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+k" = "focus up; exec ${waybar-peek}/bin/waybar-peek hide";
+        "${modifier}+l" = "focus right; exec ${waybar-peek}/bin/waybar-peek hide";
         "${modifier}+Return" = "exec ${pkgs.kitty}/bin/kitty --shell /run/current-system/sw/bin/zsh";
         "${modifier}+Shift+d" = "exec ${pkgs.rofi}/bin/rofi -show window";
         "${modifier}+Shift+x" = "exec systemctl suspend";
