@@ -599,7 +599,7 @@ in {
         ideas = "hx ~/KB/pages/Notes/ideas/";
         ll = "ls -l";
         ncm-token = "${pkgs.gopass}/bin/gopass show ncm | grep Secret | awk '{print \$4}'";
-        nomad = "NOMAD_ADDR=http://ncm-3:4646 NOMAD_TOKEN=$(gopass show systems/ncm | grep \"Secret ID\" | awk '{print $4}') nomad $*";
+        nomad = "NOMAD_ADDR=http://ncm-0:4646 NOMAD_TOKEN=$(gopass show systems/ncm | grep \"Secret ID\" | awk '{print $4}') nomad $*";
         notes = "hx ~/KB";
         open = "xdg-open $*";
         people = "vim ~/KB/pages/People.md";
