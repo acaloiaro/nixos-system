@@ -17,6 +17,7 @@ in {
     ../../../common/accounts/calendars.nix
     ../../../common/applications/run-in-mux.nix
     ../../../common/home-manager/ai-agents
+    ../../../common/home-manager/direnv
     ../../../common/home-manager/helix
     ../../../common/home-manager/jira
     ../../../common/home-manager/nyxt
