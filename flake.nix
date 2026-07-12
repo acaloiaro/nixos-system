@@ -66,6 +66,11 @@
     flake = false;
   };
 
+  inputs.age-plugin-gopass = {
+    url = "path:/home/adriano/git/age-plugin-gopass";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs = {
     self,
     nixpkgs,

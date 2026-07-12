@@ -5,5 +5,6 @@
     (import ./go-jira.nix)
     (import ./glow.nix)
     (import ./nyxt.nix)
+    (import ./age-plugin-gopass.nix {inherit inputs;})
   ];
 }

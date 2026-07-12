@@ -161,6 +161,7 @@ in {
     packages = with pkgs; [
       adiff
       age
+      age-plugin-gopass
       btsw
       element-desktop
       gnome-keyring
