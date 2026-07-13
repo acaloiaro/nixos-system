@@ -5,7 +5,7 @@ description: Version control workflow using jujutsu (jj) exclusively. Use for an
 
 # Version Control (Jujutsu)
 
-> **Note**: Current as of jujutsu version **0.37.0**. Run `jj --version` to check your version and `jj help` for the latest command reference.
+> **Note**: Current as of jujutsu version **0.43.0**. Run `jj --version` to check your version and `jj help` for the latest command reference.
 
 **Forget everything you know about git.**
 
@@ -157,6 +157,21 @@ jj rebase -d main@origin    # Rebase onto remote main
 jj rebase -b @ -d main      # Rebase branch containing @ onto main
 jj rebase -r @ -d main      # Rebase only @ (not descendants)
 ```
+
+### Run a Command Across Revisions
+
+`jj run` checks out each selected revision in an isolated working copy, runs a command, amends the revision with the result, then rebases descendants on top so the change propagates. Use it to apply a formatter, linter, or codemod across a whole stack of changes at once instead of editing each change by hand.
+
+```bash
+jj run -r 'main..@' -- alejandra .      # format nix across every change since main
+jj run -j 4 -- <cmd>                    # run up to 4 revisions in parallel
+jj run --restore-descendants -- <cmd>   # keep descendants' content, not their diff
+```
+
+- Rewrites history (amends each revision): only run it on your own un-pushed changes.
+- The command must be non-interactive. Each invocation sees `$JJ_CHANGE_ID`, `$JJ_COMMIT_ID`, and `$JJ_WORKSPACE_ROOT`.
+- `--clean` starts each revision from a freshly checked-out tree (no reused build artifacts); by default working copies are reused between revisions.
+- Newly stabilized as of jj 0.43; run `jj help run` to confirm behavior on your version.
 
 ### Remote Operations
 
