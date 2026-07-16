@@ -67,7 +67,7 @@
   };
 
   inputs.age-plugin-gopass = {
-    url = "path:/home/adriano/git/age-plugin-gopass";
+    url = "git+https://tangled.org/adriano.tngl.sh/age-plugin-gopass";
     inputs.nixpkgs.follows = "nixpkgs";
   };
 

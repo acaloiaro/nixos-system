@@ -26,13 +26,17 @@
         ]
       },
       "locked": {
-        "narHash": "sha256-Zrn52YtWB3+0o3PxmHXPSVCNrrot46rv0gCLEs5qd4E=",
-        "path": "/home/adriano/git/age-plugin-gopass",
-        "type": "path"
+        "lastModified": 1783947586,
+        "narHash": "sha256-x4SQm1A5BbgvjLjFCMtL3xZFRpx+uC19e60wVq+Ng4Y=",
+        "ref": "refs/heads/main",
+        "rev": "c159b4283c9db8c3a639e57244fc788c012fdbe5",
+        "revCount": 2,
+        "type": "git",
+        "url": "https://tangled.org/adriano.tngl.sh/age-plugin-gopass"
       },
       "original": {
-        "path": "/home/adriano/git/age-plugin-gopass",
-        "type": "path"
+        "type": "git",
+        "url": "https://tangled.org/adriano.tngl.sh/age-plugin-gopass"
       }
     },
     "agenix": {
