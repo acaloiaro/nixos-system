@@ -86,7 +86,7 @@
 
   my = {
     opencloud = {
-      enable = true;
+      enable = false;
       hostname = "jellybee.bison-lizard.ts.net:9200";
       s3 = {
         endpoint = "https://s3.us-east-005.backblazeb2.com";
