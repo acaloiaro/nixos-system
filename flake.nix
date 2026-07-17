@@ -91,6 +91,7 @@
       inputs.lsp-mux.overlays.default
       inputs.adiff.overlays.default
       nur.overlays.default
+      (import ./common/overlays/age-plugin-gopass.nix {inherit inputs;})
     ];
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -103,35 +104,8 @@
       inherit overlays system;
     };
 
-    # Wrapper to handle the dynamic master key
-    mkRekeyApp = system: pkgs: let
-      rekeyPackage = inputs.agenix-rekey.packages.${system}.default;
-    in {
-      type = "app";
-      program = "${pkgs.writeShellScript "rekey-wrapper" ''
-        # Create the file expected by the config
-        # We use /dev/shm (RAM-based tmpfs) to ensure the key never touches disk
-        REPO_ROOT=$(git rev-parse --show-toplevel)
-        MASTER_KEY_FILE="/dev/shm/agenix-master-$$.key"
-
-        # Cleanup on exit
-        trap 'rm -f "$MASTER_KEY_FILE"' EXIT
-
-        # Get the master key from gopass and write to RAM only
-        echo "Retrieving master key from gopass..."
-        ${pkgs.gopass}/bin/gopass show -o systems/age.master > "$MASTER_KEY_FILE"
-        chmod 600 "$MASTER_KEY_FILE"
-
-        # Run the actual rekey command from the repo root with symlink
-        cd "$REPO_ROOT"
-        ln -sf "$MASTER_KEY_FILE" master.key
-        trap 'rm -f "$MASTER_KEY_FILE" master.key' EXIT
-        ${rekeyPackage}/bin/agenix rekey "$@"
-      ''}";
-    };
   in {
     inherit lib;
-    apps.${system}.rekey = mkRekeyApp system pkgs;
     homeConfigurations = {
       "adriano@zw" = lib.homeManagerConfiguration {
         inherit pkgs;
