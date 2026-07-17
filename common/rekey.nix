@@ -1,9 +1,12 @@
-{...}: {
+{pkgs, ...}: {
   age.rekey = {
+    agePlugins = [pkgs.age-plugin-gopass];
     masterIdentities = [
       {
-        identity = "master.key";
-        pubkey = "age13sgljsr9srgxjxncl49qsn9dkkstcqct3ck9s7n2yu4lzelgp4uqcajgtj";
+        identity = ".age/legacy.gopass.identity.age";
+      }
+      {
+        identity = ".age/zw.master.identity.age";
       }
     ];
     storageMode = "local";
