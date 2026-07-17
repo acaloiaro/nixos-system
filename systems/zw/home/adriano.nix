@@ -4,6 +4,8 @@
   lib,
   kitty-grab,
   agenix,
+  inputs,
+  system,
   ...
 }: let
   waybar-peek = pkgs.writeShellScriptBin "waybar-peek" ''
@@ -162,6 +164,7 @@ in {
     packages = with pkgs; [
       adiff
       age
+      inputs.agenix-rekey.packages.${system}.default
       age-plugin-gopass
       btsw
       element-desktop
