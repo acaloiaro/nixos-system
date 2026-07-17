@@ -5,4 +5,7 @@
   age.secrets.opencode-context7-api-key = {
     rekeyFile = ./secrets/opencode-context7-api-key.age;
   };
+  age.secrets.cachix = {
+    rekeyFile = ./secrets/cachix.age;
+  };
 }

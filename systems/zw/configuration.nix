@@ -446,7 +446,7 @@
       };
     };
 
-    substituters.private.enable = false;
+    substituters.private.enable = true;
 
     xdg.portal = {
       enable = true;
