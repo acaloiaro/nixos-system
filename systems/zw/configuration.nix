@@ -24,6 +24,12 @@
       rekey = {
         hostPubkey = "age1ffpemt4x5l55wr42emf0f5v9lej84x7w7l44la30p329rc8cwftqach2t5";
         localStorageDir = ./. + "/secrets/rekeyed/${config.networking.hostName}";
+        masterIdentities = [
+          {
+            identity = ".age/zw.tpm.identity.age";
+            pubkey = "age1tag1qd9268qnywa9udlsql249ven7fguqskxc0ffgdwvfrvd3g9748sf787yjcq";
+          }
+        ];
       };
       secrets = {
         opencode-github-mcp-pat = {

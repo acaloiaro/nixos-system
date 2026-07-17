@@ -15,9 +15,6 @@
       {
         identity = ".age/zw.master.identity.age";
       }
-      # {
-      #   identity = ".age/zw.tpm.identity.age";
-      # }
     ];
     storageMode = "local";
   };
