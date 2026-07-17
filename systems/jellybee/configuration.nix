@@ -46,15 +46,15 @@
 
     secrets = {
       tailscale_key = {
-        file = ./secrets/tailscale_key.age;
+        rekeyFile = ./secrets/tailscale_key.age;
       };
       wireless_networks = {
-        file = ./secrets/wireless_networks.age;
+        rekeyFile = ./secrets/wireless_networks.age;
         owner = "wpa_supplicant";
         group = "wpa_supplicant";
       };
       nix_serve_cache_key = {
-        file = ./secrets/nix_serve_cache_key.age;
+        rekeyFile = ./secrets/nix_serve_cache_key.age;
         mode = "400";
         owner = "nix-serve";
         group = "nix-serve";
