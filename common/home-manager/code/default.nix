@@ -57,6 +57,19 @@ with lib; {
       ${config.code.user.email} ${config.code.user.ssh-public-key}
     '';
     programs = {
+      ssh = {
+        enable = true;
+        enableDefaultConfig = false;
+        settings."*".KexAlgorithms = [
+          "mlkem768x25519-sha256"
+          "curve25519-sha256"
+          "curve25519-sha256@libssh.org"
+          "ecdh-sha2-nistp256"
+          "ecdh-sha2-nistp384"
+          "ecdh-sha2-nistp521"
+          "diffie-hellman-group-exchange-sha256"
+        ];
+      };
       git = mkIf config.code.git.enable {
         enable = true;
         settings = {
