@@ -8,10 +8,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1781275560,
-        "narHash": "sha256-N7enQgG5DfpNq1SHXuBdhSMyFtutaNpMRELMXcoHi1w=",
+        "lastModified": 1784384154,
+        "narHash": "sha256-dIMro8iKS7zhis2kZHynq4wyeYUnPzqZmn9T9By9WEc=",
         "type": "tarball",
-        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/220bec9bd5fdfc06ef7235d1aea62807e43c49a6.tar.gz"
+        "url": "https://tangled.org/did:plc:jciqae52pkrzlrazycliavhg/archive/17d1275908adba2876ab0c256dcc0258c4ee3c51.tar.gz"
       },
       "original": {
         "type": "tarball",
