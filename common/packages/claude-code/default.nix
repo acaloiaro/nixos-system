@@ -9,7 +9,7 @@
   socat,
   ...
 }: let
-  version = "2.1.162";
+  version = "2.1.220";
 
   # Upstream switched at 2.1.113+ from a JS bundle run under bun to one native
   # binary per platform shipped as an optionalDependency. We fetch that
